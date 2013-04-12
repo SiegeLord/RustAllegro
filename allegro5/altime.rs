@@ -1,4 +1,4 @@
-mod c
+mod C
 {
 	use core::libc::*;
 	
@@ -13,7 +13,7 @@ pub fn al_get_time() -> f64
 {
 	unsafe
 	{
-		return c::al_get_time();
+		return C::al_get_time();
 	}
 }
 
@@ -21,6 +21,6 @@ pub fn al_rest(seconds : f64)
 {
 	unsafe
 	{
-		c::al_rest(seconds);
+		C::al_rest(seconds);
 	}
 }

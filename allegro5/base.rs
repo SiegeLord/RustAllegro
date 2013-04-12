@@ -10,7 +10,7 @@ pub static ALLEGRO_VERSION_INT : u32          = ((ALLEGRO_VERSION << 24) | (ALLE
 
 pub static ALLEGRO_PI : f64 = 3.14159265358979323846;
 
-mod c
+mod C
 {
 	use core::libc::*;
 
@@ -25,7 +25,7 @@ fn al_get_allegro_version() -> u32
 {
 	unsafe
 	{
-		return c::al_get_allegro_version();
+		return C::al_get_allegro_version();
 	}
 }
 

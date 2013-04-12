@@ -1,4 +1,4 @@
-mod c
+mod C
 {
 	use core::libc::*;
 
@@ -13,7 +13,7 @@ mod c
 
 pub struct ALLEGRO_DISPLAY
 {
-	Payload : *c::ALLEGRO_DISPLAY
+	Payload : *C::ALLEGRO_DISPLAY
 }
 
 impl Drop for ALLEGRO_DISPLAY
@@ -23,7 +23,7 @@ impl Drop for ALLEGRO_DISPLAY
 		debug!("%s", "Finalizing display.");
 		unsafe
 		{
-			c::al_destroy_display(self.Payload);
+			C::al_destroy_display(self.Payload);
 		}
 	}
 }
@@ -32,7 +32,7 @@ pub fn al_create_display(w : i32, h : i32) -> Option<ALLEGRO_DISPLAY>
 {
 	unsafe
 	{
-		match c::al_create_display(w, h)
+		match C::al_create_display(w, h)
 		{
 			d if ptr::is_null(d) => None,
 			d => Some(ALLEGRO_DISPLAY{Payload : d})

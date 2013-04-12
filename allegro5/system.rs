@@ -1,7 +1,7 @@
 use core::libc::*;
 use allegro5::base::*;
 
-mod c
+mod C
 {
 	use core::libc::*;
 
@@ -20,7 +20,7 @@ pub fn al_init() -> bool
 	{
 		unsafe
 		{
-			return c::atexit(cb);
+			return C::atexit(cb);
 		}
 	}
 
@@ -34,6 +34,6 @@ pub fn al_install_system(version : u32, atexit_ptr : extern "C" fn(cb : extern "
 {
 	unsafe
 	{
-		return c::al_install_system(version as i32, atexit_ptr);
+		return C::al_install_system(version as i32, atexit_ptr);
 	}
 }
