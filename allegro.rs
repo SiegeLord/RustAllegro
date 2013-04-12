@@ -12,6 +12,9 @@ pub use allegro5::base::*;
 pub use allegro5::display::*;
 pub use allegro5::system::*;
 
+#[link_args = "-lallegro"]
+extern "C" {}
+
 mod allegro5
 {
 	mod altime;
@@ -19,5 +22,3 @@ mod allegro5
 	mod display;
 	mod system;
 }
-
-extern mod allegro {}
