@@ -11,7 +11,9 @@ fn main()
 
 	io::println(fmt!("Allegro version is %?", ALLEGRO_VERSION_STR));
 
-	let _a = ~al_create_display(800, 600).expect("creating display");
+	let d = ~al_create_display(800, 600).expect("creating display");
+
+	io::println(fmt!("Display dimensions: %?", (al_get_display_width(d), al_get_display_height(d))));
 
 	al_rest(2.0);
 	io::println("Done!");

@@ -9,7 +9,9 @@
 
 pub use allegro5::altime::*;
 pub use allegro5::base::*;
+pub use allegro5::bitmap::*;
 pub use allegro5::display::*;
+pub use allegro5::events::*;
 pub use allegro5::system::*;
 
 #[link_args = "-lallegro"]
@@ -19,6 +21,10 @@ mod allegro5
 {
 	mod altime;
 	mod base;
+	mod bitmap;
 	mod display;
+	mod events;
 	mod system;
+
+	mod rust_util;
 }

@@ -10,7 +10,7 @@ pub static ALLEGRO_VERSION_INT : u32          = ((ALLEGRO_VERSION << 24) | (ALLE
 
 pub static ALLEGRO_PI : f64 = 3.14159265358979323846;
 
-mod C
+pub mod C
 {
 	use core::libc::*;
 

@@ -1,4 +1,4 @@
-mod C
+pub mod C
 {
 	use core::libc::*;
 	

@@ -1,7 +1,7 @@
 use core::libc::*;
 use allegro5::base::*;
 
-mod C
+pub mod C
 {
 	use core::libc::*;
 
