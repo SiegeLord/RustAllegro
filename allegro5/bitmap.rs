@@ -168,11 +168,29 @@ pub fn al_create_bitmap(w : i32, h : i32) -> Option<ALLEGRO_BITMAP>
 	}
 }
 
-pub unsafe fn al_create_custom_bitmap(w : i32, h : i32, upload : extern "C" fn(bitmap : *mut C::ALLEGRO_BITMAP, data : *mut c_void) -> c_bool, data : *mut c_void) -> Option<ALLEGRO_BITMAP>
+pub fn al_create_custom_bitmap<T>(w : i32, h : i32, upload : &fn(bitmap : Option<ALLEGRO_BITMAP>, data : &T) -> bool, data : &T) -> Option<ALLEGRO_BITMAP>
 {
 	unsafe
 	{
-		ToOption(C::al_create_custom_bitmap(w as c_int, h as c_int, upload, data))
+		struct RustData<'self, T>
+		{
+			Upload : &'self fn(bitmap : Option<ALLEGRO_BITMAP>, &T) -> bool,
+			Data : &'self T
+		}
+
+		extern "C"
+		fn RustCallback<T>(bitmap : *mut C::ALLEGRO_BITMAP, data : *mut c_void) -> c_bool
+		{
+			unsafe
+			{
+				let rust_data : &mut RustData<T> = cast::transmute(data);
+				return (rust_data.Upload)(ToOption(bitmap), rust_data.Data) as c_bool;
+			}
+		}
+
+		let mut rust_data = RustData{Upload : upload, Data : data};
+
+		ToOption(C::al_create_custom_bitmap(w as c_int, h as c_int, cast::transmute(RustCallback), cast::transmute(&rust_data)))
 	}
 }
 
