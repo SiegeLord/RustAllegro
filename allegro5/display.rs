@@ -73,6 +73,23 @@ pub mod C
 	}
 }
 
+pub struct ALLEGRO_DISPLAY
+{
+	Payload : *mut C::ALLEGRO_DISPLAY
+}
+
+impl Drop for ALLEGRO_DISPLAY
+{
+	fn finalize(&self)
+	{
+		debug!("%s", "Finalizing display.");
+		unsafe
+		{
+			C::al_destroy_display(self.Payload);
+		}
+	}
+}
+
 pub static ALLEGRO_WINDOWED : i32                  = 1 << 0;
 pub static ALLEGRO_FULLSCREEN : i32                = 1 << 1;
 pub static ALLEGRO_OPENGL : i32                    = 1 << 2;
@@ -137,23 +154,6 @@ pub static ALLEGRO_DISPLAY_ORIENTATION_LANDSCAPE : i32 = 10;
 pub static ALLEGRO_DISPLAY_ORIENTATION_ALL : i32 = 15;
 pub static ALLEGRO_DISPLAY_ORIENTATION_FACE_UP : i32 = 16;
 pub static ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN : i32 = 32;
-
-pub struct ALLEGRO_DISPLAY
-{
-	Payload : *mut C::ALLEGRO_DISPLAY
-}
-
-impl Drop for ALLEGRO_DISPLAY
-{
-	fn finalize(&self)
-	{
-		debug!("%s", "Finalizing display.");
-		unsafe
-		{
-			C::al_destroy_display(self.Payload);
-		}
-	}
-}
 
 pub fn al_set_new_display_refresh_rate(refresh_rate : i32)
 {
