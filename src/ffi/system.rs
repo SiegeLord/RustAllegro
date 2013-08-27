@@ -1,12 +1,13 @@
 use std::libc::*;
 
 use ffi::path::*;
+use ffi::rust_util::c_bool;
 
 pub struct ALLEGRO_SYSTEM;
 
-externfn!(fn al_install_system(version: c_int, atexit_ptr: extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int) -> c_uchar)
+externfn!(fn al_install_system(version: c_int, atexit_ptr: extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int) -> c_bool)
 externfn!(fn al_uninstall_system())
-externfn!(fn al_is_system_installed() -> c_uchar)
+externfn!(fn al_is_system_installed() -> c_bool)
 externfn!(fn al_get_system_driver() -> *mut ALLEGRO_SYSTEM)
 //~ externfn!(fn al_get_system_config() -> *mut ALLEGRO_CONFIG)
 
@@ -27,4 +28,4 @@ externfn!(fn al_set_app_name(app_name: *c_schar))
 externfn!(fn al_get_org_name() -> *c_schar)
 externfn!(fn al_get_app_name() -> *c_schar)
 
-externfn!(fn al_inhibit_screensaver(inhibit: c_uchar) -> c_uchar)
+externfn!(fn al_inhibit_screensaver(inhibit: c_uchar) -> c_bool)

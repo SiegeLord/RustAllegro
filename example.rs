@@ -1,24 +1,23 @@
-extern mod allegro;
+extern mod allegro5;
 
-use allegro::*;
+use allegro5::*;
+
+#[start]
+fn start(argc: int, argv: **u8, crate_map: *u8) -> int
+{
+    allegro5::run(argc, argv, crate_map, main)
+}
 
 fn main()
 {
-	if(!al_init())
-	{
-		fail!(~"Failed to initialize Allegro");
-	}
+	let disp = Display::new(800, 600).unwrap();
+	let bmp = Bitmap::new(256, 256).unwrap();
 
-	io::println(fmt!("Allegro version is %?", ALLEGRO_VERSION_STR));
+	disp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 0.0));
+	bmp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 1.0));
 
-	let d = ~al_create_display(800, 600).expect("creating display");
+	disp.draw_bitmap(&bmp, 100.0, 100.0, 0);
+	disp.flip();
 
-	io::println(fmt!("Display dimensions: %?", (al_get_display_width(d), al_get_display_height(d))));
-
-	let bmp = ~al_create_bitmap(300, 200).expect("creating bitmap");
-
-	io::println(fmt!("Bitmap dimensions: %?", (al_get_bitmap_width(bmp), al_get_bitmap_height(bmp))));
-
-	al_rest(2.0);
-	io::println("Done!");
+	rest(2.0);
 }

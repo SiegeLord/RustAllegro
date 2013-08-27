@@ -17,7 +17,6 @@ externfn!(fn al_get_bitmap_format(bitmap: *mut ALLEGRO_BITMAP) -> c_int)
 externfn!(fn al_get_bitmap_flags(bitmap: *mut ALLEGRO_BITMAP) -> c_int)
 
 externfn!(fn al_create_bitmap(w: c_int, h: c_int) -> *mut ALLEGRO_BITMAP)
-externfn!(fn al_create_custom_bitmap(w: c_int, h: c_int, upload: extern "C" fn(bitmap: *mut ALLEGRO_BITMAP, data: *mut c_void) -> c_bool, data: *mut c_void) -> *mut ALLEGRO_BITMAP)
 externfn!(fn al_destroy_bitmap(bitmap: *mut ALLEGRO_BITMAP))
 
 externfn!(fn al_put_pixel(x: c_int, y: c_int, color: ALLEGRO_COLOR))
@@ -35,5 +34,3 @@ externfn!(fn al_is_sub_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> c_bool)
 externfn!(fn al_get_parent_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP)
 
 externfn!(fn al_clone_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP)
-externfn!(fn al_convert_bitmap(bitmap: *mut ALLEGRO_BITMAP))
-externfn!(fn al_convert_bitmaps())

@@ -3,7 +3,7 @@ use std::libc::*;
 pub static ALLEGRO_VERSION: u32          = 5;
 pub static ALLEGRO_SUB_VERSION: u32      = 0;
 pub static ALLEGRO_WIP_VERSION: u32      = 10;
-pub static ALLEGRO_RELEASE_NUMBER: u32   = 0;
+pub static ALLEGRO_RELEASE_NUMBER: u32   = 1;
 
 pub static ALLEGRO_VERSION_STR: &'static str = "5.0.10";
 pub static ALLEGRO_DATE_STR: &'static str    = "2013";

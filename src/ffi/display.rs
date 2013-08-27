@@ -74,7 +74,6 @@ externfn!(fn al_get_display_format(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_get_display_refresh_rate(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_get_display_flags(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_int, onoff: c_bool) -> c_bool)
-externfn!(fn al_toggle_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_int, onoff: c_bool) -> c_bool)
 
 externfn!(fn al_create_display(w: c_int, h: c_int) -> *mut ALLEGRO_DISPLAY)
 externfn!(fn al_destroy_display(display: *mut ALLEGRO_DISPLAY))
@@ -103,8 +102,6 @@ externfn!(fn al_set_new_window_position(x: c_int, y: c_int))
 externfn!(fn al_get_new_window_position(x: *mut c_int, y: *mut c_int))
 externfn!(fn al_set_window_position(display: *mut ALLEGRO_DISPLAY, x: c_int, y: c_int))
 externfn!(fn al_get_window_position(display: *mut ALLEGRO_DISPLAY, x: *mut c_int, y: *mut c_int))
-externfn!(fn al_set_window_constraints(display: *mut ALLEGRO_DISPLAY, min_w: c_int, min_h: c_int, max_w: c_int, max_h: c_int) -> c_bool)
-externfn!(fn al_get_window_constraints(display: *mut ALLEGRO_DISPLAY, min_w: *mut c_int, min_h: *mut c_int, max_w: *mut c_int, max_h: *mut c_int) -> c_bool)
 
 externfn!(fn al_set_window_title(display: *mut ALLEGRO_DISPLAY, title: *c_char))
 
