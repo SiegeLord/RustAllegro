@@ -21,9 +21,9 @@ fn rust_main()
 		{
 			fail!("Could not initialize Allegro. Your C library version probably doesn't match the version of the Rust binding.");
 		}
-		private::global_data.active = true;
+		private::global_data.installed = true;
 		(private::global_data.main_func.unwrap())();
-		private::global_data.active = false;
+		private::global_data.installed = false;
 		al_uninstall_system();
 	}
 }
@@ -44,8 +44,8 @@ mod private
 	{
 		crate_map: Option<*u8>,
 		main_func: Option<extern fn()>,
-		active: bool
+		installed: bool
 	}
 
-	pub static mut global_data: GlobalData = GlobalData{crate_map: None, main_func: None, active: false};
+	pub static mut global_data: GlobalData = GlobalData{crate_map: None, main_func: None, installed: false};
 }

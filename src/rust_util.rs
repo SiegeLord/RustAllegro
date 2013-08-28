@@ -59,3 +59,46 @@ macro_rules! flag_type
 		}
 	}
 )
+
+macro_rules! cast_to_c
+(
+	($p:ident, float) =>
+	{
+		$p as c_float
+	};
+	($p:ident, Color) =>
+	{
+		*$p
+	}
+)
+
+macro_rules! wrap_bitmap_drawing
+(
+	($cf:ident -> $rf:ident ( $( $p:ident : $t:ident ),* )) =>
+	{
+		fn $rf<T: BitmapLike>(dummy:dummy, bitmap: &T, $( $p : $t ),* , flags: BitmapDrawingFlags)
+		{
+			target_bitmap_check(self.get_target_bitmap());
+			unsafe
+			{
+				$cf(bitmap.get_bitmap(),
+					$(
+						cast_to_c!($p, $t)
+					),*
+				, (flags.get() << 1) as c_int);
+			}
+		}
+	}
+)
+
+//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
+//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
+//~ wrap_bitmap_drawing!(al_draw_scaled_bitmap -> draw_scaled_bitmap(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float))
+//~ wrap_bitmap_drawing!(al_draw_rotated_bitmap -> draw_rotated_bitmap(cx: float, cy: float, dx: float, dy: float, angle: float))
+//~ wrap_bitmap_drawing!(al_draw_scaled_rotated_bitmap -> draw_scaled_rotated_bitmap(cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap -> draw_tinted_bitmap(tint: Color, dx: float, dy: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap_region -> draw_tinted_bitmap_region(tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_bitmap -> draw_tinted_scaled_bitmap(tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_rotated_bitmap -> draw_tinted_rotated_bitmap(tint: Color, cx: float, cy: float, dx: float, dy: float, angle: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap -> draw_tinted_scaled_rotated_bitmap(tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap_region -> draw_tinted_scaled_rotated_bitmap_region(sx: float, sy: float, sw: float, sh: float, tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))

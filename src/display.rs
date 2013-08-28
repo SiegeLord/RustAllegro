@@ -35,6 +35,22 @@ impl Display
 			al_flip_display();
 		}
 	}
+
+	pub fn get_width(&self) -> float
+	{
+		unsafe
+		{
+			al_get_display_width(self.allegro_display) as float
+		}
+	}
+
+	pub fn get_height(&self) -> float
+	{
+		unsafe
+		{
+			al_get_display_height(self.allegro_display) as float
+		}
+	}
 }
 
 impl Drop for Display
