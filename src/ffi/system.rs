@@ -1,7 +1,7 @@
 use std::libc::*;
 
 use ffi::path::*;
-use ffi::rust_util::c_bool;
+use rust_util::c_bool;
 
 pub struct ALLEGRO_SYSTEM;
 

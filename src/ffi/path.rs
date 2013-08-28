@@ -1,6 +1,6 @@
 use std::libc::*;
 
-use ffi::rust_util::c_bool;
+use rust_util::c_bool;
 
 #[cfg(windows)]
 pub static ALLEGRO_NATIVE_PATH_SEP: char = '\\';

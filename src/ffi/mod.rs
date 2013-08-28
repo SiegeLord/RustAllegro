@@ -21,5 +21,3 @@ pub mod drawing;
 pub mod events;
 pub mod path;
 pub mod system;
-
-pub mod rust_util;

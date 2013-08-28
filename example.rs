@@ -1,5 +1,6 @@
 extern mod allegro5;
 
+use std::num::Zero;
 use allegro5::*;
 
 #[start]
@@ -16,7 +17,7 @@ fn main()
 	disp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 0.0));
 	bmp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 1.0));
 
-	disp.draw_bitmap(&bmp, 100.0, 100.0, 0);
+	disp.draw_bitmap(&bmp, 100.0, 100.0, Zero::zero());
 	disp.flip();
 
 	rest(2.0);

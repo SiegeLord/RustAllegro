@@ -15,6 +15,8 @@ pub use core_drawing::*;
 pub use core_functions::*;
 
 pub mod ffi;
+#[macro_escape]
+pub mod rust_util;
 
 pub mod run;
 pub mod bitmap;

@@ -1,7 +1,7 @@
 use std::libc::*;
 
 use ffi::color::ALLEGRO_COLOR;
-use ffi::rust_util::c_bool;
+use rust_util::c_bool;
 
 pub struct ALLEGRO_BITMAP;
 

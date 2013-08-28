@@ -2,7 +2,7 @@ use std::libc::*;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 use ffi::bitmap::ALLEGRO_BITMAP;
-use ffi::rust_util::c_bool;
+use rust_util::c_bool;
 
 pub static ALLEGRO_WINDOWED: i32                  = 1 << 0;
 pub static ALLEGRO_FULLSCREEN: i32                = 1 << 1;
