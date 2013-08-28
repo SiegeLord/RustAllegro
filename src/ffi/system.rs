@@ -5,7 +5,7 @@ use rust_util::c_bool;
 
 pub struct ALLEGRO_SYSTEM;
 
-externfn!(fn al_install_system(version: c_int, atexit_ptr: extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int) -> c_bool)
+externfn!(fn al_install_system(version: c_int, atexit_ptr: Option<extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int>) -> c_bool)
 externfn!(fn al_uninstall_system())
 externfn!(fn al_is_system_installed() -> c_bool)
 externfn!(fn al_get_system_driver() -> *mut ALLEGRO_SYSTEM)

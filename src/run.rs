@@ -17,7 +17,7 @@ fn rust_main()
 {
 	unsafe
 	{
-		if al_install_system(ALLEGRO_VERSION_INT as c_int, cast::transmute(0)) == 0
+		if al_install_system(ALLEGRO_VERSION_INT as c_int, None) == 0
 		{
 			fail!("Could not initialize Allegro. Your C library version probably doesn't match the version of the Rust binding.");
 		}
