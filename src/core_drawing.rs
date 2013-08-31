@@ -21,8 +21,8 @@ flag_type!(
 		BitmapDrawingFlags
 		{
 			FLIP_NONE = 0x1,
-			FLIP_HORIZONTAL = 0x2,
-			FLIP_VERTICAL = 0x4
+			FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
+			FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
 		}
 	}
 )

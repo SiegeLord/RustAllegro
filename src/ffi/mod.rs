@@ -6,6 +6,7 @@ pub use ffi::color::*;
 pub use ffi::display::*;
 pub use ffi::drawing::*;
 pub use ffi::events::*;
+pub use ffi::monitor::*;
 pub use ffi::system::*;
 
 #[link_args = "-lallegro"]
@@ -19,5 +20,6 @@ pub mod bitmap_draw;
 pub mod display;
 pub mod drawing;
 pub mod events;
+pub mod monitor;
 pub mod path;
 pub mod system;

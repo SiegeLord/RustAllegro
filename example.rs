@@ -15,6 +15,10 @@ fn main()
 	let disp = Display::new(800, 600).unwrap();
 	let bmp = Bitmap::new(256, 256).unwrap();
 
+	let mut info = MonitorInfo::new();
+	get_monitor_info(0, &mut info);
+	println!("{} {} {} {}", info.x1, info.y1, info.x2, info.y2);
+
 	disp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 0.0));
 	bmp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 1.0));
 

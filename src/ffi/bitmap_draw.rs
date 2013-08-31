@@ -3,8 +3,8 @@ use std::libc::*;
 use ffi::bitmap::*;
 use ffi::color::*;
 
-pub static ALLEGRO_FLIP_HORIZONTAL: c_uint = 1;
-pub static ALLEGRO_FLIP_VERTICAL: c_uint = 2;
+pub static ALLEGRO_FLIP_HORIZONTAL: u32 = 1;
+pub static ALLEGRO_FLIP_VERTICAL: u32 = 2;
 
 externfn!(fn al_draw_bitmap(bitmap: *mut ALLEGRO_BITMAP, dx: c_float, dy: c_float, flags: c_int))
 externfn!(fn al_draw_bitmap_region(bitmap: *mut ALLEGRO_BITMAP, sx: c_float, sy: c_float, sw: c_float, sh: c_float, dx: c_float, dy: c_float, flags: c_int))

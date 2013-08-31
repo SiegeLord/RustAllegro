@@ -6,6 +6,7 @@ macro_rules! flag_type
 	{
 		pub mod $m
 		{
+			use ffi::*;
 			use std::num::Zero;
 
 			pub struct $f
