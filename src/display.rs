@@ -14,6 +14,7 @@ use bitmap::private::*;
 use ffi::*;
 
 pub use display::display_flag::*;
+pub use rust_util::c_bool;
 
 flag_type!(
 	mod display_flag
@@ -334,6 +335,32 @@ impl Display
 			{
 				al_set_window_title(self.allegro_display, c_str);
 			}
+		}
+	}
+
+	pub fn get_option(&self, option: DisplayOption) -> i32
+	{
+		unsafe
+		{
+			al_get_display_option(self.allegro_display, option as c_int) as i32
+		}
+	}
+
+	pub fn hold_bitmap_drawing(&self, hold: bool)
+	{
+		self.select_this_display();
+		unsafe
+		{
+			al_hold_bitmap_drawing(hold as c_bool);
+		}
+	}
+
+	pub fn is_bitmap_drawing_held(&self) -> bool
+	{
+		self.select_this_display();
+		unsafe
+		{
+			al_is_bitmap_drawing_held() != 0
 		}
 	}
 }
