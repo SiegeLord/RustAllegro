@@ -1,5 +1,4 @@
 use std::libc::*;
-use std::cast;
 
 use ffi::*;
 
@@ -33,35 +32,39 @@ impl Color
 		Color(ALLEGRO_COLOR{r: r as f32, g: g as f32, b: b as f32, a: a as f32})
 	}
 
-	pub fn unmap_rgb(&self, r: &mut u8, g: &mut u8, b: &mut u8)
+	pub fn unmap_rgb(&self) -> (u8, u8, u8)
 	{
 		unsafe
 		{
-			al_unmap_rgb(**self, cast::transmute(r), cast::transmute(g), cast::transmute(b));
+			let mut r = 0u8;
+			let mut g = 0u8;
+			let mut b = 0u8;
+			al_unmap_rgb(**self, &mut r, &mut g, &mut b);
+			(r, g, b)
 		}
 	}
 
-	pub fn unmap_rgba(&self, r: &mut u8, g: &mut u8, b: &mut u8, a: &mut u8)
+	pub fn unmap_rgba(&self) -> (u8, u8, u8, u8)
 	{
 		unsafe
 		{
-			al_unmap_rgba(**self, cast::transmute(r), cast::transmute(g), cast::transmute(b), cast::transmute(a));
+			let mut r = 0u8;
+			let mut g = 0u8;
+			let mut b = 0u8;
+			let mut a = 0u8;
+			al_unmap_rgba(**self, &mut r, &mut g, &mut b, &mut a);
+			(r, g, b, a)
 		}
 	}
 
-	pub fn unmap_rgb_f(&self, r: &mut f32, g: &mut f32, b: &mut f32)
+	pub fn unmap_rgb_f(&self) -> (f32, f32, f32)
 	{
-		*r = self.r;
-		*g = self.g;
-		*b = self.b;
+		(self.r, self.g, self.b)
 	}
 
-	pub fn unmap_rgba_f(&self, r: &mut f32, g: &mut f32, b: &mut f32, a: &mut f32)
+	pub fn unmap_rgba_f(&self) -> (f32, f32, f32, f32)
 	{
-		*r = self.r;
-		*g = self.g;
-		*b = self.b;
-		*a = self.a;
+		(self.r, self.g, self.b, self.a)
 	}
 }
 
