@@ -1,9 +1,13 @@
+use std::cast;
 use std::libc::*;
-use ptr = std::ptr;
+use std::ptr;
 use std::num::Zero;
 use std::i32;
 
 use core_drawing::*;
+use color::*;
+use bitmap::*;
+use bitmap::private::*;
 
 use ffi::*;
 
@@ -100,7 +104,8 @@ impl<'self> DisplayOptions<'self>
 
 struct Display
 {
-	priv allegro_display: *mut ALLEGRO_DISPLAY
+	priv allegro_display: *mut ALLEGRO_DISPLAY,
+	priv backbuffer: Bitmap
 }
 
 impl Display
@@ -116,7 +121,7 @@ impl Display
 			}
 			else
 			{
-				Some(Display{allegro_display: d})
+				Some(Display{ allegro_display: d, backbuffer: bitmap_ref(al_get_backbuffer(d)) })
 			}
 		}
 	}
@@ -163,14 +168,6 @@ impl Display
 		Display::new(w, h)
 	}
 
-	pub fn flip(&self)
-	{
-		unsafe
-		{
-			al_flip_display();
-		}
-	}
-
 	pub fn get_width(&self) -> float
 	{
 		unsafe
@@ -184,6 +181,51 @@ impl Display
 		unsafe
 		{
 			al_get_display_height(self.allegro_display) as float
+		}
+	}
+
+	pub fn get_format(&self) -> PixelFormat
+	{
+		unsafe
+		{
+			cast::transmute(al_get_display_format(self.allegro_display) as int)
+		}
+	}
+
+	pub fn get_refresh_rate(&self) -> int
+	{
+		unsafe
+		{
+			al_get_display_refresh_rate(self.allegro_display) as int
+		}
+	}
+
+	pub fn get_flags(&self) -> DisplayFlags
+	{
+		unsafe
+		{
+			cast::transmute(al_get_display_flags(self.allegro_display))
+		}
+	}
+
+	pub fn set_flag(&self, flag: DisplayFlags, onoff: bool) -> bool
+	{
+		unsafe
+		{
+			al_set_display_flag(self.allegro_display, flag.get(), onoff as u8) != 0
+		}
+	}
+
+	pub fn get_backbuffer<'l>(&'l self) -> &'l Bitmap
+	{
+		&self.backbuffer
+	}
+
+	pub fn flip(&self)
+	{
+		unsafe
+		{
+			al_flip_display();
 		}
 	}
 }

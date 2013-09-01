@@ -1,5 +1,5 @@
 use std::libc::*;
-use ptr = std::ptr;
+use std::ptr;
 
 use core_drawing::*;
 
@@ -61,3 +61,13 @@ impl BitmapLike for Bitmap
 }
 
 impl CoreDrawing for Bitmap;
+
+mod private
+{
+	use ffi::*;
+
+	pub fn bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> super::Bitmap
+	{
+		super::Bitmap{ allegro_bitmap: bmp, is_ref: true }
+	}
+}

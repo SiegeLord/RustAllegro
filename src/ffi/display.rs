@@ -73,7 +73,7 @@ externfn!(fn al_get_display_height(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_get_display_format(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_get_display_refresh_rate(display: *mut ALLEGRO_DISPLAY) -> c_int)
 externfn!(fn al_get_display_flags(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_int, onoff: c_bool) -> c_bool)
+externfn!(fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_uint, onoff: c_bool) -> c_bool)
 
 externfn!(fn al_create_display(w: c_int, h: c_int) -> *mut ALLEGRO_DISPLAY)
 externfn!(fn al_destroy_display(display: *mut ALLEGRO_DISPLAY))
