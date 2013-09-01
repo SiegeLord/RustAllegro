@@ -1,8 +1,10 @@
 use std::cast;
+use std::c_str::CString;
 use std::libc::*;
 use std::ptr;
 use std::num::Zero;
 use std::i32;
+use std::vec;
 
 use core_drawing::*;
 use color::*;
@@ -110,6 +112,17 @@ struct Display
 
 impl Display
 {
+	fn select_this_display(&self)
+	{
+		unsafe
+		{
+			if self.allegro_display != al_get_current_display()
+			{
+				al_set_target_bitmap(al_get_backbuffer(self.allegro_display))
+			}
+		}
+	}
+
 	pub fn new(w: int, h: int) -> Option<Display>
 	{
 		unsafe
@@ -239,9 +252,88 @@ impl Display
 
 	pub fn flip(&self)
 	{
+		self.select_this_display();
 		unsafe
 		{
 			al_flip_display();
+		}
+	}
+
+	pub fn update_region(&self, x: int, y: int, width: int, height: int)
+	{
+		self.select_this_display();
+		unsafe
+		{
+			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
+		}
+	}
+
+	pub fn is_compatible_bitmap<T: BitmapLike>(&self, bitmap: &T) -> bool
+	{
+		self.select_this_display();
+		unsafe
+		{
+			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
+		}
+	}
+
+	pub fn wait_for_vsync(&self) -> bool
+	{
+		self.select_this_display();
+		unsafe
+		{
+			al_wait_for_vsync() != 0
+		}
+	}
+
+	pub fn set_icon<T: BitmapLike>(&self, icon: &T)
+	{
+		unsafe
+		{
+			al_set_display_icon(self.allegro_display, icon.get_bitmap());
+		}
+	}
+
+	pub fn set_icons<T: BitmapLike, U: Iterator<T>>(&self, mut icons: U)
+	{
+		let mut c_icons: ~[*mut ALLEGRO_BITMAP] = ~[];
+		for icon in icons
+		{
+			c_icons.push(icon.get_bitmap());
+		}
+		unsafe
+		{
+			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, vec::raw::to_mut_ptr(c_icons));
+		}
+	}
+
+	pub fn set_window_position(&self, x: int, y: int)
+	{
+		unsafe
+		{
+			al_set_window_position(self.allegro_display, x as c_int, y as c_int);
+		}
+	}
+
+	pub fn get_window_position(&self) -> [int, ..2]
+	{
+		unsafe
+		{
+			let mut x = 0 as c_int;
+			let mut y = 0 as c_int;
+			al_get_window_position(self.allegro_display, &mut x, &mut y);
+			[x as int, y as int]
+		}
+	}
+
+	pub fn set_window_title(&self, title: &CString)
+	{
+		unsafe
+		{
+			do title.with_ref |c_str|
+			{
+				al_set_window_title(self.allegro_display, c_str);
+			}
 		}
 	}
 }

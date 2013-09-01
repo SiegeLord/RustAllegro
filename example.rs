@@ -2,6 +2,7 @@ extern mod allegro5;
 
 use std::num::Zero;
 use std::float::consts::pi;
+use std::c_str::*;
 use allegro5::*;
 
 #[start]
@@ -13,6 +14,8 @@ fn start(argc: int, argv: **u8, crate_map: *u8) -> int
 fn main()
 {
 	let disp = Display::new(800, 600).unwrap();
+	disp.set_window_title(&"Rust example".to_c_str());
+
 	let bmp = Bitmap::new(256, 256).unwrap();
 
 	let mut info = MonitorInfo::new();
