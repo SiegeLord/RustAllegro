@@ -28,6 +28,22 @@ impl Bitmap
 			}
 		}
 	}
+
+	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>
+	{
+		unsafe
+		{
+			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(SubBitmap{allegro_bitmap: b, parent: self})
+			}
+		}
+	}
 }
 
 impl Drop for Bitmap
@@ -61,6 +77,30 @@ impl BitmapLike for Bitmap
 }
 
 impl CoreDrawing for Bitmap;
+
+pub struct SubBitmap<'self>
+{
+	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
+	priv parent: &'self Bitmap
+}
+
+impl<'self> DrawTarget for SubBitmap<'self>
+{
+	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	{
+		self.allegro_bitmap
+	}
+}
+
+impl<'self> BitmapLike for SubBitmap<'self>
+{
+	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	{
+		self.allegro_bitmap
+	}
+}
+
+impl<'self> CoreDrawing for SubBitmap<'self>;
 
 mod private
 {

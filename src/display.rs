@@ -221,6 +221,22 @@ impl Display
 		&self.backbuffer
 	}
 
+	pub fn acknowledge_resize(&self) -> bool
+	{
+		unsafe
+		{
+			al_acknowledge_resize(self.allegro_display) != 0
+		}
+	}
+
+	pub fn resize(&self, w: int, h: int) -> bool
+	{
+		unsafe
+		{
+			al_resize_display(self.allegro_display, w as c_int, h as c_int) != 0
+		}
+	}
+
 	pub fn flip(&self)
 	{
 		unsafe

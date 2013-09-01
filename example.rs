@@ -22,6 +22,9 @@ fn main()
 	disp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 0.0));
 	bmp.clear_to_color(Color::map_rgb_f(0.0, 0.0, 1.0));
 
+	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
+	sub_bmp.clear_to_color(Color::map_rgb_f(0.0, 1.0, 1.0));
+
 	disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, pi / 4.0, Zero::zero());
 	disp.flip();
 
