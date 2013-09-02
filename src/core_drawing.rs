@@ -1,8 +1,10 @@
 use std::libc::*;
 
+use bitmap_like::*;
 use color::*;
 use ffi::*;
-pub use self::bitmap_flag::*;
+
+pub use self::bitmap_drawing_flag::*;
 
 fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
 {
@@ -16,7 +18,7 @@ fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
 }
 
 flag_type!(
-	mod bitmap_flag
+	mod bitmap_drawing_flag
 	{
 		BitmapDrawingFlags
 		{
@@ -26,11 +28,6 @@ flag_type!(
 		}
 	}
 )
-
-pub trait BitmapLike
-{
-	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP;
-}
 
 pub trait DrawTarget
 {
@@ -54,6 +51,24 @@ pub trait CoreDrawing : DrawTarget
 		unsafe
 		{
 			al_draw_pixel(x as c_float, y as c_float, *color);
+		}
+	}
+
+	fn put_pixel(&self, x: int, y: int, color: Color)
+	{
+		target_bitmap_check(self.get_target_bitmap());
+		unsafe
+		{
+			al_put_pixel(x as c_int, y as c_int, *color);
+		}
+	}
+
+	fn put_blended_pixel(&self, x: int, y: int, color: Color)
+	{
+		target_bitmap_check(self.get_target_bitmap());
+		unsafe
+		{
+			al_put_blended_pixel(x as c_int, y as c_int, *color);
 		}
 	}
 
@@ -153,6 +168,38 @@ pub trait CoreDrawing : DrawTarget
 		unsafe
 		{
 			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	fn set_clipping_rectangle(&self, x: int, y: int, width: int, height: int)
+	{
+		target_bitmap_check(self.get_target_bitmap());
+		unsafe
+		{
+			al_set_clipping_rectangle(x as c_int, y as c_int, width as c_int, height as c_int);
+		}
+	}
+
+	fn reset_clipping_rectangle(&self)
+	{
+		target_bitmap_check(self.get_target_bitmap());
+		unsafe
+		{
+			al_reset_clipping_rectangle();
+		}
+	}
+
+	fn get_clipping_rectangle(&self) -> (int, int, int, int)
+	{
+		target_bitmap_check(self.get_target_bitmap());
+		unsafe
+		{
+			let mut x: c_int = 0;
+			let mut y: c_int = 0;
+			let mut width: c_int = 0;
+			let mut height: c_int = 0;
+			al_get_clipping_rectangle(&mut x, &mut y, &mut width, &mut height);
+			(x as int, y as int, width as int, height as int)
 		}
 	}
 }

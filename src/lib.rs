@@ -9,6 +9,7 @@
 
 pub use run::*;
 pub use bitmap::*;
+pub use bitmap_like::*;
 pub use color::*;
 pub use display::*;
 pub use core_drawing::*;
@@ -20,6 +21,7 @@ pub mod rust_util;
 
 pub mod run;
 pub mod bitmap;
+pub mod bitmap_like;
 pub mod color;
 pub mod display;
 pub mod core_drawing;

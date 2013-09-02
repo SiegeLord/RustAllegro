@@ -68,7 +68,7 @@ impl Color
 	}
 }
 
-enum PixelFormat
+pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,
 	PixelFormatAnyNoAlpha = ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA,

@@ -1,9 +1,26 @@
 use std::libc::*;
 use std::ptr;
+use std::num::Zero;
 
+use bitmap_like::*;
 use core_drawing::*;
+use color::*;
 
 use ffi::*;
+
+pub struct BitmapOptions
+{
+	format: PixelFormat,
+	flags: BitmapFlags
+}
+
+impl BitmapOptions
+{
+	pub fn new() -> BitmapOptions
+	{
+		BitmapOptions{ format: PixelFormatAny, flags: Zero::zero() }
+	}
+}
 
 pub struct Bitmap
 {
@@ -27,6 +44,16 @@ impl Bitmap
 				Some(Bitmap{allegro_bitmap: b, is_ref: false})
 			}
 		}
+	}
+
+	pub fn new_with_options(w: int, h: int, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(opt.flags.get() as c_int);
+			al_set_new_bitmap_format(opt.format as c_int);
+		}
+		Bitmap::new(w, h)
 	}
 
 	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>

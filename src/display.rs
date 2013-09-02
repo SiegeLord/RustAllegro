@@ -6,10 +6,11 @@ use std::num::Zero;
 use std::i32;
 use std::vec;
 
-use core_drawing::*;
-use color::*;
 use bitmap::*;
 use bitmap::private::*;
+use bitmap_like::*;
+use color::*;
+use core_drawing::*;
 
 use ffi::*;
 

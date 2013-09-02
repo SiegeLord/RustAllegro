@@ -5,6 +5,18 @@ use rust_util::c_bool;
 
 pub struct ALLEGRO_BITMAP;
 
+pub static ALLEGRO_MEMORY_BITMAP: u32 = 1;
+pub static ALLEGRO_KEEP_BITMAP_FORMAT: u32 = 2;
+pub static ALLEGRO_FORCE_LOCKING: u32 = 4;
+pub static ALLEGRO_NO_PRESERVE_TEXTURE: u32 = 8;
+pub static ALLEGRO_ALPHA_TEST: u32 = 16;
+pub static _ALLEGRO_INTERNAL_OPENGL: u32 = 32;
+pub static ALLEGRO_MIN_LINEAR: u32 = 64;
+pub static ALLEGRO_MAG_LINEAR: u32 = 128;
+pub static ALLEGRO_MIPMAP: u32 = 256;
+pub static ALLEGRO_NO_PREMULTIPLIED_ALPHA: u32 = 512;
+pub static ALLEGRO_VIDEO_BITMAP: u32 = 1024;
+
 externfn!(fn al_set_new_bitmap_format(format: c_int))
 externfn!(fn al_set_new_bitmap_flags(flags: c_int))
 externfn!(fn al_get_new_bitmap_format() -> c_int)
