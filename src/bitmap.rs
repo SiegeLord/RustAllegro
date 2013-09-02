@@ -71,6 +71,11 @@ impl Bitmap
 			}
 		}
 	}
+
+	pub fn maybe_clone(&self) -> Option<Bitmap>
+	{
+		private::clone_bitmap(self.allegro_bitmap)
+	}
 }
 
 impl Drop for Bitmap
@@ -105,10 +110,47 @@ impl BitmapLike for Bitmap
 
 impl CoreDrawing for Bitmap;
 
+impl Clone for Bitmap
+{
+	fn clone(&self) -> Bitmap
+	{
+		self.maybe_clone().unwrap()
+	}
+}
+
 pub struct SubBitmap<'self>
 {
 	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
 	priv parent: &'self Bitmap
+}
+
+impl<'self> SubBitmap<'self>
+{
+	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>
+	{
+		unsafe
+		{
+			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(SubBitmap{allegro_bitmap: b, parent: self.parent})
+			}
+		}
+	}
+
+	pub fn get_parent<'l>(&'l self) -> &'l Bitmap
+	{
+		self.parent
+	}
+
+	pub fn to_bitmap(&self) -> Option<Bitmap>
+	{
+		private::clone_bitmap(self.allegro_bitmap)
+	}
 }
 
 impl<'self> DrawTarget for SubBitmap<'self>
@@ -131,10 +173,31 @@ impl<'self> CoreDrawing for SubBitmap<'self>;
 
 mod private
 {
+	use std::ptr;
 	use ffi::*;
 
 	pub fn bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> super::Bitmap
 	{
 		super::Bitmap{ allegro_bitmap: bmp, is_ref: true }
+	}
+
+	pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<super::Bitmap>
+	{
+		unsafe
+		{
+			if al_get_target_bitmap() != bmp
+			{
+				al_set_target_bitmap(bmp)
+			}
+			let b = al_clone_bitmap(bmp);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(super::Bitmap{ allegro_bitmap: b, is_ref: false })
+			}
+		}
 	}
 }

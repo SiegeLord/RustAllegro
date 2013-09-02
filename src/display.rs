@@ -364,6 +364,12 @@ impl Display
 			al_is_bitmap_drawing_held() != 0
 		}
 	}
+
+	pub fn clone_convert<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
+	{
+		self.select_this_display();
+		bitmap::private::clone_bitmap(bmp.get_bitmap())
+	}
 }
 
 impl Drop for Display
