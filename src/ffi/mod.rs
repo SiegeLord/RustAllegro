@@ -8,6 +8,7 @@ pub use ffi::drawing::*;
 pub use ffi::events::*;
 pub use ffi::monitor::*;
 pub use ffi::system::*;
+pub use ffi::timer::*;
 
 #[link_args = "-lallegro"]
 extern "C" {}
@@ -23,3 +24,4 @@ pub mod events;
 pub mod monitor;
 pub mod path;
 pub mod system;
+pub mod timer;

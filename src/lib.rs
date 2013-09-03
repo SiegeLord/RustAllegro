@@ -14,6 +14,7 @@ pub use color::*;
 pub use display::*;
 pub use core_drawing::*;
 pub use core_functions::*;
+pub use timer::*;
 
 pub mod ffi;
 #[macro_escape]
@@ -26,3 +27,4 @@ pub mod color;
 pub mod display;
 pub mod core_drawing;
 pub mod core_functions;
+pub mod timer;
