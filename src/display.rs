@@ -368,7 +368,7 @@ impl Display
 	pub fn clone_convert<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
 	{
 		self.select_this_display();
-		bitmap::private::clone_bitmap(bmp.get_bitmap())
+		::bitmap::private::clone_bitmap(bmp.get_bitmap())
 	}
 }
 
