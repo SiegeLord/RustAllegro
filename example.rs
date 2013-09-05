@@ -16,6 +16,9 @@ fn main()
 	let disp = Display::new(800, 600).unwrap();
 	disp.set_window_title(&"Rust example".to_c_str());
 
+	let q = EventQueue::new().unwrap();
+	q.register_event_source(disp.get_event_source());
+
 	let bmp = Bitmap::new(256, 256).unwrap();
 
 	let mut info = MonitorInfo::new();
@@ -31,5 +34,9 @@ fn main()
 	disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, pi / 4.0, Zero::zero());
 	disp.flip();
 
-	rest(2.0);
+	match q.wait_for_event()
+	{
+		DisplayClose(source, _) => assert!(disp.get_event_source().get_event_source() == source),
+		_ => ()
+	}
 }

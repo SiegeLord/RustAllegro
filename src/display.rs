@@ -11,6 +11,8 @@ use bitmap::private::*;
 use bitmap_like::*;
 use color::*;
 use core_drawing::*;
+use events::EventSource;
+use events::private::*;
 
 use ffi::*;
 
@@ -109,7 +111,8 @@ impl<'self> DisplayOptions<'self>
 struct Display
 {
 	priv allegro_display: *mut ALLEGRO_DISPLAY,
-	priv backbuffer: Bitmap
+	priv backbuffer: Bitmap,
+	priv event_source: EventSource
 }
 
 impl Display
@@ -136,7 +139,7 @@ impl Display
 			}
 			else
 			{
-				Some(Display{ allegro_display: d, backbuffer: bitmap_ref(al_get_backbuffer(d)) })
+				Some(Display{ allegro_display: d, backbuffer: bitmap_ref(al_get_backbuffer(d)), event_source: event_source_ref(al_get_display_event_source(d))})
 			}
 		}
 	}
@@ -369,6 +372,11 @@ impl Display
 	{
 		self.select_this_display();
 		::bitmap::private::clone_bitmap(bmp.get_bitmap())
+	}
+
+	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
+	{
+		&'l self.event_source
 	}
 }
 
