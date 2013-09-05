@@ -132,42 +132,42 @@ impl ALLEGRO_EVENT
 {
 	pub fn _type(&mut self) -> *mut ALLEGRO_EVENT_TYPE
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn any(&mut self) -> *mut ALLEGRO_ANY_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn display(&mut self) -> *mut ALLEGRO_DISPLAY_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn joystick(&mut self) -> *mut ALLEGRO_JOYSTICK_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn keyboard(&mut self) -> *mut ALLEGRO_KEYBOARD_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn mouse(&mut self) -> *mut ALLEGRO_MOUSE_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn timer(&mut self) -> *mut ALLEGRO_TIMER_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 
 	pub fn user(&mut self) -> *mut ALLEGRO_USER_EVENT
 	{
-		unsafe { cast::transmute(&ptr::to_mut_unsafe_ptr(self)) }
+		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }
 	}
 }
 
