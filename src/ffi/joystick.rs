@@ -1,7 +1,7 @@
 use std::libc::*;
 use rust_util::c_bool;
 
-use ffi::events::*;
+use ffi::events::ALLEGRO_EVENT_SOURCE;
 
 pub struct ALLEGRO_JOYSTICK;
 
