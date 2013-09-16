@@ -36,8 +36,7 @@ fn main()
 
 	match q.wait_for_event()
 	{
-		DisplayClose(src, _) =>
-		// DisplayClose{ source: src, _} => // Issue #5557
+		DisplayClose{ source: src, _} =>
 		{
 			assert!(disp.get_event_source().get_event_source() == src)
 			println!("Display close event...")
