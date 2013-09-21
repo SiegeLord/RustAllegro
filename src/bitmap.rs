@@ -80,7 +80,7 @@ impl Bitmap
 
 impl Drop for Bitmap
 {
-	fn drop(&self)
+	fn drop(&mut self)
 	{
 		unsafe
 		{

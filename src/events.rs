@@ -54,7 +54,7 @@ impl EventQueue
 
 impl Drop for EventQueue
 {
-	fn drop(&self)
+	fn drop(&mut self)
 	{
 		unsafe
 		{

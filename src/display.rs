@@ -382,7 +382,7 @@ impl Display
 
 impl Drop for Display
 {
-	fn drop(&self)
+	fn drop(&mut self)
 	{
 		unsafe
 		{

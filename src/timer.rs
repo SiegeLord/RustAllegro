@@ -93,7 +93,7 @@ impl Timer
 
 impl Drop for Timer
 {
-	fn drop(&self)
+	fn drop(&mut self)
 	{
 		unsafe
 		{
