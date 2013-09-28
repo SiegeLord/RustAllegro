@@ -6,9 +6,9 @@ use std::c_str::*;
 use allegro5::*;
 
 #[start]
-fn start(argc: int, argv: **u8, crate_map: *u8) -> int
+fn start(argc: int, argv: **u8) -> int
 {
-    allegro5::run(argc, argv, crate_map, main)
+    allegro5::run(argc, argv, main)
 }
 
 fn main()

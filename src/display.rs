@@ -108,7 +108,7 @@ impl<'self> DisplayOptions<'self>
 	}
 }
 
-struct Display
+pub struct Display
 {
 	priv allegro_display: *mut ALLEGRO_DISPLAY,
 	priv backbuffer: Bitmap,
@@ -402,4 +402,4 @@ impl DrawTarget for Display
 	}
 }
 
-impl CoreDrawing for Display;
+impl CoreDrawing for Display {}

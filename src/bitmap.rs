@@ -108,7 +108,7 @@ impl BitmapLike for Bitmap
 	}
 }
 
-impl CoreDrawing for Bitmap;
+impl CoreDrawing for Bitmap {}
 
 impl Clone for Bitmap
 {
@@ -169,7 +169,7 @@ impl<'self> BitmapLike for SubBitmap<'self>
 	}
 }
 
-impl<'self> CoreDrawing for SubBitmap<'self>;
+impl<'self> CoreDrawing for SubBitmap<'self> {}
 
 mod private
 {
