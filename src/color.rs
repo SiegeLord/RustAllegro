@@ -6,32 +6,6 @@ pub struct Color(ALLEGRO_COLOR);
 
 impl Color
 {
-	pub fn map_rgb(r: u8, g: u8, b: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgb(r as c_uchar, g as c_uchar, b as c_uchar))
-		}
-	}
-
-	pub fn map_rgba(r: u8, g: u8, b: u8, a: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgba(r as c_uchar, g as c_uchar, b as c_uchar, a as c_uchar))
-		}
-	}
-
-	pub fn map_rgb_f(r: float, g: float, b: float) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r as f32, g: g as f32, b: b as f32, a: 1.0})
-	}
-
-	pub fn map_rgba_f(r: float, g: float, b: float, a: float) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r as f32, g: g as f32, b: b as f32, a: a as f32})
-	}
-
 	pub fn unmap_rgb(&self) -> (u8, u8, u8)
 	{
 		unsafe

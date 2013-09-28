@@ -30,32 +30,6 @@ pub struct Bitmap
 
 impl Bitmap
 {
-	pub fn new(w: int, h: int) -> Option<Bitmap>
-	{
-		unsafe
-		{
-			let b = al_create_bitmap(w as c_int, h as c_int);
-			if ptr::is_null(b)
-			{
-				None
-			}
-			else
-			{
-				Some(Bitmap{allegro_bitmap: b, is_ref: false})
-			}
-		}
-	}
-
-	pub fn new_with_options(w: int, h: int, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		unsafe
-		{
-			al_set_new_bitmap_flags(opt.flags.get() as c_int);
-			al_set_new_bitmap_format(opt.format as c_int);
-		}
-		Bitmap::new(w, h)
-	}
-
 	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>
 	{
 		unsafe
@@ -173,15 +147,45 @@ impl<'self> CoreDrawing for SubBitmap<'self> {}
 
 mod private
 {
+	use super::*;
+
+	use std::libc::*;
 	use std::ptr;
 	use ffi::*;
 
-	pub fn bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> super::Bitmap
+	pub fn new_bitmap(w: int, h: int) -> Option<Bitmap>
 	{
-		super::Bitmap{ allegro_bitmap: bmp, is_ref: true }
+		unsafe
+		{
+			let b = al_create_bitmap(w as c_int, h as c_int);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(Bitmap{allegro_bitmap: b, is_ref: false})
+			}
+		}
 	}
 
-	pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<super::Bitmap>
+	pub fn new_bitmap_with_options(w: int, h: int, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(opt.flags.get() as c_int);
+			al_set_new_bitmap_format(opt.format as c_int);
+		}
+		new_bitmap(w, h)
+	}
+
+
+	pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
+	{
+		Bitmap{ allegro_bitmap: bmp, is_ref: true }
+	}
+
+	pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 	{
 		unsafe
 		{
@@ -196,7 +200,7 @@ mod private
 			}
 			else
 			{
-				Some(super::Bitmap{ allegro_bitmap: b, is_ref: false })
+				Some(Bitmap{ allegro_bitmap: b, is_ref: false })
 			}
 		}
 	}
