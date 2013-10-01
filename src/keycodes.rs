@@ -1,9 +1,12 @@
+pub use self::key_modifier::*;
+
 pub mod key
 {
 	use std::libc::*;
 	use std::cast;
 
-	pub enum Key
+	#[deriving(Eq)]
+	pub enum KeyCode
 	{
 		A = 1,
 		B = 2,
@@ -127,9 +130,9 @@ pub mod key
 		CapsLock = 226,
 	}
 
-	impl Key
+	impl KeyCode
 	{
-		pub unsafe fn from_allegro_key(k: c_uint) -> Key
+		pub unsafe fn from_allegro_key(k: c_int) -> KeyCode
 		{
 			cast::transmute(k as u64)
 		}
@@ -137,7 +140,7 @@ pub mod key
 }
 
 flag_type!(
-	mod bitmap_flag
+	mod key_modifier
 	{
 		KeyModifier
 		{

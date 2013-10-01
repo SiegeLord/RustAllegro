@@ -13,13 +13,16 @@ fn start(argc: int, argv: **u8) -> int
 
 fn main()
 {
-	let core = Core::init().expect("Your Allegro version does not match this Rust binding");
+	let mut core = Core::init().expect("Your Allegro version does not match this Rust binding");
 
 	let disp = core.create_display(800, 600).unwrap();
 	disp.set_window_title(&"Rust example".to_c_str());
 
+	core.install_keyboard();
+
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
+	q.register_event_source(core.get_keyboard_event_source().unwrap());
 
 	let bmp = core.create_bitmap(256, 256).unwrap();
 
@@ -36,13 +39,26 @@ fn main()
 	disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, pi / 4.0, Zero::zero());
 	disp.flip();
 
-	match q.wait_for_event()
+	'exit: loop
 	{
-		DisplayClose{ source: src, _} =>
+		match q.wait_for_event()
 		{
-			assert!(disp.get_event_source().get_event_source() == src)
-			println!("Display close event...")
-		},
-		_ => println!("Some other event...")
+			DisplayClose{ source: src, _} =>
+			{
+				assert!(disp.get_event_source().get_event_source() == src)
+				println!("Display close event...")
+				break 'exit;
+			},
+			KeyDown{ keycode: k, _} if k == key::Escape =>
+			{
+				println!("Pressed Escape!");
+				break 'exit;
+			},
+			KeyChar{ unichar: c, _} =>
+			{
+				println!("Entered a character: {}", c);
+			},
+			_ => println!("Some other event...")
+		}
 	}
 }

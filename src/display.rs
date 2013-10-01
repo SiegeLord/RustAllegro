@@ -316,6 +316,11 @@ impl Display
 	{
 		&'l self.event_source
 	}
+
+	pub fn get_allegro_display(&self) -> *mut ALLEGRO_DISPLAY
+	{
+		self.allegro_display
+	}
 }
 
 impl Drop for Display

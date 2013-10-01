@@ -1,6 +1,7 @@
 use std::cast;
 use std::libc::*;
 
+use keycodes::*;
 use ffi::*;
 
 pub struct EventQueue
@@ -126,7 +127,31 @@ pub enum Event
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64
-	}
+	},
+	KeyDown
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		keycode: key::KeyCode,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	KeyUp
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		keycode: key::KeyCode,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	KeyChar
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		keycode: key::KeyCode,
+		display: *mut ALLEGRO_DISPLAY,
+		unichar: char,
+		repeat: bool,
+		modifiers: KeyModifier
+	},
 }
 
 impl Event
@@ -140,6 +165,22 @@ impl Event
 				ALLEGRO_EVENT_DISPLAY_CLOSE =>
 				{
 					DisplayClose{ source: cast::transmute((*e.display()).source), timestamp: (*e.display()).timestamp as f64}
+				},
+				ALLEGRO_EVENT_KEY_DOWN =>
+				{
+					let k = *e.keyboard();
+					KeyDown{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display }
+				},
+				ALLEGRO_EVENT_KEY_UP =>
+				{
+					let k = *e.keyboard();
+					KeyUp{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display }
+				},
+				ALLEGRO_EVENT_KEY_CHAR =>
+				{
+					let k = *e.keyboard();
+					KeyChar{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
+					         unichar: cast::transmute(k.unichar), repeat: k.repeat != 0, modifiers: cast::transmute(k.modifiers) }
 				},
 				_ => NoEvent
 			}

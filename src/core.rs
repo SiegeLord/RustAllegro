@@ -13,7 +13,7 @@ use events::private::*;
 
 pub struct Core
 {
-	priv dummy: ()
+	priv keyboard_event_source: Option<EventSource>
 }
 
 pub struct MonitorInfo
@@ -41,7 +41,7 @@ impl Core
 			/* FIXME: Make this thread-safe */
 			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 			{
-				Some(Core{ dummy: () })
+				Some(Core{ keyboard_event_source: None })
 			}
 			else
 			{
@@ -129,5 +129,30 @@ impl Core
 	pub fn create_event_queue(&self) -> Option<EventQueue>
 	{
 		new_queue()
+	}
+
+	pub fn install_keyboard(&mut self) -> bool
+	{
+		unsafe
+		{
+			if al_install_keyboard() != 0
+			{
+				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
+				true
+			}
+			else
+			{
+				false
+			}
+		}
+	}
+
+	pub fn get_keyboard_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	{
+		match self.keyboard_event_source
+		{
+			Some(ref s) => Some(s),
+			None => None
+		}
 	}
 }
