@@ -7,26 +7,28 @@
 #[license = "zlib"];
 #[crate_type = "lib"];
 
-pub use run::*;
 pub use bitmap::*;
 pub use bitmap_like::*;
 pub use color::*;
+pub use core::*;
+pub use core_drawing::*;
 pub use display::*;
 pub use events::*;
-pub use core_drawing::*;
-pub use core::*;
+pub use keycodes::*;
+pub use run::*;
 pub use timer::*;
 
 pub mod ffi;
 #[macro_escape]
 pub mod rust_util;
 
-pub mod run;
 pub mod bitmap;
 pub mod bitmap_like;
 pub mod color;
+pub mod core;
+pub mod core_drawing;
 pub mod display;
 pub mod events;
-pub mod core_drawing;
-pub mod core;
+pub mod keycodes;
+pub mod run;
 pub mod timer;
