@@ -63,7 +63,7 @@ macro_rules! flag_type
 
 macro_rules! cast_to_c
 (
-	($p:ident, float) =>
+	($p:ident, f32) =>
 	{
 		$p as c_float
 	};
@@ -92,14 +92,14 @@ macro_rules! wrap_bitmap_drawing
 	}
 )
 
-//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
-//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
-//~ wrap_bitmap_drawing!(al_draw_scaled_bitmap -> draw_scaled_bitmap(sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float))
-//~ wrap_bitmap_drawing!(al_draw_rotated_bitmap -> draw_rotated_bitmap(cx: float, cy: float, dx: float, dy: float, angle: float))
-//~ wrap_bitmap_drawing!(al_draw_scaled_rotated_bitmap -> draw_scaled_rotated_bitmap(cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap -> draw_tinted_bitmap(tint: Color, dx: float, dy: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap_region -> draw_tinted_bitmap_region(tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_bitmap -> draw_tinted_scaled_bitmap(tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_rotated_bitmap -> draw_tinted_rotated_bitmap(tint: Color, cx: float, cy: float, dx: float, dy: float, angle: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap -> draw_tinted_scaled_rotated_bitmap(tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))
-//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap_region -> draw_tinted_scaled_rotated_bitmap_region(sx: float, sy: float, sw: float, sh: float, tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float))
+//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32))
+//~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32))
+//~ wrap_bitmap_drawing!(al_draw_scaled_bitmap -> draw_scaled_bitmap(sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32))
+//~ wrap_bitmap_drawing!(al_draw_rotated_bitmap -> draw_rotated_bitmap(cx: f32, cy: f32, dx: f32, dy: f32, angle: f32))
+//~ wrap_bitmap_drawing!(al_draw_scaled_rotated_bitmap -> draw_scaled_rotated_bitmap(cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap -> draw_tinted_bitmap(tint: Color, dx: f32, dy: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_bitmap_region -> draw_tinted_bitmap_region(tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_bitmap -> draw_tinted_scaled_bitmap(tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_rotated_bitmap -> draw_tinted_rotated_bitmap(tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap -> draw_tinted_scaled_rotated_bitmap(tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32))
+//~ wrap_bitmap_drawing!(al_draw_tinted_scaled_rotated_bitmap_region -> draw_tinted_scaled_rotated_bitmap_region(sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32))

@@ -30,19 +30,19 @@ pub trait BitmapLike
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP;
 
-	fn get_width(&self) -> int
+	fn get_width(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_bitmap_width(self.get_bitmap()) as int
+			al_get_bitmap_width(self.get_bitmap()) as i32
 		}
 	}
 
-	fn get_height(&self) -> int
+	fn get_height(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_bitmap_height(self.get_bitmap()) as int
+			al_get_bitmap_height(self.get_bitmap()) as i32
 		}
 	}
 
@@ -62,7 +62,7 @@ pub trait BitmapLike
 		}
 	}
 
-	fn get_pixel(&self, x: int, y: int) -> Color
+	fn get_pixel(&self, x: i32, y: i32) -> Color
 	{
 		unsafe
 		{

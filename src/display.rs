@@ -90,9 +90,9 @@ enum DisplayOrientation
 struct DisplayOptions<'self>
 {
 	flags: DisplayFlags,
-	refresh_rate: Option<int>,
-	adapter: Option<int>,
-	window_position: Option<[int, ..2]>,
+	refresh_rate: Option<i32>,
+	adapter: Option<i32>,
+	window_position: Option<[i32, ..2]>,
 	options: Option<&'self [(DisplayOption, i32, DisplayOptionImportance)]>
 }
 
@@ -124,19 +124,19 @@ impl Display
 		}
 	}
 
-	pub fn get_width(&self) -> float
+	pub fn get_width(&self) -> f32
 	{
 		unsafe
 		{
-			al_get_display_width(self.allegro_display) as float
+			al_get_display_width(self.allegro_display) as f32
 		}
 	}
 
-	pub fn get_height(&self) -> float
+	pub fn get_height(&self) -> f32
 	{
 		unsafe
 		{
-			al_get_display_height(self.allegro_display) as float
+			al_get_display_height(self.allegro_display) as f32
 		}
 	}
 
@@ -144,15 +144,15 @@ impl Display
 	{
 		unsafe
 		{
-			cast::transmute(al_get_display_format(self.allegro_display) as int)
+			cast::transmute(al_get_display_format(self.allegro_display) as u64)
 		}
 	}
 
-	pub fn get_refresh_rate(&self) -> int
+	pub fn get_refresh_rate(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_display_refresh_rate(self.allegro_display) as int
+			al_get_display_refresh_rate(self.allegro_display) as i32
 		}
 	}
 
@@ -185,7 +185,7 @@ impl Display
 		}
 	}
 
-	pub fn resize(&self, w: int, h: int) -> bool
+	pub fn resize(&self, w: i32, h: i32) -> bool
 	{
 		unsafe
 		{
@@ -202,7 +202,7 @@ impl Display
 		}
 	}
 
-	pub fn update_region(&self, x: int, y: int, width: int, height: int)
+	pub fn update_region(&self, x: i32, y: i32, width: i32, height: i32)
 	{
 		self.select_this_display();
 		unsafe
@@ -250,7 +250,7 @@ impl Display
 		}
 	}
 
-	pub fn set_window_position(&self, x: int, y: int)
+	pub fn set_window_position(&self, x: i32, y: i32)
 	{
 		unsafe
 		{
@@ -258,14 +258,14 @@ impl Display
 		}
 	}
 
-	pub fn get_window_position(&self) -> [int, ..2]
+	pub fn get_window_position(&self) -> [i32, ..2]
 	{
 		unsafe
 		{
 			let mut x = 0 as c_int;
 			let mut y = 0 as c_int;
 			al_get_window_position(self.allegro_display, &mut x, &mut y);
-			[x as int, y as int]
+			[x as i32, y as i32]
 		}
 	}
 
@@ -354,7 +354,7 @@ mod private
 	use bitmap::private::*;
 	use events::private::*;
 	
-	pub fn new_display(w: int, h: int) -> Option<Display>
+	pub fn new_display(w: i32, h: i32) -> Option<Display>
 	{
 		unsafe
 		{
@@ -371,7 +371,7 @@ mod private
 		}
 	}
 
-	pub fn new_display_with_options(w: int, h: int, opt: &DisplayOptions) -> Option<Display>
+	pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
 	{
 		unsafe
 		{

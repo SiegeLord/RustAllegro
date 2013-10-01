@@ -30,7 +30,7 @@ pub struct Bitmap
 
 impl Bitmap
 {
-	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>
+	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
 	{
 		unsafe
 		{
@@ -100,7 +100,7 @@ pub struct SubBitmap<'self>
 
 impl<'self> SubBitmap<'self>
 {
-	pub fn create_sub_bitmap<'l>(&'l self, x: int, y: int, w: int, h: int) -> Option<SubBitmap<'l>>
+	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
 	{
 		unsafe
 		{
@@ -153,7 +153,7 @@ mod private
 	use std::ptr;
 	use ffi::*;
 
-	pub fn new_bitmap(w: int, h: int) -> Option<Bitmap>
+	pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
 	{
 		unsafe
 		{
@@ -169,7 +169,7 @@ mod private
 		}
 	}
 
-	pub fn new_bitmap_with_options(w: int, h: int, opt: &BitmapOptions) -> Option<Bitmap>
+	pub fn new_bitmap_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
 		unsafe
 		{

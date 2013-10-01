@@ -18,10 +18,10 @@ pub struct Core
 
 pub struct MonitorInfo
 {
-	x1: int,
-	y1: int,
-	x2: int,
-	y2: int,
+	x1: i32,
+	y1: i32,
+	x2: i32,
+	y2: i32,
 }
 
 impl MonitorInfo
@@ -50,24 +50,24 @@ impl Core
 		}
 	}
 
-	pub fn get_num_video_adapters(&self) -> int
+	pub fn get_num_video_adapters(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_num_video_adapters() as int
+			al_get_num_video_adapters() as i32
 		}
 	}
 	
-	pub fn get_monitor_info(&self, adapter: int, info: &mut MonitorInfo) -> bool
+	pub fn get_monitor_info(&self, adapter: i32, info: &mut MonitorInfo) -> bool
 	{
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
 			let ret = al_get_monitor_info(adapter as c_int, cast::transmute(&mut c_info)) != 0;
-			info.x1 = c_info.x1 as int;
-			info.y1 = c_info.y1 as int;
-			info.x2 = c_info.x2 as int;
-			info.y2 = c_info.y2 as int;
+			info.x1 = c_info.x1 as i32;
+			info.y1 = c_info.y1 as i32;
+			info.x2 = c_info.x2 as i32;
+			info.y2 = c_info.y2 as i32;
 			ret
 		}
 	}
@@ -80,22 +80,22 @@ impl Core
 		}
 	}
 	
-	pub fn create_display(&self, w: int, h: int) -> Option<Display>
+	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
 	{
 		new_display(w, h)
 	}
 	
-	pub fn create_display_with_options(&self, w: int, h: int, opt: &DisplayOptions) -> Option<Display>
+	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
 	{
 		new_display_with_options(w, h, opt)
 	}
 
-	pub fn create_bitmap(&self, w: int, h: int) -> Option<Bitmap>
+	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>
 	{
 		new_bitmap(w, h)
 	}
 
-	pub fn create_bitmap_with_options(&self, w: int, h: int, opt: &BitmapOptions) -> Option<Bitmap>
+	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
 		new_bitmap_with_options(w, h, opt)
 	}
@@ -116,14 +116,14 @@ impl Core
 		}
 	}
 
-	pub fn map_rgb_f(&self, r: float, g: float, b: float) -> Color
+	pub fn map_rgb_f(&self, r: f32, g: f32, b: f32) -> Color
 	{
-		Color(ALLEGRO_COLOR{r: r as f32, g: g as f32, b: b as f32, a: 1.0})
+		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: 1.0})
 	}
 
-	pub fn map_rgba_f(&self, r: float, g: float, b: float, a: float) -> Color
+	pub fn map_rgba_f(&self, r: f32, g: f32, b: f32, a: f32) -> Color
 	{
-		Color(ALLEGRO_COLOR{r: r as f32, g: g as f32, b: b as f32, a: a as f32})
+		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: a})
 	}
 
 	pub fn create_event_queue(&self) -> Option<EventQueue>

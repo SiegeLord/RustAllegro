@@ -75,19 +75,19 @@ pub enum PixelFormat
 
 impl PixelFormat
 {
-	pub fn get_size(&self) -> int
+	pub fn get_size(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_pixel_size(*self as c_int) as int
+			al_get_pixel_size(*self as c_int) as i32
 		}
 	}
 
-	pub fn get_bits(&self) -> int
+	pub fn get_bits(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_pixel_format_bits(*self as c_int) as int
+			al_get_pixel_format_bits(*self as c_int) as i32
 		}
 	}
 }

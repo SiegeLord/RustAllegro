@@ -45,7 +45,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_pixel(&self, x: float, y: float, color: Color)
+	fn draw_pixel(&self, x: f32, y: f32, color: Color)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -54,7 +54,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn put_pixel(&self, x: int, y: int, color: Color)
+	fn put_pixel(&self, x: i32, y: i32, color: Color)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -63,7 +63,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn put_blended_pixel(&self, x: int, y: int, color: Color)
+	fn put_blended_pixel(&self, x: i32, y: i32, color: Color)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -72,7 +72,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_bitmap<T: BitmapLike>(&self, bitmap: &T, dx: float, dy: float, flags: BitmapDrawingFlags)
+	fn draw_bitmap<T: BitmapLike>(&self, bitmap: &T, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -81,7 +81,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, flags: BitmapDrawingFlags)
+	fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
     {
         target_bitmap_check(self.get_target_bitmap());
         unsafe
@@ -90,7 +90,7 @@ pub trait CoreDrawing : DrawTarget
         }
     }
 
-	fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float, flags: BitmapDrawingFlags)
+	fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -99,7 +99,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: float, cy: float, dx: float, dy: float, angle: float, flags: BitmapDrawingFlags)
+	fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -108,7 +108,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float, flags: BitmapDrawingFlags)
+	fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -117,7 +117,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: float, dy: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -126,7 +126,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -135,7 +135,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: float, sy: float, sw: float, sh: float, dx: float, dy: float, dw: float, dh: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -144,7 +144,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: float, cy: float, dx: float, dy: float, angle: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -153,7 +153,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -162,7 +162,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: float, sy: float, sw: float, sh: float, tint: Color, cx: float, cy: float, dx: float, dy: float, xscale: float, yscale: float, angle: float, flags: BitmapDrawingFlags)
+	fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -171,7 +171,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn set_clipping_rectangle(&self, x: int, y: int, width: int, height: int)
+	fn set_clipping_rectangle(&self, x: i32, y: i32, width: i32, height: i32)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -189,7 +189,7 @@ pub trait CoreDrawing : DrawTarget
 		}
 	}
 
-	fn get_clipping_rectangle(&self) -> (int, int, int, int)
+	fn get_clipping_rectangle(&self) -> (i32, i32, i32, i32)
 	{
 		target_bitmap_check(self.get_target_bitmap());
 		unsafe
@@ -199,7 +199,7 @@ pub trait CoreDrawing : DrawTarget
 			let mut width: c_int = 0;
 			let mut height: c_int = 0;
 			al_get_clipping_rectangle(&mut x, &mut y, &mut width, &mut height);
-			(x as int, y as int, width as int, height as int)
+			(x as i32, y as i32, width as i32, height as i32)
 		}
 	}
 }

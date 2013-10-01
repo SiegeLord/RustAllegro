@@ -1,7 +1,7 @@
 extern mod allegro5;
 
 use std::num::Zero;
-use std::float::consts::pi;
+use std::f32::consts::pi;
 use std::c_str::*;
 use allegro5::*;
 
