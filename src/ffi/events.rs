@@ -130,6 +130,11 @@ pub struct ALLEGRO_EVENT
 
 impl ALLEGRO_EVENT
 {
+	pub fn new() -> ALLEGRO_EVENT
+	{
+		ALLEGRO_EVENT{ data: [0, ..72] }
+	}
+
 	pub fn _type(&mut self) -> *mut ALLEGRO_EVENT_TYPE
 	{
 		unsafe { cast::transmute(ptr::to_mut_unsafe_ptr(self)) }

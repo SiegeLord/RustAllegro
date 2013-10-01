@@ -1,4 +1,6 @@
 use std::cast;
+use std::libc::*;
+
 use ffi::*;
 
 pub struct EventQueue
@@ -16,22 +18,80 @@ impl EventQueue
 		}
 	}
 
-	pub fn wait_for_event(&self) -> Event
+	pub fn is_empty(&self) -> bool
 	{
 		unsafe
 		{
-			let mut e = ALLEGRO_EVENT{ data: [0, ..72] };
-			al_wait_for_event(self.allegro_queue, &mut e);
+			al_is_event_queue_empty(self.allegro_queue) != 0
+		}
+	}
 
-			match *e._type() as u32
+	pub fn get_next_event(&self) -> Event
+	{
+		let mut e = ALLEGRO_EVENT::new();
+		unsafe
+		{
+			if al_get_next_event(self.allegro_queue, &mut e) != 0
 			{
-				ALLEGRO_EVENT_DISPLAY_CLOSE =>
-				{
-					DisplayClose{ source: cast::transmute((*e.display()).source), timestamp: (*e.display()).timestamp as f64}
-				},
-				_ => NoEvent
+				Event::from_allegro_event(&mut e)
+			}
+			else
+			{
+				NoEvent
 			}
 		}
+	}
+
+	pub fn peek_next_event(&self) -> Event
+	{
+		let mut e = ALLEGRO_EVENT::new();
+		unsafe
+		{
+			if al_peek_next_event(self.allegro_queue, &mut e) != 0
+			{
+				Event::from_allegro_event(&mut e)
+			}
+			else
+			{
+				NoEvent
+			}
+		}
+	}
+
+	pub fn drop_next_event(&self) -> bool
+	{
+		unsafe
+		{
+			al_drop_next_event(self.allegro_queue) != 0
+		}
+	}
+
+	pub fn flush(&self)
+	{
+		unsafe
+		{
+			al_flush_event_queue(self.allegro_queue);
+		}
+	}
+
+	pub fn wait_for_event(&self) -> Event
+	{
+		let mut e = ALLEGRO_EVENT::new();
+		unsafe
+		{
+			al_wait_for_event(self.allegro_queue, &mut e);
+		}
+		Event::from_allegro_event(&mut e)
+	}
+
+	pub fn wait_for_event_timed(&self, secs: f64) -> Event
+	{
+		let mut e = ALLEGRO_EVENT::new();
+		unsafe
+		{
+			al_wait_for_event_timed(self.allegro_queue, &mut e, secs as c_float);
+		}
+		Event::from_allegro_event(&mut e)
 	}
 }
 
@@ -66,6 +126,24 @@ pub enum Event
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64
+	}
+}
+
+impl Event
+{
+	fn from_allegro_event(e: &mut ALLEGRO_EVENT) -> Event
+	{
+		unsafe
+		{
+			match *e._type() as u32
+			{
+				ALLEGRO_EVENT_DISPLAY_CLOSE =>
+				{
+					DisplayClose{ source: cast::transmute((*e.display()).source), timestamp: (*e.display()).timestamp as f64}
+				},
+				_ => NoEvent
+			}
+		}
 	}
 }
 
