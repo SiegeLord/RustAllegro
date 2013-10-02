@@ -1,5 +1,6 @@
 use std::libc::*;
 use std::cast;
+use std::str;
 
 use ffi::*;
 
@@ -10,6 +11,7 @@ use display::*;
 use display::private::*;
 use events::*;
 use events::private::*;
+use keycodes::*;
 
 pub struct Core
 {
@@ -147,12 +149,50 @@ impl Core
 		}
 	}
 
+	pub fn is_keyboard_installed(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_keyboard_installed() != 0
+		}
+	}
+
 	pub fn get_keyboard_event_source<'l>(&'l self) -> Option<&'l EventSource>
 	{
 		match self.keyboard_event_source
 		{
 			Some(ref s) => Some(s),
 			None => None
+		}
+	}
+
+	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> bool
+	{
+		if self.is_keyboard_installed()
+		{
+			unsafe
+			{
+				al_set_keyboard_leds(leds.get() as c_int) != 0
+			}
+		}
+		else
+		{
+			false
+		}
+	}
+
+	pub fn keycode_to_name(&self, k: key::KeyCode) -> Option<~str>
+	{
+		if self.is_keyboard_installed()
+		{
+			unsafe
+			{
+				Some(str::raw::from_c_str(al_keycode_to_name(k as c_int)))
+			}
+		}
+		else
+		{
+			None
 		}
 	}
 }
