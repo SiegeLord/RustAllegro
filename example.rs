@@ -1,7 +1,6 @@
 extern mod allegro5;
 
 use std::num::Zero;
-use std::f32::consts::pi;
 use std::c_str::*;
 use allegro5::*;
 
@@ -20,9 +19,12 @@ fn main()
 
 	core.install_keyboard();
 
+	let timer = core.create_timer(1.0 / 60.0).unwrap();
+
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source().unwrap());
+	q.register_event_source(timer.get_event_source());
 
 	let bmp = core.create_bitmap(256, 256).unwrap();
 
@@ -30,34 +32,46 @@ fn main()
 	core.get_monitor_info(0, &mut info);
 	println!("{} {} {} {}", info.x1, info.y1, info.x2, info.y2);
 
-	disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
 	bmp.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
 	sub_bmp.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
 
-	disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, pi / 4.0, Zero::zero());
-	disp.flip();
-
+	let mut theta = 0.0f32;
+	let mut redraw = true;
+	timer.start();
 	'exit: loop
 	{
+		if redraw && q.is_empty()
+		{
+			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
+			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, theta, Zero::zero());
+			disp.flip();
+			redraw = false;
+		}
+
 		match q.wait_for_event()
 		{
-			DisplayClose{ source: src, _} =>
+			DisplayClose{ source: src, _ } =>
 			{
 				assert!(disp.get_event_source().get_event_source() == src)
 				println!("Display close event...")
 				break 'exit;
 			},
-			KeyDown{ keycode: k, _} if k == key::Escape =>
+			KeyDown{ keycode: k, _ } if k == key::Escape =>
 			{
 				println!("Pressed Escape!");
 				break 'exit;
 			},
-			KeyChar{ unichar: c, _} =>
+			KeyChar{ unichar: c, _ } =>
 			{
 				println!("Entered a character: {}", c);
 			},
+			TimerTick{ _ } =>
+			{
+				redraw = true;
+				theta = theta + 0.01;
+			}
 			_ => println!("Some other event...")
 		}
 	}

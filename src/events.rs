@@ -152,6 +152,12 @@ pub enum Event
 		repeat: bool,
 		modifiers: KeyModifier
 	},
+	TimerTick
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		count: i64
+	},
 }
 
 impl Event
@@ -182,6 +188,11 @@ impl Event
 					KeyChar{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
 					         unichar: cast::transmute(k.unichar), repeat: k.repeat != 0, modifiers: cast::transmute(k.modifiers) }
 				},
+				ALLEGRO_EVENT_TIMER =>
+				{
+					let t = *e.timer();
+					TimerTick{ source: cast::transmute(t.source), timestamp: t.timestamp as f64, count: t.count as i64 }
+				},
 				_ => NoEvent
 			}
 		}
@@ -199,7 +210,7 @@ mod private
 	{
 		super::EventSource{ allegro_source: source }
 	}
-	
+
 	pub fn new_queue() -> Option<EventQueue>
 	{
 		unsafe

@@ -12,6 +12,8 @@ use display::private::*;
 use events::*;
 use events::private::*;
 use keycodes::*;
+use timer::*;
+use timer::private::*;
 
 pub struct Core
 {
@@ -100,6 +102,11 @@ impl Core
 	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
 		new_bitmap_with_options(w, h, opt)
+	}
+
+	pub fn create_timer(&self, speed_secs: f64) -> Option<Timer>
+	{
+		new_timer(speed_secs)
 	}
 	
 	pub fn map_rgb(&self, r: u8, g: u8, b: u8) -> Color

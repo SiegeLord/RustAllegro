@@ -1,32 +1,17 @@
 use std::libc::*;
-use std::ptr;
 use std::cast;
 use ffi::*;
+use events::EventSource;
 
-struct Timer
+pub struct Timer
 {
-	allegro_timer: *mut ALLEGRO_TIMER
+	priv allegro_timer: *mut ALLEGRO_TIMER,
+	priv event_source: EventSource
 }
 
 impl Timer
 {
-	fn new(speed_secs: f64) -> Option<Timer>
-	{
-		unsafe
-		{
-			let t = al_create_timer(speed_secs as c_double);
-			if ptr::is_null(t)
-			{
-				Some(Timer{ allegro_timer: t })
-			}
-			else
-			{
-				None
-			}
-		}
-	}
-
-	fn start(&self)
+	pub fn start(&self)
 	{
 		unsafe
 		{
@@ -34,7 +19,7 @@ impl Timer
 		}
 	}
 
-	fn stop(&self)
+	pub fn stop(&self)
 	{
 		unsafe
 		{
@@ -42,7 +27,7 @@ impl Timer
 		}
 	}
 
-	fn is_started(&self) -> bool
+	pub fn is_started(&self) -> bool
 	{
 		unsafe
 		{
@@ -50,7 +35,7 @@ impl Timer
 		}
 	}
 
-	fn get_speed(&self) -> f64
+	pub fn get_speed(&self) -> f64
 	{
 		unsafe
 		{
@@ -58,7 +43,7 @@ impl Timer
 		}
 	}
 
-	fn set_speed(&self, speed_secs: f64)
+	pub fn set_speed(&self, speed_secs: f64)
 	{
 		unsafe
 		{
@@ -66,7 +51,7 @@ impl Timer
 		}
 	}
 
-	fn get_count(&self) -> i64
+	pub fn get_count(&self) -> i64
 	{
 		unsafe
 		{
@@ -74,7 +59,7 @@ impl Timer
 		}
 	}
 
-	fn set_count(&self, count: i64)
+	pub fn set_count(&self, count: i64)
 	{
 		unsafe
 		{
@@ -82,12 +67,17 @@ impl Timer
 		}
 	}
 
-	fn add_count(&self, diff: i64)
+	pub fn add_count(&self, diff: i64)
 	{
 		unsafe
 		{
 			al_add_timer_count(self.allegro_timer, diff as int64_t);
 		}
+	}
+
+	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
+	{
+		&'l self.event_source
 	}
 }
 
@@ -98,6 +88,32 @@ impl Drop for Timer
 		unsafe
 		{
 			al_destroy_timer(self.allegro_timer);
+		}
+	}
+}
+
+mod private
+{
+	use super::*;
+
+	use std::libc::*;
+	use std::ptr;
+	use ffi::*;
+	use events::private::*;
+
+	pub fn new_timer(speed_secs: f64) -> Option<Timer>
+	{
+		unsafe
+		{
+			let t = al_create_timer(speed_secs as c_double);
+			if !ptr::is_null(t)
+			{
+				Some(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
+			}
+			else
+			{
+				None
+			}
 		}
 	}
 }
