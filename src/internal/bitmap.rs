@@ -2,11 +2,18 @@ use std::libc::*;
 use std::ptr;
 use std::num::Zero;
 
-use bitmap_like::*;
-use core_drawing::*;
-use color::*;
+use internal::bitmap_like::*;
+use internal::core_drawing::*;
+use internal::color::*;
 
 use ffi::*;
+
+pub mod external
+{
+	pub use super::BitmapOptions;
+	pub use super::Bitmap;
+	pub use super::SubBitmap;
+}
 
 pub struct BitmapOptions
 {
@@ -48,7 +55,7 @@ impl Bitmap
 
 	pub fn maybe_clone(&self) -> Option<Bitmap>
 	{
-		private::clone_bitmap(self.allegro_bitmap)
+		clone_bitmap(self.allegro_bitmap)
 	}
 }
 
@@ -123,7 +130,7 @@ impl<'self> SubBitmap<'self>
 
 	pub fn to_bitmap(&self) -> Option<Bitmap>
 	{
-		private::clone_bitmap(self.allegro_bitmap)
+		clone_bitmap(self.allegro_bitmap)
 	}
 }
 
@@ -145,63 +152,54 @@ impl<'self> BitmapLike for SubBitmap<'self>
 
 impl<'self> CoreDrawing for SubBitmap<'self> {}
 
-mod private
+pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
 {
-	use super::*;
-
-	use std::libc::*;
-	use std::ptr;
-	use ffi::*;
-
-	pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
+	unsafe
 	{
-		unsafe
+		let b = al_create_bitmap(w as c_int, h as c_int);
+		if ptr::is_null(b)
 		{
-			let b = al_create_bitmap(w as c_int, h as c_int);
-			if ptr::is_null(b)
-			{
-				None
-			}
-			else
-			{
-				Some(Bitmap{allegro_bitmap: b, is_ref: false})
-			}
+			None
+		}
+		else
+		{
+			Some(Bitmap{allegro_bitmap: b, is_ref: false})
 		}
 	}
+}
 
-	pub fn new_bitmap_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
+pub fn new_bitmap_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
+{
+	unsafe
 	{
-		unsafe
+		al_set_new_bitmap_flags(opt.flags.get() as c_int);
+		al_set_new_bitmap_format(opt.format as c_int);
+	}
+	new_bitmap(w, h)
+}
+
+
+pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
+{
+	Bitmap{ allegro_bitmap: bmp, is_ref: true }
+}
+
+pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
+{
+	unsafe
+	{
+		if al_get_target_bitmap() != bmp
 		{
-			al_set_new_bitmap_flags(opt.flags.get() as c_int);
-			al_set_new_bitmap_format(opt.format as c_int);
+			al_set_target_bitmap(bmp)
 		}
-		new_bitmap(w, h)
-	}
-
-
-	pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
-	{
-		Bitmap{ allegro_bitmap: bmp, is_ref: true }
-	}
-
-	pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
-	{
-		unsafe
+		let b = al_clone_bitmap(bmp);
+		if ptr::is_null(b)
 		{
-			if al_get_target_bitmap() != bmp
-			{
-				al_set_target_bitmap(bmp)
-			}
-			let b = al_clone_bitmap(bmp);
-			if ptr::is_null(b)
-			{
-				None
-			}
-			else
-			{
-				Some(Bitmap{ allegro_bitmap: b, is_ref: false })
-			}
+			None
+		}
+		else
+		{
+			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
 		}
 	}
 }

@@ -4,16 +4,12 @@ use std::str;
 
 use ffi::*;
 
-use bitmap::*;
-use bitmap::private::*;
-use color::*;
-use display::*;
-use display::private::*;
-use events::*;
-use events::private::*;
-use keycodes::*;
-use timer::*;
-use timer::private::*;
+use internal::bitmap::*;
+use internal::color::*;
+use internal::display::*;
+use internal::events::*;
+use internal::keycodes::*;
+use internal::timer::*;
 
 pub struct Core
 {
@@ -61,7 +57,7 @@ impl Core
 			al_get_num_video_adapters() as i32
 		}
 	}
-	
+
 	pub fn get_monitor_info(&self, adapter: i32, info: &mut MonitorInfo) -> bool
 	{
 		unsafe
@@ -83,12 +79,12 @@ impl Core
 			al_rest(seconds as c_double);
 		}
 	}
-	
+
 	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
 	{
 		new_display(w, h)
 	}
-	
+
 	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
 	{
 		new_display_with_options(w, h, opt)
@@ -108,7 +104,7 @@ impl Core
 	{
 		new_timer(speed_secs)
 	}
-	
+
 	pub fn map_rgb(&self, r: u8, g: u8, b: u8) -> Color
 	{
 		unsafe

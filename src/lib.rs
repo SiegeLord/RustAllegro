@@ -6,29 +6,35 @@
 #[comment = "Allegro 5 core library Rust bindings"];
 #[license = "zlib"];
 #[crate_type = "lib"];
+#[feature(globs)];
+#[feature(macro_rules)];
+#[feature(struct_variant)];
 
-pub use bitmap::*;
-pub use bitmap_like::*;
-pub use color::*;
-pub use core::*;
-pub use core_drawing::*;
-pub use display::*;
-pub use events::*;
-pub use keycodes::*;
-pub use run::*;
-pub use timer::*;
+pub use internal::bitmap::external::*;
+pub use internal::bitmap_like::*;
+pub use internal::color::*;
+pub use internal::core::*;
+pub use internal::core_drawing::*;
+pub use internal::display::external::*;
+pub use internal::events::external::*;
+pub use internal::keycodes::*;
+pub use internal::run::*;
+pub use internal::timer::external::*;
 
 pub mod ffi;
 #[macro_escape]
 pub mod rust_util;
 
-pub mod bitmap;
-pub mod bitmap_like;
-pub mod color;
-pub mod core;
-pub mod core_drawing;
-pub mod display;
-pub mod events;
-pub mod keycodes;
-pub mod run;
-pub mod timer;
+mod internal
+{
+	pub mod bitmap;
+	pub mod bitmap_like;
+	pub mod color;
+	pub mod core;
+	pub mod core_drawing;
+	pub mod display;
+	pub mod events;
+	pub mod keycodes;
+	pub mod run;
+	pub mod timer;
+}

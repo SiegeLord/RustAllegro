@@ -1,7 +1,13 @@
 use std::libc::*;
 use std::cast;
 use ffi::*;
-use events::EventSource;
+use internal::events::*;
+use std::ptr;
+
+pub mod external
+{
+	pub use super::Timer;
+}
 
 pub struct Timer
 {
@@ -92,28 +98,18 @@ impl Drop for Timer
 	}
 }
 
-mod private
+pub fn new_timer(speed_secs: f64) -> Option<Timer>
 {
-	use super::*;
-
-	use std::libc::*;
-	use std::ptr;
-	use ffi::*;
-	use events::private::*;
-
-	pub fn new_timer(speed_secs: f64) -> Option<Timer>
+	unsafe
 	{
-		unsafe
+		let t = al_create_timer(speed_secs as c_double);
+		if !ptr::is_null(t)
 		{
-			let t = al_create_timer(speed_secs as c_double);
-			if !ptr::is_null(t)
-			{
-				Some(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
-			}
-			else
-			{
-				None
-			}
+			Some(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
+		}
+		else
+		{
+			None
 		}
 	}
 }

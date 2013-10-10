@@ -4,11 +4,13 @@ use cast = std::cast;
 
 use ffi::*;
 
+static mut global_main_func: Option<extern fn()> = None;
+
 pub fn run(argc: int, argv: **u8, main_func: extern fn()) -> int
 {
 	unsafe
 	{
-		private::main_func = Some(main_func);
+		global_main_func = Some(main_func);
 		al_run_main(argc as c_int, cast::transmute(argv), cast::transmute(allegro_main)) as int
 	}
 }
@@ -23,12 +25,7 @@ fn rust_main()
 {
 	unsafe
 	{
-		(private::main_func.unwrap())();
+		(global_main_func.unwrap())();
 		al_uninstall_system();
 	}
-}
-
-mod private
-{
-	pub static mut main_func: Option<extern fn()> = None;
 }

@@ -1,19 +1,27 @@
 use std::cast;
 use std::c_str::CString;
+use std::i32;
 use std::libc::*;
 use std::num::Zero;
+use std::ptr;
 use std::vec;
 
-use bitmap::*;
-use bitmap_like::*;
-use color::*;
-use core_drawing::*;
-use events::EventSource;
+use internal::bitmap::*;
+use internal::bitmap_like::*;
+use internal::color::*;
+use internal::core_drawing::*;
+use internal::events::*;
 
 use ffi::*;
 
-pub use display::display_flag::*;
+pub use self::display_flag::*;
 pub use rust_util::c_bool;
+
+pub mod external
+{
+	pub use super::display_flag::*;
+	pub use super::{Display, DisplayOption, DisplayOptionImportance, DisplayOrientation};
+}
 
 flag_type!(
 	mod display_flag
@@ -35,7 +43,7 @@ flag_type!(
 	}
 )
 
-enum DisplayOption
+pub enum DisplayOption
 {
 	RedSize = ALLEGRO_RED_SIZE,
 	GreenSize = ALLEGRO_GREEN_SIZE,
@@ -70,14 +78,14 @@ enum DisplayOption
 	SupportSeparateAlpha = ALLEGRO_SUPPORT_SEPARATE_ALPHA,
 }
 
-enum DisplayOptionImportance
+pub enum DisplayOptionImportance
 {
 	DontCare = ALLEGRO_DONTCARE,
 	Require = ALLEGRO_REQUIRE,
 	Suggest = ALLEGRO_SUGGEST,
 }
 
-enum DisplayOrientation
+pub enum DisplayOrientation
 {
 	DisplayOrientation0Degrees = ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES,
 	DisplayOrientation90Degrees = ALLEGRO_DISPLAY_ORIENTATION_90_DEGREES,
@@ -87,7 +95,7 @@ enum DisplayOrientation
 	DisplayOrientationFaceDown = ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN,
 }
 
-struct DisplayOptions<'self>
+pub struct DisplayOptions<'self>
 {
 	flags: DisplayFlags,
 	refresh_rate: Option<i32>,
@@ -309,7 +317,7 @@ impl Display
 	pub fn clone_convert<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
 	{
 		self.select_this_display();
-		::bitmap::private::clone_bitmap(bmp.get_bitmap())
+		clone_bitmap(bmp.get_bitmap())
 	}
 
 	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
@@ -347,74 +355,61 @@ impl DrawTarget for Display
 
 impl CoreDrawing for Display {}
 
-mod private
+pub fn new_display(w: i32, h: i32) -> Option<Display>
 {
-	use super::{Display, DisplayOptions};
-	
-	use std::libc::*;
-	use std::i32;
-	use std::ptr;
-	
-	use ffi::*;
-	use bitmap::private::*;
-	use events::private::*;
-	
-	pub fn new_display(w: i32, h: i32) -> Option<Display>
+	unsafe
 	{
-		unsafe
+		let d = al_create_display(w as c_int, h as c_int);
+		if ptr::is_null(d)
 		{
-			let d = al_create_display(w as c_int, h as c_int);
-			if ptr::is_null(d)
-			{
-				None
-			}
-			else
-			{
-				Some(super::Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-				                     event_source: new_event_source_ref(al_get_display_event_source(d)) })
-			}
+			None
+		}
+		else
+		{
+			Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+								 event_source: new_event_source_ref(al_get_display_event_source(d)) })
 		}
 	}
+}
 
-	pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
+pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
+{
+	unsafe
 	{
-		unsafe
+		al_set_new_display_flags(opt.flags.get() as c_int);
+
+		match opt.refresh_rate
 		{
-			al_set_new_display_flags(opt.flags.get() as c_int);
+			Some(r) => al_set_new_display_refresh_rate(r as c_int),
+			None => al_set_new_display_refresh_rate(0)
+		}
 
-			match opt.refresh_rate
+		match opt.adapter
+		{
+			Some(a) => al_set_new_display_adapter(a as c_int),
+			None => al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
+		}
+
+		match opt.window_position
+		{
+			Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
+			None =>	al_set_new_window_position(i32::max_value, i32::max_value)
+		}
+
+		al_reset_new_display_options();
+
+		match opt.options
+		{
+			Some(options) =>
 			{
-				Some(r) => al_set_new_display_refresh_rate(r as c_int),
-				None => al_set_new_display_refresh_rate(0)
-			}
-
-			match opt.adapter
-			{
-				Some(a) => al_set_new_display_adapter(a as c_int),
-				None => al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
-			}
-
-			match opt.window_position
-			{
-				Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
-				None =>	al_set_new_window_position(i32::max_value, i32::max_value)
-			}
-
-			al_reset_new_display_options();
-
-			match opt.options
-			{
-				Some(options) =>
+				for &(option, value, importance) in options.iter()
 				{
-					for &(option, value, importance) in options.iter()
-					{
-						al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
-					}
-				},
-				None => ()
-			}
+					al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+				}
+			},
+			None => ()
 		}
-
-		new_display(w, h)
 	}
+
+	new_display(w, h)
 }

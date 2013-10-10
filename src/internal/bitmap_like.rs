@@ -1,7 +1,7 @@
 use std::libc::*;
 use std::cast;
 
-use color::*;
+use internal::color::*;
 
 use ffi::*;
 

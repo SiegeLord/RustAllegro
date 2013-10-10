@@ -1,3 +1,6 @@
+#[feature(globs)];
+#[feature(struct_variant)];
+
 extern mod allegro5;
 
 use std::num::Zero;

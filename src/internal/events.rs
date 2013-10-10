@@ -1,8 +1,14 @@
 use std::cast;
 use std::libc::*;
+use std::ptr;
 
-use keycodes::*;
+use internal::keycodes::*;
 use ffi::*;
+
+pub mod external
+{
+	pub use super::{Event, NoEvent, DisplayClose, KeyDown, KeyUp, KeyChar, TimerTick};
+}
 
 pub struct EventQueue
 {
@@ -199,31 +205,23 @@ impl Event
 	}
 }
 
-mod private
+pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
 {
-	use super::*;
-	use std::ptr;
+	EventSource{ allegro_source: source }
+}
 
-	use ffi::*;
-
-	pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> super::EventSource
+pub fn new_queue() -> Option<EventQueue>
+{
+	unsafe
 	{
-		super::EventSource{ allegro_source: source }
-	}
-
-	pub fn new_queue() -> Option<EventQueue>
-	{
-		unsafe
+		let q = al_create_event_queue();
+		if ptr::is_null(q)
 		{
-			let q = al_create_event_queue();
-			if ptr::is_null(q)
-			{
-				None
-			}
-			else
-			{
-				Some(EventQueue{ allegro_queue: q })
-			}
+			None
+		}
+		else
+		{
+			Some(EventQueue{ allegro_queue: q })
 		}
 	}
 }

@@ -1,7 +1,7 @@
 use std::libc::*;
 
-use bitmap_like::*;
-use color::*;
+use internal::bitmap_like::*;
+use internal::color::*;
 use ffi::*;
 
 pub use self::bitmap_drawing_flag::*;
