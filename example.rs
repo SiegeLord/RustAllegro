@@ -21,12 +21,14 @@ fn main()
 	disp.set_window_title(&"Rust example".to_c_str());
 
 	core.install_keyboard();
+	core.install_mouse();
 
 	let timer = core.create_timer(1.0 / 60.0).unwrap();
 
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source().unwrap());
+	q.register_event_source(core.get_mouse_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
 	let bmp = core.create_bitmap(256, 256).unwrap();
@@ -55,26 +57,30 @@ fn main()
 
 		match q.wait_for_event()
 		{
-			DisplayClose{ source: src, _ } =>
+			DisplayClose{source: src, _} =>
 			{
 				assert!(disp.get_event_source().get_event_source() == src)
 				println!("Display close event...")
 				break 'exit;
 			},
-			KeyDown{ keycode: k, _ } if k == key::Escape =>
+			KeyDown{keycode: k, _} if k == key::Escape =>
 			{
 				println!("Pressed Escape!");
 				break 'exit;
 			},
-			KeyChar{ unichar: c, _ } =>
+			KeyChar{unichar: c, _} =>
 			{
 				println!("Entered a character: {}", c);
 			},
-			TimerTick{ _ } =>
+			TimerTick{_} =>
 			{
 				redraw = true;
 				theta = theta + 0.01;
-			}
+			},
+			MouseButtonDown{button: b, _} =>
+			{
+				println!("Mouse button {} pressed", b);
+			},
 			_ => println!("Some other event...")
 		}
 	}

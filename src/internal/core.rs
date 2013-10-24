@@ -13,7 +13,8 @@ use internal::timer::*;
 
 pub struct Core
 {
-	priv keyboard_event_source: Option<EventSource>
+	priv keyboard_event_source: Option<EventSource>,
+	priv mouse_event_source: Option<EventSource>
 }
 
 pub struct MonitorInfo
@@ -41,7 +42,7 @@ impl Core
 			/* FIXME: Make this thread-safe */
 			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 			{
-				Some(Core{ keyboard_event_source: None })
+				Some(Core{ keyboard_event_source: None, mouse_event_source: None })
 			}
 			else
 			{
@@ -196,6 +197,39 @@ impl Core
 		else
 		{
 			None
+		}
+	}
+
+	pub fn install_mouse(&mut self) -> bool
+	{
+		unsafe
+		{
+			if al_install_mouse() != 0
+			{
+				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
+				true
+			}
+			else
+			{
+				false
+			}
+		}
+	}
+
+	pub fn is_mouse_installed(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_mouse_installed() != 0
+		}
+	}
+
+	pub fn get_mouse_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	{
+		match self.mouse_event_source
+		{
+			Some(ref s) => Some(s),
+			None => None
 		}
 	}
 }

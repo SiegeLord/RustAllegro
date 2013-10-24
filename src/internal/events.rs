@@ -7,7 +7,9 @@ use ffi::*;
 
 pub mod external
 {
-	pub use super::{Event, NoEvent, DisplayClose, KeyDown, KeyUp, KeyChar, TimerTick};
+	pub use super::{Event, NoEvent, DisplayClose, KeyDown, KeyUp, KeyChar,
+	                MouseAxes, MouseButtonDown, MouseButtonUp, MouseWarped,
+	                MouseEnterDisplay, MouseLeaveDisplay, TimerTick};
 }
 
 pub struct EventQueue
@@ -158,6 +160,76 @@ pub enum Event
 		repeat: bool,
 		modifiers: KeyModifier
 	},
+	MouseAxes
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		dx: i32,
+		dy: i32,
+		dz: i32,
+		dw: i32,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	MouseButtonDown
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		button: u32,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	MouseButtonUp
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		button: u32,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	MouseWarped
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		dx: i32,
+		dy: i32,
+		dz: i32,
+		dw: i32,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	MouseEnterDisplay
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		display: *mut ALLEGRO_DISPLAY
+	},
+	MouseLeaveDisplay
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		x: i32,
+		y: i32,
+		z: i32,
+		w: i32,
+		display: *mut ALLEGRO_DISPLAY
+	},
 	TimerTick
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
@@ -172,32 +244,64 @@ impl Event
 	{
 		unsafe
 		{
+			let src = (*e.any()).source;
+			let ts = (*e.any()).timestamp as f64;
 			match *e._type() as u32
 			{
 				ALLEGRO_EVENT_DISPLAY_CLOSE =>
 				{
-					DisplayClose{ source: cast::transmute((*e.display()).source), timestamp: (*e.display()).timestamp as f64}
+					DisplayClose{source: src, timestamp: ts}
 				},
 				ALLEGRO_EVENT_KEY_DOWN =>
 				{
 					let k = *e.keyboard();
-					KeyDown{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display }
+					KeyDown{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display}
 				},
 				ALLEGRO_EVENT_KEY_UP =>
 				{
 					let k = *e.keyboard();
-					KeyUp{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display }
+					KeyUp{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display}
 				},
 				ALLEGRO_EVENT_KEY_CHAR =>
 				{
 					let k = *e.keyboard();
-					KeyChar{ source: cast::transmute(k.source), timestamp: k.timestamp as f64, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
-					         unichar: cast::transmute(k.unichar), repeat: k.repeat != 0, modifiers: cast::transmute(k.modifiers) }
+					KeyChar{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
+					        unichar: cast::transmute(k.unichar), repeat: k.repeat != 0, modifiers: cast::transmute(k.modifiers)}
+				},
+				ALLEGRO_EVENT_MOUSE_AXES =>
+				{
+					let m = *e.mouse();
+					MouseAxes{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, dx: m.dx, dy: m.dy, dz: m.dz, dw: m.dw, display: m.display}
+				},
+				ALLEGRO_EVENT_MOUSE_BUTTON_DOWN =>
+				{
+					let m = *e.mouse();
+					MouseButtonDown{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, button: m.button, display: m.display}
+				},
+				ALLEGRO_EVENT_MOUSE_BUTTON_UP =>
+				{
+					let m = *e.mouse();
+					MouseButtonUp{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, button: m.button, display: m.display}
+				},
+				ALLEGRO_EVENT_MOUSE_WARPED =>
+				{
+					let m = *e.mouse();
+					MouseWarped{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, dx: m.dx, dy: m.dy, dz: m.dz, dw: m.dw, display: m.display}
+				},
+				ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY =>
+				{
+					let m = *e.mouse();
+					MouseEnterDisplay{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, display: m.display}
+				},
+				ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY =>
+				{
+					let m = *e.mouse();
+					MouseEnterDisplay{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, display: m.display}
 				},
 				ALLEGRO_EVENT_TIMER =>
 				{
 					let t = *e.timer();
-					TimerTick{ source: cast::transmute(t.source), timestamp: t.timestamp as f64, count: t.count as i64 }
+					TimerTick{source: src, timestamp: ts, count: t.count as i64}
 				},
 				_ => NoEvent
 			}
