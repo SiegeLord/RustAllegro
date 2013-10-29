@@ -132,19 +132,19 @@ impl Display
 		}
 	}
 
-	pub fn get_width(&self) -> f32
+	pub fn get_width(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_display_width(self.allegro_display) as f32
+			al_get_display_width(self.allegro_display) as i32
 		}
 	}
 
-	pub fn get_height(&self) -> f32
+	pub fn get_height(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_display_height(self.allegro_display) as f32
+			al_get_display_height(self.allegro_display) as i32
 		}
 	}
 
