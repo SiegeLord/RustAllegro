@@ -6,6 +6,7 @@ pub mod key
 	use std::cast;
 
 	#[deriving(Eq)]
+	#[repr(u32)]
 	pub enum KeyCode
 	{
 		A = 1,
@@ -134,7 +135,7 @@ pub mod key
 	{
 		pub unsafe fn from_allegro_key(k: c_int) -> KeyCode
 		{
-			cast::transmute(k as u64)
+			cast::transmute(k as u32)
 		}
 	}
 }

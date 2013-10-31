@@ -152,7 +152,7 @@ impl Display
 	{
 		unsafe
 		{
-			cast::transmute(al_get_display_format(self.allegro_display) as u64)
+			cast::transmute(al_get_display_format(self.allegro_display) as u32)
 		}
 	}
 

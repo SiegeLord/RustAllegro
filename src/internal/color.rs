@@ -42,6 +42,7 @@ impl Color
 	}
 }
 
+#[repr(u32)]
 pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,
