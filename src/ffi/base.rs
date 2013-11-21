@@ -10,8 +10,11 @@ pub static ALLEGRO_DATE_STR: &'static str    = "2013";
 pub static ALLEGRO_DATE: u32                 = 20130616;
 pub static ALLEGRO_VERSION_INT: u32          = ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) | (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER);
 
-externfn!(fn al_get_allegro_version() -> uint32_t)
-externfn!(fn al_run_main(argc: c_int, argv: **c_char, user_main: extern "C" fn(argc: c_int, argv: **c_char) -> c_int) -> c_int)
+extern "C"
+{
+	pub fn al_get_allegro_version() -> uint32_t;
+	pub fn al_run_main(argc: c_int, argv: **c_char, user_main: extern "C" fn(argc: c_int, argv: **c_char) -> c_int) -> c_int;
+}
 
 pub static ALLEGRO_PI: f64 = 3.14159265358979323846;
 

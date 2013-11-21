@@ -178,21 +178,24 @@ impl ALLEGRO_EVENT
 
 pub struct ALLEGRO_EVENT_QUEUE;
 
-externfn!(fn al_init_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE))
-externfn!(fn al_destroy_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE))
-externfn!(fn al_emit_user_event(arg1: *mut ALLEGRO_EVENT_SOURCE, arg2: *mut ALLEGRO_EVENT, dtor: extern "C" fn(arg1: *mut ALLEGRO_USER_EVENT)) -> c_bool)
-externfn!(fn al_unref_user_event(arg1: *mut ALLEGRO_USER_EVENT))
-externfn!(fn al_set_event_source_data(arg1: *mut ALLEGRO_EVENT_SOURCE, data: intptr_t))
-externfn!(fn al_get_event_source_data(arg1: *ALLEGRO_EVENT_SOURCE) -> intptr_t)
-externfn!(fn al_create_event_queue() -> *mut ALLEGRO_EVENT_QUEUE)
-externfn!(fn al_destroy_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE))
-externfn!(fn al_register_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE))
-externfn!(fn al_unregister_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE))
-externfn!(fn al_is_event_queue_empty(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool)
-externfn!(fn al_get_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool)
-externfn!(fn al_peek_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool)
-externfn!(fn al_drop_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool)
-externfn!(fn al_flush_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE))
-externfn!(fn al_wait_for_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT))
-externfn!(fn al_wait_for_event_timed(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, secs: c_float) -> c_bool)
-externfn!(fn al_wait_for_event_until(queue: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, timeout: *mut ALLEGRO_TIMEOUT) -> c_bool)
+extern "C"
+{
+	pub fn al_init_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
+	pub fn al_destroy_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
+	pub fn al_emit_user_event(arg1: *mut ALLEGRO_EVENT_SOURCE, arg2: *mut ALLEGRO_EVENT, dtor: extern "C" fn(arg1: *mut ALLEGRO_USER_EVENT)) -> c_bool;
+	pub fn al_unref_user_event(arg1: *mut ALLEGRO_USER_EVENT);
+	pub fn al_set_event_source_data(arg1: *mut ALLEGRO_EVENT_SOURCE, data: intptr_t);
+	pub fn al_get_event_source_data(arg1: *ALLEGRO_EVENT_SOURCE) -> intptr_t;
+	pub fn al_create_event_queue() -> *mut ALLEGRO_EVENT_QUEUE;
+	pub fn al_destroy_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE);
+	pub fn al_register_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE);
+	pub fn al_unregister_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE);
+	pub fn al_is_event_queue_empty(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool;
+	pub fn al_get_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool;
+	pub fn al_peek_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool;
+	pub fn al_drop_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool;
+	pub fn al_flush_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE);
+	pub fn al_wait_for_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT);
+	pub fn al_wait_for_event_timed(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, secs: c_float) -> c_bool;
+	pub fn al_wait_for_event_until(queue: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, timeout: *mut ALLEGRO_TIMEOUT) -> c_bool;
+}

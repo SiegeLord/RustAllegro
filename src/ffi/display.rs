@@ -63,52 +63,55 @@ pub static ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN: u32 = 5;
 
 pub struct ALLEGRO_DISPLAY;
 
-externfn!(fn al_set_new_display_refresh_rate(refresh_rate: c_int))
-externfn!(fn al_set_new_display_flags(flags: c_int))
-externfn!(fn al_get_new_display_refresh_rate() -> c_int)
-externfn!(fn al_get_new_display_flags() -> c_int)
+extern "C"
+{
+	pub fn al_set_new_display_refresh_rate(refresh_rate: c_int);
+	pub fn al_set_new_display_flags(flags: c_int);
+	pub fn al_get_new_display_refresh_rate() -> c_int;
+	pub fn al_get_new_display_flags() -> c_int;
 
-externfn!(fn al_get_display_width(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_get_display_height(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_get_display_format(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_get_display_refresh_rate(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_get_display_flags(display: *mut ALLEGRO_DISPLAY) -> c_int)
-externfn!(fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_uint, onoff: c_bool) -> c_bool)
+	pub fn al_get_display_width(display: *mut ALLEGRO_DISPLAY) -> c_int;
+	pub fn al_get_display_height(display: *mut ALLEGRO_DISPLAY) -> c_int;
+	pub fn al_get_display_format(display: *mut ALLEGRO_DISPLAY) -> c_int;
+	pub fn al_get_display_refresh_rate(display: *mut ALLEGRO_DISPLAY) -> c_int;
+	pub fn al_get_display_flags(display: *mut ALLEGRO_DISPLAY) -> c_int;
+	pub fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_uint, onoff: c_bool) -> c_bool;
 
-externfn!(fn al_create_display(w: c_int, h: c_int) -> *mut ALLEGRO_DISPLAY)
-externfn!(fn al_destroy_display(display: *mut ALLEGRO_DISPLAY))
-externfn!(fn al_get_current_display() -> *mut ALLEGRO_DISPLAY)
-externfn!(fn al_set_target_bitmap(bitmap: *mut ALLEGRO_BITMAP))
-externfn!(fn al_set_target_backbuffer(display: *mut ALLEGRO_DISPLAY))
-externfn!(fn al_get_backbuffer(display: *mut ALLEGRO_DISPLAY) -> *mut ALLEGRO_BITMAP)
-externfn!(fn al_get_target_bitmap() -> *mut ALLEGRO_BITMAP)
+	pub fn al_create_display(w: c_int, h: c_int) -> *mut ALLEGRO_DISPLAY;
+	pub fn al_destroy_display(display: *mut ALLEGRO_DISPLAY);
+	pub fn al_get_current_display() -> *mut ALLEGRO_DISPLAY;
+	pub fn al_set_target_bitmap(bitmap: *mut ALLEGRO_BITMAP);
+	pub fn al_set_target_backbuffer(display: *mut ALLEGRO_DISPLAY);
+	pub fn al_get_backbuffer(display: *mut ALLEGRO_DISPLAY) -> *mut ALLEGRO_BITMAP;
+	pub fn al_get_target_bitmap() -> *mut ALLEGRO_BITMAP;
 
-externfn!(fn al_acknowledge_resize(display: *mut ALLEGRO_DISPLAY) -> c_bool)
-externfn!(fn al_resize_display(display: *mut ALLEGRO_DISPLAY, width: c_int, height: c_int) -> c_bool)
-externfn!(fn al_flip_display())
-externfn!(fn al_update_display_region(x: c_int, y: c_int, width: c_int, height: c_int))
-externfn!(fn al_is_compatible_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> c_bool)
+	pub fn al_acknowledge_resize(display: *mut ALLEGRO_DISPLAY) -> c_bool;
+	pub fn al_resize_display(display: *mut ALLEGRO_DISPLAY, width: c_int, height: c_int) -> c_bool;
+	pub fn al_flip_display();
+	pub fn al_update_display_region(x: c_int, y: c_int, width: c_int, height: c_int);
+	pub fn al_is_compatible_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> c_bool;
 
-externfn!(fn al_wait_for_vsync() -> c_bool)
+	pub fn al_wait_for_vsync() -> c_bool;
 
-externfn!(fn al_get_display_event_source(display: *mut ALLEGRO_DISPLAY) -> *mut ALLEGRO_EVENT_SOURCE)
+	pub fn al_get_display_event_source(display: *mut ALLEGRO_DISPLAY) -> *mut ALLEGRO_EVENT_SOURCE;
 
-externfn!(fn al_set_display_icon(display: *mut ALLEGRO_DISPLAY, icon: *mut ALLEGRO_BITMAP))
-externfn!(fn al_set_display_icons(display: *mut ALLEGRO_DISPLAY, num_icons: c_int, icons: *mut *mut ALLEGRO_BITMAP))
+	pub fn al_set_display_icon(display: *mut ALLEGRO_DISPLAY, icon: *mut ALLEGRO_BITMAP);
+	pub fn al_set_display_icons(display: *mut ALLEGRO_DISPLAY, num_icons: c_int, icons: *mut *mut ALLEGRO_BITMAP);
 
-externfn!(fn al_get_new_display_adapter() -> c_int)
-externfn!(fn al_set_new_display_adapter(adapter: c_int))
-externfn!(fn al_set_new_window_position(x: c_int, y: c_int))
-externfn!(fn al_get_new_window_position(x: *mut c_int, y: *mut c_int))
-externfn!(fn al_set_window_position(display: *mut ALLEGRO_DISPLAY, x: c_int, y: c_int))
-externfn!(fn al_get_window_position(display: *mut ALLEGRO_DISPLAY, x: *mut c_int, y: *mut c_int))
+	pub fn al_get_new_display_adapter() -> c_int;
+	pub fn al_set_new_display_adapter(adapter: c_int);
+	pub fn al_set_new_window_position(x: c_int, y: c_int);
+	pub fn al_get_new_window_position(x: *mut c_int, y: *mut c_int);
+	pub fn al_set_window_position(display: *mut ALLEGRO_DISPLAY, x: c_int, y: c_int);
+	pub fn al_get_window_position(display: *mut ALLEGRO_DISPLAY, x: *mut c_int, y: *mut c_int);
 
-externfn!(fn al_set_window_title(display: *mut ALLEGRO_DISPLAY, title: *c_char))
+	pub fn al_set_window_title(display: *mut ALLEGRO_DISPLAY, title: *c_char);
 
-externfn!(fn al_set_new_display_option(option: c_int, value: c_int, importance: c_int))
-externfn!(fn al_get_new_display_option(option: c_int, importance: *mut c_int) -> c_int)
-externfn!(fn al_reset_new_display_options())
-externfn!(fn al_get_display_option(display: *mut ALLEGRO_DISPLAY, option: c_int) -> c_int)
+	pub fn al_set_new_display_option(option: c_int, value: c_int, importance: c_int);
+	pub fn al_get_new_display_option(option: c_int, importance: *mut c_int) -> c_int;
+	pub fn al_reset_new_display_options();
+	pub fn al_get_display_option(display: *mut ALLEGRO_DISPLAY, option: c_int) -> c_int;
 
-externfn!(fn al_hold_bitmap_drawing(hold: c_bool))
-externfn!(fn al_is_bitmap_drawing_held() -> c_bool)
+	pub fn al_hold_bitmap_drawing(hold: c_bool);
+	pub fn al_is_bitmap_drawing_held() -> c_bool;
+}
