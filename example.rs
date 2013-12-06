@@ -50,34 +50,34 @@ fn main()
 		if redraw && q.is_empty()
 		{
 			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
-			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, disp.get_width() / 2.0, disp.get_height() / 2.0, theta, Zero::zero());
+			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Zero::zero());
 			disp.flip();
 			redraw = false;
 		}
 
 		match q.wait_for_event()
 		{
-			DisplayClose{source: src, _} =>
+			DisplayClose{source: src, ..} =>
 			{
 				assert!(disp.get_event_source().get_event_source() == src)
 				println!("Display close event...")
 				break 'exit;
 			},
-			KeyDown{keycode: k, _} if k == key::Escape =>
+			KeyDown{keycode: k, ..} if k == key::Escape =>
 			{
 				println!("Pressed Escape!");
 				break 'exit;
 			},
-			KeyChar{unichar: c, _} =>
+			KeyChar{unichar: c, ..} =>
 			{
 				println!("Entered a character: {}", c);
 			},
-			TimerTick{_} =>
+			TimerTick{..} =>
 			{
 				redraw = true;
 				theta = theta + 0.01;
 			},
-			MouseButtonDown{button: b, _} =>
+			MouseButtonDown{button: b, ..} =>
 			{
 				println!("Mouse button {} pressed", b);
 			},

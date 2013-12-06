@@ -14,7 +14,7 @@ pub use ffi::mouse::*;
 pub use ffi::system::*;
 pub use ffi::timer::*;
 
-#[link_args = "-lallegro"]
+#[link(name = "allegro")]
 extern "C" {}
 
 pub mod altime;
