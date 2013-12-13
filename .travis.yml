@@ -4,7 +4,7 @@ before_install:
   - sudo apt-get update
 install:
   - sudo apt-get install rust-nightly
-  - sudo apt-get install liballegro5.0
+  - sudo apt-get install liballegro5-dev
 script:
   - rustc src/lib.rs
   - rustc example.rs -Lsrc
