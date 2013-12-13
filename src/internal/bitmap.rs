@@ -99,13 +99,13 @@ impl Clone for Bitmap
 	}
 }
 
-pub struct SubBitmap<'self>
+pub struct SubBitmap<'m>
 {
 	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
-	priv parent: &'self Bitmap
+	priv parent: &'m Bitmap
 }
 
-impl<'self> SubBitmap<'self>
+impl<'m> SubBitmap<'m>
 {
 	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
 	{
@@ -134,7 +134,7 @@ impl<'self> SubBitmap<'self>
 	}
 }
 
-impl<'self> DrawTarget for SubBitmap<'self>
+impl<'m> DrawTarget for SubBitmap<'m>
 {
 	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
@@ -142,7 +142,7 @@ impl<'self> DrawTarget for SubBitmap<'self>
 	}
 }
 
-impl<'self> BitmapLike for SubBitmap<'self>
+impl<'m> BitmapLike for SubBitmap<'m>
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
@@ -150,7 +150,7 @@ impl<'self> BitmapLike for SubBitmap<'self>
 	}
 }
 
-impl<'self> CoreDrawing for SubBitmap<'self> {}
+impl<'m> CoreDrawing for SubBitmap<'m> {}
 
 pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
 {

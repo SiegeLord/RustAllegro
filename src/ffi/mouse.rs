@@ -5,7 +5,7 @@ use rust_util::c_bool;
 
 pub struct ALLEGRO_MOUSE;
 
-static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
+pub static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
 pub struct ALLEGRO_MOUSE_STATE
 {

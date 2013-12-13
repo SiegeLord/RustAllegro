@@ -95,18 +95,18 @@ pub enum DisplayOrientation
 	DisplayOrientationFaceDown = ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN,
 }
 
-pub struct DisplayOptions<'self>
+pub struct DisplayOptions<'m>
 {
 	flags: DisplayFlags,
 	refresh_rate: Option<i32>,
 	adapter: Option<i32>,
 	window_position: Option<[i32, ..2]>,
-	options: Option<&'self [(DisplayOption, i32, DisplayOptionImportance)]>
+	options: Option<&'m [(DisplayOption, i32, DisplayOptionImportance)]>
 }
 
-impl<'self> DisplayOptions<'self>
+impl<'m> DisplayOptions<'m>
 {
-	fn new() -> DisplayOptions
+	pub fn new() -> DisplayOptions
 	{
 		DisplayOptions{ flags: Zero::zero(), refresh_rate: None, adapter: None, window_position: None, options: None }
 	}

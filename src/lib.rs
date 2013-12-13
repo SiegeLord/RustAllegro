@@ -1,7 +1,5 @@
-#[link(name = "allegro5",
-       vers = "5.0.10.1",
-       author = "SiegeLord",
-       url = "https://github.com/SiegeLord/RustAllegro")];
+#[pkgid="allegro5#5.0.10.1"];
+#[link(name = "allegro5")];
 
 #[comment = "Allegro 5 core library Rust bindings"];
 #[license = "zlib"];
