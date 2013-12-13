@@ -1,0 +1,11 @@
+before_install:
+  - yes | sudo add-apt-repository ppa:hansjorg/rust
+  - yes | sudo add-apt-repository ppa:allegro/5.0
+  - sudo apt-get update
+install:
+  - sudo apt-get install rust-nightly
+  - sudo apt-get install allegro5
+script:
+  - rustc src/lib.rs
+  - rustc example.rs -Lsrc
+  - ./example --init-only

@@ -2,7 +2,10 @@
 #[feature(struct_variant)];
 
 extern mod allegro5;
+extern mod extra;
 
+use extra::getopts::groups::*;
+use std::os;
 use std::num::Zero;
 use std::c_str::*;
 use allegro5::*;
@@ -15,7 +18,26 @@ fn start(argc: int, argv: **u8) -> int
 
 fn main()
 {
+	let args = os::args();
+
+	let opts = ~[
+        optflag("i", "init-only", "only initialize Allegro, don't do anything else")
+    ];
+
+    let matches = match getopts(args.tail(), opts)
+    {
+		Ok(m) => { m }
+        Err(f) => { fail!(f.to_err_msg()) }
+	};
+
+	let init_only = matches.opt_present("i");
+
 	let mut core = Core::init().expect("Your Allegro version does not match this Rust binding");
+
+	if init_only
+	{
+		return;
+	}
 
 	let disp = core.create_display(800, 600).unwrap();
 	disp.set_window_title(&"Rust example".to_c_str());
