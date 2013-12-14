@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>color.rs.html -- source</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../../../allegro5/main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <input class="search-input" name="search"
+                   autocomplete="off"
+                   placeholder="Search documentation..."
+                   type="search" />
+            <button class="do-search">Search</button>
+        </form>
+    </nav>
+
+    <section id='main' class="content source"><pre class='line-numbers'><span id='1'> 1</span>
+<span id='2'> 2</span>
+<span id='3'> 3</span>
+<span id='4'> 4</span>
+<span id='5'> 5</span>
+<span id='6'> 6</span>
+<span id='7'> 7</span>
+<span id='8'> 8</span>
+<span id='9'> 9</span>
+<span id='10'>10</span>
+<span id='11'>11</span>
+<span id='12'>12</span>
+<span id='13'>13</span>
+<span id='14'>14</span>
+<span id='15'>15</span>
+<span id='16'>16</span>
+<span id='17'>17</span>
+<span id='18'>18</span>
+<span id='19'>19</span>
+<span id='20'>20</span>
+<span id='21'>21</span>
+<span id='22'>22</span>
+<span id='23'>23</span>
+<span id='24'>24</span>
+<span id='25'>25</span>
+<span id='26'>26</span>
+<span id='27'>27</span>
+<span id='28'>28</span>
+<span id='29'>29</span>
+<span id='30'>30</span>
+<span id='31'>31</span>
+<span id='32'>32</span>
+<span id='33'>33</span>
+<span id='34'>34</span>
+<span id='35'>35</span>
+<span id='36'>36</span>
+<span id='37'>37</span>
+<span id='38'>38</span>
+<span id='39'>39</span>
+<span id='40'>40</span>
+<span id='41'>41</span>
+<span id='42'>42</span>
+<span id='43'>43</span>
+<span id='44'>44</span>
+<span id='45'>45</span>
+<span id='46'>46</span>
+<span id='47'>47</span>
+<span id='48'>48</span>
+<span id='49'>49</span>
+<span id='50'>50</span>
+<span id='51'>51</span>
+<span id='52'>52</span>
+<span id='53'>53</span>
+<span id='54'>54</span>
+</pre><pre class='rust'>use std::libc::*;
+
+pub struct ALLEGRO_COLOR
+{
+	r: f32,
+	g: f32,
+	b: f32,
+	a: f32
+}
+
+pub static ALLEGRO_PIXEL_FORMAT_ANY: u32 = 0;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA: u32 = 1;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_WITH_ALPHA: u32 = 2;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_15_NO_ALPHA: u32 = 3;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_16_NO_ALPHA: u32 = 4;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_16_WITH_ALPHA: u32 = 5;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_24_NO_ALPHA: u32 = 6;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_32_NO_ALPHA: u32 = 7;
+pub static ALLEGRO_PIXEL_FORMAT_ANY_32_WITH_ALPHA: u32 = 8;
+pub static ALLEGRO_PIXEL_FORMAT_ARGB_8888: u32 = 9;
+pub static ALLEGRO_PIXEL_FORMAT_RGBA_8888: u32 = 10;
+pub static ALLEGRO_PIXEL_FORMAT_ARGB_4444: u32 = 11;
+pub static ALLEGRO_PIXEL_FORMAT_RGB_888: u32 = 12;
+pub static ALLEGRO_PIXEL_FORMAT_RGB_565: u32 = 13;
+pub static ALLEGRO_PIXEL_FORMAT_RGB_555: u32 = 14;
+pub static ALLEGRO_PIXEL_FORMAT_RGBA_5551: u32 = 15;
+pub static ALLEGRO_PIXEL_FORMAT_ARGB_1555: u32 = 16;
+pub static ALLEGRO_PIXEL_FORMAT_ABGR_8888: u32 = 17;
+pub static ALLEGRO_PIXEL_FORMAT_XBGR_8888: u32 = 18;
+pub static ALLEGRO_PIXEL_FORMAT_BGR_888: u32 = 19;
+pub static ALLEGRO_PIXEL_FORMAT_BGR_565: u32 = 20;
+pub static ALLEGRO_PIXEL_FORMAT_BGR_555: u32 = 21;
+pub static ALLEGRO_PIXEL_FORMAT_RGBX_8888: u32 = 22;
+pub static ALLEGRO_PIXEL_FORMAT_XRGB_8888: u32 = 23;
+pub static ALLEGRO_PIXEL_FORMAT_ABGR_F32: u32 = 24;
+pub static ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE: u32 = 25;
+pub static ALLEGRO_PIXEL_FORMAT_RGBA_4444: u32 = 26;
+pub static ALLEGRO_NUM_PIXEL_FORMATS: u32 = 27;
+
+extern &quot;C&quot;
+{
+	pub fn al_map_rgb(r: c_uchar, g: c_uchar, b: c_uchar) -&gt; ALLEGRO_COLOR;
+	pub fn al_map_rgba(r: c_uchar, g: c_uchar, b: c_uchar, a: c_uchar) -&gt; ALLEGRO_COLOR;
+	pub fn al_map_rgb_f(r: c_float, g: c_float, b: c_float) -&gt; ALLEGRO_COLOR;
+	pub fn al_map_rgba_f(r: c_float, g: c_float, b: c_float, a: c_float) -&gt; ALLEGRO_COLOR;
+
+	pub fn al_unmap_rgb(color: ALLEGRO_COLOR, r: *mut c_uchar, g: *mut c_uchar, b: *mut c_uchar);
+	pub fn al_unmap_rgba(color: ALLEGRO_COLOR, r: *mut c_uchar, g: *mut c_uchar, b: *mut c_uchar, a: *mut c_uchar);
+	pub fn al_unmap_rgb_f(color: ALLEGRO_COLOR, r: *mut c_float, g: *mut c_float, b: *mut c_float);
+	pub fn al_unmap_rgba_f(color: ALLEGRO_COLOR, r: *mut c_float, g: *mut c_float, b: *mut c_float, a: *mut c_float);
+
+	pub fn al_get_pixel_size(format: c_int) -&gt; c_int;
+	pub fn al_get_pixel_format_bits(format: c_int) -&gt; c_int;
+}
+</pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <script>
+        var rootPath = "../../../../";
+    </script>
+    <script src="../../../../allegro5/jquery.js"></script>
+    <script src="../../../../allegro5/search-index.js"></script>
+    <script src="../../../../allegro5/main.js"></script>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+</body>
+</html>
