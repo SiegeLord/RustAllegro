@@ -9,7 +9,8 @@ pub mod external
 {
 	pub use super::{Event, NoEvent, DisplayClose, KeyDown, KeyUp, KeyChar,
 	                MouseAxes, MouseButtonDown, MouseButtonUp, MouseWarped,
-	                MouseEnterDisplay, MouseLeaveDisplay, TimerTick};
+	                MouseEnterDisplay, MouseLeaveDisplay, TimerTick,
+	                EventQueue, EventSource};
 }
 
 pub struct EventQueue

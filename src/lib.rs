@@ -23,8 +23,7 @@ pub mod ffi;
 #[macro_escape]
 pub mod rust_util;
 
-/* Shouldn't be pub, privacy bugs */
-pub mod internal
+mod internal
 {
 	pub mod bitmap;
 	pub mod bitmap_like;

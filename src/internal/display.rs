@@ -20,7 +20,7 @@ pub use rust_util::c_bool;
 pub mod external
 {
 	pub use super::display_flag::*;
-	pub use super::{Display, DisplayOption, DisplayOptionImportance, DisplayOrientation};
+	pub use super::{Display, DisplayOption, DisplayOptionImportance, DisplayOrientation, DisplayOptions};
 }
 
 flag_type!(
