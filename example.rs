@@ -55,9 +55,8 @@ fn main()
 
 	let bmp = core.create_bitmap(256, 256).unwrap();
 
-	let mut info = MonitorInfo::new();
-	core.get_monitor_info(0, &mut info);
-	println!("{} {} {} {}", info.x1, info.y1, info.x2, info.y2);
+	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
+	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
 
 	bmp.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
 

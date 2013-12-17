@@ -17,22 +17,6 @@ pub struct Core
 	priv mouse_event_source: Option<EventSource>
 }
 
-pub struct MonitorInfo
-{
-	x1: i32,
-	y1: i32,
-	x2: i32,
-	y2: i32,
-}
-
-impl MonitorInfo
-{
-	pub fn new() -> MonitorInfo
-	{
-		MonitorInfo{ x1: 0, y1: 0, x2: 0, y2: 0 }
-	}
-}
-
 impl Core
 {
 	pub fn init() -> Option<Core>
@@ -59,17 +43,20 @@ impl Core
 		}
 	}
 
-	pub fn get_monitor_info(&self, adapter: i32, info: &mut MonitorInfo) -> bool
+	pub fn get_monitor_info(&self, adapter: i32) -> Option<(i32, i32, i32, i32)>
 	{
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
 			let ret = al_get_monitor_info(adapter as c_int, cast::transmute(&mut c_info)) != 0;
-			info.x1 = c_info.x1 as i32;
-			info.y1 = c_info.y1 as i32;
-			info.x2 = c_info.x2 as i32;
-			info.y2 = c_info.y2 as i32;
-			ret
+			if ret
+			{
+				Some((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
+			}
+			else
+			{
+				None
+			}
 		}
 	}
 
