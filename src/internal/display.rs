@@ -4,7 +4,6 @@ use std::i32;
 use std::libc::*;
 use std::num::Zero;
 use std::ptr;
-use std::vec;
 
 use internal::bitmap::*;
 use internal::bitmap_like::*;
@@ -245,16 +244,12 @@ impl Display
 		}
 	}
 
-	pub fn set_icons<T: BitmapLike, U: Iterator<T>>(&self, mut icons: U)
+	pub fn set_icons<T: BitmapLike, U: Iterator<T>>(&self, icons: U)
 	{
-		let mut c_icons: ~[*mut ALLEGRO_BITMAP] = ~[];
-		for icon in icons
-		{
-			c_icons.push(icon.get_bitmap());
-		}
+		let mut c_icons = icons.map(|ref b| b.get_bitmap()).to_owned_vec();
 		unsafe
 		{
-			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, vec::raw::to_mut_ptr(c_icons));
+			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, c_icons.as_mut_ptr());
 		}
 	}
 
