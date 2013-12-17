@@ -261,14 +261,14 @@ impl Display
 		}
 	}
 
-	pub fn get_window_position(&self) -> [i32, ..2]
+	pub fn get_window_position(&self) -> (i32, i32)
 	{
 		unsafe
 		{
 			let mut x = 0 as c_int;
 			let mut y = 0 as c_int;
 			al_get_window_position(self.allegro_display, &mut x, &mut y);
-			[x as i32, y as i32]
+			(x as i32, y as i32)
 		}
 	}
 
