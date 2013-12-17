@@ -26,11 +26,13 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -72,7 +74,6 @@
 <span id='36'>36</span>
 <span id='37'>37</span>
 <span id='38'>38</span>
-<span id='39'>39</span>
 </pre><pre class='rust'>#[pkgid=&quot;allegro5#5.0.10.1&quot;];
 #[link(name = &quot;allegro5&quot;)];
 
@@ -98,7 +99,6 @@ pub mod ffi;
 #[macro_escape]
 pub mod rust_util;
 
-/* Shouldn&#39;t be pub, privacy bugs */
 mod internal
 {
 	pub mod bitmap;

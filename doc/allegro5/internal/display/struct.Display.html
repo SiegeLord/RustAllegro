@@ -26,16 +26,18 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
     <section id='main' class="content struct"><a class='source'
-                       href='../../../src/allegro5/src/internal/display.rs.html#115-120'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>internal</a>::<a href='index.html'>display</a>::<a class='struct' href=''>Display</a></h1><pre class='struct'>pub struct Display {
+                       href='../../../src/allegro5/src/internal/display.rs.html#114-119'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>internal</a>::<a href='index.html'>display</a>::<a class='struct' href=''>Display</a></h1><pre class='struct'>pub struct Display {
     // some fields omitted
 }</pre><h2 class='fields'>Fields</h2>
 <table></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../allegro5/internal/display/struct.Display.html' title='allegro5::internal::display::Display'>Display</a></code></h3><div class='methods'><h4 id='method.get_width' class='method'><code>fn <span class='fnname'>get_width</span>(&amp;self) -&gt; i32</code></h4>
@@ -54,7 +56,7 @@
 <h4 id='method.set_icon' class='method'><code>fn <span class='fnname'>set_icon</span>&lt;T: <a class='trait' href='../../../allegro5/internal/bitmap_like/trait.BitmapLike.html' title='allegro5::internal::bitmap_like::BitmapLike'>BitmapLike</a>&gt;(&amp;self, icon: &amp;T)</code></h4>
 <h4 id='method.set_icons' class='method'><code>fn <span class='fnname'>set_icons</span>&lt;T: <a class='trait' href='../../../allegro5/internal/bitmap_like/trait.BitmapLike.html' title='allegro5::internal::bitmap_like::BitmapLike'>BitmapLike</a>, U: <a class='trait' href='http://static.rust-lang.org/doc/master/std/iter/trait.Iterator.html' title='std::iter::Iterator'>Iterator</a>&lt;T&gt;&gt;(&amp;self, icons: U)</code></h4>
 <h4 id='method.set_window_position' class='method'><code>fn <span class='fnname'>set_window_position</span>(&amp;self, x: i32, y: i32)</code></h4>
-<h4 id='method.get_window_position' class='method'><code>fn <span class='fnname'>get_window_position</span>(&amp;self) -&gt; [i32, ..2]</code></h4>
+<h4 id='method.get_window_position' class='method'><code>fn <span class='fnname'>get_window_position</span>(&amp;self) -&gt; (i32, i32)</code></h4>
 <h4 id='method.set_window_title' class='method'><code>fn <span class='fnname'>set_window_title</span>(&amp;self, title: &amp;<a class='struct' href='http://static.rust-lang.org/doc/master/std/c_str/struct.CString.html' title='std::c_str::CString'>CString</a>)</code></h4>
 <h4 id='method.get_option' class='method'><code>fn <span class='fnname'>get_option</span>(&amp;self, option: <a class='enum' href='../../../allegro5/internal/display/enum.DisplayOption.html' title='allegro5::internal::display::DisplayOption'>DisplayOption</a>) -&gt; i32</code></h4>
 <h4 id='method.hold_bitmap_drawing' class='method'><code>fn <span class='fnname'>hold_bitmap_drawing</span>(&amp;self, hold: bool)</code></h4>

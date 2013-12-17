@@ -21,16 +21,18 @@
     <section class="sidebar">
         
 
-        <p class='location'><a href='../../index.html'>allegro5</a>&#8203;::<a href='../index.html'>internal</a>&#8203;::<a href='index.html'>core</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.Core.html'>Core</a><br/><a class='struct ' href='struct.MonitorInfo.html'>MonitorInfo</a><br/></div>
+        <p class='location'><a href='../../index.html'>allegro5</a>&#8203;::<a href='../index.html'>internal</a>&#8203;::<a href='index.html'>core</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.Core.html'>Core</a><br/></div>
     </section>
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -40,7 +42,7 @@
 }</pre><h2 class='fields'>Fields</h2>
 <table></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../allegro5/internal/core/struct.Core.html' title='allegro5::internal::core::Core'>Core</a></code></h3><div class='methods'><h4 id='method.init' class='method'><code>fn <span class='fnname'>init</span>() -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../allegro5/internal/core/struct.Core.html' title='allegro5::internal::core::Core'>Core</a>&gt;</code></h4>
 <h4 id='method.get_num_video_adapters' class='method'><code>fn <span class='fnname'>get_num_video_adapters</span>(&amp;self) -&gt; i32</code></h4>
-<h4 id='method.get_monitor_info' class='method'><code>fn <span class='fnname'>get_monitor_info</span>(&amp;self, adapter: i32, info: &amp;mut <a class='struct' href='../../../allegro5/internal/core/struct.MonitorInfo.html' title='allegro5::internal::core::MonitorInfo'>MonitorInfo</a>) -&gt; bool</code></h4>
+<h4 id='method.get_monitor_info' class='method'><code>fn <span class='fnname'>get_monitor_info</span>(&amp;self, adapter: i32) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;(i32, i32, i32, i32)&gt;</code></h4>
 <h4 id='method.rest' class='method'><code>fn <span class='fnname'>rest</span>(&amp;self, seconds: f64)</code></h4>
 <h4 id='method.create_display' class='method'><code>fn <span class='fnname'>create_display</span>(&amp;self, w: i32, h: i32) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../allegro5/internal/display/struct.Display.html' title='allegro5::internal::display::Display'>Display</a>&gt;</code></h4>
 <h4 id='method.create_display_with_options' class='method'><code>fn <span class='fnname'>create_display_with_options</span>(&amp;self, w: i32, h: i32, opt: &amp;<a class='struct' href='../../../allegro5/internal/display/struct.DisplayOptions.html' title='allegro5::internal::display::DisplayOptions'>DisplayOptions</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../allegro5/internal/display/struct.Display.html' title='allegro5::internal::display::Display'>Display</a>&gt;</code></h4>

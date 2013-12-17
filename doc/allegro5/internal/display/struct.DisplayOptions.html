@@ -26,16 +26,18 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
     <section id='main' class="content struct"><a class='source'
-                       href='../../../src/allegro5/src/internal/display.rs.html#98-105'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>internal</a>::<a href='index.html'>display</a>::<a class='struct' href=''>DisplayOptions</a></h1><pre class='struct'>pub struct DisplayOptions&lt;'m&gt; {
+                       href='../../../src/allegro5/src/internal/display.rs.html#97-104'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>internal</a>::<a href='index.html'>display</a>::<a class='struct' href=''>DisplayOptions</a></h1><pre class='struct'>pub struct DisplayOptions&lt;'m&gt; {
     flags: <a class='struct' href='../../../allegro5/internal/display/display_flag/struct.DisplayFlags.html' title='allegro5::internal::display::display_flag::DisplayFlags'>DisplayFlags</a>,
     refresh_rate: <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;i32&gt;,
     adapter: <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;i32&gt;,

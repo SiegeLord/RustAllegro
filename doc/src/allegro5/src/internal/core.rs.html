@@ -26,11 +26,13 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -256,19 +258,6 @@
 <span id='220'>220</span>
 <span id='221'>221</span>
 <span id='222'>222</span>
-<span id='223'>223</span>
-<span id='224'>224</span>
-<span id='225'>225</span>
-<span id='226'>226</span>
-<span id='227'>227</span>
-<span id='228'>228</span>
-<span id='229'>229</span>
-<span id='230'>230</span>
-<span id='231'>231</span>
-<span id='232'>232</span>
-<span id='233'>233</span>
-<span id='234'>234</span>
-<span id='235'>235</span>
 </pre><pre class='rust'>use std::libc::*;
 use std::cast;
 use std::str;
@@ -286,22 +275,6 @@ pub struct Core
 {
 	priv keyboard_event_source: Option&lt;EventSource&gt;,
 	priv mouse_event_source: Option&lt;EventSource&gt;
-}
-
-pub struct MonitorInfo
-{
-	x1: i32,
-	y1: i32,
-	x2: i32,
-	y2: i32,
-}
-
-impl MonitorInfo
-{
-	pub fn new() -&gt; MonitorInfo
-	{
-		MonitorInfo{ x1: 0, y1: 0, x2: 0, y2: 0 }
-	}
 }
 
 impl Core
@@ -330,17 +303,20 @@ impl Core
 		}
 	}
 
-	pub fn get_monitor_info(&amp;self, adapter: i32, info: &amp;mut MonitorInfo) -&gt; bool
+	pub fn get_monitor_info(&amp;self, adapter: i32) -&gt; Option&lt;(i32, i32, i32, i32)&gt;
 	{
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
 			let ret = al_get_monitor_info(adapter as c_int, cast::transmute(&amp;mut c_info)) != 0;
-			info.x1 = c_info.x1 as i32;
-			info.y1 = c_info.y1 as i32;
-			info.x2 = c_info.x2 as i32;
-			info.y2 = c_info.y2 as i32;
-			ret
+			if ret
+			{
+				Some((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
+			}
+			else
+			{
+				None
+			}
 		}
 	}
 
