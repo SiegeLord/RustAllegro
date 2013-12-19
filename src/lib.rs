@@ -1,5 +1,4 @@
-#[pkgid="allegro5#5.0.10.1"];
-#[link(name = "allegro5")];
+#[crate_id="allegro5#5.0.10.1"];
 
 #[comment = "Allegro 5 core library Rust bindings"];
 #[license = "zlib"];
