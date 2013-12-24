@@ -68,7 +68,7 @@ impl Drop for Bitmap
 			{
 				if al_get_target_bitmap() == self.allegro_bitmap
 				{
-					al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+					al_set_target_bitmap(ptr::mut_null());
 				}
 				al_destroy_bitmap(self.allegro_bitmap);
 			}
@@ -145,7 +145,7 @@ impl<'m> Drop for SubBitmap<'m>
 		{
 			if al_get_target_bitmap() == self.allegro_bitmap
 			{
-				al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+				al_set_target_bitmap(ptr::mut_null());
 			}
 			al_destroy_bitmap(self.allegro_bitmap);
 		}
