@@ -119,6 +119,65 @@ pub struct Display
 
 impl Display
 {
+	fn new(w: i32, h: i32) -> Option<Display>
+	{
+		unsafe
+		{
+			let d = al_create_display(w as c_int, h as c_int);
+			if ptr::is_null(d)
+			{
+				None
+			}
+			else
+			{
+				Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+							  event_source: new_event_source_ref(al_get_display_event_source(d)) })
+			}
+		}
+	}
+
+	fn new_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
+	{
+		unsafe
+		{
+			al_set_new_display_flags(opt.flags.get() as c_int);
+
+			match opt.refresh_rate
+			{
+				Some(r) => al_set_new_display_refresh_rate(r as c_int),
+				None => al_set_new_display_refresh_rate(0)
+			}
+
+			match opt.adapter
+			{
+				Some(a) => al_set_new_display_adapter(a as c_int),
+				None => al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
+			}
+
+			match opt.window_position
+			{
+				Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
+				None =>	al_set_new_window_position(i32::max_value, i32::max_value)
+			}
+
+			al_reset_new_display_options();
+
+			match opt.options
+			{
+				Some(options) =>
+				{
+					for &(option, value, importance) in options.iter()
+					{
+						al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+					}
+				},
+				None => ()
+			}
+		}
+
+		Display::new(w, h)
+	}
+
 	pub fn get_width(&self) -> i32
 	{
 		unsafe
@@ -270,75 +329,16 @@ impl Drop for Display
 	}
 }
 
-fn new_display(w: i32, h: i32) -> Option<Display>
-{
-	unsafe
-	{
-		let d = al_create_display(w as c_int, h as c_int);
-		if ptr::is_null(d)
-		{
-			None
-		}
-		else
-		{
-			Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-			              event_source: new_event_source_ref(al_get_display_event_source(d)) })
-		}
-	}
-}
-
-fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
-{
-	unsafe
-	{
-		al_set_new_display_flags(opt.flags.get() as c_int);
-
-		match opt.refresh_rate
-		{
-			Some(r) => al_set_new_display_refresh_rate(r as c_int),
-			None => al_set_new_display_refresh_rate(0)
-		}
-
-		match opt.adapter
-		{
-			Some(a) => al_set_new_display_adapter(a as c_int),
-			None => al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
-		}
-
-		match opt.window_position
-		{
-			Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
-			None =>	al_set_new_window_position(i32::max_value, i32::max_value)
-		}
-
-		al_reset_new_display_options();
-
-		match opt.options
-		{
-			Some(options) =>
-			{
-				for &(option, value, importance) in options.iter()
-				{
-					al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
-				}
-			},
-			None => ()
-		}
-	}
-
-	new_display(w, h)
-}
-
 impl ::internal::core::Core
 {
 	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
 	{
-		new_display(w, h)
+		Display::new(w, h)
 	}
 
 	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
 	{
-		new_display_with_options(w, h, opt)
+		Display::new_with_options(w, h, opt)
 	}
 
 	pub fn flip_display(&self)
