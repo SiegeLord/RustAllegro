@@ -8,7 +8,6 @@ use std::ptr;
 use internal::bitmap::*;
 use internal::bitmap_like::*;
 use internal::color::*;
-use internal::core_drawing::*;
 use internal::events::*;
 
 use ffi::*;
@@ -120,17 +119,6 @@ pub struct Display
 
 impl Display
 {
-	fn select_this_display(&self)
-	{
-		unsafe
-		{
-			if self.allegro_display != al_get_current_display()
-			{
-				al_set_target_bitmap(al_get_backbuffer(self.allegro_display))
-			}
-		}
-	}
-
 	pub fn get_width(&self) -> i32
 	{
 		unsafe
@@ -200,42 +188,6 @@ impl Display
 		}
 	}
 
-	pub fn flip(&self)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_flip_display();
-		}
-	}
-
-	pub fn update_region(&self, x: i32, y: i32, width: i32, height: i32)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
-		}
-	}
-
-	pub fn is_compatible_bitmap<T: BitmapLike>(&self, bitmap: &T) -> bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
-		}
-	}
-
-	pub fn wait_for_vsync(&self) -> bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_wait_for_vsync() != 0
-		}
-	}
-
 	pub fn set_icon<T: BitmapLike>(&self, icon: &T)
 	{
 		unsafe
@@ -291,27 +243,8 @@ impl Display
 		}
 	}
 
-	pub fn hold_bitmap_drawing(&self, hold: bool)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_hold_bitmap_drawing(hold as c_bool);
-		}
-	}
-
-	pub fn is_bitmap_drawing_held(&self) -> bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_is_bitmap_drawing_held() != 0
-		}
-	}
-
 	pub fn clone_convert<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
 	{
-		self.select_this_display();
 		clone_bitmap(bmp.get_bitmap())
 	}
 
@@ -336,19 +269,6 @@ impl Drop for Display
 		}
 	}
 }
-
-impl DrawTarget for Display
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-		unsafe
-		{
-			al_get_backbuffer(self.allegro_display)
-		}
-	}
-}
-
-impl CoreDrawing for Display {}
 
 pub fn new_display(w: i32, h: i32) -> Option<Display>
 {
@@ -407,4 +327,55 @@ pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<
 	}
 
 	new_display(w, h)
+}
+
+impl ::internal::core::Core
+{
+	pub fn flip_display(&self)
+	{
+		unsafe
+		{
+			al_flip_display();
+		}
+	}
+
+	pub fn update_display_region(&self, x: i32, y: i32, width: i32, height: i32)
+	{
+		unsafe
+		{
+			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
+		}
+	}
+
+	pub fn is_compatible_bitmap<T: BitmapLike>(&self, bitmap: &T) -> bool
+	{
+		unsafe
+		{
+			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
+		}
+	}
+
+	pub fn wait_for_vsync(&self) -> bool
+	{
+		unsafe
+		{
+			al_wait_for_vsync() != 0
+		}
+	}
+
+	pub fn hold_bitmap_drawing(&self, hold: bool)
+	{
+		unsafe
+		{
+			al_hold_bitmap_drawing(hold as c_bool);
+		}
+	}
+
+	pub fn is_bitmap_drawing_held(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_bitmap_drawing_held() != 0
+		}
+	}
 }

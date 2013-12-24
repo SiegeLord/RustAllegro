@@ -3,7 +3,6 @@ use std::ptr;
 use std::num::Zero;
 
 use internal::bitmap_like::*;
-use internal::core_drawing::*;
 use internal::color::*;
 
 use ffi::*;
@@ -67,17 +66,13 @@ impl Drop for Bitmap
 		{
 			if !self.is_ref
 			{
+				if al_get_target_bitmap() == self.allegro_bitmap
+				{
+					al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+				}
 				al_destroy_bitmap(self.allegro_bitmap);
 			}
 		}
-	}
-}
-
-impl DrawTarget for Bitmap
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-		self.allegro_bitmap
 	}
 }
 
@@ -88,8 +83,6 @@ impl BitmapLike for Bitmap
 		self.allegro_bitmap
 	}
 }
-
-impl CoreDrawing for Bitmap {}
 
 impl Clone for Bitmap
 {
@@ -134,14 +127,6 @@ impl<'m> SubBitmap<'m>
 	}
 }
 
-impl<'m> DrawTarget for SubBitmap<'m>
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-		self.allegro_bitmap
-	}
-}
-
 impl<'m> BitmapLike for SubBitmap<'m>
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
@@ -150,7 +135,22 @@ impl<'m> BitmapLike for SubBitmap<'m>
 	}
 }
 
-impl<'m> CoreDrawing for SubBitmap<'m> {}
+/* Should be safe as Bitmap does not reference a SubBitmap*/
+#[unsafe_destructor]
+impl<'m> Drop for SubBitmap<'m>
+{
+	fn drop(&mut self)
+	{
+		unsafe
+		{
+			if al_get_target_bitmap() == self.allegro_bitmap
+			{
+				al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+			}
+			al_destroy_bitmap(self.allegro_bitmap);
+		}
+	}
+}
 
 pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
 {
