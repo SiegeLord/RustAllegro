@@ -247,17 +247,6 @@
 <span id='209'>209</span>
 <span id='210'>210</span>
 <span id='211'>211</span>
-<span id='212'>212</span>
-<span id='213'>213</span>
-<span id='214'>214</span>
-<span id='215'>215</span>
-<span id='216'>216</span>
-<span id='217'>217</span>
-<span id='218'>218</span>
-<span id='219'>219</span>
-<span id='220'>220</span>
-<span id='221'>221</span>
-<span id='222'>222</span>
 </pre><pre class='rust'>use std::libc::*;
 use std::cast;
 use std::str;
@@ -266,7 +255,6 @@ use ffi::*;
 
 use internal::bitmap::*;
 use internal::color::*;
-use internal::display::*;
 use internal::events::*;
 use internal::keycodes::*;
 use internal::timer::*;
@@ -326,16 +314,6 @@ impl Core
 		{
 			al_rest(seconds as c_double);
 		}
-	}
-
-	pub fn create_display(&amp;self, w: i32, h: i32) -&gt; Option&lt;Display&gt;
-	{
-		new_display(w, h)
-	}
-
-	pub fn create_display_with_options(&amp;self, w: i32, h: i32, opt: &amp;DisplayOptions) -&gt; Option&lt;Display&gt;
-	{
-		new_display_with_options(w, h, opt)
 	}
 
 	pub fn create_bitmap(&amp;self, w: i32, h: i32) -&gt; Option&lt;Bitmap&gt;

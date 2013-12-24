@@ -241,24 +241,15 @@
 <span id='203'>203</span>
 <span id='204'>204</span>
 <span id='205'>205</span>
+<span id='206'>206</span>
 </pre><pre class='rust'>use std::libc::*;
+use std::ptr;
 
 use internal::bitmap_like::*;
 use internal::color::*;
 use ffi::*;
 
 pub use self::bitmap_drawing_flag::*;
-
-fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
-{
-	unsafe
-	{
-		if al_get_target_bitmap() != desired_target
-		{
-			al_set_target_bitmap(desired_target)
-		}
-	}
-}
 
 flag_type!(
 	mod bitmap_drawing_flag
@@ -272,177 +263,188 @@ flag_type!(
 	}
 )
 
-pub trait DrawTarget
-{
-	fn get_target_bitmap(&amp;self) -&gt; *mut ALLEGRO_BITMAP;
-}
-
-pub trait CoreDrawing : DrawTarget
-{
-	fn clear_to_color(&amp;self, color: Color)
-	{
-		target_bitmap_check(self.get_target_bitmap());
+macro_rules! safe_draw
+(
+	($b:expr) =&gt;
+	(
 		unsafe
 		{
+			if ptr::is_null(al_get_target_bitmap())
+			{
+				false
+			}
+			else
+			{
+				$b;
+				true
+			}
+		}
+	)
+)
+
+impl ::internal::core::Core
+{
+	pub fn set_target_bitmap&lt;B: BitmapLike&gt;(&amp;self, bitmap: &amp;B)
+	{
+		unsafe
+		{
+			al_set_target_bitmap(bitmap.get_bitmap());
+		}
+	}
+
+	pub fn clear_to_color(&amp;self, color: Color) -&gt; bool
+	{
+		safe_draw!
+		({
 			al_clear_to_color(*color);
-		}
+		})
 	}
 
-	fn draw_pixel(&amp;self, x: f32, y: f32, color: Color)
+	pub fn draw_pixel(&amp;self, x: f32, y: f32, color: Color) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_pixel(x as c_float, y as c_float, *color);
-		}
+		})
 	}
 
-	fn put_pixel(&amp;self, x: i32, y: i32, color: Color)
+	pub fn put_pixel(&amp;self, x: i32, y: i32, color: Color) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_put_pixel(x as c_int, y as c_int, *color);
-		}
+		})
 	}
 
-	fn put_blended_pixel(&amp;self, x: i32, y: i32, color: Color)
+	pub fn put_blended_pixel(&amp;self, x: i32, y: i32, color: Color) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_put_blended_pixel(x as c_int, y as c_int, *color);
-		}
+		})
 	}
 
-	fn draw_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, dx: f32, dy: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_bitmap(bitmap.get_bitmap(), dx as c_float, dy as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags) -&gt; bool
     {
-        target_bitmap_check(self.get_target_bitmap());
-        unsafe
-        {
+        safe_draw!
+		({
             al_draw_bitmap_region(bitmap.get_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() &gt;&gt; 1) as c_int);
-        }
+        })
     }
 
-	fn draw_scaled_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	pub fn draw_scaled_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_scaled_bitmap(bitmap.get_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_rotated_bitmap(bitmap.get_bitmap(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_scaled_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_scaled_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_scaled_rotated_bitmap(bitmap.get_bitmap(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_bitmap(bitmap.get_bitmap(), *tint, dx as c_float, dy as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_bitmap_region(bitmap.get_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_scaled_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_scaled_bitmap(bitmap.get_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_rotated_bitmap(bitmap.get_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_scaled_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_rotated_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn draw_tinted_scaled_rotated_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_rotated_bitmap_region&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() &gt;&gt; 1) as c_int);
-		}
+		})
 	}
 
-	fn set_clipping_rectangle(&amp;self, x: i32, y: i32, width: i32, height: i32)
+	pub fn set_clipping_rectangle(&amp;self, x: i32, y: i32, width: i32, height: i32) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_set_clipping_rectangle(x as c_int, y as c_int, width as c_int, height as c_int);
-		}
+		})
 	}
 
-	fn reset_clipping_rectangle(&amp;self)
+	pub fn reset_clipping_rectangle(&amp;self) -&gt; bool
 	{
-		target_bitmap_check(self.get_target_bitmap());
-		unsafe
-		{
+		safe_draw!
+		({
 			al_reset_clipping_rectangle();
-		}
+		})
 	}
 
-	fn get_clipping_rectangle(&amp;self) -&gt; (i32, i32, i32, i32)
+	pub fn get_clipping_rectangle(&amp;self) -&gt; Option&lt;(i32, i32, i32, i32)&gt;
 	{
-		target_bitmap_check(self.get_target_bitmap());
 		unsafe
 		{
-			let mut x: c_int = 0;
-			let mut y: c_int = 0;
-			let mut width: c_int = 0;
-			let mut height: c_int = 0;
-			al_get_clipping_rectangle(&amp;mut x, &amp;mut y, &amp;mut width, &amp;mut height);
-			(x as i32, y as i32, width as i32, height as i32)
+			if ptr::is_null(al_get_target_bitmap())
+			{
+				None
+			}
+			else
+			{
+				let mut x: c_int = 0;
+				let mut y: c_int = 0;
+				let mut width: c_int = 0;
+				let mut height: c_int = 0;
+				al_get_clipping_rectangle(&amp;mut x, &amp;mut y, &amp;mut width, &amp;mut height);
+				Some((x as i32, y as i32, width as i32, height as i32))
+			}
 		}
 	}
 }

@@ -427,25 +427,6 @@
 <span id='389'>389</span>
 <span id='390'>390</span>
 <span id='391'>391</span>
-<span id='392'>392</span>
-<span id='393'>393</span>
-<span id='394'>394</span>
-<span id='395'>395</span>
-<span id='396'>396</span>
-<span id='397'>397</span>
-<span id='398'>398</span>
-<span id='399'>399</span>
-<span id='400'>400</span>
-<span id='401'>401</span>
-<span id='402'>402</span>
-<span id='403'>403</span>
-<span id='404'>404</span>
-<span id='405'>405</span>
-<span id='406'>406</span>
-<span id='407'>407</span>
-<span id='408'>408</span>
-<span id='409'>409</span>
-<span id='410'>410</span>
 </pre><pre class='rust'>use std::cast;
 use std::c_str::CString;
 use std::i32;
@@ -456,7 +437,6 @@ use std::ptr;
 use internal::bitmap::*;
 use internal::bitmap_like::*;
 use internal::color::*;
-use internal::core_drawing::*;
 use internal::events::*;
 
 use ffi::*;
@@ -568,15 +548,63 @@ pub struct Display
 
 impl Display
 {
-	fn select_this_display(&amp;self)
+	fn new(w: i32, h: i32) -&gt; Option&lt;Display&gt;
 	{
 		unsafe
 		{
-			if self.allegro_display != al_get_current_display()
+			let d = al_create_display(w as c_int, h as c_int);
+			if ptr::is_null(d)
 			{
-				al_set_target_bitmap(al_get_backbuffer(self.allegro_display))
+				None
+			}
+			else
+			{
+				Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+							  event_source: new_event_source_ref(al_get_display_event_source(d)) })
 			}
 		}
+	}
+
+	fn new_with_options(w: i32, h: i32, opt: &amp;DisplayOptions) -&gt; Option&lt;Display&gt;
+	{
+		unsafe
+		{
+			al_set_new_display_flags(opt.flags.get() as c_int);
+
+			match opt.refresh_rate
+			{
+				Some(r) =&gt; al_set_new_display_refresh_rate(r as c_int),
+				None =&gt; al_set_new_display_refresh_rate(0)
+			}
+
+			match opt.adapter
+			{
+				Some(a) =&gt; al_set_new_display_adapter(a as c_int),
+				None =&gt; al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
+			}
+
+			match opt.window_position
+			{
+				Some([x, y]) =&gt;	al_set_new_window_position(x as c_int, y as c_int),
+				None =&gt;	al_set_new_window_position(i32::max_value, i32::max_value)
+			}
+
+			al_reset_new_display_options();
+
+			match opt.options
+			{
+				Some(options) =&gt;
+				{
+					for &amp;(option, value, importance) in options.iter()
+					{
+						al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+					}
+				},
+				None =&gt; ()
+			}
+		}
+
+		Display::new(w, h)
 	}
 
 	pub fn get_width(&amp;self) -&gt; i32
@@ -648,42 +676,6 @@ impl Display
 		}
 	}
 
-	pub fn flip(&amp;self)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_flip_display();
-		}
-	}
-
-	pub fn update_region(&amp;self, x: i32, y: i32, width: i32, height: i32)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
-		}
-	}
-
-	pub fn is_compatible_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T) -&gt; bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
-		}
-	}
-
-	pub fn wait_for_vsync(&amp;self) -&gt; bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_wait_for_vsync() != 0
-		}
-	}
-
 	pub fn set_icon&lt;T: BitmapLike&gt;(&amp;self, icon: &amp;T)
 	{
 		unsafe
@@ -739,27 +731,8 @@ impl Display
 		}
 	}
 
-	pub fn hold_bitmap_drawing(&amp;self, hold: bool)
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_hold_bitmap_drawing(hold as c_bool);
-		}
-	}
-
-	pub fn is_bitmap_drawing_held(&amp;self) -&gt; bool
-	{
-		self.select_this_display();
-		unsafe
-		{
-			al_is_bitmap_drawing_held() != 0
-		}
-	}
-
 	pub fn clone_convert&lt;T: BitmapLike&gt;(&amp;self, bmp: &amp;T) -&gt; Option&lt;Bitmap&gt;
 	{
-		self.select_this_display();
 		clone_bitmap(bmp.get_bitmap())
 	}
 
@@ -785,76 +758,65 @@ impl Drop for Display
 	}
 }
 
-impl DrawTarget for Display
+impl ::internal::core::Core
 {
-	fn get_target_bitmap(&amp;self) -&gt; *mut ALLEGRO_BITMAP
+	pub fn create_display(&amp;self, w: i32, h: i32) -&gt; Option&lt;Display&gt;
+	{
+		Display::new(w, h)
+	}
+
+	pub fn create_display_with_options(&amp;self, w: i32, h: i32, opt: &amp;DisplayOptions) -&gt; Option&lt;Display&gt;
+	{
+		Display::new_with_options(w, h, opt)
+	}
+
+	pub fn flip_display(&amp;self)
 	{
 		unsafe
 		{
-			al_get_backbuffer(self.allegro_display)
+			al_flip_display();
 		}
 	}
-}
 
-impl CoreDrawing for Display {}
-
-pub fn new_display(w: i32, h: i32) -&gt; Option&lt;Display&gt;
-{
-	unsafe
+	pub fn update_display_region(&amp;self, x: i32, y: i32, width: i32, height: i32)
 	{
-		let d = al_create_display(w as c_int, h as c_int);
-		if ptr::is_null(d)
+		unsafe
 		{
-			None
-		}
-		else
-		{
-			Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-			              event_source: new_event_source_ref(al_get_display_event_source(d)) })
+			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
 		}
 	}
-}
 
-pub fn new_display_with_options(w: i32, h: i32, opt: &amp;DisplayOptions) -&gt; Option&lt;Display&gt;
-{
-	unsafe
+	pub fn is_compatible_bitmap&lt;T: BitmapLike&gt;(&amp;self, bitmap: &amp;T) -&gt; bool
 	{
-		al_set_new_display_flags(opt.flags.get() as c_int);
-
-		match opt.refresh_rate
+		unsafe
 		{
-			Some(r) =&gt; al_set_new_display_refresh_rate(r as c_int),
-			None =&gt; al_set_new_display_refresh_rate(0)
-		}
-
-		match opt.adapter
-		{
-			Some(a) =&gt; al_set_new_display_adapter(a as c_int),
-			None =&gt; al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
-		}
-
-		match opt.window_position
-		{
-			Some([x, y]) =&gt;	al_set_new_window_position(x as c_int, y as c_int),
-			None =&gt;	al_set_new_window_position(i32::max_value, i32::max_value)
-		}
-
-		al_reset_new_display_options();
-
-		match opt.options
-		{
-			Some(options) =&gt;
-			{
-				for &amp;(option, value, importance) in options.iter()
-				{
-					al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
-				}
-			},
-			None =&gt; ()
+			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
 		}
 	}
 
-	new_display(w, h)
+	pub fn wait_for_vsync(&amp;self) -&gt; bool
+	{
+		unsafe
+		{
+			al_wait_for_vsync() != 0
+		}
+	}
+
+	pub fn hold_bitmap_drawing(&amp;self, hold: bool)
+	{
+		unsafe
+		{
+			al_hold_bitmap_drawing(hold as c_bool);
+		}
+	}
+
+	pub fn is_bitmap_drawing_held(&amp;self) -&gt; bool
+	{
+		unsafe
+		{
+			al_is_bitmap_drawing_held() != 0
+		}
+	}
 }
 </pre></section>
     <section id='search' class="content hidden"></section>
