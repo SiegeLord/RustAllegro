@@ -6,7 +6,6 @@ use ffi::*;
 
 use internal::bitmap::*;
 use internal::color::*;
-use internal::display::*;
 use internal::events::*;
 use internal::keycodes::*;
 use internal::timer::*;
@@ -66,16 +65,6 @@ impl Core
 		{
 			al_rest(seconds as c_double);
 		}
-	}
-
-	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
-	{
-		new_display(w, h)
-	}
-
-	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
-	{
-		new_display_with_options(w, h, opt)
 	}
 
 	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>

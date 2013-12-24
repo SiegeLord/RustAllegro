@@ -270,7 +270,7 @@ impl Drop for Display
 	}
 }
 
-pub fn new_display(w: i32, h: i32) -> Option<Display>
+fn new_display(w: i32, h: i32) -> Option<Display>
 {
 	unsafe
 	{
@@ -287,7 +287,7 @@ pub fn new_display(w: i32, h: i32) -> Option<Display>
 	}
 }
 
-pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
+fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
 {
 	unsafe
 	{
@@ -331,6 +331,16 @@ pub fn new_display_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<
 
 impl ::internal::core::Core
 {
+	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
+	{
+		new_display(w, h)
+	}
+
+	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
+	{
+		new_display_with_options(w, h, opt)
+	}
+
 	pub fn flip_display(&self)
 	{
 		unsafe
