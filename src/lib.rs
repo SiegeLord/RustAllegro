@@ -12,7 +12,7 @@ pub use internal::bitmap_like::*;
 pub use internal::color::*;
 pub use internal::core::*;
 pub use internal::core_drawing::*;
-pub use internal::display::external::*;
+pub use internal::display::*;
 pub use internal::events::external::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;

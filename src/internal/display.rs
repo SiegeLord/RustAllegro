@@ -13,32 +13,22 @@ use internal::events::*;
 
 use ffi::*;
 
-pub use self::display_flag::*;
 pub use rust_util::c_bool;
 
-pub mod external
-{
-	pub use super::display_flag::*;
-	pub use super::{Display, DisplayOption, DisplayOptionImportance, DisplayOrientation, DisplayOptions};
-}
-
 flag_type!(
-	mod display_flag
+	DisplayFlags
 	{
-		DisplayFlags
-		{
-			WINDOWED                  = ALLEGRO_WINDOWED,
-			FULLSCREEN                = ALLEGRO_FULLSCREEN,
-			OPENGL                    = ALLEGRO_OPENGL,
-			DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
-			RESIZABLE                 = ALLEGRO_RESIZABLE,
-			FRAMELESS                 = ALLEGRO_FRAMELESS,
-			GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
-			OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
-			OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
-			FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
-			MINIMIZED                 = ALLEGRO_MINIMIZED
-		}
+		WINDOWED                  = ALLEGRO_WINDOWED,
+		FULLSCREEN                = ALLEGRO_FULLSCREEN,
+		OPENGL                    = ALLEGRO_OPENGL,
+		DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
+		RESIZABLE                 = ALLEGRO_RESIZABLE,
+		FRAMELESS                 = ALLEGRO_FRAMELESS,
+		GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
+		OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
+		OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
+		FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
+		MINIMIZED                 = ALLEGRO_MINIMIZED
 	}
 )
 

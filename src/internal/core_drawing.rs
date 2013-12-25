@@ -1,10 +1,9 @@
 use std::libc::*;
+use std::num::Zero;
 
 use internal::bitmap_like::*;
 use internal::color::*;
 use ffi::*;
-
-pub use self::bitmap_drawing_flag::*;
 
 fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
 {
@@ -18,14 +17,11 @@ fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
 }
 
 flag_type!(
-	mod bitmap_drawing_flag
+	BitmapDrawingFlags
 	{
-		BitmapDrawingFlags
-		{
-			FLIP_NONE = 0x1,
-			FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
-			FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
-		}
+		FLIP_NONE = 0x1,
+		FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
+		FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
 	}
 )
 
