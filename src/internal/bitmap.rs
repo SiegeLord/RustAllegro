@@ -3,6 +3,7 @@ use std::ptr;
 use std::num::Zero;
 
 use internal::bitmap_like::*;
+use internal::core_drawing::*;
 use internal::color::*;
 
 use ffi::*;
@@ -76,6 +77,16 @@ impl Drop for Bitmap
 	}
 }
 
+impl DrawTarget for Bitmap
+{
+	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	{
+		self.allegro_bitmap
+	}
+}
+
+impl CoreDrawing for Bitmap {}
+
 impl BitmapLike for Bitmap
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
@@ -127,6 +138,14 @@ impl<'m> SubBitmap<'m>
 	}
 }
 
+impl<'m> DrawTarget for SubBitmap<'m>
+{
+	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	{
+	self.allegro_bitmap
+	}
+}
+
 impl<'m> BitmapLike for SubBitmap<'m>
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
@@ -134,6 +153,8 @@ impl<'m> BitmapLike for SubBitmap<'m>
 		self.allegro_bitmap
 	}
 }
+
+impl<'m> CoreDrawing for SubBitmap<'m> {}
 
 /* Should be safe as Bitmap does not reference a SubBitmap*/
 #[unsafe_destructor]

@@ -58,13 +58,10 @@ fn main()
 	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
 	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
 
-	core.set_target_bitmap(&bmp);
-	core.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
+	bmp.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
-	core.set_target_bitmap(&sub_bmp);
-	core.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
-	core.set_target_bitmap(disp.get_backbuffer());
+	sub_bmp.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
 
 	let mut theta = 0.0f32;
 	let mut redraw = true;
@@ -73,9 +70,9 @@ fn main()
 	{
 		if redraw && q.is_empty()
 		{
-			core.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
-			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Zero::zero());
-			core.flip_display();
+			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
+			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Zero::zero());
+			disp.flip();
 			redraw = false;
 		}
 
