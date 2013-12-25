@@ -314,8 +314,9 @@ impl Display
 		}
 	}
 
-	pub fn clone_convert<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
+	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
 	{
+		self.select_this_display();
 		clone_bitmap(bmp.get_bitmap())
 	}
 
