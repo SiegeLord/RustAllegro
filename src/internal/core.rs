@@ -4,7 +4,6 @@ use std::str;
 
 use ffi::*;
 
-use internal::color::*;
 use internal::events::*;
 use internal::keycodes::*;
 use internal::timer::*;
@@ -69,32 +68,6 @@ impl Core
 	pub fn create_timer(&self, speed_secs: f64) -> Option<Timer>
 	{
 		new_timer(speed_secs)
-	}
-
-	pub fn map_rgb(&self, r: u8, g: u8, b: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgb(r as c_uchar, g as c_uchar, b as c_uchar))
-		}
-	}
-
-	pub fn map_rgba(&self, r: u8, g: u8, b: u8, a: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgba(r as c_uchar, g as c_uchar, b as c_uchar, a as c_uchar))
-		}
-	}
-
-	pub fn map_rgb_f(&self, r: f32, g: f32, b: f32) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: 1.0})
-	}
-
-	pub fn map_rgba_f(&self, r: f32, g: f32, b: f32, a: f32) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: a})
 	}
 
 	pub fn create_event_queue(&self) -> Option<EventQueue>
