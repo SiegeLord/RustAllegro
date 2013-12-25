@@ -16,7 +16,7 @@ pub use internal::display::external::*;
 pub use internal::events::external::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
-pub use internal::timer::external::*;
+pub use internal::timer::*;
 
 pub mod ffi;
 #[macro_escape]

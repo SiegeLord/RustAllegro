@@ -6,7 +6,6 @@ use ffi::*;
 
 use internal::events::*;
 use internal::keycodes::*;
-use internal::timer::*;
 
 pub struct Core
 {
@@ -63,11 +62,6 @@ impl Core
 		{
 			al_rest(seconds as c_double);
 		}
-	}
-
-	pub fn create_timer(&self, speed_secs: f64) -> Option<Timer>
-	{
-		new_timer(speed_secs)
 	}
 
 	pub fn create_event_queue(&self) -> Option<EventQueue>
