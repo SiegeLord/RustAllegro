@@ -368,6 +368,14 @@
 <span id='330'>330</span>
 <span id='331'>331</span>
 <span id='332'>332</span>
+<span id='333'>333</span>
+<span id='334'>334</span>
+<span id='335'>335</span>
+<span id='336'>336</span>
+<span id='337'>337</span>
+<span id='338'>338</span>
+<span id='339'>339</span>
+<span id='340'>340</span>
 </pre><pre class='rust'>use std::cast;
 use std::libc::*;
 use std::ptr;
@@ -390,6 +398,22 @@ pub struct EventQueue
 
 impl EventQueue
 {
+	pub fn new() -&gt; Option&lt;EventQueue&gt;
+	{
+		unsafe
+		{
+			let q = al_create_event_queue();
+			if ptr::is_null(q)
+			{
+				None
+			}
+			else
+			{
+				Some(EventQueue{ allegro_queue: q })
+			}
+		}
+	}
+
 	pub fn register_event_source(&amp;self, src: &amp;EventSource)
 	{
 		unsafe
@@ -685,19 +709,11 @@ pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -&gt; EventSource
 	EventSource{ allegro_source: source }
 }
 
-pub fn new_queue() -&gt; Option&lt;EventQueue&gt;
+impl ::internal::core::Core
 {
-	unsafe
+	pub fn create_event_queue(&amp;self) -&gt; Option&lt;EventQueue&gt;
 	{
-		let q = al_create_event_queue();
-		if ptr::is_null(q)
-		{
-			None
-		}
-		else
-		{
-			Some(EventQueue{ allegro_queue: q })
-		}
+		EventQueue::new()
 	}
 }
 </pre></section>

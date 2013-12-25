@@ -112,35 +112,27 @@
 <span id='74'>74</span>
 <span id='75'>75</span>
 <span id='76'>76</span>
-<span id='77'>77</span>
-<span id='78'>78</span>
-<span id='79'>79</span>
-<span id='80'>80</span>
-</pre><pre class='rust'>use std::libc::*;
-use std::cast;
+</pre><pre class='rust'>use std::cast;
+use std::libc::*;
+use std::num::Zero;
 
 use internal::color::*;
 
 use ffi::*;
 
-pub use self::bitmap_flag::*;
-
 flag_type!(
-	mod bitmap_flag
+	BitmapFlags
 	{
-		BitmapFlags
-		{
-			MEMORY_BITMAP = ALLEGRO_MEMORY_BITMAP,
-			KEEP_BITMAP_FORMAT = ALLEGRO_KEEP_BITMAP_FORMAT,
-			FORCE_LOCKING = ALLEGRO_FORCE_LOCKING,
-			NO_PRESERVE_TEXTURE = ALLEGRO_NO_PRESERVE_TEXTURE,
-			ALPHA_TEST = ALLEGRO_ALPHA_TEST,
-			MIN_LINEAR = ALLEGRO_MIN_LINEAR,
-			MAG_LINEAR = ALLEGRO_MAG_LINEAR,
-			MIPMAP = ALLEGRO_MIPMAP,
-			NO_PREMULTIPLIED_ALPHA = ALLEGRO_NO_PREMULTIPLIED_ALPHA,
-			VIDEO_BITMAP = ALLEGRO_VIDEO_BITMAP
-		}
+		MEMORY_BITMAP = ALLEGRO_MEMORY_BITMAP,
+		KEEP_BITMAP_FORMAT = ALLEGRO_KEEP_BITMAP_FORMAT,
+		FORCE_LOCKING = ALLEGRO_FORCE_LOCKING,
+		NO_PRESERVE_TEXTURE = ALLEGRO_NO_PRESERVE_TEXTURE,
+		ALPHA_TEST = ALLEGRO_ALPHA_TEST,
+		MIN_LINEAR = ALLEGRO_MIN_LINEAR,
+		MAG_LINEAR = ALLEGRO_MAG_LINEAR,
+		MIPMAP = ALLEGRO_MIPMAP,
+		NO_PREMULTIPLIED_ALPHA = ALLEGRO_NO_PREMULTIPLIED_ALPHA,
+		VIDEO_BITMAP = ALLEGRO_VIDEO_BITMAP
 	}
 )
 

@@ -241,11 +241,33 @@
 <span id='203'>203</span>
 <span id='204'>204</span>
 <span id='205'>205</span>
+<span id='206'>206</span>
+<span id='207'>207</span>
+<span id='208'>208</span>
+<span id='209'>209</span>
+<span id='210'>210</span>
+<span id='211'>211</span>
+<span id='212'>212</span>
+<span id='213'>213</span>
+<span id='214'>214</span>
+<span id='215'>215</span>
+<span id='216'>216</span>
+<span id='217'>217</span>
+<span id='218'>218</span>
+<span id='219'>219</span>
+<span id='220'>220</span>
+<span id='221'>221</span>
+<span id='222'>222</span>
+<span id='223'>223</span>
+<span id='224'>224</span>
+<span id='225'>225</span>
+<span id='226'>226</span>
 </pre><pre class='rust'>use std::libc::*;
 use std::ptr;
 use std::num::Zero;
 
 use internal::bitmap_like::*;
+use internal::core_drawing::*;
 use internal::color::*;
 
 use ffi::*;
@@ -279,6 +301,32 @@ pub struct Bitmap
 
 impl Bitmap
 {
+	pub fn new(w: i32, h: i32) -&gt; Option&lt;Bitmap&gt;
+	{
+		unsafe
+		{
+			let b = al_create_bitmap(w as c_int, h as c_int);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(Bitmap{allegro_bitmap: b, is_ref: false})
+			}
+		}
+	}
+
+	pub fn new_with_options(w: i32, h: i32, opt: &amp;BitmapOptions) -&gt; Option&lt;Bitmap&gt;
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(opt.flags.get() as c_int);
+			al_set_new_bitmap_format(opt.format as c_int);
+		}
+		Bitmap::new(w, h)
+	}
+
 	pub fn create_sub_bitmap&lt;&#39;l&gt;(&amp;&#39;l self, x: i32, y: i32, w: i32, h: i32) -&gt; Option&lt;SubBitmap&lt;&#39;l&gt;&gt;
 	{
 		unsafe
@@ -309,15 +357,21 @@ impl Drop for Bitmap
 		{
 			if !self.is_ref
 			{
-				if al_get_target_bitmap() == self.allegro_bitmap
-				{
-					al_set_target_bitmap(ptr::mut_null());
-				}
 				al_destroy_bitmap(self.allegro_bitmap);
 			}
 		}
 	}
 }
+
+impl DrawTarget for Bitmap
+{
+	fn get_target_bitmap(&amp;self) -&gt; *mut ALLEGRO_BITMAP
+	{
+		self.allegro_bitmap
+	}
+}
+
+impl CoreDrawing for Bitmap {}
 
 impl BitmapLike for Bitmap
 {
@@ -370,6 +424,14 @@ impl&lt;&#39;m&gt; SubBitmap&lt;&#39;m&gt;
 	}
 }
 
+impl&lt;&#39;m&gt; DrawTarget for SubBitmap&lt;&#39;m&gt;
+{
+	fn get_target_bitmap(&amp;self) -&gt; *mut ALLEGRO_BITMAP
+	{
+	self.allegro_bitmap
+	}
+}
+
 impl&lt;&#39;m&gt; BitmapLike for SubBitmap&lt;&#39;m&gt;
 {
 	fn get_bitmap(&amp;self) -&gt; *mut ALLEGRO_BITMAP
@@ -377,6 +439,8 @@ impl&lt;&#39;m&gt; BitmapLike for SubBitmap&lt;&#39;m&gt;
 		self.allegro_bitmap
 	}
 }
+
+impl&lt;&#39;m&gt; CoreDrawing for SubBitmap&lt;&#39;m&gt; {}
 
 /* Should be safe as Bitmap does not reference a SubBitmap*/
 #[unsafe_destructor]
@@ -386,41 +450,10 @@ impl&lt;&#39;m&gt; Drop for SubBitmap&lt;&#39;m&gt;
 	{
 		unsafe
 		{
-			if al_get_target_bitmap() == self.allegro_bitmap
-			{
-				al_set_target_bitmap(ptr::mut_null());
-			}
 			al_destroy_bitmap(self.allegro_bitmap);
 		}
 	}
 }
-
-pub fn new_bitmap(w: i32, h: i32) -&gt; Option&lt;Bitmap&gt;
-{
-	unsafe
-	{
-		let b = al_create_bitmap(w as c_int, h as c_int);
-		if ptr::is_null(b)
-		{
-			None
-		}
-		else
-		{
-			Some(Bitmap{allegro_bitmap: b, is_ref: false})
-		}
-	}
-}
-
-pub fn new_bitmap_with_options(w: i32, h: i32, opt: &amp;BitmapOptions) -&gt; Option&lt;Bitmap&gt;
-{
-	unsafe
-	{
-		al_set_new_bitmap_flags(opt.flags.get() as c_int);
-		al_set_new_bitmap_format(opt.format as c_int);
-	}
-	new_bitmap(w, h)
-}
-
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -&gt; Bitmap
 {
@@ -431,10 +464,6 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -&gt; Option&lt;Bitmap&gt;
 {
 	unsafe
 	{
-		if al_get_target_bitmap() != bmp
-		{
-			al_set_target_bitmap(bmp)
-		}
 		let b = al_clone_bitmap(bmp);
 		if ptr::is_null(b)
 		{
@@ -444,6 +473,19 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -&gt; Option&lt;Bitmap&gt;
 		{
 			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
 		}
+	}
+}
+
+impl ::internal::core::Core
+{
+	pub fn create_bitmap(&amp;self, w: i32, h: i32) -&gt; Option&lt;Bitmap&gt;
+	{
+		Bitmap::new(w, h)
+	}
+
+	pub fn create_bitmap_with_options(&amp;self, w: i32, h: i32, opt: &amp;BitmapOptions) -&gt; Option&lt;Bitmap&gt;
+	{
+		Bitmap::new_with_options(w, h, opt)
 	}
 }
 </pre></section>
