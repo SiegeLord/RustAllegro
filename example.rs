@@ -13,7 +13,7 @@ use allegro5::*;
 #[start]
 fn start(argc: int, argv: **u8) -> int
 {
-    allegro5::run(argc, argv, main)
+	allegro5::run(argc, argv, main)
 }
 
 fn main()
@@ -21,13 +21,13 @@ fn main()
 	let args = os::args();
 
 	let opts = ~[
-        optflag("i", "init-only", "only initialize Allegro, don't do anything else")
-    ];
+		optflag("i", "init-only", "only initialize Allegro, don't do anything else")
+	];
 
-    let matches = match getopts(args.tail(), opts)
-    {
+	let matches = match getopts(args.tail(), opts)
+	{
 		Ok(m) => { m }
-        Err(f) => { fail!(f.to_err_msg()) }
+		Err(f) => { fail!(f.to_err_msg()) }
 	};
 
 	let init_only = matches.opt_present("i");
