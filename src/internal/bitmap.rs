@@ -37,6 +37,32 @@ pub struct Bitmap
 
 impl Bitmap
 {
+	pub fn new(w: i32, h: i32) -> Option<Bitmap>
+	{
+		unsafe
+		{
+			let b = al_create_bitmap(w as c_int, h as c_int);
+			if ptr::is_null(b)
+			{
+				None
+			}
+			else
+			{
+				Some(Bitmap{allegro_bitmap: b, is_ref: false})
+			}
+		}
+	}
+
+	pub fn new_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(opt.flags.get() as c_int);
+			al_set_new_bitmap_format(opt.format as c_int);
+		}
+		Bitmap::new(w, h)
+	}
+
 	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
 	{
 		unsafe
@@ -165,32 +191,6 @@ impl<'m> Drop for SubBitmap<'m>
 	}
 }
 
-pub fn new_bitmap(w: i32, h: i32) -> Option<Bitmap>
-{
-	unsafe
-	{
-		let b = al_create_bitmap(w as c_int, h as c_int);
-		if ptr::is_null(b)
-		{
-			None
-		}
-		else
-		{
-			Some(Bitmap{allegro_bitmap: b, is_ref: false})
-		}
-	}
-}
-
-pub fn new_bitmap_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
-{
-	unsafe
-	{
-		al_set_new_bitmap_flags(opt.flags.get() as c_int);
-		al_set_new_bitmap_format(opt.format as c_int);
-	}
-	new_bitmap(w, h)
-}
-
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 {
@@ -214,5 +214,18 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 		{
 			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
 		}
+	}
+}
+
+impl ::internal::core::Core
+{
+	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>
+	{
+		Bitmap::new(w, h)
+	}
+
+	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		Bitmap::new_with_options(w, h, opt)
 	}
 }

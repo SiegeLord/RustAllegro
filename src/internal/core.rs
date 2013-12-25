@@ -4,7 +4,6 @@ use std::str;
 
 use ffi::*;
 
-use internal::bitmap::*;
 use internal::color::*;
 use internal::events::*;
 use internal::keycodes::*;
@@ -65,16 +64,6 @@ impl Core
 		{
 			al_rest(seconds as c_double);
 		}
-	}
-
-	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>
-	{
-		new_bitmap(w, h)
-	}
-
-	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		new_bitmap_with_options(w, h, opt)
 	}
 
 	pub fn create_timer(&self, speed_secs: f64) -> Option<Timer>
