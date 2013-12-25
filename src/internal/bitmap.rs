@@ -67,10 +67,6 @@ impl Drop for Bitmap
 		{
 			if !self.is_ref
 			{
-				if al_get_target_bitmap() == self.allegro_bitmap
-				{
-					al_set_target_bitmap(ptr::mut_null());
-				}
 				al_destroy_bitmap(self.allegro_bitmap);
 			}
 		}
@@ -164,10 +160,6 @@ impl<'m> Drop for SubBitmap<'m>
 	{
 		unsafe
 		{
-			if al_get_target_bitmap() == self.allegro_bitmap
-			{
-				al_set_target_bitmap(ptr::mut_null());
-			}
 			al_destroy_bitmap(self.allegro_bitmap);
 		}
 	}
