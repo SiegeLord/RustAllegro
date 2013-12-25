@@ -20,6 +20,22 @@ pub struct EventQueue
 
 impl EventQueue
 {
+	pub fn new() -> Option<EventQueue>
+	{
+		unsafe
+		{
+			let q = al_create_event_queue();
+			if ptr::is_null(q)
+			{
+				None
+			}
+			else
+			{
+				Some(EventQueue{ allegro_queue: q })
+			}
+		}
+	}
+
 	pub fn register_event_source(&self, src: &EventSource)
 	{
 		unsafe
@@ -315,18 +331,10 @@ pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
 	EventSource{ allegro_source: source }
 }
 
-pub fn new_queue() -> Option<EventQueue>
+impl ::internal::core::Core
 {
-	unsafe
+	pub fn create_event_queue(&self) -> Option<EventQueue>
 	{
-		let q = al_create_event_queue();
-		if ptr::is_null(q)
-		{
-			None
-		}
-		else
-		{
-			Some(EventQueue{ allegro_queue: q })
-		}
+		EventQueue::new()
 	}
 }

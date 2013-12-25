@@ -64,11 +64,6 @@ impl Core
 		}
 	}
 
-	pub fn create_event_queue(&self) -> Option<EventQueue>
-	{
-		new_queue()
-	}
-
 	pub fn install_keyboard(&mut self) -> bool
 	{
 		unsafe
