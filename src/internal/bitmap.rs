@@ -191,7 +191,6 @@ impl<'m> Drop for SubBitmap<'m>
 	}
 }
 
-
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 {
 	Bitmap{ allegro_bitmap: bmp, is_ref: true }
@@ -201,10 +200,6 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 {
 	unsafe
 	{
-		if al_get_target_bitmap() != bmp
-		{
-			al_set_target_bitmap(bmp)
-		}
 		let b = al_clone_bitmap(bmp);
 		if ptr::is_null(b)
 		{
