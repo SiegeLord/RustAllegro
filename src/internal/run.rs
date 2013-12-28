@@ -1,5 +1,6 @@
+extern mod native;
+
 use std::libc::*;
-use rt = std::rt;
 use cast = std::cast;
 
 use ffi::*;
@@ -18,7 +19,7 @@ pub fn run(argc: int, argv: **u8, main_func: extern fn()) -> int
 extern "C"
 fn allegro_main(argc: int, argv: **u8) -> c_int
 {
-	rt::start(argc, argv, rust_main) as c_int
+	native::start(argc, argv, rust_main) as c_int
 }
 
 fn rust_main()
