@@ -159,6 +159,14 @@
 <span id='121'>121</span>
 <span id='122'>122</span>
 <span id='123'>123</span>
+<span id='124'>124</span>
+<span id='125'>125</span>
+<span id='126'>126</span>
+<span id='127'>127</span>
+<span id='128'>128</span>
+<span id='129'>129</span>
+<span id='130'>130</span>
+<span id='131'>131</span>
 </pre><pre class='rust'>use std::libc::*;
 
 use ffi::*;
@@ -174,7 +182,7 @@ impl Color
 			let mut r = 0u8;
 			let mut g = 0u8;
 			let mut b = 0u8;
-			al_unmap_rgb(**self, &amp;mut r, &amp;mut g, &amp;mut b);
+			al_unmap_rgb(self.get_color(), &amp;mut r, &amp;mut g, &amp;mut b);
 			(r, g, b)
 		}
 	}
@@ -187,19 +195,27 @@ impl Color
 			let mut g = 0u8;
 			let mut b = 0u8;
 			let mut a = 0u8;
-			al_unmap_rgba(**self, &amp;mut r, &amp;mut g, &amp;mut b, &amp;mut a);
+			al_unmap_rgba(self.get_color(), &amp;mut r, &amp;mut g, &amp;mut b, &amp;mut a);
 			(r, g, b, a)
 		}
 	}
 
 	pub fn unmap_rgb_f(&amp;self) -&gt; (f32, f32, f32)
 	{
-		(self.r, self.g, self.b)
+		let c = self.get_color();
+		(c.r, c.g, c.b)
 	}
 
 	pub fn unmap_rgba_f(&amp;self) -&gt; (f32, f32, f32, f32)
 	{
-		(self.r, self.g, self.b, self.a)
+		let c = self.get_color();
+		(c.r, c.g, c.b, c.a)
+	}
+
+	pub fn get_color(&amp;self) -&gt; ALLEGRO_COLOR
+	{
+		let Color(c) = *self;
+		c
 	}
 }
 

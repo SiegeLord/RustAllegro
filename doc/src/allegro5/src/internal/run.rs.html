@@ -67,8 +67,10 @@
 <span id='29'>29</span>
 <span id='30'>30</span>
 <span id='31'>31</span>
-</pre><pre class='rust'>use std::libc::*;
-use rt = std::rt;
+<span id='32'>32</span>
+</pre><pre class='rust'>extern mod native;
+
+use std::libc::*;
 use cast = std::cast;
 
 use ffi::*;
@@ -87,7 +89,7 @@ pub fn run(argc: int, argv: **u8, main_func: extern fn()) -&gt; int
 extern &quot;C&quot;
 fn allegro_main(argc: int, argv: **u8) -&gt; c_int
 {
-	rt::start(argc, argv, rust_main) as c_int
+	native::start(argc, argv, rust_main) as c_int
 }
 
 fn rust_main()
