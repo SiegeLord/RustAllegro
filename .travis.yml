@@ -6,6 +6,9 @@ install:
   - sudo apt-get install rust-nightly
   - sudo apt-get install liballegro5-dev
 script:
-  - rustc src/lib.rs
-  - rustc example.rs -Lsrc
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j
+  - cd examples
   - ./example --init-only

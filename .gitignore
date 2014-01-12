@@ -1,3 +1,1 @@
-*.rlib
-*.so
-example
+build

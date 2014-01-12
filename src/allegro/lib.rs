@@ -20,6 +20,7 @@ pub use internal::timer::*;
 
 pub mod ffi;
 #[macro_escape]
+#[path = "../rust_util.rs"]
 pub mod rust_util;
 
 mod internal
