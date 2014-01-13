@@ -66,6 +66,8 @@ fn main()
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
 	sub_bmp.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
 
+	let bkg = core.load_bitmap("data/mysha.pcx").unwrap();
+
 	let mut theta = 0.0f32;
 	let mut redraw = true;
 	timer.start();
@@ -74,6 +76,7 @@ fn main()
 		if redraw && q.is_empty()
 		{
 			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
+			disp.draw_bitmap(&bkg, 0.0, 0.0, Zero::zero());
 			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Zero::zero());
 			disp.flip();
 			redraw = false;

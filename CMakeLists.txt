@@ -9,6 +9,7 @@ include(Rust)
 set(ALLEGRO_ROOT src/allegro/lib.rs)
 set(ALLEGRO_IMAGE_ROOT src/allegro_image/lib.rs)
 set(EXAMPLE_ROOT examples/example.rs)
+file(GLOB EXAMPLE_DATA_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/examples/data/*")
 
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
@@ -39,9 +40,22 @@ rust_crate(${EXAMPLE_ROOT}
            DESTINATION examples
            DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};${EXAMPLE_DEPS}")
 
+# Copy the data directory
+set(EXAMPLE_DATA_FILES_DEST "")
+foreach(rel_file IN ITEMS ${EXAMPLE_DATA_FILES})
+   set(src "${CMAKE_SOURCE_DIR}/${rel_file}")
+   set(dest "${CMAKE_BINARY_DIR}/${rel_file}")
+   add_custom_command(OUTPUT "${dest}"
+                      DEPENDS "${src}"
+                      COMMAND "${CMAKE_COMMAND}" -E copy "${src}" "${dest}")
+
+   list(APPEND EXAMPLE_DATA_FILES_DEST "${dest}")
+endforeach()
+
+
 add_custom_target(examples_target
                   ALL
-                  DEPENDS ${EXAMPLE_FULL_TARGET})
+                  DEPENDS ${EXAMPLE_FULL_TARGET} ${EXAMPLE_DATA_FILES_DEST})
 
 
 # Build documentation

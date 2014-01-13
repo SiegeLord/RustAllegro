@@ -37,30 +37,55 @@ pub struct Bitmap
 
 impl Bitmap
 {
-	pub fn new(w: i32, h: i32) -> Option<Bitmap>
+	fn new(w: i32, h: i32) -> Option<Bitmap>
 	{
-		unsafe
-		{
-			let b = al_create_bitmap(w as c_int, h as c_int);
-			if ptr::is_null(b)
-			{
-				None
-			}
-			else
-			{
-				Some(Bitmap{allegro_bitmap: b, is_ref: false})
-			}
-		}
+		Bitmap::new_with_options(w, h, &BitmapOptions::new())
 	}
 
-	pub fn new_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
+	fn new_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
+		let b;
 		unsafe
 		{
 			al_set_new_bitmap_flags(opt.flags.get() as c_int);
 			al_set_new_bitmap_format(opt.format as c_int);
+			b = al_create_bitmap(w as c_int, h as c_int);
 		}
-		Bitmap::new(w, h)
+		if b.is_null()
+		{
+			None
+		}
+		else
+		{
+			Some(Bitmap{allegro_bitmap: b, is_ref: false})
+		}
+	}
+
+	fn load(filename: &str) -> Option<Bitmap>
+	{
+		Bitmap::load_with_options(filename, &BitmapOptions::new())
+	}
+
+	fn load_with_options(filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		let mut b = ptr::mut_null();
+		unsafe
+		{
+			al_set_new_bitmap_flags(opt.flags.get() as c_int);
+			al_set_new_bitmap_format(opt.format as c_int);
+			filename.with_c_str(|s|
+			{
+				b = al_load_bitmap(s);
+			});
+		}
+		if b.is_null()
+		{
+			None
+		}
+		else
+		{
+			Some(Bitmap{allegro_bitmap: b, is_ref: false})
+		}
 	}
 
 	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
@@ -222,5 +247,15 @@ impl ::internal::core::Core
 	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
 		Bitmap::new_with_options(w, h, opt)
+	}
+
+	pub fn load_bitmap(&self, filename: &str) -> Option<Bitmap>
+	{
+		Bitmap::load(filename)
+	}
+
+	pub fn create_bitmap_with_options(&self, filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
+	{
+		Bitmap::load_with_options(filename, opt)
 	}
 }
