@@ -2,6 +2,7 @@
 #[feature(struct_variant)];
 
 extern mod allegro5;
+extern mod allegro_image;
 extern mod extra;
 
 use extra::getopts::groups::*;
@@ -9,6 +10,7 @@ use std::os;
 use std::num::Zero;
 use std::c_str::*;
 use allegro5::*;
+use allegro_image::*;
 
 #[start]
 fn start(argc: int, argv: **u8) -> int
@@ -33,6 +35,7 @@ fn main()
 	let init_only = matches.opt_present("i");
 
 	let mut core = Core::init().expect("Your Allegro version does not match this Rust binding");
+	ImageAddon::init(&core).expect("Failed to initialize the image addon");
 
 	if init_only
 	{
