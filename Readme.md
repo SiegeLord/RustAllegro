@@ -1,4 +1,4 @@
-##RustAllegro
+#RustAllegro
 
 [![Build Status](https://travis-ci.org/SiegeLord/RustAllegro.png)](https://travis-ci.org/SiegeLord/RustAllegro)
 
@@ -8,7 +8,7 @@ Currently it is targeting Allegro version 5.0.10.1.
 
 For (a skeleton) documentation, See http://siegelord.github.io/RustAllegro/.
 
-# Building
+## Building
 
 You will need CMake 2.8+ to build this library.
 
