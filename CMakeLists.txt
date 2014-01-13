@@ -73,5 +73,5 @@ add_custom_target(doc
                   DEPENDS ${ALLEGRO_DOC_FULL_TARGET} ${ALLEGRO_IMAGE_DOC_FULL_TARGET})
 
 # Install library
-install(FILES ${ALLEGRO_ARTIFACTS}
+install(FILES ${ALLEGRO_ARTIFACTS} ${ALLEGRO_IMAGE_ARTIFACTS}
         DESTINATION lib)
