@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>bitmap_draw.rs.html -- source</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../../../../../../allegro5/main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content source"><pre class='line-numbers'><span id='1'> 1</span>
+<span id='2'> 2</span>
+<span id='3'> 3</span>
+<span id='4'> 4</span>
+<span id='5'> 5</span>
+<span id='6'> 6</span>
+<span id='7'> 7</span>
+<span id='8'> 8</span>
+<span id='9'> 9</span>
+<span id='10'>10</span>
+<span id='11'>11</span>
+<span id='12'>12</span>
+<span id='13'>13</span>
+<span id='14'>14</span>
+<span id='15'>15</span>
+<span id='16'>16</span>
+<span id='17'>17</span>
+<span id='18'>18</span>
+<span id='19'>19</span>
+<span id='20'>20</span>
+<span id='21'>21</span>
+<span id='22'>22</span>
+</pre><pre class='rust'>use std::libc::*;
+
+use ffi::bitmap::*;
+use ffi::color::*;
+
+pub static ALLEGRO_FLIP_HORIZONTAL: u32 = 1;
+pub static ALLEGRO_FLIP_VERTICAL: u32 = 2;
+
+extern &quot;C&quot;
+{
+	pub fn al_draw_bitmap(bitmap: *mut ALLEGRO_BITMAP, dx: c_float, dy: c_float, flags: c_int);
+	pub fn al_draw_bitmap_region(bitmap: *mut ALLEGRO_BITMAP, sx: c_float, sy: c_float, sw: c_float, sh: c_float, dx: c_float, dy: c_float, flags: c_int);
+	pub fn al_draw_scaled_bitmap(bitmap: *mut ALLEGRO_BITMAP, sx: c_float, sy: c_float, sw: c_float, sh: c_float, dx: c_float, dy: c_float, dw: c_float, dh: c_float, flags: c_int);
+	pub fn al_draw_rotated_bitmap(bitmap: *mut ALLEGRO_BITMAP, cx: c_float, cy: c_float, dx: c_float, dy: c_float, angle: c_float, flags: c_int);
+	pub fn al_draw_scaled_rotated_bitmap(bitmap: *mut ALLEGRO_BITMAP, cx: c_float, cy: c_float, dx: c_float, dy: c_float, xscale: c_float, yscale: c_float, angle: c_float, flags: c_int);
+	pub fn al_draw_tinted_bitmap(bitmap: *mut ALLEGRO_BITMAP, tint: ALLEGRO_COLOR, dx: c_float, dy: c_float, flags: c_int);
+	pub fn al_draw_tinted_bitmap_region(bitmap: *mut ALLEGRO_BITMAP, tint: ALLEGRO_COLOR, sx: c_float, sy: c_float, sw: c_float, sh: c_float, dx: c_float, dy: c_float, flags: c_int);
+	pub fn al_draw_tinted_scaled_bitmap(bitmap: *mut ALLEGRO_BITMAP, tint: ALLEGRO_COLOR, sx: c_float, sy: c_float, sw: c_float, sh: c_float, dx: c_float, dy: c_float, dw: c_float, dh: c_float, flags: c_int);
+	pub fn al_draw_tinted_rotated_bitmap(bitmap: *mut ALLEGRO_BITMAP, tint: ALLEGRO_COLOR, cx: c_float, cy: c_float, dx: c_float, dy: c_float, angle: c_float, flags: c_int);
+	pub fn al_draw_tinted_scaled_rotated_bitmap(bitmap: *mut ALLEGRO_BITMAP, tint: ALLEGRO_COLOR, cx: c_float, cy: c_float, dx: c_float, dy: c_float, xscale: c_float, yscale: c_float, angle: c_float, flags: c_int);
+	pub fn al_draw_tinted_scaled_rotated_bitmap_region(bitmap: *mut ALLEGRO_BITMAP, sx: c_float, sy: c_float, sw: c_float, sh: c_float, tint: ALLEGRO_COLOR, cx: c_float, cy: c_float, dx: c_float, dy: c_float, xscale: c_float, yscale: c_float, angle: c_float, flags: c_int);
+}
+</pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <script>
+        var rootPath = "../../../../../../../";
+    </script>
+    <script src="../../../../../../../allegro5/jquery.js"></script>
+    <script src="../../../../../../../allegro5/search-index.js"></script>
+    <script src="../../../../../../../allegro5/main.js"></script>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+</body>
+</html>

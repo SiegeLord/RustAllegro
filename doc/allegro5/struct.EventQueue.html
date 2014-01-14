@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>allegro5::EventQueue - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../allegro5/main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='index.html'>allegro5</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='ffi/index.html'>ffi</a><br/><a class='mod ' href='key/index.html'>key</a><br/><a class='mod ' href='rust_util/index.html'>rust_util</a><br/></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Bitmap.html'>Bitmap</a><br/><a class='struct ' href='struct.BitmapDrawingFlags.html'>BitmapDrawingFlags</a><br/><a class='struct ' href='struct.BitmapFlags.html'>BitmapFlags</a><br/><a class='struct ' href='struct.BitmapOptions.html'>BitmapOptions</a><br/><a class='struct ' href='struct.Color.html'>Color</a><br/><a class='struct ' href='struct.Core.html'>Core</a><br/><a class='struct ' href='struct.Display.html'>Display</a><br/><a class='struct ' href='struct.DisplayFlags.html'>DisplayFlags</a><br/><a class='struct ' href='struct.DisplayOptions.html'>DisplayOptions</a><br/><a class='struct current' href='struct.EventQueue.html'>EventQueue</a><br/><a class='struct ' href='struct.EventSource.html'>EventSource</a><br/><a class='struct ' href='struct.KeyModifier.html'>KeyModifier</a><br/><a class='struct ' href='struct.SubBitmap.html'>SubBitmap</a><br/><a class='struct ' href='struct.Timer.html'>Timer</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.DisplayOption.html'>DisplayOption</a><br/><a class='enum ' href='enum.DisplayOptionImportance.html'>DisplayOptionImportance</a><br/><a class='enum ' href='enum.DisplayOrientation.html'>DisplayOrientation</a><br/><a class='enum ' href='enum.Event.html'>Event</a><br/><a class='enum ' href='enum.PixelFormat.html'>PixelFormat</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.BitmapLike.html'>BitmapLike</a><br/><a class='trait ' href='trait.CoreDrawing.html'>CoreDrawing</a><br/><a class='trait ' href='trait.DrawTarget.html'>DrawTarget</a><br/></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.run.html'>run</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct"><a class='source'
+                       href='../src/allegro5/tmp/RustAllegro/src/allegro/internal/events.rs.html#16-19'>[src]</a><h1 class='fqn'>Struct <a href='index.html'>allegro5</a>::<a class='struct' href=''>EventQueue</a></h1><pre class='struct'>pub struct EventQueue {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro5/internal/events/external/struct.EventQueue.html' title='allegro5::internal::events::external::EventQueue'>EventQueue</a></code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <span class='fnname'>new</span>() -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../allegro5/internal/events/external/struct.EventQueue.html' title='allegro5::internal::events::external::EventQueue'>EventQueue</a>&gt;</code></h4>
+<h4 id='method.register_event_source' class='method'><code>fn <span class='fnname'>register_event_source</span>(&amp;self, src: &amp;<a class='struct' href='../allegro5/internal/events/external/struct.EventSource.html' title='allegro5::internal::events::external::EventSource'>EventSource</a>)</code></h4>
+<h4 id='method.is_empty' class='method'><code>fn <span class='fnname'>is_empty</span>(&amp;self) -&gt; bool</code></h4>
+<h4 id='method.get_next_event' class='method'><code>fn <span class='fnname'>get_next_event</span>(&amp;self) -&gt; <a class='enum' href='../allegro5/internal/events/external/enum.Event.html' title='allegro5::internal::events::external::Event'>Event</a></code></h4>
+<h4 id='method.peek_next_event' class='method'><code>fn <span class='fnname'>peek_next_event</span>(&amp;self) -&gt; <a class='enum' href='../allegro5/internal/events/external/enum.Event.html' title='allegro5::internal::events::external::Event'>Event</a></code></h4>
+<h4 id='method.drop_next_event' class='method'><code>fn <span class='fnname'>drop_next_event</span>(&amp;self) -&gt; bool</code></h4>
+<h4 id='method.flush' class='method'><code>fn <span class='fnname'>flush</span>(&amp;self)</code></h4>
+<h4 id='method.wait_for_event' class='method'><code>fn <span class='fnname'>wait_for_event</span>(&amp;self) -&gt; <a class='enum' href='../allegro5/internal/events/external/enum.Event.html' title='allegro5::internal::events::external::Event'>Event</a></code></h4>
+<h4 id='method.wait_for_event_timed' class='method'><code>fn <span class='fnname'>wait_for_event_timed</span>(&amp;self, secs: f64) -&gt; <a class='enum' href='../allegro5/internal/events/external/enum.Event.html' title='allegro5::internal::events::external::Event'>Event</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/ops/trait.Drop.html' title='std::ops::Drop'>Drop</a> for <a class='struct' href='../allegro5/internal/events/external/struct.EventQueue.html' title='allegro5::internal::events::external::EventQueue'>EventQueue</a></code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <span class='fnname'>drop</span>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <script>
+        var rootPath = "../";
+    </script>
+    <script src="../allegro5/jquery.js"></script>
+    <script src="../allegro5/search-index.js"></script>
+    <script src="../allegro5/main.js"></script>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+</body>
+</html>
