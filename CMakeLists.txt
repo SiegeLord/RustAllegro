@@ -10,6 +10,8 @@ set(ALLEGRO_ROOT src/allegro/lib.rs)
 set(ALLEGRO_IMAGE_ROOT src/allegro_image/lib.rs)
 set(EXAMPLE_ROOT examples/example.rs)
 file(GLOB EXAMPLE_DATA_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/examples/data/*")
+set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
+set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/allegro5/main.css;${CMAKE_BINARY_DIR}/doc/allegro_image/main.css")
 
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
@@ -32,7 +34,7 @@ rust_crate(${ALLEGRO_IMAGE_ROOT}
 
 add_custom_target(library_target
                   ALL
-                  DEPENDS ${ALLEGRO_FULL_TARGET} ${ALLEGRO_IMAGE_FULL_TARGET};)
+                  DEPENDS ${ALLEGRO_FULL_TARGET} ${ALLEGRO_IMAGE_FULL_TARGET})
 
 # Build examples
 rust_crate(${EXAMPLE_ROOT}
@@ -67,10 +69,26 @@ rust_doc(${ALLEGRO_ROOT}
 rust_doc(${ALLEGRO_IMAGE_ROOT}
          TARGET_NAME ALLEGRO_IMAGE_DOC
          DESTINATION doc
-         DEPENDS "${ALLEGRO_IMAGE_DEPS}")
+         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_DEPS}")
+
+# Copy the custom CSS
+set(counter 0)
+foreach(dest IN ITEMS ${CUSTOM_CSS_DEST})
+   file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${dest}")
+   add_custom_target("DELETE_STOCK_CSS_${counter}"
+                     DEPENDS ${ALLEGRO_DOC_FULL_TARGET} ${ALLEGRO_IMAGE_DOC_FULL_TARGET}
+                     COMMAND "${CMAKE_COMMAND}" -E remove "${dest}"
+                     COMMENT "Deleting stock ${rel_dest}")
+
+   add_custom_command(OUTPUT "${dest}"
+                      DEPENDS "DELETE_STOCK_CSS_${counter}"
+                      DEPENDS "${CUSTOM_CSS_SRC}"
+                      COMMAND "${CMAKE_COMMAND}" -E copy "${CUSTOM_CSS_SRC}" "${dest}")
+   math(EXPR counter "${counter} + 1")
+endforeach()
 
 add_custom_target(doc
-                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET} ${ALLEGRO_IMAGE_DOC_FULL_TARGET})
+                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET} ${ALLEGRO_IMAGE_DOC_FULL_TARGET} ${CUSTOM_CSS_DEST})
 
 # Install library
 install(FILES ${ALLEGRO_ARTIFACTS} ${ALLEGRO_IMAGE_ARTIFACTS}
