@@ -176,7 +176,7 @@ impl ALLEGRO_EVENT
 	}
 }
 
-pub struct ALLEGRO_EVENT_QUEUE;
+opaque!(ALLEGRO_EVENT_QUEUE)
 
 extern "C"
 {

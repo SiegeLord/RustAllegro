@@ -3,7 +3,7 @@ use rust_util::c_bool;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 
-pub struct ALLEGRO_JOYSTICK;
+opaque!(ALLEGRO_JOYSTICK)
 
 pub struct ALLEGRO_JOYSTICK_STATE
 {

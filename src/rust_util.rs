@@ -1,5 +1,19 @@
 pub type c_bool = u8;
 
+macro_rules! opaque
+(
+	($f: ident) =>
+	{
+		/* Mimicking c_void */
+		#[repr(u8)]
+		pub enum $f
+		{
+			priv var1,
+			priv var2
+		}
+	}
+)
+
 macro_rules! flag_type
 (
 	($f: ident { $($n: ident = $v: expr),*}) =>

@@ -3,7 +3,7 @@ use std::libc::*;
 use ffi::path::*;
 use rust_util::c_bool;
 
-pub struct ALLEGRO_SYSTEM;
+opaque!(ALLEGRO_SYSTEM)
 
 extern "C"
 {

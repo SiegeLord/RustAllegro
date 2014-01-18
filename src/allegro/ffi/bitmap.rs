@@ -3,7 +3,7 @@ use std::libc::*;
 use ffi::color::ALLEGRO_COLOR;
 use rust_util::c_bool;
 
-pub struct ALLEGRO_BITMAP;
+opaque!(ALLEGRO_BITMAP)
 
 pub static ALLEGRO_MEMORY_BITMAP: u32 = 1;
 pub static ALLEGRO_KEEP_BITMAP_FORMAT: u32 = 2;

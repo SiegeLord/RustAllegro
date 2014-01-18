@@ -1,10 +1,10 @@
 use std::libc::*;
 
-use ffi::events::*;
-use ffi::display::*;
+use ffi::events::ALLEGRO_EVENT_SOURCE;
+use ffi::display::ALLEGRO_DISPLAY;
 use rust_util::c_bool;
 
-pub struct ALLEGRO_KEYBOARD;
+opaque!(ALLEGRO_KEYBOARD)
 
 pub struct ALLEGRO_KEYBOARD_STATE
 {

@@ -3,7 +3,7 @@ use ffi::display::ALLEGRO_DISPLAY;
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 use rust_util::c_bool;
 
-pub struct ALLEGRO_MOUSE;
+opaque!(ALLEGRO_MOUSE)
 
 pub static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
