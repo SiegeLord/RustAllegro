@@ -1,6 +1,6 @@
 use std::libc::*;
 use std::ptr;
-use std::num::Zero;
+use std::default::Default;
 
 use internal::bitmap_like::*;
 use internal::core_drawing::*;
@@ -25,7 +25,7 @@ impl BitmapOptions
 {
 	pub fn new() -> BitmapOptions
 	{
-		BitmapOptions{ format: PixelFormatAny, flags: Zero::zero() }
+		BitmapOptions{ format: PixelFormatAny, flags: Default::default() }
 	}
 }
 

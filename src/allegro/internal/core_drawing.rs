@@ -1,5 +1,4 @@
 use std::libc::*;
-use std::num::Zero;
 
 use internal::bitmap_like::*;
 use internal::color::*;

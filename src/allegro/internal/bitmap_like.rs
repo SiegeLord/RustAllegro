@@ -1,6 +1,5 @@
 use std::cast;
 use std::libc::*;
-use std::num::Zero;
 
 use internal::color::*;
 

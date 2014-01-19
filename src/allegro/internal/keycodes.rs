@@ -1,5 +1,3 @@
-use std::num::Zero;
-
 use ffi::*;
 
 pub mod key

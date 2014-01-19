@@ -7,7 +7,7 @@ extern mod extra;
 
 use extra::getopts::groups::*;
 use std::os;
-use std::num::Zero;
+use std::default::Default;
 use std::c_str::*;
 use allegro5::*;
 use allegro_image::*;
@@ -76,8 +76,8 @@ fn main()
 		if redraw && q.is_empty()
 		{
 			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
-			disp.draw_bitmap(&bkg, 0.0, 0.0, Zero::zero());
-			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Zero::zero());
+			disp.draw_bitmap(&bkg, 0.0, 0.0, Default::default());
+			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Default::default());
 			disp.flip();
 			redraw = false;
 		}

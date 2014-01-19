@@ -32,18 +32,12 @@ macro_rules! flag_type
 			}
 		}
 
-		impl Zero for $f
+		impl Default for $f
 		{
 			#[inline]
-			fn zero() -> $f
+			fn default() -> $f
 			{
 				$f{bits: 0}
-			}
-
-			#[inline]
-			fn is_zero(&self) -> bool
-			{
-				self.bits == 0
 			}
 		}
 

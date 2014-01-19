@@ -2,7 +2,7 @@ use std::cast;
 use std::c_str::CString;
 use std::i32;
 use std::libc::*;
-use std::num::Zero;
+use std::default::Default;
 use std::ptr;
 
 use internal::bitmap::*;
@@ -97,7 +97,7 @@ impl<'m> DisplayOptions<'m>
 {
 	pub fn new() -> DisplayOptions
 	{
-		DisplayOptions{ flags: Zero::zero(), refresh_rate: None, adapter: None, window_position: None, options: None }
+		DisplayOptions{ flags: Default::default(), refresh_rate: None, adapter: None, window_position: None, options: None }
 	}
 }
 
