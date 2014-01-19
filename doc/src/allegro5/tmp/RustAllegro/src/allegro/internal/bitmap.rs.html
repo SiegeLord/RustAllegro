@@ -299,7 +299,7 @@
 <span id='261'>261</span>
 </pre><pre class='rust'>use std::libc::*;
 use std::ptr;
-use std::num::Zero;
+use std::default::Default;
 
 use internal::bitmap_like::*;
 use internal::core_drawing::*;
@@ -324,7 +324,7 @@ impl BitmapOptions
 {
 	pub fn new() -&gt; BitmapOptions
 	{
-		BitmapOptions{ format: PixelFormatAny, flags: Zero::zero() }
+		BitmapOptions{ format: PixelFormatAny, flags: Default::default() }
 	}
 }
 

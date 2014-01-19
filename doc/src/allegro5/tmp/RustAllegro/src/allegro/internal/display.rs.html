@@ -453,7 +453,7 @@
 use std::c_str::CString;
 use std::i32;
 use std::libc::*;
-use std::num::Zero;
+use std::default::Default;
 use std::ptr;
 
 use internal::bitmap::*;
@@ -548,7 +548,7 @@ impl&lt;&#39;m&gt; DisplayOptions&lt;&#39;m&gt;
 {
 	pub fn new() -&gt; DisplayOptions
 	{
-		DisplayOptions{ flags: Zero::zero(), refresh_rate: None, adapter: None, window_position: None, options: None }
+		DisplayOptions{ flags: Default::default(), refresh_rate: None, adapter: None, window_position: None, options: None }
 	}
 }
 

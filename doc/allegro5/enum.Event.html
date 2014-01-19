@@ -47,19 +47,19 @@
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         timestamp: f64,
         keycode: <a class='enum' href='../allegro5/internal/keycodes/key/enum.KeyCode.html' title='allegro5::internal::keycodes::key::KeyCode'>KeyCode</a>,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     KeyUp {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         timestamp: f64,
         keycode: <a class='enum' href='../allegro5/internal/keycodes/key/enum.KeyCode.html' title='allegro5::internal::keycodes::key::KeyCode'>KeyCode</a>,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     KeyChar {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         timestamp: f64,
         keycode: <a class='enum' href='../allegro5/internal/keycodes/key/enum.KeyCode.html' title='allegro5::internal::keycodes::key::KeyCode'>KeyCode</a>,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
         unichar: char,
         repeat: bool,
         modifiers: <a class='struct' href='../allegro5/internal/keycodes/struct.KeyModifier.html' title='allegro5::internal::keycodes::KeyModifier'>KeyModifier</a>,
@@ -75,7 +75,7 @@
         dy: i32,
         dz: i32,
         dw: i32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     MouseButtonDown {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
@@ -85,7 +85,7 @@
         z: i32,
         w: i32,
         button: u32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     MouseButtonUp {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
@@ -95,7 +95,7 @@
         z: i32,
         w: i32,
         button: u32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     MouseWarped {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
@@ -108,7 +108,7 @@
         dy: i32,
         dz: i32,
         dw: i32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     MouseEnterDisplay {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
@@ -117,7 +117,7 @@
         y: i32,
         z: i32,
         w: i32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     MouseLeaveDisplay {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
@@ -126,7 +126,7 @@
         y: i32,
         z: i32,
         w: i32,
-        display: *mut <a class='struct' href='../allegro5/ffi/display/struct.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+        display: *mut <a class='enum' href='../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
     },
     TimerTick {
         source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,

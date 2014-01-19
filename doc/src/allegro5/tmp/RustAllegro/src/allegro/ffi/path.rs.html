@@ -97,7 +97,7 @@ pub static ALLEGRO_NATIVE_PATH_SEP: char = &#39;/&#39;;
 #[cfg(not(windows))]
 pub static ALLEGRO_NATIVE_DRIVE_SEP: char = &#39;\x00&#39;;
 
-pub struct ALLEGRO_PATH;
+opaque!(ALLEGRO_PATH)
 
 extern &quot;C&quot;
 {
