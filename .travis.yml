@@ -1,3 +1,6 @@
+env:
+  global:
+    - secure: RJEP6Kw+nYFuZaVgYmKZbcYQI719F3CYGMW2TfD596SbLDHXkebIaMBDqhTYCSO2e7WB8/sJMvzrHUjtvvVHU/GFbed2I9wSWJMxZe0suldGsgNa+f2sDk+yWE3iaQt4hJyYjYEeL3zmepfrdZry/lF1vmc8C3UPwMTshs4I6yQ=
 before_install:
   - yes | sudo add-apt-repository ppa:hansjorg/rust
   - yes | sudo add-apt-repository ppa:allegro/5.0
@@ -10,5 +13,8 @@ script:
   - cd build
   - cmake ..
   - make -j
+  - make doc
   - cd examples
   - ./example --init-only
+after_script:
+  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
