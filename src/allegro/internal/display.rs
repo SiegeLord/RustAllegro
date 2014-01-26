@@ -159,7 +159,7 @@ impl Display
 			match opt.window_position
 			{
 				Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
-				None =>	al_set_new_window_position(i32::max_value, i32::max_value)
+				None =>	al_set_new_window_position(i32::MAX, i32::MAX)
 			}
 
 			al_reset_new_display_options();
