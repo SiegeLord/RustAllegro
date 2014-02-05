@@ -10,7 +10,8 @@ use internal::keycodes::*;
 pub struct Core
 {
 	priv keyboard_event_source: Option<EventSource>,
-	priv mouse_event_source: Option<EventSource>
+	priv mouse_event_source: Option<EventSource>,
+	priv joystick_event_source: Option<EventSource>,
 }
 
 impl Core
@@ -22,7 +23,13 @@ impl Core
 			/* FIXME: Make this thread-safe */
 			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 			{
-				Some(Core{ keyboard_event_source: None, mouse_event_source: None })
+				Some(
+				Core
+				{
+					keyboard_event_source: None,
+					mouse_event_source: None,
+					joystick_event_source: None,
+				})
 			}
 			else
 			{
@@ -157,6 +164,69 @@ impl Core
 		{
 			Some(ref s) => Some(s),
 			None => None
+		}
+	}
+
+	pub fn install_joystick(&mut self) -> bool
+	{
+		unsafe
+		{
+			if al_install_joystick() != 0
+			{
+				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
+				true
+			}
+			else
+			{
+				false
+			}
+		}
+	}
+
+	pub fn is_joystick_installed(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_joystick_installed() != 0
+		}
+	}
+
+	pub fn get_joystick_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	{
+		match self.joystick_event_source
+		{
+			Some(ref s) => Some(s),
+			None => None
+		}
+	}
+
+	pub fn reconfigure_joysticks(&self) -> bool
+	{
+		if self.is_joystick_installed()
+		{
+			unsafe
+			{
+				al_reconfigure_joysticks() != 0
+			}
+		}
+		else
+		{
+			false
+		}
+	}
+
+	pub fn get_num_joysticks(&self) -> i32
+	{
+		if self.is_joystick_installed()
+		{
+			unsafe
+			{
+				al_get_num_joysticks() as i32
+			}
+		}
+		else
+		{
+			0
 		}
 	}
 }

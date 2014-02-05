@@ -165,6 +165,34 @@ pub enum Event
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64
 	},
+	JoystickAxes
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		id: *mut ALLEGRO_JOYSTICK,
+		stick: i32,
+		axis: i32,
+		pos: f32
+	},
+	JoystickButtonDown
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		id: *mut ALLEGRO_JOYSTICK,
+		button: i32
+	},
+	JoystickButtonUp
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		id: *mut ALLEGRO_JOYSTICK,
+		button: i32
+	},
+	JoystickConfiguration
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64
+	},
 	KeyDown
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
@@ -280,6 +308,25 @@ impl Event
 				ALLEGRO_EVENT_DISPLAY_CLOSE =>
 				{
 					DisplayClose{source: src, timestamp: ts}
+				},
+				ALLEGRO_EVENT_JOYSTICK_AXIS =>
+				{
+					let a = *e.joystick();
+					JoystickAxes{source: src, timestamp: ts, id: a.id, stick: a.stick as i32, axis: a.axis as i32, pos: a.pos as f32}
+				},
+				ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN =>
+				{
+					let a = *e.joystick();
+					JoystickButtonDown{source: src, timestamp: ts, id: a.id, button: a.button as i32}
+				},
+				ALLEGRO_EVENT_JOYSTICK_BUTTON_UP =>
+				{
+					let a = *e.joystick();
+					JoystickButtonUp{source: src, timestamp: ts, id: a.id, button: a.button as i32}
+				},
+				ALLEGRO_EVENT_JOYSTICK_CONFIGURATION =>
+				{
+					JoystickConfiguration{source: src, timestamp: ts}
 				},
 				ALLEGRO_EVENT_KEY_DOWN =>
 				{

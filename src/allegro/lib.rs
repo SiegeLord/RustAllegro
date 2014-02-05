@@ -14,6 +14,7 @@ pub use internal::core::*;
 pub use internal::core_drawing::*;
 pub use internal::display::*;
 pub use internal::events::external::*;
+pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
 pub use internal::timer::*;
@@ -32,6 +33,7 @@ mod internal
 	pub mod core_drawing;
 	pub mod display;
 	pub mod events;
+	pub mod joystick;
 	pub mod keycodes;
 	pub mod run;
 	pub mod timer;
