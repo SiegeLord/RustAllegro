@@ -121,6 +121,18 @@ impl EventQueue
 	}
 }
 
+impl Iterator<Event> for EventQueue
+{
+	fn next(&mut self) -> Option<Event>
+	{
+		match self.get_next_event()
+		{
+			NoEvent => None,
+			e => Some(e)
+		}
+	}
+}
+
 impl Drop for EventQueue
 {
 	fn drop(&mut self)
