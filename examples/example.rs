@@ -3,9 +3,9 @@
 
 extern mod allegro5;
 extern mod allegro_image;
-extern mod extra;
+extern mod getopts;
 
-use extra::getopts::groups::*;
+use getopts::*;
 use std::os;
 use std::default::Default;
 use std::c_str::*;
