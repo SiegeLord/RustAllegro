@@ -26,13 +26,13 @@ rust_crate(${ALLEGRO_ROOT}
            TARGET_NAME ALLEGRO
            DESTINATION lib
            DEPENDS "${ALLEGRO_DEPS}"
-           OTHER_RUSTC_FLAGS --rlib)
+           OTHER_RUSTC_FLAGS --crate-type rlib)
 
 rust_crate(${ALLEGRO_IMAGE_ROOT}
            TARGET_NAME ALLEGRO_IMAGE
            DESTINATION lib
            DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_DEPS}"
-           OTHER_RUSTC_FLAGS --rlib)
+           OTHER_RUSTC_FLAGS --crate-type rlib)
 
 add_custom_target(library_target
                   ALL
