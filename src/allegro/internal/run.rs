@@ -1,4 +1,4 @@
-extern mod native;
+extern crate native;
 
 use std::libc::*;
 use cast = std::cast;

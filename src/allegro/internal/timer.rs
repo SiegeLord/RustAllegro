@@ -2,7 +2,6 @@ use std::libc::*;
 use std::cast;
 use ffi::*;
 use internal::events::*;
-use std::ptr;
 
 pub struct Timer
 {
@@ -17,7 +16,7 @@ impl Timer
 		unsafe
 		{
 			let t = al_create_timer(speed_secs as c_double);
-			if !ptr::is_null(t)
+			if !t.is_null()
 			{
 				Some(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
 			}

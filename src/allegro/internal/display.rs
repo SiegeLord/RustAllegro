@@ -3,7 +3,6 @@ use std::c_str::CString;
 use std::i32;
 use std::libc::*;
 use std::default::Default;
-use std::ptr;
 
 use internal::bitmap::*;
 use internal::bitmap_like::*;
@@ -126,7 +125,7 @@ impl Display
 		unsafe
 		{
 			let d = al_create_display(w as c_int, h as c_int);
-			if ptr::is_null(d)
+			if d.is_null()
 			{
 				None
 			}

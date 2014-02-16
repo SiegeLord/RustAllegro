@@ -1,6 +1,5 @@
 use std::cast;
 use std::libc::*;
-use std::ptr;
 
 use internal::keycodes::*;
 use ffi::*;
@@ -25,7 +24,7 @@ impl EventQueue
 		unsafe
 		{
 			let q = al_create_event_queue();
-			if ptr::is_null(q)
+			if q.is_null()
 			{
 				None
 			}

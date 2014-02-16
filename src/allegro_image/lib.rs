@@ -7,7 +7,7 @@
 #[feature(macro_rules)];
 #[feature(struct_variant)];
 
-extern mod allegro = "allegro5#5.0.10.1";
+extern crate allegro = "allegro5#5.0.10.1";
 
 use allegro::Core;
 use ffi::allegro_image::*;

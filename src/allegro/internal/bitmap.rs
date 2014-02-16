@@ -93,7 +93,7 @@ impl Bitmap
 		unsafe
 		{
 			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
-			if ptr::is_null(b)
+			if b.is_null()
 			{
 				None
 			}
@@ -163,7 +163,7 @@ impl<'m> SubBitmap<'m>
 		unsafe
 		{
 			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
-			if ptr::is_null(b)
+			if b.is_null()
 			{
 				None
 			}
@@ -226,7 +226,7 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 	unsafe
 	{
 		let b = al_clone_bitmap(bmp);
-		if ptr::is_null(b)
+		if b.is_null()
 		{
 			None
 		}

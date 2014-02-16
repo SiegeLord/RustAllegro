@@ -1,9 +1,9 @@
 #[feature(globs)];
 #[feature(struct_variant)];
 
-extern mod allegro5;
-extern mod allegro_image;
-extern mod getopts;
+extern crate allegro5;
+extern crate allegro_image;
+extern crate getopts;
 
 use getopts::*;
 use std::os;
