@@ -16,24 +16,34 @@ pub struct Core
 
 impl Core
 {
-	pub fn init() -> Option<Core>
+	pub fn init() -> Result<Core, ~str>
 	{
 		unsafe
 		{
 			/* FIXME: Make this thread-safe */
 			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 			{
-				Some(
-				Core
-				{
-					keyboard_event_source: None,
-					mouse_event_source: None,
-					joystick_event_source: None,
-				})
+				Ok
+				(
+					Core
+					{
+						keyboard_event_source: None,
+						mouse_event_source: None,
+						joystick_event_source: None,
+					}
+				)
 			}
 			else
 			{
-				None
+				let version = al_get_allegro_version();
+				let major = version >> 24;
+				let minor = (version >> 16) & 255;
+				let revision = (version >> 8) & 255;
+				let release = version & 255;
+
+				Err(format!("The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
+				    major, minor, revision, release,
+				    ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER))
 			}
 		}
 	}

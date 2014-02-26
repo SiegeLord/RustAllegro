@@ -33,7 +33,11 @@ fn main()
 
 	let init_only = matches.opt_present("i");
 
-	let mut core = Core::init().expect("Your Allegro version does not match this Rust binding");
+	let mut core = match Core::init()
+	{
+		Ok(core) => core,
+		Err(msg) => fail!(msg)
+	};
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
 
 	if init_only
