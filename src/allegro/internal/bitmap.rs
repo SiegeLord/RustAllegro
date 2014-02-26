@@ -1,6 +1,5 @@
 use std::libc::*;
 use std::ptr;
-use std::default::Default;
 
 use internal::bitmap_like::*;
 use internal::core_drawing::*;

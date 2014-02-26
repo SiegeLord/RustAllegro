@@ -112,7 +112,7 @@ pub mod key
 		Circumflex = 100,
 		Colon2 = 101,
 		Kanji = 102,
-		Pad_equals = 103,
+		PadEquals = 103,
 		Backquote = 104,
 		Semicolon2 = 105,
 		Command = 106,

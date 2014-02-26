@@ -1,3 +1,5 @@
+#[allow(non_camel_case_types)];
+
 pub use ffi::altime::*;
 pub use ffi::base::*;
 pub use ffi::bitmap::*;
