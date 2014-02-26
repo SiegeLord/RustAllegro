@@ -18,9 +18,12 @@ pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
 pub use internal::timer::*;
+pub use rust_util::*;
 
 #[macro_escape]
-#[path = "../rust_util.rs"]
+#[path = "../macros.rs"]
+pub mod macros;
+
 pub mod rust_util;
 pub mod ffi;
 

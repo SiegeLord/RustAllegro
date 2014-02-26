@@ -3,6 +3,7 @@ use std::libc::*;
 use internal::bitmap_like::*;
 use internal::color::*;
 use ffi::*;
+use rust_util::Flag;
 
 fn target_bitmap_check(desired_target: *mut ALLEGRO_BITMAP)
 {

@@ -1,4 +1,5 @@
 use ffi::*;
+use rust_util::Flag;
 
 pub mod key
 {

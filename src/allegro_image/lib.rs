@@ -18,7 +18,7 @@ pub mod ffi
 	pub mod allegro_image
 	{
 		use std::libc::*;
-		use rust_util::c_bool;
+		use allegro::c_bool;
 
 		#[link(name = "allegro_image")]
 		extern "C" {
@@ -30,8 +30,8 @@ pub mod ffi
 }
 
 #[macro_escape]
-#[path = "../rust_util.rs"]
-pub mod rust_util;
+#[path = "../macros.rs"]
+pub mod macros;
 
 static mut initialized: bool = false;
 

@@ -5,9 +5,9 @@ use cast = std::cast;
 
 use ffi::*;
 
-static mut global_main_func: Option<extern fn()> = None;
+static mut global_main_func: Option<extern "Rust" fn()> = None;
 
-pub fn run(argc: int, argv: **u8, main_func: extern fn()) -> int
+pub fn run(argc: int, argv: **u8, main_func: extern "Rust" fn()) -> int
 {
 	unsafe
 	{

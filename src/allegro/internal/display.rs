@@ -9,6 +9,7 @@ use internal::bitmap_like::*;
 use internal::color::*;
 use internal::core_drawing::*;
 use internal::events::*;
+use rust_util::Flag;
 
 use ffi::*;
 
@@ -96,7 +97,7 @@ impl<'m> DisplayOptions<'m>
 {
 	pub fn new() -> DisplayOptions
 	{
-		DisplayOptions{ flags: Default::default(), refresh_rate: None, adapter: None, window_position: None, options: None }
+		DisplayOptions{ flags: Flag::zero(), refresh_rate: None, adapter: None, window_position: None, options: None }
 	}
 }
 

@@ -5,6 +5,7 @@ use std::default::Default;
 use internal::bitmap_like::*;
 use internal::core_drawing::*;
 use internal::color::*;
+use rust_util::Flag;
 
 use ffi::*;
 
@@ -25,7 +26,7 @@ impl BitmapOptions
 {
 	pub fn new() -> BitmapOptions
 	{
-		BitmapOptions{ format: PixelFormatAny, flags: Default::default() }
+		BitmapOptions{ format: PixelFormatAny, flags: Flag::zero() }
 	}
 }
 

@@ -1,5 +1,3 @@
-pub type c_bool = u8;
-
 macro_rules! opaque
 (
 	($f: ident) =>
@@ -32,10 +30,9 @@ macro_rules! flag_type
 			}
 		}
 
-		impl Default for $f
+		impl Flag for $f
 		{
-			#[inline]
-			fn default() -> $f
+			fn zero() -> $f
 			{
 				$f{bits: 0}
 			}

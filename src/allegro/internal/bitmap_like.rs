@@ -2,6 +2,7 @@ use std::cast;
 use std::libc::*;
 
 use internal::color::*;
+use rust_util::Flag;
 
 use ffi::*;
 

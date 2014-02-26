@@ -3,6 +3,7 @@ use std::cast;
 use std::str;
 
 use ffi::*;
+use rust_util::Flag;
 
 flag_type!(
 	StickFlags
