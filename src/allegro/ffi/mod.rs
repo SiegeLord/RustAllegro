@@ -14,6 +14,7 @@ pub use ffi::keyboard::*;
 pub use ffi::keycodes::*;
 pub use ffi::monitor::*;
 pub use ffi::mouse::*;
+pub use ffi::utf8::*;
 pub use ffi::system::*;
 pub use ffi::timer::*;
 
@@ -35,5 +36,6 @@ pub mod keycodes;
 pub mod monitor;
 pub mod mouse;
 pub mod path;
+pub mod utf8;
 pub mod system;
 pub mod timer;
