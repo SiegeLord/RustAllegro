@@ -8,9 +8,9 @@ Currently it is targeting Allegro version 5.0.10.1.
 
 For (a skeleton) documentation, See:
 
-* http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro5/
-* http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_image/
-* http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_font/
+* [core](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro5/)
+* [image](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_image/)
+* [font](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_font/)
 
 ## Building
 
