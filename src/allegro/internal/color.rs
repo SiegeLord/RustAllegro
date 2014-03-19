@@ -14,7 +14,7 @@ impl Color
 			let mut r = 0u8;
 			let mut g = 0u8;
 			let mut b = 0u8;
-			al_unmap_rgb(self.get_color(), &mut r, &mut g, &mut b);
+			al_unmap_rgb(**self, &mut r, &mut g, &mut b);
 			(r, g, b)
 		}
 	}
@@ -27,27 +27,24 @@ impl Color
 			let mut g = 0u8;
 			let mut b = 0u8;
 			let mut a = 0u8;
-			al_unmap_rgba(self.get_color(), &mut r, &mut g, &mut b, &mut a);
+			al_unmap_rgba(**self, &mut r, &mut g, &mut b, &mut a);
 			(r, g, b, a)
 		}
 	}
 
 	pub fn unmap_rgb_f(&self) -> (f32, f32, f32)
 	{
-		let c = self.get_color();
-		(c.r, c.g, c.b)
+		(self.r, self.g, self.b)
 	}
 
 	pub fn unmap_rgba_f(&self) -> (f32, f32, f32, f32)
 	{
-		let c = self.get_color();
-		(c.r, c.g, c.b, c.a)
+		(self.r, self.g, self.b, self.a)
 	}
 
 	pub fn get_color(&self) -> ALLEGRO_COLOR
 	{
-		let Color(c) = *self;
-		c
+		**self
 	}
 }
 
