@@ -3,6 +3,7 @@
 
 extern crate allegro5;
 extern crate allegro_image;
+extern crate allegro_font;
 extern crate getopts;
 
 use getopts::*;
@@ -10,6 +11,7 @@ use std::os;
 use std::c_str::*;
 use allegro5::*;
 use allegro_image::*;
+use allegro_font::*;
 
 #[start]
 fn start(argc: int, argv: **u8) -> int
@@ -39,6 +41,7 @@ fn main()
 		Err(msg) => fail!(msg)
 	};
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
+	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
 
 	if init_only
 	{
@@ -70,6 +73,9 @@ fn main()
 	sub_bmp.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
 
 	let bkg = core.load_bitmap("data/mysha.pcx").unwrap();
+	let font = font_addon.create_builtin_font().unwrap();
+	let white = core.map_rgb_f(1.0, 1.0, 1.0);
+	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
 	let mut theta = 0.0f32;
 	let mut redraw = true;
@@ -78,9 +84,10 @@ fn main()
 	{
 		if redraw && q.is_empty()
 		{
-			disp.clear_to_color(core.map_rgb_f(0.0, 0.0, 0.0));
+			disp.clear_to_color(black);
 			disp.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
 			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
+			disp.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
 			disp.flip();
 			redraw = false;
 		}

@@ -1,4 +1,5 @@
 use std::libc::*;
+use std::ops::Deref;
 
 use ffi::*;
 
@@ -46,6 +47,15 @@ impl Color
 	pub fn get_color(&self) -> ALLEGRO_COLOR
 	{
 		let Color(c) = *self;
+		c
+	}
+}
+
+impl Deref<ALLEGRO_COLOR> for Color
+{
+	fn deref<'l>(&'l self) -> &'l ALLEGRO_COLOR
+	{
+		let Color(ref c) = *self;
 		c
 	}
 }

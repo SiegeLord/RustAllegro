@@ -23,7 +23,7 @@ extern "C"
     pub fn al_ustr_dup_substr(us: *ALLEGRO_USTR, start_pos: c_int, end_pos: c_int) -> *mut ALLEGRO_USTR;
     pub fn al_ustr_empty_string() -> *ALLEGRO_USTR;
     pub fn al_ref_cstr(info: *mut ALLEGRO_USTR_INFO, s: *c_schar) -> *ALLEGRO_USTR;
-    pub fn al_ref_buffer(info: *mut ALLEGRO_USTR_INFO, s: *c_schar, size: c_uint) -> *ALLEGRO_USTR;
+    pub fn al_ref_buffer(info: *mut ALLEGRO_USTR_INFO, s: *c_schar, size: c_int) -> *ALLEGRO_USTR;
     pub fn al_ref_ustr(info: *mut ALLEGRO_USTR_INFO, us: *ALLEGRO_USTR, start_pos: c_int, end_pos: c_int) -> *ALLEGRO_USTR;
     pub fn al_ustr_size(us: *ALLEGRO_USTR) -> c_uint;
     pub fn al_ustr_length(us: *ALLEGRO_USTR) -> c_uint;

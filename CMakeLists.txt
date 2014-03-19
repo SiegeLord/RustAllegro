@@ -52,7 +52,7 @@ add_custom_target(library_target
 rust_crate(${EXAMPLE_ROOT}
            TARGET_NAME EXAMPLE
            DESTINATION examples
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};${EXAMPLE_DEPS}")
+           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};;${ALLEGRO_FONT_FULL_TARGET};${EXAMPLE_DEPS}")
 
 # Copy the data directory
 set(EXAMPLE_DATA_FILES_DEST "")
