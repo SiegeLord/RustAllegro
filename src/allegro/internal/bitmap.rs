@@ -254,7 +254,7 @@ impl ::internal::core::Core
 		Bitmap::load(filename)
 	}
 
-	pub fn create_bitmap_with_options(&self, filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
+	pub fn load_bitmap_with_options(&self, filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
 	{
 		Bitmap::load_with_options(filename, opt)
 	}
