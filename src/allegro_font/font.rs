@@ -36,13 +36,9 @@ impl<T: DrawTarget> FontDrawing for T
 {
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str)
 	{
+		self.set_as_target();
 		unsafe
 		{
-			if al_get_target_bitmap() != self.get_target_bitmap()
-			{
-				al_set_target_bitmap(self.get_target_bitmap())
-			}
-
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
 
@@ -53,13 +49,9 @@ impl<T: DrawTarget> FontDrawing for T
 
 	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlignment, text: &str)
 	{
+		self.set_as_target();
 		unsafe
 		{
-			if al_get_target_bitmap() != self.get_target_bitmap()
-			{
-				al_set_target_bitmap(self.get_target_bitmap())
-			}
-
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
 
