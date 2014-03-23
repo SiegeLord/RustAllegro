@@ -94,7 +94,7 @@ impl Font
 	{
 		unsafe
 		{
-			let (mut x, mut y, mut w, mut h) = mem::uninit::<(c_int, c_int, c_int, c_int)>();
+			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninit();
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
 			al_get_ustr_dimensions(self.get_font() as *_, ustr, &mut x, &mut y, &mut w, &mut h);
