@@ -30,7 +30,6 @@ impl<T: DrawTarget> FontDrawing for T
 			}
 
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
-
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
 
 			let flags = match align
@@ -55,6 +54,52 @@ impl Font
 	pub fn get_font(&self) -> *mut ALLEGRO_FONT
 	{
 		self.allegro_font
+	}
+
+	pub fn get_text_width(&self, text: &str) -> i32
+	{
+		unsafe
+		{
+			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
+			al_get_ustr_width(self.get_font() as *_, ustr) as i32
+		}
+	}
+
+	pub fn get_line_height(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_font_line_height(self.get_font() as *_) as i32
+		}
+	}
+
+	pub fn get_ascent(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_font_ascent(self.get_font() as *_) as i32
+		}
+	}
+
+	pub fn get_descent(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_font_descent(self.get_font() as *_) as i32
+		}
+	}
+
+	pub fn get_text_dimensions(&self, text: &str) -> (i32, i32, i32, i32)
+	{
+		unsafe
+		{
+			let (mut x, mut y, mut w, mut h) = mem::uninit::<(c_int, c_int, c_int, c_int)>();
+			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as c_int);
+			al_get_ustr_dimensions(self.get_font() as *_, ustr, &mut x, &mut y, &mut w, &mut h);
+			(x as i32, y as i32, w as i32, h as i32)
+		}
 	}
 }
 
