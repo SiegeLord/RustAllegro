@@ -258,7 +258,7 @@ impl Display
 
 	pub fn set_icons<T: BitmapLike, U: Iterator<T>>(&self, icons: U)
 	{
-		let mut c_icons = icons.map(|ref b| b.get_bitmap()).to_owned_vec();
+		let mut c_icons: Vec<_> = icons.map(|ref b| b.get_bitmap()).collect();
 		unsafe
 		{
 			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, c_icons.as_mut_ptr());
