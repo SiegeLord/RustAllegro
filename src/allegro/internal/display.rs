@@ -82,23 +82,6 @@ pub enum DisplayOrientation
 	DisplayOrientationFaceDown = ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN,
 }
 
-pub struct DisplayOptions<'m>
-{
-	flags: DisplayFlags,
-	refresh_rate: Option<i32>,
-	adapter: Option<i32>,
-	window_position: Option<[i32, ..2]>,
-	options: Option<&'m [(DisplayOption, i32, DisplayOptionImportance)]>
-}
-
-impl<'m> DisplayOptions<'m>
-{
-	pub fn new() -> DisplayOptions
-	{
-		DisplayOptions{ flags: Flag::zero(), refresh_rate: None, adapter: None, window_position: None, options: None }
-	}
-}
-
 pub struct Display
 {
 	priv allegro_display: *mut ALLEGRO_DISPLAY,
@@ -346,6 +329,54 @@ impl Drop for Display
 
 impl ::internal::core::Core
 {
+	pub fn set_new_display_flags(&self, flags: DisplayFlags)
+	{
+		unsafe
+		{
+			al_set_new_display_flags(flags.get() as c_int);
+		}
+	}
+
+	pub fn set_new_display_refresh_rate(&self, rate: i32)
+	{
+		unsafe
+		{
+			al_set_new_display_refresh_rate(rate as c_int);
+		}
+	}
+
+	pub fn set_new_display_adapter(&self, adapter: i32)
+	{
+		unsafe
+		{
+			al_set_new_display_adapter(adapter as c_int);
+		}
+	}
+
+	pub fn set_new_window_position(&self, x: i32, y: i32)
+	{
+		unsafe
+		{
+			al_set_new_window_position(x as c_int, y as c_int);
+		}
+	}
+
+	pub fn reset_new_display_options(&self)
+	{
+		unsafe
+		{
+			al_reset_new_display_options();
+		}
+	}
+
+	pub fn set_new_display_option(&self, option: DisplayOption, value: i32, importance: DisplayOptionImportance)
+	{
+		unsafe
+		{
+			al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+		}
+	}
+
 	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
 	{
 		Display::new(w, h)

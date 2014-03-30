@@ -2,29 +2,13 @@ use std::libc::*;
 
 use internal::bitmap_like::*;
 use internal::color::*;
-use rust_util::Flag;
 
 use ffi::*;
 
 pub mod external
 {
-	pub use super::BitmapOptions;
 	pub use super::Bitmap;
 	pub use super::SubBitmap;
-}
-
-pub struct BitmapOptions
-{
-	format: PixelFormat,
-	flags: BitmapFlags
-}
-
-impl BitmapOptions
-{
-	pub fn new() -> BitmapOptions
-	{
-		BitmapOptions{ format: PixelFormatAny, flags: Flag::zero() }
-	}
 }
 
 pub struct Bitmap
@@ -37,43 +21,29 @@ impl Bitmap
 {
 	fn new(w: i32, h: i32) -> Option<Bitmap>
 	{
-		Bitmap::new_with_options(w, h, &BitmapOptions::new())
-	}
-
-	fn new_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		let b =	unsafe
+		unsafe
 		{
-			al_set_new_bitmap_flags(opt.flags.get() as c_int);
-			al_set_new_bitmap_format(opt.format as c_int);
-			al_create_bitmap(w as c_int, h as c_int)
-		};
-		if b.is_null()
-		{
-			None
-		}
-		else
-		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+			let b =	al_create_bitmap(w as c_int, h as c_int);
+			if b.is_null()
+			{
+				None
+			}
+			else
+			{
+				Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+			}
 		}
 	}
 
 	fn load(filename: &str) -> Option<Bitmap>
 	{
-		Bitmap::load_with_options(filename, &BitmapOptions::new())
-	}
-
-	fn load_with_options(filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		let b = unsafe
+		let b = filename.with_c_str(|s|
 		{
-			al_set_new_bitmap_flags(opt.flags.get() as c_int);
-			al_set_new_bitmap_format(opt.format as c_int);
-			filename.with_c_str(|s|
+			unsafe
 			{
 				al_load_bitmap(s)
-			})
-		};
+			}
+		});
 		if b.is_null()
 		{
 			None
@@ -241,23 +211,29 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 
 impl ::internal::core::Core
 {
+	pub fn set_new_bitmap_flags(&self, flags: BitmapFlags)
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(flags.get() as c_int);
+		}
+	}
+
+	pub fn set_new_bitmap_format(&self, format: PixelFormat)
+	{
+		unsafe
+		{
+			al_set_new_bitmap_format(format as c_int);
+		}
+	}
+
 	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>
 	{
 		Bitmap::new(w, h)
 	}
 
-	pub fn create_bitmap_with_options(&self, w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		Bitmap::new_with_options(w, h, opt)
-	}
-
 	pub fn load_bitmap(&self, filename: &str) -> Option<Bitmap>
 	{
 		Bitmap::load(filename)
-	}
-
-	pub fn load_bitmap_with_options(&self, filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
-	{
-		Bitmap::load_with_options(filename, opt)
 	}
 }
