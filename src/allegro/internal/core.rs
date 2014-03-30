@@ -1,11 +1,9 @@
 use std::libc::*;
 use std::cast;
-use std::rc::Rc;
 use std::str;
 
 use ffi::*;
 
-use internal::bitmap::{HasBitmapHolder, BitmapHolder};
 use internal::events::*;
 use internal::keycodes::*;
 
@@ -21,8 +19,6 @@ pub struct Core
 	priv keyboard_event_source: Option<EventSource>,
 	priv mouse_event_source: Option<EventSource>,
 	priv joystick_event_source: Option<EventSource>,
-	// Holds onto a BitmapHolder in case the Bitmap gets destroyed
-	priv target_bitmap: Option<Rc<BitmapHolder>>,
 }
 
 impl Core
@@ -51,7 +47,6 @@ impl Core
 							keyboard_event_source: None,
 							mouse_event_source: None,
 							joystick_event_source: None,
-							target_bitmap: None,
 						}
 					)
 				}
@@ -260,17 +255,6 @@ impl Core
 		else
 		{
 			0
-		}
-	}
-
-	pub fn set_target_bitmap<T: HasBitmapHolder>(&mut self, bmp: &T)
-	{
-		let hold = bmp.ref_holder();
-		let allegro_bmp = hold.get_bitmap();
-		self.target_bitmap = Some(hold);
-		unsafe
-		{
-			al_set_target_bitmap(allegro_bmp);
 		}
 	}
 }

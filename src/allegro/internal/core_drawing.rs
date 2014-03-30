@@ -16,6 +16,14 @@ flag_type!(
 
 impl ::internal::core::Core
 {
+	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: &T)
+	{
+		unsafe
+		{
+			al_set_target_bitmap(bmp.get_bitmap());
+		}
+	}
+
 	pub fn clear_to_color(&self, color: Color)
 	{
 		unsafe
