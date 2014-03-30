@@ -1,11 +1,12 @@
-#[crate_id="allegro5#5.0.10.1"];
 
-#[comment = "Allegro 5 core library Rust bindings"];
-#[license = "zlib"];
-#[crate_type = "lib"];
-#[feature(globs)];
-#[feature(macro_rules)];
-#[feature(struct_variant)];
+#![crate_id="allegro5#5.0.10.1"]
+
+#![comment = "Allegro 5 core library Rust bindings"]
+#![license = "zlib"]
+#![crate_type = "lib"]
+#![feature(globs)]
+#![feature(macro_rules)]
+#![feature(struct_variant)]
 
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;

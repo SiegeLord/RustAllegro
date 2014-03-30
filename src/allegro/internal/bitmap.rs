@@ -1,5 +1,4 @@
 use std::libc::*;
-use std::ptr;
 use std::rc::Rc;
 
 use internal::bitmap_like::*;

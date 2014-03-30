@@ -1,4 +1,5 @@
-#[allow(non_camel_case_types)];
+
+#![allow(non_camel_case_types)]
 
 pub use self::allegro_font::*;
 

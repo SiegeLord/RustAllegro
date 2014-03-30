@@ -1,6 +1,5 @@
 use std::cast;
 use std::c_str::CString;
-use std::i32;
 use std::libc::*;
 
 use internal::bitmap::*;

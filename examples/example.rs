@@ -1,5 +1,6 @@
-#[feature(globs)];
-#[feature(struct_variant)];
+
+#![feature(globs)]
+#![feature(struct_variant)]
 
 extern crate allegro5;
 extern crate allegro_image;

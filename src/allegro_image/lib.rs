@@ -1,11 +1,12 @@
-#[crate_id="allegro_image#5.0.10.1"];
 
-#[comment = "Allegro 5 image addon Rust bindings"];
-#[license = "zlib"];
-#[crate_type = "lib"];
-#[feature(globs)];
-#[feature(macro_rules)];
-#[feature(struct_variant)];
+#![crate_id="allegro_image#5.0.10.1"]
+
+#![comment = "Allegro 5 image addon Rust bindings"]
+#![license = "zlib"]
+#![crate_type = "lib"]
+#![feature(globs)]
+#![feature(macro_rules)]
+#![feature(struct_variant)]
 
 extern crate allegro = "allegro5#5.0.10.1";
 

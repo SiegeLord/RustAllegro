@@ -1,7 +1,6 @@
 use std::libc::*;
 use std::cast;
 use std::rc::Rc;
-use std::cell::Cell;
 use std::str;
 
 use ffi::*;
