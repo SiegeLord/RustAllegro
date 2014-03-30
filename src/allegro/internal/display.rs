@@ -6,7 +6,7 @@ use std::libc::*;
 use internal::bitmap::*;
 use internal::bitmap_like::*;
 use internal::color::*;
-use internal::core_drawing::*;
+use internal::core::*;
 use internal::events::*;
 use rust_util::Flag;
 
@@ -104,79 +104,40 @@ pub struct Display
 {
 	priv allegro_display: *mut ALLEGRO_DISPLAY,
 	priv backbuffer: Bitmap,
-	priv event_source: EventSource
+	priv event_source: EventSource,
 }
 
 impl Display
 {
-	fn select_this_display(&self)
-	{
-		unsafe
-		{
-			if self.allegro_display != al_get_current_display()
-			{
-				al_set_target_bitmap(al_get_backbuffer(self.allegro_display))
-			}
-		}
-	}
-
 	fn new(w: i32, h: i32) -> Option<Display>
 	{
 		unsafe
 		{
-			let d = al_create_display(w as c_int, h as c_int);
-			if d.is_null()
+			if !al_get_current_display().is_null()
 			{
 				None
 			}
 			else
 			{
-				Some(Display{ allegro_display: d, backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-							  event_source: new_event_source_ref(al_get_display_event_source(d)) })
-			}
-		}
-	}
-
-	fn new_with_options(w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
-	{
-		unsafe
-		{
-			al_set_new_display_flags(opt.flags.get() as c_int);
-
-			match opt.refresh_rate
-			{
-				Some(r) => al_set_new_display_refresh_rate(r as c_int),
-				None => al_set_new_display_refresh_rate(0)
-			}
-
-			match opt.adapter
-			{
-				Some(a) => al_set_new_display_adapter(a as c_int),
-				None => al_set_new_display_adapter(ALLEGRO_DEFAULT_DISPLAY_ADAPTER),
-			}
-
-			match opt.window_position
-			{
-				Some([x, y]) =>	al_set_new_window_position(x as c_int, y as c_int),
-				None =>	al_set_new_window_position(i32::MAX, i32::MAX)
-			}
-
-			al_reset_new_display_options();
-
-			match opt.options
-			{
-				Some(options) =>
+				let d = al_create_display(w as c_int, h as c_int);
+				if d.is_null()
 				{
-					for &(option, value, importance) in options.iter()
-					{
-						al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
-					}
-				},
-				None => ()
+					None
+				}
+				else
+				{
+					Some
+					(
+						Display
+						{
+							allegro_display: d,
+							backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+							event_source: new_event_source_ref(al_get_display_event_source(d))
+						}
+					)
+				}
 			}
 		}
-
-		Display::new(w, h)
 	}
 
 	pub fn get_width(&self) -> i32
@@ -305,7 +266,6 @@ impl Display
 
 	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
 	{
-		self.select_this_display();
 		clone_bitmap(bmp.get_bitmap())
 	}
 
@@ -321,7 +281,6 @@ impl Display
 
 	pub fn flip(&self)
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_flip_display();
@@ -330,7 +289,6 @@ impl Display
 
 	pub fn update_region(&self, x: i32, y: i32, width: i32, height: i32)
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
@@ -339,7 +297,6 @@ impl Display
 
 	pub fn is_compatible_bitmap<T: BitmapLike>(&self, bitmap: &T) -> bool
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
@@ -348,7 +305,6 @@ impl Display
 
 	pub fn wait_for_vsync(&self) -> bool
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_wait_for_vsync() != 0
@@ -357,7 +313,6 @@ impl Display
 
 	pub fn hold_bitmap_drawing(&self, hold: bool)
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_hold_bitmap_drawing(hold as c_bool);
@@ -366,7 +321,6 @@ impl Display
 
 	pub fn is_bitmap_drawing_held(&self) -> bool
 	{
-		self.select_this_display();
 		unsafe
 		{
 			al_is_bitmap_drawing_held() != 0
@@ -374,26 +328,19 @@ impl Display
 	}
 }
 
+#[unsafe_destructor]
 impl Drop for Display
 {
 	fn drop(&mut self)
 	{
 		unsafe
 		{
+			/* If it's a video bitmap, it's about to be reset, so we fall back to the dummy target */
+			if al_get_bitmap_flags(al_get_target_bitmap()) & (ALLEGRO_VIDEO_BITMAP as i32) != 0
+			{
+				al_set_target_bitmap(dummy_target);
+			}
 			al_destroy_display(self.allegro_display);
-		}
-	}
-}
-
-impl CoreDrawing for Display {}
-
-impl DrawTarget for Display
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-		unsafe
-		{
-			al_get_backbuffer(self.allegro_display)
 		}
 	}
 }
@@ -403,10 +350,5 @@ impl ::internal::core::Core
 	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
 	{
 		Display::new(w, h)
-	}
-
-	pub fn create_display_with_options(&self, w: i32, h: i32, opt: &DisplayOptions) -> Option<Display>
-	{
-		Display::new_with_options(w, h, opt)
 	}
 }

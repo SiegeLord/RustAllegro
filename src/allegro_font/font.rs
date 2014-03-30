@@ -1,6 +1,6 @@
 use ffi::*;
 use allegro::ffi::*;
-use allegro::{Color, DrawTarget, Bitmap, BitmapLike};
+use allegro::{Core, Color, Bitmap, BitmapLike};
 
 use std::cast;
 use std::libc::*;
@@ -32,11 +32,10 @@ pub trait FontDrawing
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str);
 }
 
-impl<T: DrawTarget> FontDrawing for T
+impl FontDrawing for Core
 {
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str)
 	{
-		self.set_as_target();
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
@@ -49,7 +48,6 @@ impl<T: DrawTarget> FontDrawing for T
 
 	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlignment, text: &str)
 	{
-		self.set_as_target();
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();

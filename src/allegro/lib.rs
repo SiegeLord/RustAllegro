@@ -10,7 +10,7 @@
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
 pub use internal::color::*;
-pub use internal::core::*;
+pub use internal::core::external::*;
 pub use internal::core_drawing::*;
 pub use internal::display::*;
 pub use internal::events::external::*;

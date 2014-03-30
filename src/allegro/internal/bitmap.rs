@@ -1,8 +1,8 @@
 use std::libc::*;
 use std::ptr;
+use std::rc::Rc;
 
 use internal::bitmap_like::*;
-use internal::core_drawing::*;
 use internal::color::*;
 use rust_util::Flag;
 
@@ -29,10 +29,56 @@ impl BitmapOptions
 	}
 }
 
-pub struct Bitmap
+pub trait HasBitmapHolder
+{
+	fn ref_holder(&self) -> Rc<BitmapHolder>;
+}
+
+pub struct BitmapHolder
 {
 	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
 	priv is_ref: bool
+}
+
+impl BitmapHolder
+{
+	pub fn new(bmp: *mut ALLEGRO_BITMAP, is_ref: bool) -> BitmapHolder
+	{
+		BitmapHolder{ allegro_bitmap: bmp, is_ref: is_ref }
+	}
+
+	pub fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	{
+		self.allegro_bitmap
+	}
+}
+
+impl Drop for BitmapHolder
+{
+	fn drop(&mut self)
+	{
+		if !self.is_ref
+		{
+			unsafe
+			{
+				use internal::core::dummy_target;
+
+				/* If the current target is a sub-bitmap of this bitmap (or in some unforeseen case this bitmap itself),
+				 * then the target becomes invalid. Set it to the dummy target then. */
+				let target = al_get_target_bitmap();
+				if target == self.allegro_bitmap || target == al_get_parent_bitmap(self.allegro_bitmap)
+				{
+					al_set_target_bitmap(dummy_target);
+				}
+				al_destroy_bitmap(self.allegro_bitmap);
+			}
+		}
+	}
+}
+
+pub struct Bitmap
+{
+	priv holder: Rc<BitmapHolder>
 }
 
 impl Bitmap
@@ -44,20 +90,19 @@ impl Bitmap
 
 	fn new_with_options(w: i32, h: i32, opt: &BitmapOptions) -> Option<Bitmap>
 	{
-		let b;
-		unsafe
+		let b =	unsafe
 		{
 			al_set_new_bitmap_flags(opt.flags.get() as c_int);
 			al_set_new_bitmap_format(opt.format as c_int);
-			b = al_create_bitmap(w as c_int, h as c_int);
-		}
+			al_create_bitmap(w as c_int, h as c_int)
+		};
 		if b.is_null()
 		{
 			None
 		}
 		else
 		{
-			Some(Bitmap{allegro_bitmap: b, is_ref: false})
+			Some(Bitmap{ holder: Rc::new(BitmapHolder::new(b, false)) })
 		}
 	}
 
@@ -68,23 +113,22 @@ impl Bitmap
 
 	fn load_with_options(filename: &str, opt: &BitmapOptions) -> Option<Bitmap>
 	{
-		let mut b = ptr::mut_null();
-		unsafe
+		let b = unsafe
 		{
 			al_set_new_bitmap_flags(opt.flags.get() as c_int);
 			al_set_new_bitmap_format(opt.format as c_int);
 			filename.with_c_str(|s|
 			{
-				b = al_load_bitmap(s);
-			});
-		}
+				al_load_bitmap(s)
+			})
+		};
 		if b.is_null()
 		{
 			None
 		}
 		else
 		{
-			Some(Bitmap{allegro_bitmap: b, is_ref: false})
+			Some(Bitmap{ holder: Rc::new(BitmapHolder::new(b, false)) })
 		}
 	}
 
@@ -92,53 +136,37 @@ impl Bitmap
 	{
 		unsafe
 		{
-			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
+			let b = al_create_sub_bitmap(self.holder.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
 			if b.is_null()
 			{
 				None
 			}
 			else
 			{
-				Some(SubBitmap{allegro_bitmap: b, parent: self})
+				Some(SubBitmap{ holder: Rc::new(BitmapHolder::new(b, false)), parent: self })
 			}
 		}
 	}
 
 	pub fn maybe_clone(&self) -> Option<Bitmap>
 	{
-		clone_bitmap(self.allegro_bitmap)
+		clone_bitmap(self.holder.allegro_bitmap)
 	}
 }
-
-impl Drop for Bitmap
-{
-	fn drop(&mut self)
-	{
-		unsafe
-		{
-			if !self.is_ref
-			{
-				al_destroy_bitmap(self.allegro_bitmap);
-			}
-		}
-	}
-}
-
-impl DrawTarget for Bitmap
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-		self.allegro_bitmap
-	}
-}
-
-impl CoreDrawing for Bitmap {}
 
 impl BitmapLike for Bitmap
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
-		self.allegro_bitmap
+		self.holder.allegro_bitmap
+	}
+}
+
+impl HasBitmapHolder for Bitmap
+{
+	fn ref_holder(&self) -> Rc<BitmapHolder>
+	{
+		self.holder.clone()
 	}
 }
 
@@ -152,7 +180,7 @@ impl Clone for Bitmap
 
 pub struct SubBitmap<'m>
 {
-	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
+	priv holder: Rc<BitmapHolder>,
 	priv parent: &'m Bitmap
 }
 
@@ -162,14 +190,14 @@ impl<'m> SubBitmap<'m>
 	{
 		unsafe
 		{
-			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
+			let b = al_create_sub_bitmap(self.holder.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
 			if b.is_null()
 			{
 				None
 			}
 			else
 			{
-				Some(SubBitmap{allegro_bitmap: b, parent: self.parent})
+				Some(SubBitmap{ holder: Rc::new(BitmapHolder::new(b, false)), parent: self.parent })
 			}
 		}
 	}
@@ -181,15 +209,7 @@ impl<'m> SubBitmap<'m>
 
 	pub fn to_bitmap(&self) -> Option<Bitmap>
 	{
-		clone_bitmap(self.allegro_bitmap)
-	}
-}
-
-impl<'m> DrawTarget for SubBitmap<'m>
-{
-	fn get_target_bitmap(&self) -> *mut ALLEGRO_BITMAP
-	{
-	self.allegro_bitmap
+		clone_bitmap(self.holder.allegro_bitmap)
 	}
 }
 
@@ -197,28 +217,21 @@ impl<'m> BitmapLike for SubBitmap<'m>
 {
 	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
-		self.allegro_bitmap
+		self.holder.allegro_bitmap
 	}
 }
 
-impl<'m> CoreDrawing for SubBitmap<'m> {}
-
-/* Should be safe as Bitmap does not reference a SubBitmap*/
-#[unsafe_destructor]
-impl<'m> Drop for SubBitmap<'m>
+impl<'l> HasBitmapHolder for SubBitmap<'l>
 {
-	fn drop(&mut self)
+	fn ref_holder(&self) -> Rc<BitmapHolder>
 	{
-		unsafe
-		{
-			al_destroy_bitmap(self.allegro_bitmap);
-		}
+		self.holder.clone()
 	}
 }
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 {
-	Bitmap{ allegro_bitmap: bmp, is_ref: true }
+	Bitmap{ holder: Rc::new(BitmapHolder::new(bmp, true)) }
 }
 
 pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
@@ -232,7 +245,7 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 		}
 		else
 		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+			Some(Bitmap{ holder: Rc::new(BitmapHolder::new(b, false)) })
 		}
 	}
 }

@@ -67,10 +67,13 @@ fn main()
 	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
 	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
 
-	bmp.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
+	core.set_target_bitmap(&bmp);
+	core.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
-	sub_bmp.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
+	core.set_target_bitmap(&sub_bmp);
+	core.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
+	core.set_target_bitmap(disp.get_backbuffer());
 
 	let bkg = core.load_bitmap("data/mysha.pcx").unwrap();
 	let font = font_addon.create_builtin_font().unwrap();
@@ -84,10 +87,10 @@ fn main()
 	{
 		if redraw && q.is_empty()
 		{
-			disp.clear_to_color(black);
-			disp.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
-			disp.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
-			disp.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
+			core.clear_to_color(black);
+			core.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
+			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
+			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
 			disp.flip();
 			redraw = false;
 		}

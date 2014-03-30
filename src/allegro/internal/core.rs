@@ -1,17 +1,29 @@
 use std::libc::*;
 use std::cast;
+use std::rc::Rc;
+use std::cell::Cell;
 use std::str;
 
 use ffi::*;
 
+use internal::bitmap::{HasBitmapHolder, BitmapHolder};
 use internal::events::*;
 use internal::keycodes::*;
+
+pub mod external
+{
+	pub use super::Core;
+}
+
+pub static mut dummy_target: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
 pub struct Core
 {
 	priv keyboard_event_source: Option<EventSource>,
 	priv mouse_event_source: Option<EventSource>,
 	priv joystick_event_source: Option<EventSource>,
+	// Holds onto a BitmapHolder in case the Bitmap gets destroyed
+	priv target_bitmap: Option<Rc<BitmapHolder>>,
 }
 
 impl Core
@@ -23,15 +35,27 @@ impl Core
 			/* FIXME: Make this thread-safe */
 			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 			{
-				Ok
-				(
-					Core
-					{
-						keyboard_event_source: None,
-						mouse_event_source: None,
-						joystick_event_source: None,
-					}
-				)
+				al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP as i32);
+				dummy_target = al_create_bitmap(1, 1);
+				al_set_new_bitmap_flags(0);
+				if dummy_target.is_null()
+				{
+					Err(~"Failed to create the dummy target... something is very wrong!")
+				}
+				else
+				{
+					al_set_target_bitmap(dummy_target);
+					Ok
+					(
+						Core
+						{
+							keyboard_event_source: None,
+							mouse_event_source: None,
+							joystick_event_source: None,
+							target_bitmap: None,
+						}
+					)
+				}
 			}
 			else
 			{
@@ -237,6 +261,17 @@ impl Core
 		else
 		{
 			0
+		}
+	}
+
+	pub fn set_target_bitmap<T: HasBitmapHolder>(&mut self, bmp: &T)
+	{
+		let hold = bmp.ref_holder();
+		let allegro_bmp = hold.get_bitmap();
+		self.target_bitmap = Some(hold);
+		unsafe
+		{
+			al_set_target_bitmap(allegro_bmp);
 		}
 	}
 }
