@@ -8,6 +8,7 @@
 #![feature(macro_rules)]
 #![feature(struct_variant)]
 
+extern crate native;
 extern crate sync;
 
 pub use internal::bitmap::external::*;

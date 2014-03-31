@@ -11,6 +11,7 @@ set(ALLEGRO_IMAGE_ROOT src/allegro_image/lib.rs)
 set(ALLEGRO_FONT_ROOT src/allegro_font/lib.rs)
 
 set(EXAMPLE_ROOT examples/example.rs)
+set(MULTIPLE_WINDOWS_ROOT examples/multiple_windows.rs)
 
 file(GLOB EXAMPLE_DATA_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/examples/data/*")
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
@@ -24,6 +25,7 @@ get_rust_deps(${ALLEGRO_ROOT} ALLEGRO_DEPS)
 get_rust_deps(${ALLEGRO_IMAGE_ROOT} ALLEGRO_IMAGE_DEPS)
 get_rust_deps(${ALLEGRO_FONT_ROOT} ALLEGRO_FONT_DEPS)
 get_rust_deps(${EXAMPLE_ROOT} EXAMPLE_DEPS)
+get_rust_deps(${MULTIPLE_WINDOWS_ROOT} MULTIPLE_WINDOWS_DEPS)
 
 # Build the library
 rust_crate(${ALLEGRO_ROOT}
@@ -54,6 +56,11 @@ rust_crate(${EXAMPLE_ROOT}
            DESTINATION examples
            DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};;${ALLEGRO_FONT_FULL_TARGET};${EXAMPLE_DEPS}")
 
+rust_crate(${MULTIPLE_WINDOWS_ROOT}
+           TARGET_NAME MULTIPLE_WINDOWS
+           DESTINATION examples
+           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${MULTIPLE_WINDOWS_DEPS}")
+
 # Copy the data directory
 set(EXAMPLE_DATA_FILES_DEST "")
 foreach(rel_file IN ITEMS ${EXAMPLE_DATA_FILES})
@@ -69,7 +76,7 @@ endforeach()
 
 add_custom_target(examples_target
                   ALL
-                  DEPENDS ${EXAMPLE_FULL_TARGET} ${EXAMPLE_DATA_FILES_DEST})
+                  DEPENDS ${EXAMPLE_FULL_TARGET} ${MULTIPLE_WINDOWS_FULL_TARGET} ${EXAMPLE_DATA_FILES_DEST})
 
 
 # Build documentation

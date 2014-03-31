@@ -80,6 +80,23 @@ impl Core
 		res
 	}
 
+	pub fn spawn(&self, thread_proc: proc:Send (Core))
+	{
+		use native;
+		let mutex = self.get_core_mutex();
+		native::task::spawn(proc()
+		{
+			thread_proc(Core
+			{
+				keyboard_event_source: None,
+				mouse_event_source: None,
+				joystick_event_source: None,
+				mutex: mutex,
+				no_send_marker: NoSend,
+			});
+		});
+	}
+
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
 	{
 		self.mutex.clone()
@@ -118,19 +135,11 @@ impl Core
 		}
 	}
 
-	pub fn install_keyboard(&mut self) -> bool
+	pub fn install_keyboard(&self) -> bool
 	{
 		unsafe
 		{
-			if al_install_keyboard() != 0
-			{
-				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
-				true
-			}
-			else
-			{
-				false
-			}
+			al_install_keyboard() != 0
 		}
 	}
 
@@ -142,8 +151,16 @@ impl Core
 		}
 	}
 
-	pub fn get_keyboard_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	pub fn get_keyboard_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
 	{
+		if self.keyboard_event_source.is_none() && self.is_keyboard_installed()
+		{
+			unsafe
+			{
+				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
+			}
+		}
+
 		match self.keyboard_event_source
 		{
 			Some(ref s) => Some(s),
@@ -181,19 +198,11 @@ impl Core
 		}
 	}
 
-	pub fn install_mouse(&mut self) -> bool
+	pub fn install_mouse(&self) -> bool
 	{
 		unsafe
 		{
-			if al_install_mouse() != 0
-			{
-				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
-				true
-			}
-			else
-			{
-				false
-			}
+			al_install_mouse() != 0
 		}
 	}
 
@@ -205,8 +214,16 @@ impl Core
 		}
 	}
 
-	pub fn get_mouse_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	pub fn get_mouse_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
 	{
+		if self.mouse_event_source.is_none() && self.is_mouse_installed()
+		{
+			unsafe
+			{
+				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
+			}
+		}
+
 		match self.mouse_event_source
 		{
 			Some(ref s) => Some(s),
@@ -214,19 +231,11 @@ impl Core
 		}
 	}
 
-	pub fn install_joystick(&mut self) -> bool
+	pub fn install_joystick(&self) -> bool
 	{
 		unsafe
 		{
-			if al_install_joystick() != 0
-			{
-				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
-				true
-			}
-			else
-			{
-				false
-			}
+			al_install_joystick() != 0
 		}
 	}
 
@@ -238,8 +247,16 @@ impl Core
 		}
 	}
 
-	pub fn get_joystick_event_source<'l>(&'l self) -> Option<&'l EventSource>
+	pub fn get_joystick_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
 	{
+		if self.joystick_event_source.is_none() && self.is_joystick_installed()
+		{
+			unsafe
+			{
+				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
+			}
+		}
+
 		match self.joystick_event_source
 		{
 			Some(ref s) => Some(s),

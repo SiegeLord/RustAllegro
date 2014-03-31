@@ -1,7 +1,5 @@
-extern crate native;
-
 use std::libc::*;
-use cast = std::cast;
+use std::cast;
 
 use ffi::*;
 
@@ -19,6 +17,7 @@ pub fn run(argc: int, argv: **u8, main_func: extern "Rust" fn()) -> int
 extern "C"
 fn allegro_main(argc: int, argv: **u8) -> c_int
 {
+	use native;
 	native::start(argc, argv, rust_main) as c_int
 }
 
