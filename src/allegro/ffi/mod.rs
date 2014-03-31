@@ -18,6 +18,7 @@ pub use ffi::mouse::*;
 pub use ffi::utf8::*;
 pub use ffi::system::*;
 pub use ffi::timer::*;
+pub use ffi::transformations::*;
 
 #[link(name = "allegro")]
 extern "C" {}
@@ -40,3 +41,4 @@ pub mod path;
 pub mod utf8;
 pub mod system;
 pub mod timer;
+pub mod transformations;
