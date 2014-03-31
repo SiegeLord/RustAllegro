@@ -1,6 +1,9 @@
 use std::libc::*;
 use std::cast;
 use std::str;
+use std::kinds::marker::NoSend;
+
+use sync::{Arc, Mutex};
 
 use ffi::*;
 
@@ -19,51 +22,67 @@ pub struct Core
 	priv keyboard_event_source: Option<EventSource>,
 	priv mouse_event_source: Option<EventSource>,
 	priv joystick_event_source: Option<EventSource>,
+	priv mutex: Arc<Mutex<()>>,
+	priv no_send_marker: NoSend,
 }
 
 impl Core
 {
 	pub fn init() -> Result<Core, ~str>
 	{
+		use sync::one::{Once, ONCE_INIT};
+		static mut run_once: Once = ONCE_INIT;
+
+		let mut res = Err(~"Already initialized.");
 		unsafe
 		{
-			/* FIXME: Make this thread-safe */
-			if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
+			run_once.doit(||
 			{
-				al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP as i32);
-				dummy_target = al_create_bitmap(1, 1);
-				al_set_new_bitmap_flags(0);
-				if dummy_target.is_null()
+				res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 				{
-					Err(~"Failed to create the dummy target... something is very wrong!")
+					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP as i32);
+					dummy_target = al_create_bitmap(1, 1);
+					al_set_new_bitmap_flags(0);
+					if dummy_target.is_null()
+					{
+						Err(~"Failed to create the dummy target... something is very wrong!")
+					}
+					else
+					{
+						al_set_target_bitmap(dummy_target);
+						Ok
+						(
+							Core
+							{
+								keyboard_event_source: None,
+								mouse_event_source: None,
+								joystick_event_source: None,
+								mutex: Arc::new(Mutex::new(())),
+								no_send_marker: NoSend,
+							}
+						)
+					}
 				}
 				else
 				{
-					al_set_target_bitmap(dummy_target);
-					Ok
-					(
-						Core
-						{
-							keyboard_event_source: None,
-							mouse_event_source: None,
-							joystick_event_source: None,
-						}
-					)
-				}
-			}
-			else
-			{
-				let version = al_get_allegro_version();
-				let major = version >> 24;
-				let minor = (version >> 16) & 255;
-				let revision = (version >> 8) & 255;
-				let release = version & 255;
+					let version = al_get_allegro_version();
+					let major = version >> 24;
+					let minor = (version >> 16) & 255;
+					let revision = (version >> 8) & 255;
+					let release = version & 255;
 
-				Err(format!("The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
-				    major, minor, revision, release,
-				    ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER))
-			}
+					Err(format!("The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
+					    major, minor, revision, release,
+					    ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER))
+				};
+			});
 		}
+		res
+	}
+
+	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
+	{
+		self.mutex.clone()
 	}
 
 	pub fn get_num_video_adapters(&self) -> i32

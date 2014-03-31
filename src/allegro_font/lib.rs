@@ -7,6 +7,7 @@
 #![feature(globs)]
 #![feature(macro_rules)]
 #![feature(struct_variant)]
+#![feature(thread_local)]
 
 extern crate allegro = "allegro5#5.0.10.1";
 

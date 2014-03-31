@@ -8,6 +8,8 @@
 #![feature(macro_rules)]
 #![feature(struct_variant)]
 
+extern crate sync;
+
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
 pub use internal::color::*;

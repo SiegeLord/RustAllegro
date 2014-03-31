@@ -1,28 +1,43 @@
+use std::kinds::marker::NoSend;
+
 use allegro::Core;
 use ffi::allegro_font::*;
 
 static mut initialized: bool = false;
+#[thread_local]
+static mut spawned_on_this_thread: bool = false;
 
 pub struct FontAddon
 {
-	priv dummy: ()
+	priv no_send_marker: NoSend
 }
 
 impl FontAddon
 {
-	/* FIXME: Make this thread-safe */
-	pub fn init(_: &Core) -> Option<FontAddon>
+	pub fn init(core: &Core) -> Option<FontAddon>
 	{
+		let mutex = core.get_core_mutex();
+		let _guard = mutex.lock();
 		unsafe
 		{
 			if initialized
 			{
-				None
+				if spawned_on_this_thread
+				{
+					None
+				}
+				else
+				{
+					spawned_on_this_thread = true;
+					Some(FontAddon{ no_send_marker: NoSend })
+				}
 			}
 			else
 			{
+				al_init_font_addon();
 				initialized = true;
-				Some(FontAddon{ dummy: () })
+				spawned_on_this_thread = true;
+				Some(FontAddon{ no_send_marker: NoSend })
 			}
 		}
 	}

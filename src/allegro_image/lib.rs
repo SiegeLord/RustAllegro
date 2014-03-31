@@ -7,8 +7,11 @@
 #![feature(globs)]
 #![feature(macro_rules)]
 #![feature(struct_variant)]
+#![feature(thread_local)]
 
 extern crate allegro = "allegro5#5.0.10.1";
+
+use std::kinds::marker::NoSend;
 
 use allegro::Core;
 use ffi::allegro_image::*;
@@ -35,29 +38,41 @@ pub mod ffi
 pub mod macros;
 
 static mut initialized: bool = false;
+#[thread_local]
+static mut spawned_on_this_thread: bool = false;
 
 pub struct ImageAddon
 {
-	priv dummy: ()
+	priv no_send_marker: NoSend
 }
 
 impl ImageAddon
 {
-	/* FIXME: Make this thread-safe */
-	pub fn init(_: &Core) -> Option<ImageAddon>
+	pub fn init(core: &Core) -> Option<ImageAddon>
 	{
+		let mutex = core.get_core_mutex();
+		let _guard = mutex.lock();
 		unsafe
 		{
 			if initialized
 			{
-				None
+				if spawned_on_this_thread
+				{
+					None
+				}
+				else
+				{
+					spawned_on_this_thread = true;
+					Some(ImageAddon{ no_send_marker: NoSend })
+				}
 			}
 			else
 			{
 				if al_init_image_addon() != 0
 				{
 					initialized = true;
-					Some(ImageAddon{ dummy: () })
+					spawned_on_this_thread = true;
+					Some(ImageAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
