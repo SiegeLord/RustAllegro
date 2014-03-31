@@ -1,6 +1,7 @@
 use ffi::*;
 use allegro::ffi::*;
 use allegro::{Core, Color, Bitmap, BitmapLike};
+use std::kinds::marker::NoSend;
 
 use std::cast;
 use std::libc::*;
@@ -60,7 +61,8 @@ impl FontDrawing for Core
 
 pub struct Font
 {
-	priv allegro_font: *mut ALLEGRO_FONT
+	priv allegro_font: *mut ALLEGRO_FONT,
+	priv no_send_marker: NoSend,
 }
 
 impl Font
@@ -73,7 +75,7 @@ impl Font
 		}
 		else
 		{
-			Some(Font{ allegro_font: font })
+			Some(Font{ allegro_font: font, no_send_marker: NoSend })
 		}
 	}
 
@@ -129,6 +131,8 @@ impl Font
 	}
 }
 
+// Not Send just because of the marker
+#[unsafe_destructor]
 impl Drop for Font
 {
 	fn drop(&mut self)

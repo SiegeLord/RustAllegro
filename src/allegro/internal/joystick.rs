@@ -1,6 +1,7 @@
 use std::libc::*;
 use std::cast;
 use std::str;
+use std::kinds::marker::NoSend;
 
 use ffi::*;
 use rust_util::Flag;
@@ -15,7 +16,8 @@ flag_type!(
 
 pub struct Joystick
 {
-	priv allegro_joystick: *mut ALLEGRO_JOYSTICK
+	priv allegro_joystick: *mut ALLEGRO_JOYSTICK,
+	priv no_send_marker: NoSend,
 }
 
 impl Joystick
@@ -142,7 +144,7 @@ impl ::internal::core::Core
 			};
 			if !ptr.is_null()
 			{
-				Some(Joystick{ allegro_joystick: ptr })
+				Some(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
 			}
 			else
 			{

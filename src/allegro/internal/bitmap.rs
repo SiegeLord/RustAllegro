@@ -1,4 +1,5 @@
 use std::libc::*;
+use std::kinds::marker::NoSend;
 
 use internal::bitmap_like::*;
 use internal::color::*;
@@ -14,7 +15,8 @@ pub mod external
 pub struct Bitmap
 {
 	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
-	priv is_ref: bool
+	priv is_ref: bool,
+	priv no_send_marker: NoSend
 }
 
 impl Bitmap
@@ -30,7 +32,7 @@ impl Bitmap
 			}
 			else
 			{
-				Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+				Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 			}
 		}
 	}
@@ -50,7 +52,7 @@ impl Bitmap
 		}
 		else
 		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+			Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 		}
 	}
 
@@ -92,6 +94,8 @@ impl Clone for Bitmap
 	}
 }
 
+// Not Send just because of the marker
+#[unsafe_destructor]
 impl Drop for Bitmap
 {
 	fn drop(&mut self)
@@ -190,7 +194,7 @@ impl<'l> Drop for SubBitmap<'l>
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 {
-	Bitmap{ allegro_bitmap: bmp, is_ref: true }
+	Bitmap{ allegro_bitmap: bmp, is_ref: true, no_send_marker: NoSend }
 }
 
 pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
@@ -204,7 +208,7 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
 		}
 		else
 		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false })
+			Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 		}
 	}
 }

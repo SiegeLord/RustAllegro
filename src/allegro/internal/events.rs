@@ -1,5 +1,6 @@
 use std::cast;
 use std::libc::*;
+use std::kinds::marker::NoSend;
 
 use internal::keycodes::*;
 use ffi::*;
@@ -14,7 +15,8 @@ pub mod external
 
 pub struct EventQueue
 {
-	priv allegro_queue: *mut ALLEGRO_EVENT_QUEUE
+	priv allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
+	priv no_send_marker: NoSend,
 }
 
 impl EventQueue
@@ -30,7 +32,7 @@ impl EventQueue
 			}
 			else
 			{
-				Some(EventQueue{ allegro_queue: q })
+				Some(EventQueue{ allegro_queue: q, no_send_marker: NoSend })
 			}
 		}
 	}
@@ -132,6 +134,8 @@ impl Iterator<Event> for EventQueue
 	}
 }
 
+// Not Send just because of the marker
+#[unsafe_destructor]
 impl Drop for EventQueue
 {
 	fn drop(&mut self)
@@ -145,7 +149,8 @@ impl Drop for EventQueue
 
 pub struct EventSource
 {
-	priv allegro_source: *mut ALLEGRO_EVENT_SOURCE
+	priv allegro_source: *mut ALLEGRO_EVENT_SOURCE,
+	priv no_send_marker: NoSend,
 }
 
 impl EventSource
@@ -386,7 +391,7 @@ impl Event
 
 pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
 {
-	EventSource{ allegro_source: source }
+	EventSource{ allegro_source: source, no_send_marker: NoSend }
 }
 
 impl ::internal::core::Core

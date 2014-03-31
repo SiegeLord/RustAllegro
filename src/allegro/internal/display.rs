@@ -114,7 +114,7 @@ impl Display
 						{
 							allegro_display: d,
 							backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-							event_source: new_event_source_ref(al_get_display_event_source(d))
+							event_source: new_event_source_ref(al_get_display_event_source(d)),
 						}
 					)
 				}
@@ -310,6 +310,7 @@ impl Display
 	}
 }
 
+// Not Send just because of the marker in the event source
 #[unsafe_destructor]
 impl Drop for Display
 {
