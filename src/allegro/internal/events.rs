@@ -15,8 +15,8 @@ pub mod external
 
 pub struct EventQueue
 {
-	priv allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
-	priv no_send_marker: NoSend,
+	allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
+	no_send_marker: NoSend,
 }
 
 impl EventQueue
@@ -149,8 +149,8 @@ impl Drop for EventQueue
 
 pub struct EventSource
 {
-	priv allegro_source: *mut ALLEGRO_EVENT_SOURCE,
-	priv no_send_marker: NoSend,
+	allegro_source: *mut ALLEGRO_EVENT_SOURCE,
+	no_send_marker: NoSend,
 }
 
 impl EventSource
@@ -166,136 +166,136 @@ pub enum Event
 	NoEvent,
 	DisplayClose
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64
 	},
 	JoystickAxes
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		stick: i32,
-		axis: i32,
-		pos: f32
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub id: *mut ALLEGRO_JOYSTICK,
+		pub stick: i32,
+		pub axis: i32,
+		pub pos: f32
 	},
 	JoystickButtonDown
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		button: i32
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub id: *mut ALLEGRO_JOYSTICK,
+		pub button: i32
 	},
 	JoystickButtonUp
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		button: i32
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub id: *mut ALLEGRO_JOYSTICK,
+		pub button: i32
 	},
 	JoystickConfiguration
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64
 	},
 	KeyDown
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		keycode: key::KeyCode,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub keycode: key::KeyCode,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	KeyUp
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		keycode: key::KeyCode,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub keycode: key::KeyCode,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	KeyChar
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		keycode: key::KeyCode,
-		display: *mut ALLEGRO_DISPLAY,
-		unichar: char,
-		repeat: bool,
-		modifiers: KeyModifier
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub keycode: key::KeyCode,
+		pub display: *mut ALLEGRO_DISPLAY,
+		pub unichar: char,
+		pub repeat: bool,
+		pub modifiers: KeyModifier
 	},
 	MouseAxes
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		dx: i32,
-		dy: i32,
-		dz: i32,
-		dw: i32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub dx: i32,
+		pub dy: i32,
+		pub dz: i32,
+		pub dw: i32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	MouseButtonDown
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		button: u32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub button: u32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	MouseButtonUp
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		button: u32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub button: u32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	MouseWarped
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		dx: i32,
-		dy: i32,
-		dz: i32,
-		dw: i32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub dx: i32,
+		pub dy: i32,
+		pub dz: i32,
+		pub dw: i32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	MouseEnterDisplay
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	MouseLeaveDisplay
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		x: i32,
-		y: i32,
-		z: i32,
-		w: i32,
-		display: *mut ALLEGRO_DISPLAY
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub x: i32,
+		pub y: i32,
+		pub z: i32,
+		pub w: i32,
+		pub display: *mut ALLEGRO_DISPLAY
 	},
 	TimerTick
 	{
-		source: *mut ALLEGRO_EVENT_SOURCE,
-		timestamp: f64,
-		count: i64
+		pub source: *mut ALLEGRO_EVENT_SOURCE,
+		pub timestamp: f64,
+		pub count: i64
 	},
 }
 

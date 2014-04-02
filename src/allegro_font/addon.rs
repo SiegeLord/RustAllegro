@@ -9,7 +9,7 @@ static mut spawned_on_this_thread: bool = false;
 
 pub struct FontAddon
 {
-	priv no_send_marker: NoSend
+	no_send_marker: NoSend
 }
 
 impl FontAddon

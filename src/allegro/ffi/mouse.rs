@@ -9,14 +9,14 @@ pub static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
 pub struct ALLEGRO_MOUSE_STATE
 {
-    x: c_int,
-    y: c_int,
-    z: c_int,
-    w: c_int,
-    more_axes: [c_int, ..ALLEGRO_MOUSE_MAX_EXTRA_AXES],
-    buttons: c_int,
-    pressure: c_float,
-    display: *mut ALLEGRO_DISPLAY,
+    pub x: c_int,
+    pub y: c_int,
+    pub z: c_int,
+    pub w: c_int,
+    pub more_axes: [c_int, ..ALLEGRO_MOUSE_MAX_EXTRA_AXES],
+    pub buttons: c_int,
+    pub pressure: c_float,
+    pub display: *mut ALLEGRO_DISPLAY,
 }
 
 extern "C"

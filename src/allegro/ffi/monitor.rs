@@ -3,10 +3,10 @@ use rust_util::c_bool;
 
 pub struct ALLEGRO_MONITOR_INFO
 {
-	x1: c_int,
-	y1: c_int,
-	x2: c_int,
-	y2: c_int,
+	pub x1: c_int,
+	pub y1: c_int,
+	pub x2: c_int,
+	pub y2: c_int,
 }
 
 pub static ALLEGRO_DEFAULT_DISPLAY_ADAPTER: i32 = -1;

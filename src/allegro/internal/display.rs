@@ -84,9 +84,9 @@ pub enum DisplayOrientation
 
 pub struct Display
 {
-	priv allegro_display: *mut ALLEGRO_DISPLAY,
-	priv backbuffer: Bitmap,
-	priv event_source: EventSource,
+	allegro_display: *mut ALLEGRO_DISPLAY,
+	backbuffer: Bitmap,
+	event_source: EventSource,
 }
 
 impl Display

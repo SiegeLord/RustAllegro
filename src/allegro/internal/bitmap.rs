@@ -14,9 +14,9 @@ pub mod external
 
 pub struct Bitmap
 {
-	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
-	priv is_ref: bool,
-	priv no_send_marker: NoSend
+	allegro_bitmap: *mut ALLEGRO_BITMAP,
+	is_ref: bool,
+	no_send_marker: NoSend
 }
 
 impl Bitmap
@@ -125,8 +125,8 @@ impl Drop for Bitmap
 
 pub struct SubBitmap<'m>
 {
-	priv allegro_bitmap: *mut ALLEGRO_BITMAP,
-	priv parent: &'m Bitmap
+	allegro_bitmap: *mut ALLEGRO_BITMAP,
+	parent: &'m Bitmap
 }
 
 impl<'m> SubBitmap<'m>

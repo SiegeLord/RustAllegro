@@ -5,8 +5,8 @@ use internal::events::*;
 
 pub struct Timer
 {
-	priv allegro_timer: *mut ALLEGRO_TIMER,
-	priv event_source: EventSource
+	allegro_timer: *mut ALLEGRO_TIMER,
+	event_source: EventSource
 }
 
 impl Timer

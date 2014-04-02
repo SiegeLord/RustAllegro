@@ -6,9 +6,9 @@ pub type ALLEGRO_USTR_INFO = __al_tagbstring;
 
 pub struct __al_tagbstring
 {
-    mlen: c_int,
-    slen: c_int,
-    data: *mut c_uchar,
+    pub mlen: c_int,
+    pub slen: c_int,
+    pub data: *mut c_uchar,
 }
 
 extern "C"

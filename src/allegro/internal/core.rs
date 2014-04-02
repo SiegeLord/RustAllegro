@@ -19,11 +19,11 @@ pub static mut dummy_target: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
 pub struct Core
 {
-	priv keyboard_event_source: Option<EventSource>,
-	priv mouse_event_source: Option<EventSource>,
-	priv joystick_event_source: Option<EventSource>,
-	priv mutex: Arc<Mutex<()>>,
-	priv no_send_marker: NoSend,
+	keyboard_event_source: Option<EventSource>,
+	mouse_event_source: Option<EventSource>,
+	joystick_event_source: Option<EventSource>,
+	mutex: Arc<Mutex<()>>,
+	no_send_marker: NoSend,
 }
 
 impl Core

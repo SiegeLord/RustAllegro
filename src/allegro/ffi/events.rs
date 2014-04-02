@@ -12,7 +12,7 @@ use ffi::timer::ALLEGRO_TIMER;
 
 pub struct ALLEGRO_EVENT_SOURCE
 {
-	priv __pad: [c_int, ..32]
+	__pad: [c_int, ..32]
 }
 
 pub type ALLEGRO_EVENT_TYPE = c_uint;
@@ -42,89 +42,89 @@ pub static ALLEGRO_EVENT_DISPLAY_ORIENTATION: u32 = 47;
 
 pub struct ALLEGRO_ANY_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_EVENT_SOURCE,
-	timestamp: c_double,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_EVENT_SOURCE,
+	pub timestamp: c_double,
 }
 
 pub struct ALLEGRO_DISPLAY_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_DISPLAY,
-	timestamp: c_double,
-	x: c_int,
-	y: c_int,
-	width: c_int,
-	height: c_int,
-	orientation: c_int,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_DISPLAY,
+	pub timestamp: c_double,
+	pub x: c_int,
+	pub y: c_int,
+	pub width: c_int,
+	pub height: c_int,
+	pub orientation: c_int,
 }
 
 pub struct ALLEGRO_JOYSTICK_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_JOYSTICK,
-	timestamp: c_double,
-	id: *mut ALLEGRO_JOYSTICK,
-	stick: c_int,
-	axis: c_int,
-	pos: c_float,
-	button: c_int,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_JOYSTICK,
+	pub timestamp: c_double,
+	pub id: *mut ALLEGRO_JOYSTICK,
+	pub stick: c_int,
+	pub axis: c_int,
+	pub pos: c_float,
+	pub button: c_int,
 }
 
 pub struct ALLEGRO_KEYBOARD_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_KEYBOARD,
-	timestamp: c_double,
-	display: *mut ALLEGRO_DISPLAY,
-	keycode: c_int,
-	unichar: c_int,
-	modifiers: c_uint,
-	repeat: c_bool,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_KEYBOARD,
+	pub timestamp: c_double,
+	pub display: *mut ALLEGRO_DISPLAY,
+	pub keycode: c_int,
+	pub unichar: c_int,
+	pub modifiers: c_uint,
+	pub repeat: c_bool,
 }
 
 pub struct ALLEGRO_MOUSE_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_MOUSE,
-	timestamp: c_double,
-	display: *mut ALLEGRO_DISPLAY,
-	x: c_int,
-	y: c_int,
-	z: c_int,
-	w: c_int,
-	dx: c_int,
-	dy: c_int,
-	dz: c_int,
-	dw: c_int,
-	button: c_uint,
-	pressure: c_float,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_MOUSE,
+	pub timestamp: c_double,
+	pub display: *mut ALLEGRO_DISPLAY,
+	pub x: c_int,
+	pub y: c_int,
+	pub z: c_int,
+	pub w: c_int,
+	pub dx: c_int,
+	pub dy: c_int,
+	pub dz: c_int,
+	pub dw: c_int,
+	pub button: c_uint,
+	pub pressure: c_float,
 }
 
 pub struct ALLEGRO_TIMER_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_TIMER,
-	timestamp: c_double,
-	count: int64_t,
-	error: c_double,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_TIMER,
+	pub timestamp: c_double,
+	pub count: int64_t,
+	pub error: c_double,
 }
 
 pub struct ALLEGRO_USER_EVENT
 {
-	_type: ALLEGRO_EVENT_TYPE,
-	source: *mut ALLEGRO_EVENT_SOURCE,
-	timestamp: c_double,
-	_internal__descr: *mut c_void,
-	data1: intptr_t,
-	data2: intptr_t,
-	data3: intptr_t,
-	data4: intptr_t,
+	pub _type: ALLEGRO_EVENT_TYPE,
+	pub source: *mut ALLEGRO_EVENT_SOURCE,
+	pub timestamp: c_double,
+	pub _internal__descr: *mut c_void,
+	pub data1: intptr_t,
+	pub data2: intptr_t,
+	pub data3: intptr_t,
+	pub data4: intptr_t,
 }
 
 pub struct ALLEGRO_EVENT
 {
-	data: [c_bool, ..72u],
+	pub data: [c_bool, ..72u],
 }
 
 impl ALLEGRO_EVENT

@@ -16,8 +16,8 @@ flag_type!(
 
 pub struct Joystick
 {
-	priv allegro_joystick: *mut ALLEGRO_JOYSTICK,
-	priv no_send_marker: NoSend,
+	allegro_joystick: *mut ALLEGRO_JOYSTICK,
+	no_send_marker: NoSend,
 }
 
 impl Joystick

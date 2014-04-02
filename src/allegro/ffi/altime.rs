@@ -2,8 +2,8 @@ use std::libc::*;
 
 pub struct ALLEGRO_TIMEOUT
 {
-	priv __pad1__: uint64_t,
-	priv __pad2__: uint64_t,
+	__pad1__: uint64_t,
+	__pad2__: uint64_t,
 }
 
 extern "C"

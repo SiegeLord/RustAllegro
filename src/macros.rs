@@ -18,7 +18,7 @@ macro_rules! flag_type
 	{
 		pub struct $f
 		{
-			priv bits: u32
+			bits: u32
 		}
 
 		impl $f

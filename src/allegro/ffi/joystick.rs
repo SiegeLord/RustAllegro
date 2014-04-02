@@ -7,13 +7,13 @@ opaque!(ALLEGRO_JOYSTICK)
 
 pub struct ALLEGRO_JOYSTICK_STATE
 {
-	stick: [Stick, ..8u],
-	button: [c_int, ..32u],
+	pub stick: [Stick, ..8u],
+	pub button: [c_int, ..32u],
 }
 
 pub struct Stick
 {
-	axis: [c_float, ..3u],
+	pub axis: [c_float, ..3u],
 }
 
 pub static ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;

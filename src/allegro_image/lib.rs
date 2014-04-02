@@ -43,7 +43,7 @@ static mut spawned_on_this_thread: bool = false;
 
 pub struct ImageAddon
 {
-	priv no_send_marker: NoSend
+	no_send_marker: NoSend
 }
 
 impl ImageAddon

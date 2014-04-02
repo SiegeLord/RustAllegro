@@ -61,8 +61,8 @@ impl FontDrawing for Core
 
 pub struct Font
 {
-	priv allegro_font: *mut ALLEGRO_FONT,
-	priv no_send_marker: NoSend,
+	allegro_font: *mut ALLEGRO_FONT,
+	no_send_marker: NoSend,
 }
 
 impl Font

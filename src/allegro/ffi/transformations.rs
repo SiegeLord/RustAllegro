@@ -2,7 +2,7 @@ use std::libc::*;
 
 pub struct ALLEGRO_TRANSFORM
 {
-	m: [[c_float, ..4u], ..4u],
+	pub m: [[c_float, ..4u], ..4u],
 }
 
 extern "C"
