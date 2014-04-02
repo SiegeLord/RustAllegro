@@ -21,7 +21,10 @@ set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 
 # Get the dependencies of all the crates
-get_rust_deps(${ALLEGRO_ROOT} ALLEGRO_DEPS)
+get_rust_deps(${ALLEGRO_ROOT} ALLEGRO_DEPS
+              COMPILE
+              DESTINATION lib
+              OTHER_RUSTC_FLAGS --crate-type rlib)
 get_rust_deps(${ALLEGRO_IMAGE_ROOT} ALLEGRO_IMAGE_DEPS)
 get_rust_deps(${ALLEGRO_FONT_ROOT} ALLEGRO_FONT_DEPS)
 get_rust_deps(${EXAMPLE_ROOT} EXAMPLE_DEPS)

@@ -47,3 +47,4 @@ mod internal
 	pub mod timer;
 }
 pub mod transformations;
+pub mod allegro_main;

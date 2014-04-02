@@ -1,7 +1,9 @@
 
 #![feature(globs)]
 #![feature(struct_variant)]
+#![feature(phase)]
 
+#[phase(syntax, link)]
 extern crate allegro5;
 extern crate allegro_image;
 extern crate allegro_font;
@@ -14,13 +16,7 @@ use allegro5::*;
 use allegro_image::*;
 use allegro_font::*;
 
-#[start]
-fn start(argc: int, argv: **u8) -> int
-{
-	allegro5::run(argc, argv, main)
-}
-
-fn main()
+allegro_main!
 {
 	let args = os::args();
 

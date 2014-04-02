@@ -1,6 +1,8 @@
 #![feature(globs)]
 #![feature(struct_variant)]
+#![feature(phase)]
 
+#[phase(syntax, link)]
 extern crate allegro5;
 extern crate allegro_font;
 extern crate getopts;
@@ -11,12 +13,6 @@ use std::os;
 use std::c_str::*;
 use allegro5::*;
 use allegro_font::*;
-
-#[start]
-fn start(argc: int, argv: **u8) -> int
-{
-	allegro5::run(argc, argv, main)
-}
 
 fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 {
@@ -85,7 +81,7 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 	sender.send(());
 }
 
-fn main()
+allegro_main!
 {
 	let args = os::args();
 
