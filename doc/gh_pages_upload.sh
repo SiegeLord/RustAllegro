@@ -16,8 +16,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 	rm -rf doc
 	cp -r $HOME/doc .
 
-	#add, commit and push files
-	git add -f .
+	# Add, commit and push files
+	git add -f --all .
 	git commit -m "Update docs from Travis build $TRAVIS_BUILD_NUMBER"
 	git push -fq origin gh-pages > /dev/null
 
