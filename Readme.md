@@ -6,11 +6,9 @@ A very much WIP binding of [Allegro 5](http://liballeg.org/) to the [Rust](http:
 
 Currently it is targeting Allegro version 5.0.10.1.
 
-For (a skeleton) documentation, See:
+## Documentation
 
-* [core](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro5/)
-* [image](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_image/)
-* [font](http://www.rust-ci.org/SiegeLord/RustAllegro/doc/allegro_font/)
+See [here](http://siegelord.github.io/RustAllegro/doc/allegro5/index.html). Note that it is very incomplete.
 
 ## Building
 
