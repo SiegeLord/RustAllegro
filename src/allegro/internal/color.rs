@@ -3,7 +3,7 @@ use std::ops::Deref;
 
 use ffi::*;
 
-pub struct Color(ALLEGRO_COLOR);
+pub struct Color(pub ALLEGRO_COLOR);
 
 impl Color
 {
