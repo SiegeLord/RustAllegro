@@ -1,3 +1,4 @@
+use std::cast;
 use std::libc::*;
 use std::kinds::marker::NoSend;
 
@@ -8,8 +9,7 @@ use ffi::*;
 
 pub mod external
 {
-	pub use super::Bitmap;
-	pub use super::SubBitmap;
+	pub use super::{Bitmap, SubBitmap, MemoryBitmap};
 }
 
 pub struct Bitmap
@@ -76,6 +76,24 @@ impl Bitmap
 	{
 		clone_bitmap(self.allegro_bitmap)
 	}
+
+	pub fn into_memory_bitmap(self) -> Result<MemoryBitmap, Bitmap>
+	{
+		if self.get_flags() & MEMORY_BITMAP && !self.is_ref
+		{
+			let bmp = self.allegro_bitmap;
+			unsafe
+			{
+				// Don't run Bitmap's destructor
+				cast::forget(self);
+			}
+			Ok(MemoryBitmap{ allegro_bitmap: bmp })
+		}
+		else
+		{
+			Err(self)
+		}
+	}
 }
 
 impl BitmapLike for Bitmap
@@ -104,21 +122,38 @@ impl Drop for Bitmap
 		{
 			unsafe
 			{
-				use internal::core::dummy_target;
-
-				/* If this bitmap is the target or the parent of the target
-				 * then the target becomes invalid. Set it to the dummy target. */
-				let target = al_get_target_bitmap();
-				if target.is_null()
-				{
-					fail!("Null target bitmap!");
-				}
-				if target == self.allegro_bitmap || al_get_parent_bitmap(target) == self.allegro_bitmap
-				{
-					al_set_target_bitmap(dummy_target);
-				}
-				al_destroy_bitmap(self.allegro_bitmap);
+				handle_bitmap_destruction(self.allegro_bitmap, false);
 			}
+		}
+	}
+}
+
+pub struct MemoryBitmap
+{
+	allegro_bitmap: *mut ALLEGRO_BITMAP,
+}
+
+impl MemoryBitmap
+{
+	pub fn into_bitmap(self) -> Bitmap
+	{
+		let bmp = self.allegro_bitmap;
+		unsafe
+		{
+			// Don't run MemoryBitmap's destructor
+			cast::forget(self);
+		}
+		Bitmap{ allegro_bitmap: bmp, is_ref: false, no_send_marker: NoSend }
+	}
+}
+
+impl Drop for MemoryBitmap
+{
+	fn drop(&mut self)
+	{
+		unsafe
+		{
+			handle_bitmap_destruction(self.allegro_bitmap, false);
 		}
 	}
 }
@@ -174,22 +209,27 @@ impl<'l> Drop for SubBitmap<'l>
 	{
 		unsafe
 		{
-			use internal::core::dummy_target;
-
-			/* If this bitmap is the target then the target becomes invalid.
-			 * Set it to the dummy target. */
-			let target = al_get_target_bitmap();
-			if target.is_null()
-			{
-				fail!("Null target bitmap!");
-			}
-			if target == self.allegro_bitmap
-			{
-				al_set_target_bitmap(dummy_target);
-			}
-			al_destroy_bitmap(self.allegro_bitmap);
+			handle_bitmap_destruction(self.allegro_bitmap, true);
 		}
 	}
+}
+
+unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: bool)
+{
+	use internal::core::dummy_target;
+
+	/* If this bitmap is the target or the parent of the target
+	 * then the target becomes invalid. Set it to the dummy target. */
+	let target = al_get_target_bitmap();
+	if target.is_null()
+	{
+		fail!("Null target bitmap!");
+	}
+	if target == bmp || (!is_sub_bitmap && al_get_parent_bitmap(target) == bmp)
+	{
+		al_set_target_bitmap(dummy_target);
+	}
+	al_destroy_bitmap(bmp);
 }
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
