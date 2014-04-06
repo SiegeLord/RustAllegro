@@ -263,11 +263,27 @@ impl ::internal::core::Core
 		}
 	}
 
+	pub fn get_new_bitmap_flags(&self) -> BitmapFlags
+	{
+		unsafe
+		{
+			cast::transmute(al_get_new_bitmap_flags() as u32)
+		}
+	}
+
 	pub fn set_new_bitmap_format(&self, format: PixelFormat)
 	{
 		unsafe
 		{
 			al_set_new_bitmap_format(format as c_int);
+		}
+	}
+
+	pub fn get_new_bitmap_format(&self) -> PixelFormat
+	{
+		unsafe
+		{
+			cast::transmute(al_get_new_bitmap_format() as u32)
 		}
 	}
 

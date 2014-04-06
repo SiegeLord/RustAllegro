@@ -30,6 +30,7 @@ flag_type!(
 	}
 )
 
+#[repr(u32)]
 pub enum DisplayOption
 {
 	RedSize = ALLEGRO_RED_SIZE,
@@ -65,6 +66,7 @@ pub enum DisplayOption
 	SupportSeparateAlpha = ALLEGRO_SUPPORT_SEPARATE_ALPHA,
 }
 
+#[repr(u32)]
 pub enum DisplayOptionImportance
 {
 	DontCare = ALLEGRO_DONTCARE,
@@ -72,6 +74,7 @@ pub enum DisplayOptionImportance
 	Suggest = ALLEGRO_SUGGEST,
 }
 
+#[repr(u32)]
 pub enum DisplayOrientation
 {
 	DisplayOrientation0Degrees = ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES,
@@ -338,11 +341,27 @@ impl ::internal::core::Core
 		}
 	}
 
+	pub fn get_new_display_flags(&self) -> DisplayFlags
+	{
+		unsafe
+		{
+			cast::transmute(al_get_new_display_flags())
+		}
+	}
+
 	pub fn set_new_display_refresh_rate(&self, rate: i32)
 	{
 		unsafe
 		{
 			al_set_new_display_refresh_rate(rate as c_int);
+		}
+	}
+
+	pub fn get_new_display_refresh_rate(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_new_display_refresh_rate() as i32
 		}
 	}
 
@@ -354,11 +373,32 @@ impl ::internal::core::Core
 		}
 	}
 
+	pub fn get_new_display_adapter(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_new_display_adapter() as i32
+		}
+	}
+
 	pub fn set_new_window_position(&self, x: i32, y: i32)
 	{
 		unsafe
 		{
 			al_set_new_window_position(x as c_int, y as c_int);
+		}
+	}
+
+	pub fn get_new_window_position(&self) -> (i32, i32)
+	{
+		unsafe
+		{
+			use std::mem::uninit;
+
+			let mut x: c_int = uninit();
+			let mut y: c_int = uninit();
+			al_get_new_window_position(&mut x, &mut y);
+			(x as i32, y as i32)
 		}
 	}
 
@@ -375,6 +415,19 @@ impl ::internal::core::Core
 		unsafe
 		{
 			al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+		}
+	}
+
+	pub fn get_new_display_option(&self, option: DisplayOption) -> (i32, DisplayOptionImportance)
+	{
+		unsafe
+		{
+			use std::mem::uninit;
+
+			let mut imp: c_int = uninit();
+
+			let val = al_get_new_display_option(option as c_int, &mut imp);
+			(val as i32, cast::transmute(imp))
 		}
 	}
 
