@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 use std::cast;
 
 use rust_util::c_bool;

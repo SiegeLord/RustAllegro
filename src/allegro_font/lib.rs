@@ -10,6 +10,7 @@
 #![feature(thread_local)]
 
 extern crate allegro = "allegro5#5.0.10.1";
+extern crate libc;
 
 pub use font::*;
 pub use addon::*;

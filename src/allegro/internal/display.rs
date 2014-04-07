@@ -1,6 +1,7 @@
+use libc::*;
+use std::option::Some;
 use std::cast;
 use std::c_str::CString;
-use std::libc::*;
 
 use internal::bitmap::*;
 use internal::bitmap_like::*;

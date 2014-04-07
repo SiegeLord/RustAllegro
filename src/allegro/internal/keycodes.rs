@@ -3,7 +3,7 @@ use rust_util::Flag;
 
 pub mod key
 {
-	use std::libc::*;
+	use libc::*;
 	use std::cast;
 
 	#[deriving(Eq)]

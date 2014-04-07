@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 pub static ALLEGRO_VERSION: u32          = 5;
 pub static ALLEGRO_SUB_VERSION: u32      = 0;

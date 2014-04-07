@@ -5,7 +5,7 @@ pub use self::allegro_font::*;
 
 pub mod allegro_font
 {
-	use std::libc::*;
+	use libc::*;
 	use allegro::c_bool;
     use allegro::ffi::{ALLEGRO_USTR, ALLEGRO_COLOR, ALLEGRO_BITMAP};
 

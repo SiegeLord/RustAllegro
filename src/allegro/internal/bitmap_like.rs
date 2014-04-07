@@ -1,5 +1,5 @@
 use std::cast;
-use std::libc::*;
+use libc::*;
 
 use internal::color::*;
 use rust_util::Flag;

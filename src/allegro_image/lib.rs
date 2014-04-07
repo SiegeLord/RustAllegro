@@ -10,6 +10,7 @@
 #![feature(thread_local)]
 
 extern crate allegro = "allegro5#5.0.10.1";
+extern crate libc;
 
 use std::kinds::marker::NoSend;
 
@@ -21,7 +22,7 @@ pub mod ffi
 	pub use self::allegro_image::*;
 	pub mod allegro_image
 	{
-		use std::libc::*;
+		use libc::*;
 		use allegro::c_bool;
 
 		#[link(name = "allegro_image")]

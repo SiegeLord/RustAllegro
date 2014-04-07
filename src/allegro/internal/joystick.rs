@@ -1,4 +1,5 @@
-use std::libc::*;
+use libc::*;
+use std::option::Some;
 use std::cast;
 use std::str;
 use std::kinds::marker::NoSend;

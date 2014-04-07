@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 pub static ALLEGRO_KEY_A: c_uint = 1;
 pub static ALLEGRO_KEY_B: c_uint = 2;

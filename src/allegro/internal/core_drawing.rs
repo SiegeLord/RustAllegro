@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 use internal::bitmap_like::*;
 use internal::color::*;

@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 pub struct ALLEGRO_TRANSFORM
 {

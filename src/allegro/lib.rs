@@ -10,6 +10,7 @@
 
 extern crate native;
 extern crate sync;
+extern crate libc;
 
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;

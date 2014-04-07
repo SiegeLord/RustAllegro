@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 use ffi::bitmap::*;
 use rust_util::c_bool;

@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 use ffi::display::ALLEGRO_DISPLAY;

@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 
 use ffi::color::ALLEGRO_COLOR;
 use rust_util::c_bool;

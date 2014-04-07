@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 use rust_util::c_bool;
 
 pub type ALLEGRO_USTR = __al_tagbstring;

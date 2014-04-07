@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 use rust_util::c_bool;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;

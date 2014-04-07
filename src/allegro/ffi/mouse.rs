@@ -1,4 +1,4 @@
-use std::libc::*;
+use libc::*;
 use ffi::display::ALLEGRO_DISPLAY;
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 use rust_util::c_bool;
