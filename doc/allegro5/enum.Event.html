@@ -40,11 +40,11 @@
                               href='../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/internal/events.rs.html#165-301'>[src]</a><h1 class='fqn'>Enum <a href='index.html'>allegro5</a>::<a class='enum' href=''>Event</a></h1><pre class='rust enum'>pub enum Event {
     NoEvent,
     DisplayClose {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
     },
     JoystickAxes {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub id: *mut ALLEGRO_JOYSTICK,
         pub stick: i32,
@@ -52,35 +52,35 @@
         pub pos: f32,
     },
     JoystickButtonDown {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub id: *mut ALLEGRO_JOYSTICK,
         pub button: i32,
     },
     JoystickButtonUp {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub id: *mut ALLEGRO_JOYSTICK,
         pub button: i32,
     },
     JoystickConfiguration {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
     },
     KeyDown {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub keycode: <a class='enum' href='../allegro5/key/enum.KeyCode.html' title='allegro5::key::KeyCode'>KeyCode</a>,
         pub display: *mut ALLEGRO_DISPLAY,
     },
     KeyUp {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub keycode: <a class='enum' href='../allegro5/key/enum.KeyCode.html' title='allegro5::key::KeyCode'>KeyCode</a>,
         pub display: *mut ALLEGRO_DISPLAY,
     },
     KeyChar {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub keycode: <a class='enum' href='../allegro5/key/enum.KeyCode.html' title='allegro5::key::KeyCode'>KeyCode</a>,
         pub display: *mut ALLEGRO_DISPLAY,
@@ -89,7 +89,7 @@
         pub modifiers: <a class='struct' href='../allegro5/struct.KeyModifier.html' title='allegro5::KeyModifier'>KeyModifier</a>,
     },
     MouseAxes {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -102,7 +102,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     MouseButtonDown {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -112,7 +112,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     MouseButtonUp {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -122,7 +122,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     MouseWarped {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -135,7 +135,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     MouseEnterDisplay {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -144,7 +144,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     MouseLeaveDisplay {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub x: i32,
         pub y: i32,
@@ -153,7 +153,7 @@
         pub display: *mut ALLEGRO_DISPLAY,
     },
     TimerTick {
-        pub source: *mut ALLEGRO_EVENT_SOURCE,
+        pub source: *mut <a class='struct' href='../allegro5/ffi/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
         pub timestamp: f64,
         pub count: i64,
     },
