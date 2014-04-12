@@ -88,8 +88,18 @@
 <span id='50'>50</span>
 <span id='51'>51</span>
 <span id='52'>52</span>
+<span id='53'>53</span>
+<span id='54'>54</span>
+<span id='55'>55</span>
+<span id='56'>56</span>
+<span id='57'>57</span>
+<span id='58'>58</span>
+<span id='59'>59</span>
+<span id='60'>60</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
+
+<span class='kw'>use</span> <span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
 
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>Core</span>;
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='ident'>allegro_font</span>::<span class='op'>*</span>;
@@ -100,7 +110,8 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FontAddon</span>
 {
-	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>
+	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>,
+	<span class='ident'>core_mutex</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>FontAddon</span>
@@ -120,7 +131,7 @@
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Some</span>(<span class='ident'>FontAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+					<span class='prelude-val'>Some</span>(<span class='ident'>FontAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 				}
 			}
 			<span class='kw'>else</span>
@@ -128,7 +139,7 @@
 				<span class='ident'>al_init_font_addon</span>();
 				<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
 				<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-				<span class='prelude-val'>Some</span>(<span class='ident'>FontAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+				<span class='prelude-val'>Some</span>(<span class='ident'>FontAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 			}
 		}
 	}
@@ -139,6 +150,11 @@
 		{
 			<span class='ident'>al_get_allegro_font_version</span>() <span class='kw'>as</span> <span class='ident'>i32</span>
 		}
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_core_mutex</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>
+	{
+		<span class='self'>self</span>.<span class='ident'>core_mutex</span>.<span class='ident'>clone</span>()
 	}
 }
 </pre>
