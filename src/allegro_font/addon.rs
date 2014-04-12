@@ -1,3 +1,7 @@
+// Copyright (c) 2014 by SiegeLord
+//
+// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
+
 use std::kinds::marker::NoSend;
 
 use sync::{Arc, Mutex};

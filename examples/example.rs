@@ -1,4 +1,4 @@
-
+// This file is released into Public Domain.
 #![feature(globs)]
 #![feature(struct_variant)]
 #![feature(phase)]
