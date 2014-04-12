@@ -166,17 +166,6 @@ impl ::addon::FontAddon
 		})
 	}
 
-	pub fn load_font(&self, size: i32, filename: &str) -> Option<Font>
-	{
-		Font::new(unsafe
-		{
-			filename.with_c_str(|s|
-			{
-				al_load_font(s, size as c_int, 0)
-			})
-		})
-	}
-
 	pub fn grab_font_from_bitmap(&self, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Option<Font>
 	{
 		Font::new(unsafe
