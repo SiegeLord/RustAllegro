@@ -81,7 +81,7 @@ impl Core
 		res
 	}
 
-	pub fn spawn(&self, thread_proc: proc:Send (Core))
+	pub fn spawn(&self, thread_proc: proc(Core):Send)
 	{
 		use native;
 		let mutex = self.get_core_mutex();
