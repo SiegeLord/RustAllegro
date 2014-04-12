@@ -9,7 +9,7 @@ opaque!(ALLEGRO_KEYBOARD)
 pub struct ALLEGRO_KEYBOARD_STATE
 {
 	pub display: *mut ALLEGRO_DISPLAY,
-	__key_down__internal__: [c_uint, ..8u],
+	pub __key_down__internal__: [c_uint, ..8u],
 }
 
 extern "C"

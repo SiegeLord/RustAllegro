@@ -12,7 +12,7 @@ use ffi::timer::ALLEGRO_TIMER;
 
 pub struct ALLEGRO_EVENT_SOURCE
 {
-	__pad: [c_int, ..32]
+	pub __pad: [c_int, ..32]
 }
 
 pub type ALLEGRO_EVENT_TYPE = c_uint;

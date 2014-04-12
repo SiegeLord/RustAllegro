@@ -11,22 +11,22 @@ pub mod allegro_font
 
 	pub struct ALLEGRO_FONT
 	{
-		data: *mut c_void,
-		height: c_int,
-		vtable: *mut ALLEGRO_FONT_VTABLE,
+		pub data: *mut c_void,
+		pub height: c_int,
+		pub vtable: *mut ALLEGRO_FONT_VTABLE,
 	}
 
 	pub struct ALLEGRO_FONT_VTABLE
 	{
-		font_height: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
-		font_ascent: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
-		font_descent: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
-		char_length: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: c_int) -> c_int>,
-		text_length: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: *ALLEGRO_USTR) -> c_int>,
-		render_char: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: ALLEGRO_COLOR, arg3: c_int, arg4: c_float, arg5: c_float) -> c_int>,
-		render: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: ALLEGRO_COLOR, arg3: *ALLEGRO_USTR, arg4: c_float, arg5: c_float) -> c_int>,
-		destroy: Option<extern "C" fn(arg1: *mut ALLEGRO_FONT)>,
-		get_text_dimensions: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: *ALLEGRO_USTR, arg3: *mut c_int, arg4: *mut c_int, arg5: *mut c_int, arg6: *mut c_int)>,
+		pub font_height: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
+		pub font_ascent: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
+		pub font_descent: Option<extern "C" fn(arg1: *ALLEGRO_FONT) -> c_int>,
+		pub char_length: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: c_int) -> c_int>,
+		pub text_length: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: *ALLEGRO_USTR) -> c_int>,
+		pub render_char: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: ALLEGRO_COLOR, arg3: c_int, arg4: c_float, arg5: c_float) -> c_int>,
+		pub render: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: ALLEGRO_COLOR, arg3: *ALLEGRO_USTR, arg4: c_float, arg5: c_float) -> c_int>,
+		pub destroy: Option<extern "C" fn(arg1: *mut ALLEGRO_FONT)>,
+		pub get_text_dimensions: Option<extern "C" fn(arg1: *ALLEGRO_FONT, arg2: *ALLEGRO_USTR, arg3: *mut c_int, arg4: *mut c_int, arg5: *mut c_int, arg6: *mut c_int)>,
 	}
 
 	pub static ALLEGRO_ALIGN_LEFT: c_int = 0;
