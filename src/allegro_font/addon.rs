@@ -1,5 +1,7 @@
 use std::kinds::marker::NoSend;
 
+use sync::{Arc, Mutex};
+
 use allegro::Core;
 use ffi::allegro_font::*;
 
@@ -9,7 +11,8 @@ static mut spawned_on_this_thread: bool = false;
 
 pub struct FontAddon
 {
-	no_send_marker: NoSend
+	no_send_marker: NoSend,
+	core_mutex: Arc<Mutex<()>>,
 }
 
 impl FontAddon
@@ -29,7 +32,7 @@ impl FontAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(FontAddon{ no_send_marker: NoSend })
+					Some(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -37,7 +40,7 @@ impl FontAddon
 				al_init_font_addon();
 				initialized = true;
 				spawned_on_this_thread = true;
-				Some(FontAddon{ no_send_marker: NoSend })
+				Some(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 			}
 		}
 	}
@@ -48,5 +51,10 @@ impl FontAddon
 		{
 			al_get_allegro_font_version() as i32
 		}
+	}
+
+	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
+	{
+		self.core_mutex.clone()
 	}
 }

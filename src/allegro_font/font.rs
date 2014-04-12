@@ -68,6 +68,11 @@ pub struct Font
 
 impl Font
 {
+	pub unsafe fn wrap_allegro_font(font: *mut ALLEGRO_FONT) -> Option<Font>
+	{
+		Font::new(font)
+	}
+
 	fn new(font: *mut ALLEGRO_FONT) -> Option<Font>
 	{
 		if font.is_null()

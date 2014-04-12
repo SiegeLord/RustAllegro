@@ -11,6 +11,7 @@
 
 extern crate allegro = "allegro5#5.0.10.1";
 extern crate libc;
+extern crate sync;
 
 pub use font::*;
 pub use addon::*;

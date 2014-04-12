@@ -7,6 +7,7 @@
 extern crate allegro5;
 extern crate allegro_image;
 extern crate allegro_font;
+extern crate allegro_ttf;
 extern crate getopts;
 
 use getopts::*;
@@ -15,6 +16,7 @@ use std::c_str::*;
 use allegro5::*;
 use allegro_image::*;
 use allegro_font::*;
+use allegro_ttf::*;
 
 allegro_main!
 {
@@ -39,6 +41,7 @@ allegro_main!
 	};
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
 	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
+	let ttf_addon = TtfAddon::init(&font_addon).expect("Failed to initialize the ttf addon");
 
 	if init_only
 	{
@@ -74,6 +77,7 @@ allegro_main!
 
 	let bkg = core.load_bitmap("data/mysha.pcx").unwrap();
 	let font = font_addon.create_builtin_font().unwrap();
+	let ttf = ttf_addon.load_ttf_font("data/DroidSans.ttf", -32, Flag::zero()).unwrap();
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
@@ -88,6 +92,7 @@ allegro_main!
 			core.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
 			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
 			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
+			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, AlignCentre, "TTF text!");
 			disp.flip();
 			redraw = false;
 		}

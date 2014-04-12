@@ -9,6 +9,7 @@ include(Rust)
 set(ALLEGRO_ROOT src/allegro/lib.rs)
 set(ALLEGRO_IMAGE_ROOT src/allegro_image/lib.rs)
 set(ALLEGRO_FONT_ROOT src/allegro_font/lib.rs)
+set(ALLEGRO_TTF_ROOT src/allegro_ttf/lib.rs)
 
 set(EXAMPLE_ROOT examples/example.rs)
 set(MULTIPLE_WINDOWS_ROOT examples/multiple_windows.rs)
@@ -27,6 +28,7 @@ get_rust_deps(${ALLEGRO_ROOT} ALLEGRO_DEPS
               OTHER_RUSTC_FLAGS --crate-type rlib)
 get_rust_deps(${ALLEGRO_IMAGE_ROOT} ALLEGRO_IMAGE_DEPS)
 get_rust_deps(${ALLEGRO_FONT_ROOT} ALLEGRO_FONT_DEPS)
+get_rust_deps(${ALLEGRO_TTF_ROOT} ALLEGRO_TTF_DEPS)
 get_rust_deps(${EXAMPLE_ROOT} EXAMPLE_DEPS)
 get_rust_deps(${MULTIPLE_WINDOWS_ROOT} MULTIPLE_WINDOWS_DEPS)
 
@@ -49,15 +51,21 @@ rust_crate(${ALLEGRO_FONT_ROOT}
            DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_DEPS}"
            OTHER_RUSTC_FLAGS --crate-type rlib)
 
+rust_crate(${ALLEGRO_TTF_ROOT}
+           TARGET_NAME ALLEGRO_TTF
+           DESTINATION lib
+           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_TTF_DEPS}"
+           OTHER_RUSTC_FLAGS --crate-type rlib)
+
 add_custom_target(library_target
                   ALL
-                  DEPENDS ${ALLEGRO_FULL_TARGET} ${ALLEGRO_IMAGE_FULL_TARGET} ${ALLEGRO_FONT_FULL_TARGET})
+                  DEPENDS ${ALLEGRO_FULL_TARGET} ${ALLEGRO_IMAGE_FULL_TARGET} ${ALLEGRO_FONT_FULL_TARGET} ${ALLEGRO_TTF_FULL_TARGET})
 
 # Build examples
 rust_crate(${EXAMPLE_ROOT}
            TARGET_NAME EXAMPLE
            DESTINATION examples
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};;${ALLEGRO_FONT_FULL_TARGET};${EXAMPLE_DEPS}")
+           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_TTF_FULL_TARGET};${EXAMPLE_DEPS}")
 
 rust_crate(${MULTIPLE_WINDOWS_ROOT}
            TARGET_NAME MULTIPLE_WINDOWS
@@ -98,12 +106,18 @@ rust_doc(${ALLEGRO_FONT_ROOT}
          DESTINATION doc
          DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_DEPS}")
 
+rust_doc(${ALLEGRO_TTF_ROOT}
+         TARGET_NAME ALLEGRO_TTF_DOC
+         DESTINATION doc
+         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_TTF_DEPS}")
+
 # Copy the custom CSS
 file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${CUSTOM_CSS_DEST}")
 add_custom_target("DELETE_STOCK_CSS"
                   DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
                   DEPENDS ${ALLEGRO_IMAGE_DOC_FULL_TARGET}
                   DEPENDS ${ALLEGRO_FONT_DOC_FULL_TARGET}
+                  DEPENDS ${ALLEGRO_TTF_DOC_FULL_TARGET}
                   COMMAND "${CMAKE_COMMAND}" -E remove "${CUSTOM_CSS_DEST}"
                   COMMENT "Deleting stock ${rel_dest}")
 
@@ -116,8 +130,9 @@ add_custom_target(doc
                   DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
                   DEPENDS ${ALLEGRO_IMAGE_DOC_FULL_TARGET}
                   DEPENDS ${ALLEGRO_FONT_DOC_FULL_TARGET}
+                  DEPENDS ${ALLEGRO_TTF_DOC_FULL_TARGET}
                   DEPENDS ${CUSTOM_CSS_DEST})
 
 # Install library
-install(FILES ${ALLEGRO_ARTIFACTS} ${ALLEGRO_IMAGE_ARTIFACTS} ${ALLEGRO_FONT_ARTIFACTS}
+install(FILES ${ALLEGRO_ARTIFACTS} ${ALLEGRO_IMAGE_ARTIFACTS} ${ALLEGRO_FONT_ARTIFACTS} ${ALLEGRO_TTF_ARTIFACTS}
         DESTINATION lib)
