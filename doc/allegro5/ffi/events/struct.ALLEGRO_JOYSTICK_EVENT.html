@@ -38,10 +38,10 @@
 
     <section id='main' class="content struct"><a class='source'
                               href='../../../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/ffi/events.rs.html#62-72'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>ffi</a>::<a href='index.html'>events</a>::<a class='struct' href=''>ALLEGRO_JOYSTICK_EVENT</a></h1><pre class='rust struct'>pub struct ALLEGRO_JOYSTICK_EVENT {
-    pub _type: <a class='typedef' href='../../../allegro5/ffi/events/typedef.ALLEGRO_EVENT_TYPE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a>,
-    pub source: *mut <a class='enum' href='../../../allegro5/ffi/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro5::ffi::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a>,
+    pub _type: ALLEGRO_EVENT_TYPE,
+    pub source: *mut ALLEGRO_JOYSTICK,
     pub timestamp: c_double,
-    pub id: *mut <a class='enum' href='../../../allegro5/ffi/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro5::ffi::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a>,
+    pub id: *mut ALLEGRO_JOYSTICK,
     pub stick: c_int,
     pub axis: c_int,
     pub pos: c_float,

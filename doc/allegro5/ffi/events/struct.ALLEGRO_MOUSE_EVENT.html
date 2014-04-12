@@ -38,10 +38,10 @@
 
     <section id='main' class="content struct"><a class='source'
                               href='../../../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/ffi/events.rs.html#86-102'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>allegro5</a>::<a href='../index.html'>ffi</a>::<a href='index.html'>events</a>::<a class='struct' href=''>ALLEGRO_MOUSE_EVENT</a></h1><pre class='rust struct'>pub struct ALLEGRO_MOUSE_EVENT {
-    pub _type: <a class='typedef' href='../../../allegro5/ffi/events/typedef.ALLEGRO_EVENT_TYPE.html' title='allegro5::ffi::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a>,
-    pub source: *mut <a class='enum' href='../../../allegro5/ffi/mouse/enum.ALLEGRO_MOUSE.html' title='allegro5::ffi::mouse::ALLEGRO_MOUSE'>ALLEGRO_MOUSE</a>,
+    pub _type: ALLEGRO_EVENT_TYPE,
+    pub source: *mut ALLEGRO_MOUSE,
     pub timestamp: c_double,
-    pub display: *mut <a class='enum' href='../../../allegro5/ffi/display/enum.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
+    pub display: *mut ALLEGRO_DISPLAY,
     pub x: c_int,
     pub y: c_int,
     pub z: c_int,
