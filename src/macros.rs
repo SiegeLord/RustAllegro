@@ -7,11 +7,8 @@ macro_rules! opaque
 	($f: ident) =>
 	{
 		/* Mimicking c_void */
-		#[repr(u8)]
 		pub enum $f
 		{
-			priv var1,
-			priv var2
 		}
 	}
 )

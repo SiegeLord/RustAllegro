@@ -8,6 +8,7 @@ extern crate allegro5;
 extern crate allegro_image;
 extern crate allegro_font;
 extern crate allegro_ttf;
+extern crate allegro_audio;
 extern crate getopts;
 
 use getopts::*;
@@ -17,6 +18,7 @@ use allegro5::*;
 use allegro_image::*;
 use allegro_font::*;
 use allegro_ttf::*;
+use allegro_audio::*;
 
 allegro_main!
 {
@@ -42,6 +44,7 @@ allegro_main!
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
 	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
 	let ttf_addon = TtfAddon::init(&font_addon).expect("Failed to initialize the ttf addon");
+	let _audio_addon = AudioAddon::init(&core).expect("Failed to initialize the audio addon");
 
 	if init_only
 	{
