@@ -17,6 +17,8 @@ extern crate libc;
 extern crate sync;
 
 pub use addon::*;
+pub use properties::*;
+pub use sink::*;
 
 #[link(name = "allegro_audio")]
 extern "C" {}
@@ -27,3 +29,5 @@ pub mod macros;
 
 pub mod ffi;
 pub mod addon;
+pub mod properties;
+pub mod sink;

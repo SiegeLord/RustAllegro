@@ -72,7 +72,8 @@ pub mod allegro_audio
 	opaque!(ALLEGRO_MIXER)
 	opaque!(ALLEGRO_VOICE)
 
-	extern "C" {
+	extern "C"
+	{
 		pub fn al_create_sample(buf: *mut c_void, samples: c_uint, freq: c_uint, depth: ALLEGRO_AUDIO_DEPTH, chan_conf: ALLEGRO_CHANNEL_CONF, free_buf: c_bool) -> *mut ALLEGRO_SAMPLE;
 		pub fn al_destroy_sample(spl: *mut ALLEGRO_SAMPLE);
 		pub fn al_create_sample_instance(data: *mut ALLEGRO_SAMPLE) -> *mut ALLEGRO_SAMPLE_INSTANCE;
@@ -82,6 +83,7 @@ pub mod allegro_audio
 		pub fn al_get_sample_depth(spl: *ALLEGRO_SAMPLE) -> ALLEGRO_AUDIO_DEPTH;
 		pub fn al_get_sample_channels(spl: *ALLEGRO_SAMPLE) -> ALLEGRO_CHANNEL_CONF;
 		pub fn al_get_sample_data(spl: *ALLEGRO_SAMPLE) -> *mut c_void;
+
 		pub fn al_get_sample_instance_frequency(spl: *ALLEGRO_SAMPLE_INSTANCE) -> c_uint;
 		pub fn al_get_sample_instance_length(spl: *ALLEGRO_SAMPLE_INSTANCE) -> c_uint;
 		pub fn al_get_sample_instance_position(spl: *ALLEGRO_SAMPLE_INSTANCE) -> c_uint;
@@ -106,6 +108,7 @@ pub mod allegro_audio
 		pub fn al_get_sample(spl: *mut ALLEGRO_SAMPLE_INSTANCE) -> *mut ALLEGRO_SAMPLE;
 		pub fn al_play_sample_instance(spl: *mut ALLEGRO_SAMPLE_INSTANCE) -> c_bool;
 		pub fn al_stop_sample_instance(spl: *mut ALLEGRO_SAMPLE_INSTANCE) -> c_bool;
+
 		pub fn al_create_audio_stream(buffer_count: size_t, samples: c_uint, freq: c_uint, depth: ALLEGRO_AUDIO_DEPTH, chan_conf: ALLEGRO_CHANNEL_CONF) -> *mut ALLEGRO_AUDIO_STREAM;
 		pub fn al_destroy_audio_stream(stream: *mut ALLEGRO_AUDIO_STREAM);
 		pub fn al_drain_audio_stream(stream: *mut ALLEGRO_AUDIO_STREAM);
@@ -135,6 +138,7 @@ pub mod allegro_audio
 		pub fn al_get_audio_stream_length_secs(stream: *mut ALLEGRO_AUDIO_STREAM) -> c_double;
 		pub fn al_set_audio_stream_loop_secs(stream: *mut ALLEGRO_AUDIO_STREAM, start: c_double, end: c_double) -> c_bool;
 		pub fn al_get_audio_stream_event_source(stream: *mut ALLEGRO_AUDIO_STREAM) -> *mut ALLEGRO_EVENT_SOURCE;
+
 		pub fn al_create_mixer(freq: c_uint, depth: ALLEGRO_AUDIO_DEPTH, chan_conf: ALLEGRO_CHANNEL_CONF) -> *mut ALLEGRO_MIXER;
 		pub fn al_destroy_mixer(mixer: *mut ALLEGRO_MIXER);
 		pub fn al_attach_sample_instance_to_mixer(stream: *mut ALLEGRO_SAMPLE_INSTANCE, mixer: *mut ALLEGRO_MIXER) -> c_bool;
@@ -153,6 +157,7 @@ pub mod allegro_audio
 		pub fn al_set_mixer_gain(mixer: *mut ALLEGRO_MIXER, gain: c_float) -> c_bool;
 		pub fn al_set_mixer_playing(mixer: *mut ALLEGRO_MIXER, val: c_bool) -> c_bool;
 		pub fn al_detach_mixer(mixer: *mut ALLEGRO_MIXER) -> c_bool;
+
 		pub fn al_create_voice(freq: c_uint, depth: ALLEGRO_AUDIO_DEPTH, chan_conf: ALLEGRO_CHANNEL_CONF) -> *mut ALLEGRO_VOICE;
 		pub fn al_destroy_voice(voice: *mut ALLEGRO_VOICE);
 		pub fn al_attach_sample_instance_to_voice(stream: *mut ALLEGRO_SAMPLE_INSTANCE, voice: *mut ALLEGRO_VOICE) -> c_bool;
@@ -166,19 +171,24 @@ pub mod allegro_audio
 		pub fn al_get_voice_playing(voice: *ALLEGRO_VOICE) -> c_bool;
 		pub fn al_set_voice_position(voice: *mut ALLEGRO_VOICE, val: c_uint) -> c_bool;
 		pub fn al_set_voice_playing(voice: *mut ALLEGRO_VOICE, val: c_bool) -> c_bool;
+
 		pub fn al_install_audio() -> c_bool;
 		pub fn al_uninstall_audio();
 		pub fn al_is_audio_installed() -> c_bool;
 		pub fn al_get_allegro_audio_version() -> uint32_t;
+
 		pub fn al_get_channel_count(conf: ALLEGRO_CHANNEL_CONF) -> size_t;
 		pub fn al_get_audio_depth_size(conf: ALLEGRO_AUDIO_DEPTH) -> size_t;
+
 		pub fn al_reserve_samples(reserve_samples: c_int) -> c_bool;
 		pub fn al_get_default_mixer() -> *mut ALLEGRO_MIXER;
 		pub fn al_set_default_mixer(mixer: *mut ALLEGRO_MIXER) -> c_bool;
 		pub fn al_restore_default_mixer() -> c_bool;
+
 		pub fn al_play_sample(data: *mut ALLEGRO_SAMPLE, gain: c_float, pan: c_float, speed: c_float, _loop: ALLEGRO_PLAYMODE, ret_id: *mut ALLEGRO_SAMPLE_ID) -> c_bool;
 		pub fn al_stop_sample(spl_id: *mut ALLEGRO_SAMPLE_ID);
 		pub fn al_stop_samples();
+
 		pub fn al_register_sample_loader(ext: *c_char, loader: Option<extern "C" fn(arg1: *c_char) -> *mut ALLEGRO_SAMPLE>) -> c_bool;
 		pub fn al_register_sample_saver(ext: *c_char, saver: Option<extern "C" fn(arg1: *c_char, arg2: *mut ALLEGRO_SAMPLE) -> c_bool>) -> c_bool;
 		pub fn al_register_audio_stream_loader(ext: *c_char, stream_loader: Option<extern "C" fn(arg1: *c_char, arg2: size_t, arg3: c_uint) -> *mut ALLEGRO_AUDIO_STREAM>) -> c_bool;
