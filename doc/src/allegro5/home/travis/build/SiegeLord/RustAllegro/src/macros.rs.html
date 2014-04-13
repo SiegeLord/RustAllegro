@@ -141,9 +141,6 @@
 <span id='103'>103</span>
 <span id='104'>104</span>
 <span id='105'>105</span>
-<span id='106'>106</span>
-<span id='107'>107</span>
-<span id='108'>108</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -154,11 +151,8 @@
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
 	{<span class='comment'>
 		/* Mimicking c_void */
-		</span><span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u8</span>)]</span>
-		<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
+		</span><span class='kw'>pub</span> <span class='kw'>enum</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
-			<span class='kw'>priv</span> <span class='ident'>var1</span>,
-			<span class='kw'>priv</span> <span class='ident'>var2</span>
 		}
 	}
 )
