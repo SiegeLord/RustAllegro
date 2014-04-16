@@ -98,11 +98,7 @@ allegro_main!
 
 	let init_only = matches.opt_present("i");
 
-	let mut core = match Core::init()
-	{
-		Ok(core) => core,
-		Err(msg) => fail!(msg)
-	};
+	let mut core = Core::init().unwrap();
 
 	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
 	core.install_keyboard();
