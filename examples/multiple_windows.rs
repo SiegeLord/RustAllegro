@@ -160,7 +160,7 @@ allegro_main!
 			{
 				match receiver.try_recv()
 				{
-					comm::Disconnected | comm::Data(..) => text = "You closed my buddy!",
+					Err(comm::Disconnected) | Ok(..) => text = "You closed my buddy!",
 					_ => ()
 				}
 
