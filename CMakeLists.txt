@@ -7,10 +7,6 @@ find_package(rustdoc)
 include(Rust)
 
 set(ALLEGRO_ROOT src/allegro/lib.rs)
-set(ALLEGRO_IMAGE_ROOT src/allegro_image/lib.rs)
-set(ALLEGRO_FONT_ROOT src/allegro_font/lib.rs)
-set(ALLEGRO_TTF_ROOT src/allegro_ttf/lib.rs)
-set(ALLEGRO_AUDIO_ROOT src/allegro_audio/lib.rs)
 
 set(EXAMPLE_ROOT examples/example.rs)
 set(MULTIPLE_WINDOWS_ROOT examples/multiple_windows.rs)
@@ -22,15 +18,36 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 
+set(LIB_TARGET_DEPENDS "")
+set(DOC_TARGET_DEPENDS "")
+set(ARTIFACTS "")
+
+macro(add_addon addon_root addon_name other_deps)
+   get_rust_deps(${addon_root} ${addon_name}_DEPS)
+
+   rust_crate(${addon_root}
+           TARGET_NAME ${addon_name}
+           DESTINATION lib
+           DEPENDS "${ALLEGRO_FULL_TARGET};${${addon_name}_DEPS};${other_deps}"
+           OTHER_RUSTC_FLAGS --crate-type rlib)
+
+   list(APPEND LIB_TARGET_DEPENDS "${${addon_name}_FULL_TARGET}")
+   list(APPEND ARTIFACTS "${${addon_name}_ARTIFACTS}")
+
+   rust_doc(${addon_root}
+         TARGET_NAME ${addon_name}_DOC
+         DESTINATION doc
+         DEPENDS "${ALLEGRO_FULL_TARGET};${${addon_name}_DEPS};${other_deps}")
+
+   list(APPEND DOC_TARGET_DEPENDS "${${addon_name}_DOC_FULL_TARGET}")
+endmacro()
+
 # Get the dependencies of all the crates
 get_rust_deps(${ALLEGRO_ROOT} ALLEGRO_DEPS
               COMPILE
               DESTINATION lib
               OTHER_RUSTC_FLAGS --crate-type rlib)
-get_rust_deps(${ALLEGRO_IMAGE_ROOT} ALLEGRO_IMAGE_DEPS)
-get_rust_deps(${ALLEGRO_FONT_ROOT} ALLEGRO_FONT_DEPS)
-get_rust_deps(${ALLEGRO_TTF_ROOT} ALLEGRO_TTF_DEPS)
-get_rust_deps(${ALLEGRO_AUDIO_ROOT} ALLEGRO_AUDIO_DEPS)
+
 get_rust_deps(${EXAMPLE_ROOT} EXAMPLE_DEPS)
 get_rust_deps(${MULTIPLE_WINDOWS_ROOT} MULTIPLE_WINDOWS_DEPS)
 
@@ -41,33 +58,14 @@ rust_crate(${ALLEGRO_ROOT}
            DEPENDS "${ALLEGRO_DEPS}"
            OTHER_RUSTC_FLAGS --crate-type rlib)
 
-rust_crate(${ALLEGRO_IMAGE_ROOT}
-           TARGET_NAME ALLEGRO_IMAGE
-           DESTINATION lib
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_DEPS}"
-           OTHER_RUSTC_FLAGS --crate-type rlib)
-
-rust_crate(${ALLEGRO_FONT_ROOT}
-           TARGET_NAME ALLEGRO_FONT
-           DESTINATION lib
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_DEPS}"
-           OTHER_RUSTC_FLAGS --crate-type rlib)
-
-rust_crate(${ALLEGRO_TTF_ROOT}
-           TARGET_NAME ALLEGRO_TTF
-           DESTINATION lib
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_TTF_DEPS}"
-           OTHER_RUSTC_FLAGS --crate-type rlib)
-
-rust_crate(${ALLEGRO_AUDIO_ROOT}
-           TARGET_NAME ALLEGRO_AUDIO
-           DESTINATION lib
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_AUDIO_DEPS}"
-           OTHER_RUSTC_FLAGS --crate-type rlib)
+add_addon(src/allegro_image/lib.rs ALLEGRO_IMAGE "")
+add_addon(src/allegro_font/lib.rs ALLEGRO_FONT "")
+add_addon(src/allegro_ttf/lib.rs ALLEGRO_TTF "${ALLEGRO_FONT_FULL_TARGET}")
+add_addon(src/allegro_audio/lib.rs ALLEGRO_AUDIO "")
 
 add_custom_target(library_target
                   ALL
-                  DEPENDS ${ALLEGRO_FULL_TARGET} ${ALLEGRO_IMAGE_FULL_TARGET} ${ALLEGRO_FONT_FULL_TARGET} ${ALLEGRO_TTF_FULL_TARGET} ${ALLEGRO_AUDIO_FULL_TARGET})
+                  DEPENDS ${LIB_TARGET_DEPENDS})
 
 # Build examples
 rust_crate(${EXAMPLE_ROOT}
@@ -97,41 +95,10 @@ add_custom_target(examples_target
                   ALL
                   DEPENDS ${EXAMPLE_FULL_TARGET} ${MULTIPLE_WINDOWS_FULL_TARGET} ${EXAMPLE_DATA_FILES_DEST})
 
-
-# Build documentation
-rust_doc(${ALLEGRO_ROOT}
-         TARGET_NAME ALLEGRO_DOC
-         DESTINATION doc
-         DEPENDS "${ALLEGRO_DEPS}")
-
-rust_doc(${ALLEGRO_IMAGE_ROOT}
-         TARGET_NAME ALLEGRO_IMAGE_DOC
-         DESTINATION doc
-         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_IMAGE_DEPS}")
-
-rust_doc(${ALLEGRO_FONT_ROOT}
-         TARGET_NAME ALLEGRO_FONT_DOC
-         DESTINATION doc
-         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_DEPS}")
-
-rust_doc(${ALLEGRO_TTF_ROOT}
-         TARGET_NAME ALLEGRO_TTF_DOC
-         DESTINATION doc
-         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_TTF_DEPS}")
-
-rust_doc(${ALLEGRO_AUDIO_ROOT}
-         TARGET_NAME ALLEGRO_AUDIO_DOC
-         DESTINATION doc
-         DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_AUDIO_DEPS}")
-
 # Copy the custom CSS
 file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${CUSTOM_CSS_DEST}")
 add_custom_target("DELETE_STOCK_CSS"
-                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_IMAGE_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_FONT_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_TTF_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_AUDIO_DOC_FULL_TARGET}
+                  DEPENDS ${DOC_TARGET_DEPENDS}
                   COMMAND "${CMAKE_COMMAND}" -E remove "${CUSTOM_CSS_DEST}"
                   COMMENT "Deleting stock ${rel_dest}")
 
@@ -141,13 +108,10 @@ add_custom_command(OUTPUT "${CUSTOM_CSS_DEST}"
                    COMMAND "${CMAKE_COMMAND}" -E copy "${CUSTOM_CSS_SRC}" "${CUSTOM_CSS_DEST}")
 
 add_custom_target(doc
-                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_IMAGE_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_FONT_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_TTF_DOC_FULL_TARGET}
-                  DEPENDS ${ALLEGRO_AUDIO_DOC_FULL_TARGET}
+                  DEPENDS ${DOC_TARGET_DEPENDS}
                   DEPENDS ${CUSTOM_CSS_DEST})
 
 # Install library
-install(FILES ${ALLEGRO_ARTIFACTS} ${ALLEGRO_IMAGE_ARTIFACTS} ${ALLEGRO_FONT_ARTIFACTS} ${ALLEGRO_TTF_ARTIFACTS} ${ALLEGRO_AUDIO_ARTIFACTS}
+install(FILES ${ALLEGRO_ARTIFACTS}
+        FILES ${ARTIFACTS}
         DESTINATION lib)
