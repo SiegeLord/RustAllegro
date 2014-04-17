@@ -33,14 +33,14 @@ extern "C"
 	pub fn al_get_joystick(joyn: c_int) -> *mut ALLEGRO_JOYSTICK;
 	pub fn al_release_joystick(arg1: *mut ALLEGRO_JOYSTICK);
 	pub fn al_get_joystick_active(arg1: *mut ALLEGRO_JOYSTICK) -> c_bool;
-	pub fn al_get_joystick_name(arg1: *mut ALLEGRO_JOYSTICK) -> *c_schar;
+	pub fn al_get_joystick_name(arg1: *mut ALLEGRO_JOYSTICK) -> *c_char;
 	pub fn al_get_joystick_num_sticks(arg1: *mut ALLEGRO_JOYSTICK) -> c_int;
 	pub fn al_get_joystick_stick_flags(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int) -> c_int;
-	pub fn al_get_joystick_stick_name(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int) -> *c_schar;
+	pub fn al_get_joystick_stick_name(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int) -> *c_char;
 	pub fn al_get_joystick_num_axes(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int) -> c_int;
-	pub fn al_get_joystick_axis_name(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int, axis: c_int) -> *c_schar;
+	pub fn al_get_joystick_axis_name(arg1: *mut ALLEGRO_JOYSTICK, stick: c_int, axis: c_int) -> *c_char;
 	pub fn al_get_joystick_num_buttons(arg1: *mut ALLEGRO_JOYSTICK) -> c_int;
-	pub fn al_get_joystick_button_name(arg1: *mut ALLEGRO_JOYSTICK, buttonn: c_int) -> *c_schar;
+	pub fn al_get_joystick_button_name(arg1: *mut ALLEGRO_JOYSTICK, buttonn: c_int) -> *c_char;
 	pub fn al_get_joystick_state(arg1: *mut ALLEGRO_JOYSTICK, ret_state: *mut ALLEGRO_JOYSTICK_STATE);
 	pub fn al_get_joystick_event_source() -> *mut ALLEGRO_EVENT_SOURCE;
 }

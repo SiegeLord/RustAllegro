@@ -30,12 +30,12 @@ pub static ALLEGRO_LAST_PATH: i32 = 7;
 extern "C"
 {
 	pub fn al_get_standard_path(id: c_int) -> *mut ALLEGRO_PATH;
-	pub fn al_set_exe_name(path: *c_schar);
+	pub fn al_set_exe_name(path: *c_char);
 
-	pub fn al_set_org_name(org_name: *c_schar);
-	pub fn al_set_app_name(app_name: *c_schar);
-	pub fn al_get_org_name() -> *c_schar;
-	pub fn al_get_app_name() -> *c_schar;
+	pub fn al_set_org_name(org_name: *c_char);
+	pub fn al_set_app_name(app_name: *c_char);
+	pub fn al_get_org_name() -> *c_char;
+	pub fn al_get_app_name() -> *c_char;
 
 	pub fn al_inhibit_screensaver(inhibit: c_uchar) -> c_bool;
 }
