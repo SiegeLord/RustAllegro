@@ -81,6 +81,7 @@ impl Drop for Mixer
 	fn drop(&mut self)
 	{
 		self.detach();
+		self.children.clear();
 		unsafe
 		{
 			al_destroy_mixer(self.allegro_mixer);
@@ -92,13 +93,16 @@ pub trait MixerLike : HasMixer
 {
 	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Option<SampleInstance>
 	{
-		let inst = sample.create_instance();
-		inst.as_ref().map(|inst|
+		let mut inst = sample.create_instance();
+		inst.as_mut().map(|inst|
 		{
+			let m = self.get_mixer_mut();
+			inst.attach(m);
 			inst.set_gain(gain);
 			inst.set_pan(pan);
 			inst.set_speed(speed);
 			inst.set_playmode(playmode);
+			inst.set_playing(true);
 		});
 		inst
 	}

@@ -23,6 +23,10 @@ impl Sink
 		let voice = unsafe { al_create_voice(frequency as c_uint, voice_depth.get(), voice_chan_conf.get()) };
 		if voice.is_null()
 		{
+			unsafe
+			{
+				println!("Voice is null {}", al_is_audio_installed());
+			}
 			None
 		}
 		else

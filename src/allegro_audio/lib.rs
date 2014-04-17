@@ -19,6 +19,8 @@ extern crate sync;
 pub use addon::*;
 pub use properties::*;
 pub use sink::*;
+pub use mixer::*;
+pub use sample::*;
 
 #[link(name = "allegro_audio")]
 extern "C" {}
