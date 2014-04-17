@@ -6,45 +6,34 @@ use libc::*;
 use std::option::Some;
 use ffi::*;
 use properties::*;
+use mixer::{MixerLike, Mixer};
+use internal::HasMixer;
 
 pub struct Sink
 {
 	allegro_voice: *mut ALLEGRO_VOICE,
-	allegro_mixer: *mut ALLEGRO_MIXER,
+	mixer: Mixer
 }
 
 impl Sink
 {
 	fn new(frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
-	       mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Option<Sink>
+	       mixer: Mixer) -> Option<Sink>
 	{
-		let (voice, mixer) = unsafe
+		let voice = unsafe { al_create_voice(frequency as c_uint, voice_depth.get(), voice_chan_conf.get()) };
+		if voice.is_null()
 		{
-			(al_create_voice(frequency as c_uint, voice_depth.get(), voice_chan_conf.get()),
-			 al_create_mixer(frequency as c_uint, mixer_depth.get(), mixer_chan_conf.get()))
-		};
-		if voice.is_null() || mixer.is_null()
-		{
-			unsafe
-			{
-				al_destroy_voice(voice);
-				al_destroy_mixer(mixer);
-			}
 			None
 		}
 		else
 		{
-			if unsafe { al_attach_mixer_to_voice(mixer, voice) != 0 }
+			if unsafe { al_attach_mixer_to_voice(mixer.get_allegro_mixer(), voice) != 0 }
 			{
-				Some(Sink{ allegro_voice: voice, allegro_mixer: mixer })
+				Some(Sink{ allegro_voice: voice, mixer: mixer })
 			}
 			else
 			{
-				unsafe
-				{
-					al_destroy_voice(voice);
-					al_destroy_mixer(mixer);
-				}
+				unsafe { al_destroy_voice(voice); }
 				None
 			}
 		}
@@ -57,12 +46,26 @@ impl Drop for Sink
 	{
 		unsafe
 		{
-			al_detach_mixer(self.allegro_mixer);
+			al_detach_mixer(self.mixer.get_allegro_mixer());
 			al_destroy_voice(self.allegro_voice);
-			al_destroy_mixer(self.allegro_mixer);
 		}
 	}
 }
+
+impl HasMixer for Sink
+{
+	fn get_mixer<'l>(&'l self) -> &'l Mixer
+	{
+		&'l self.mixer
+	}
+
+	fn get_mixer_mut<'l>(&'l mut self) -> &'l mut Mixer
+	{
+		&'l mut self.mixer
+	}
+}
+
+impl MixerLike for Sink {}
 
 impl ::addon::AudioAddon
 {
@@ -74,6 +77,10 @@ impl ::addon::AudioAddon
 	pub fn new_custom_sink(&self, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
 	                       mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Option<Sink>
 	{
-		Sink::new(frequency, voice_depth, voice_chan_conf, mixer_depth, mixer_chan_conf)
+		match self.new_custom_mixer(frequency, mixer_depth, mixer_chan_conf)
+		{
+			Some(mixer) => Sink::new(frequency, voice_depth, voice_chan_conf, mixer),
+			_ => None
+		}
 	}
 }

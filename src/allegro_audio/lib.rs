@@ -31,3 +31,6 @@ pub mod ffi;
 pub mod addon;
 pub mod properties;
 pub mod sink;
+pub mod mixer;
+
+mod internal;
