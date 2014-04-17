@@ -14,6 +14,7 @@ extern crate getopts;
 use getopts::*;
 use std::os;
 use std::c_str::*;
+use std::os::getenv;
 use allegro5::*;
 use allegro_image::*;
 use allegro_font::*;
@@ -35,17 +36,20 @@ allegro_main!
 	};
 
 	let init_only = matches.opt_present("i");
+	let on_travis = getenv("TRAVIS").is_some();
 
 	let mut core = Core::init().unwrap();
-	println!("Core ok");
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
-	println!("Image ok");
 	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
-	println!("Font ok");
 	let ttf_addon = TtfAddon::init(&font_addon).expect("Failed to initialize the ttf addon");
-	println!("Ttf ok");
+
+	if init_only && on_travis
+	{
+		// No Audio on Travis
+		return;
+	}
+
 	let _audio_addon = AudioAddon::init(&core).expect("Failed to initialize the audio addon");
-	println!("Audio ok");
 
 	if init_only
 	{
