@@ -69,15 +69,15 @@ impl MixerLike for Sink {}
 
 impl ::addon::AudioAddon
 {
-	pub fn new_sink(&self) -> Option<Sink>
+	pub fn create_sink(&self) -> Option<Sink>
 	{
-		self.new_custom_sink(44100, AudioDepthI16, ChannelConf2, AudioDepthF32, ChannelConf2)
+		self.create_custom_sink(44100, AudioDepthI16, ChannelConf2, AudioDepthF32, ChannelConf2)
 	}
 
-	pub fn new_custom_sink(&self, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
+	pub fn create_custom_sink(&self, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
 	                       mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Option<Sink>
 	{
-		match self.new_custom_mixer(frequency, mixer_depth, mixer_chan_conf)
+		match self.create_custom_mixer(frequency, mixer_depth, mixer_chan_conf)
 		{
 			Some(mixer) => Sink::new(frequency, voice_depth, voice_chan_conf, mixer),
 			_ => None

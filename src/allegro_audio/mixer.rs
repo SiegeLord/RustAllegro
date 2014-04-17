@@ -120,12 +120,12 @@ impl MixerLike for Mixer {}
 
 impl ::addon::AudioAddon
 {
-	pub fn new_mixer(&self) -> Option<Mixer>
+	pub fn create_mixer(&self) -> Option<Mixer>
 	{
-		self.new_custom_mixer(44100, AudioDepthF32, ChannelConf2)
+		self.create_custom_mixer(44100, AudioDepthF32, ChannelConf2)
 	}
 
-	pub fn new_custom_mixer(&self, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Option<Mixer>
+	pub fn create_custom_mixer(&self, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Option<Mixer>
 	{
 		Mixer::new(frequency, depth, chan_conf)
 	}
