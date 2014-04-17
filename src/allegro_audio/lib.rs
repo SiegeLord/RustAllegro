@@ -32,5 +32,6 @@ pub mod addon;
 pub mod properties;
 pub mod sink;
 pub mod mixer;
+pub mod sample;
 
 mod internal;

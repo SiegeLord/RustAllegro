@@ -12,6 +12,8 @@ pub mod allegro_audio
 	use allegro::c_bool;
 	use allegro::ffi::*;
 
+	pub static ALLEGRO_AUDIO_PAN_NONE: c_float = -1000.0;
+
 	// These are enums instead of statics because functions expect these an arguments.
 	// An API bug that cannot really be fixed.
 	#[repr(C)]

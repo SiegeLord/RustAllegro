@@ -1,3 +1,7 @@
+// Copyright (c) 2014 by SiegeLord
+//
+// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
+
 use libc::*;
 use std::option::Some;
 use std::cast;
@@ -7,6 +11,7 @@ use internal::Connection;
 use internal::HasMixer;
 use internal::AttachToMixerImpl;
 use properties::*;
+use sample::{Sample, SampleInstance};
 
 pub trait AttachToMixer : AttachToMixerImpl
 {
@@ -14,6 +19,8 @@ pub trait AttachToMixer : AttachToMixerImpl
 
 	fn attach<T: HasMixer>(&mut self, mixer: &mut T) -> bool
 	{
+		self.detach();
+
 		let m = mixer.get_mixer_mut();
 		let conn = self.create_connection(m.allegro_mixer);
 		match conn
@@ -69,9 +76,32 @@ impl Mixer
 	}
 }
 
+impl Drop for Mixer
+{
+	fn drop(&mut self)
+	{
+		self.detach();
+		unsafe
+		{
+			al_destroy_mixer(self.allegro_mixer);
+		}
+	}
+}
+
 pub trait MixerLike : HasMixer
 {
-
+	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Option<SampleInstance>
+	{
+		let inst = sample.create_instance();
+		inst.as_ref().map(|inst|
+		{
+			inst.set_gain(gain);
+			inst.set_pan(pan);
+			inst.set_speed(speed);
+			inst.set_playmode(playmode);
+		});
+		inst
+	}
 }
 
 impl AttachToMixerImpl for Mixer
@@ -82,7 +112,7 @@ impl AttachToMixerImpl for Mixer
 		{
 			None
 		}
-		else if unsafe{ al_attach_mixer_to_mixer(allegro_mixer, self.allegro_mixer) == 0 }
+		else if unsafe{ al_attach_mixer_to_mixer(self.allegro_mixer, allegro_mixer) == 0 }
 		{
 			None
 		}

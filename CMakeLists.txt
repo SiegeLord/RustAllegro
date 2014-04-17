@@ -62,6 +62,7 @@ add_addon(src/allegro_image/lib.rs ALLEGRO_IMAGE "")
 add_addon(src/allegro_font/lib.rs ALLEGRO_FONT "")
 add_addon(src/allegro_ttf/lib.rs ALLEGRO_TTF "${ALLEGRO_FONT_FULL_TARGET}")
 add_addon(src/allegro_audio/lib.rs ALLEGRO_AUDIO "")
+add_addon(src/allegro_acodec/lib.rs ALLEGRO_ACODEC "${ALLEGRO_AUDIO_FULL_TARGET}")
 
 add_custom_target(library_target
                   ALL
