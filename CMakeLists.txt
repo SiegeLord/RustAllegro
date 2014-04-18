@@ -117,6 +117,7 @@ add_custom_target(examples_target
 # Copy the custom CSS
 file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${CUSTOM_CSS_DEST}")
 add_custom_target("DELETE_STOCK_CSS"
+                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
                   DEPENDS ${DOC_TARGET_DEPENDS}
                   COMMAND "${CMAKE_COMMAND}" -E remove "${CUSTOM_CSS_DEST}"
                   COMMENT "Deleting stock ${rel_dest}")
