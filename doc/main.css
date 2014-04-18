@@ -9,6 +9,36 @@
  * option. This file may not be copied, modified, or distributed
  * except according to those terms.
  */
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Fira Sans'), url("http://rust-lang.org/fonts/FiraSans-Regular.woff") format('woff');
+}
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Fira Sans Medium'), url("http://rust-lang.org/fonts/FiraSans-Medium.woff") format('woff');
+}
+@font-face {
+    font-family: 'Heuristica';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Heuristica Regular'), url("http://rust-lang.org/fonts/Heuristica-Regular.woff") format('woff');
+}
+@font-face {
+    font-family: 'Heuristica';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Heuristica Italic'), url("http://rust-lang.org/fonts/Heuristica-Italic.woff") format('woff');
+}
+@font-face {
+    font-family: 'Heuristica';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Heuristica Bold'), url("http://rust-lang.org/fonts/Heuristica-Bold.woff") format('woff');
+}
 
 @import "normalize.css";
 
@@ -18,170 +48,138 @@
           box-sizing: border-box;
 }
 
-/* Fonts */
+/* General structure and fonts */
 
 body {
-    font: 10pt sans-serif;
-    line-height: 165%;
-    background: #450E00;
+    color: #333;
+    min-width: 500px;
+    font: 18px "Heuristica", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+    margin: 0;
+    position: relative;
+    padding: 10px 15px 20px 15px;
+    padding-bottom: 20px;
 }
 
-h1, .sidebar .location {
-    font: 700 13pt sans-serif;
+h1, h2, h3, h4 {
+    color: black;
+    font-weight: 500;
+    margin: 30px 0 20px 0;
+    padding-bottom: 15px;
 }
-
+h1.fqn {
+    border-bottom: 1px dashed #D5D5D5;
+    margin-top: 0;
+}
 h2, h3, h4 {
-    font: 700 13pt sans-serif;
+    border-bottom: 1px solid #DDDDDD;
 }
-
-.methods h3, h4 {
-    border-radius: 1.0em;
-    box-shadow: 1px 1px 2px #000000;
-    padding: 1.0em 1.0em 1.0em 1.0em;
-    background: #F8EEC9;
-}
-
-h2 code, h3 code, h4 code {
-    text-transform: none;
+h2 code, h3 code, h4 code, .block a {
     font-size: 1.2em;
 }
+h1, h2, h3, h4, section.sidebar, a.source, .content a, .search-input {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
+ul {
+    padding-left: 25px;
+}
+
+p {
+    margin: 0 0 1em 0;
+}
+
+code, pre {
+    font-family: Menlo, Monaco, Consolas, Inconsolata, "DejaVu Sans Mono", monospace;
+}
 pre {
-    border-radius: 1.0em;
-    background: #F1E7BE;
-    box-shadow: inset 1px 1px 2px #000000;
-}
-
-pre.rust {
-    overflow: auto;
-    white-space: pre;
-}
-
-pre, h1.fqn {
-    font: 12pt monospace;
-}
-
-code {
-    font: 11pt monospace;
-}
-
-h1.fqn {
-    font-size: 26px;
-    font-weight: normal;
-}
-
-nav {
-    font: 700 26px sans-serif;
-    text-transform: uppercase;
+    font-size: 15px;
 }
 
 nav.sub {
-    padding-top: 20px;
-    font: 700 16px sans-serif;
+    padding-top: 10px;
+    font-size: 16px;
     text-transform: uppercase;
-    text-align: right;
-}
-
-/* General structure */
-
-html, body {
-    min-height: 100%;
-    height: 100%;
-}
-
-body {
-    position: relative;
-    height: auto;
-    padding-bottom: 20px;
 }
 
 .sidebar {
     width: 200px;
-    max-height: 100%;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
-    overflow: auto;
-    border-bottom-right-radius: 1.0em;
+    min-height: 100%;
 }
 
-/*
 .content, nav { max-width: 960px; }
-*/
 
 /* Everything else */
 
 .js-only, .hidden { display: none; }
 
 .sidebar {
-    background: #F5ECC0;
-    box-shadow: 1px 1px 2px #000000;
     padding: 10px;
 }
-
 .sidebar img {
     margin: 20px auto;
     display: block;
 }
 
-.sidebar .location { margin-bottom: 10px; }
+.sidebar .location {
+    font-size: 17px;
+    margin: 30px 0 20px 0;
+    background: #e1e1e1;
+    text-align: center;
+    color: #333;
+}
 
 .block {
+    padding: 10px;
     margin-bottom: 10px;
 }
-.block h2 { margin-top: 0; }
-.block a {
-    font-weight: bold;
-    margin-left: 15px;
+.block h2 { 
+    margin-top: 0;
+    text-align: center;
 }
-.block a:hover[href] {
-    margin-left: 14px;
-    margin-right: 0px;
+
+.block a {
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 15px;
+    padding-left: 5px;
+    padding-bottom: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    transition: border 500ms ease-out;
 }
 
 .content {
-    background: #F5ECC0;
-    padding: 20px 20px 20px 40px;
-    border-radius: 1.0em;
-    box-shadow: 1px 1px 2px #000000;
+    padding: 20px 0;
 }
-.content h1 { margin-top: 0; }
-.content h1, .content h2 { margin-left: -20px; }
+
 .content pre { padding: 20px; }
-.content pre.line-numbers {
-    float: left;
-    border: none;
-    border-radius: 0;
-    border-width: 1px;
-    box-shadow: none;
-    background: none;
-    padding-right: 5px;
-    margin-right: 10px;
+.content.source pre.rust {
+    white-space: pre;
+    overflow: auto;
+    padding-left: 0;
 }
+.content pre.line-numbers { float: left; border: none; }
+.line-numbers span { color: #c67e2d; }
 .line-numbers .line-highlighted {
-/*
-    background-color: #DBE7F6;
-*/
-/*
-    border-right: 5pt solid #000;
-*/
-    font-weight: bold;
+    background-color: #f6fdb0;
 }
 
 .content .highlighted {
     cursor: pointer;
-    background: #F1E7BE;
-    border-radius: 0.2em;
-    box-shadow: 1px 1px 2px #000000;
+    color: #000 !important;
+    background-color: #ccc;
 }
-/*.content .highlighted a { color: #000 !important; }
-
+.content .highlighted a { color: #000 !important; }
 .content .highlighted.trait { background-color: #fece7e; }
 .content .highlighted.mod { background-color: #afc6e4; }
 .content .highlighted.enum { background-color: #b4d1b9; }
 .content .highlighted.struct { background-color: #e7b1a0; }
 .content .highlighted.fn { background-color: #c6afb3; }
-*/
 
 .docblock.short.nowrap {
     display: block;
@@ -197,13 +195,20 @@ body {
 
 .docblock h1, .docblock h2, .docblock h3, .docblock h4, .docblock h5 {
     margin-left: 0;
+    margin: 40px 0 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #DDD;
 }
 
-.docblock h1 { font-size: 1.1em; }
-.docblock h2 { font-size: 1.05em; }
+.docblock h1 { font-size: 1.3em; }
+.docblock h2 { font-size: 1.15em; }
 .docblock h3, .docblock h4, .docblock h5 { font-size: 1em; }
 
-.content .source { float: right; }
+.content .source {
+    float: right;
+    font-size: 23px;
+}
+
 .content table {
     border-spacing: 0 5px;
     border-collapse: separate;
@@ -235,6 +240,7 @@ body {
 .content .methods .docblock { margin-left: 20px; }
 
 nav {
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
@@ -256,66 +262,48 @@ nav.sum { text-align: right; }
 nav.sub form { display: inline; }
 
 nav, .content {
-    margin-left: 220px;
-    margin-right: 20px;
+    margin-left: 230px;
 }
 
 a {
-    color: #000
-}
-
-a[href] {
     text-decoration: none;
-    color: #1D23A5;
+    color: #000;
+    background: transparent;
 }
 
-a:hover[href]
-{
-    border: 1px dotted #000000;
-    margin: -1px -1px -1px -1px;
-}
-
-/*
-pre a {
-    font-weight: bold;
-}
-*/
-
-td a {
-    font-weight: bold;
-}
-
-button {
-    padding: 2px;
-}
-
-.content .fnname { font-weight: bold; }
+.content a.trait, .block a.current.trait { color: #ed9603; }
+.content a.mod, .block a.current.mod { color: #4d76ae; }
+.content a.enum, .block a.current.enum { color: #5e9766; }
+.content a.struct, .block a.current.struct { color: #e53700; }
+.content a.fn, .block a.current.fn { color: #8c6067; }
+.content .fnname { color: #8c6067; }
 
 .search-input {
-    border: 2px solid #000000;
-    background-color: #F6F2DB;
-    background-repeat: no-repeat;
-    background-size: 15pt 15pt;
-    background-position: right center;
-    border-radius: 0.4em;
     width: 100%;
-}
-
-.do-search {
-/*
-    float: right;
-    width: 6em;
-*/
-    display: none;
-}
-
-.search-results a {
-    color: #000
-}
-
-.search-results a:hover {
+    /* Override Normalize.css: we have margins and do
+     not want to overflow - the `moz` attribute is necessary
+     until Firefox 29, too early to drop at this point */
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    outline: none;
     border: none;
-    margin: 0px
+    border-radius: 1px;
+    color: #555;
+    margin-top: 5px;
+    padding: 10px 16px;
+    font-size: 17px;
+    box-shadow: 0 0 0 1px #e0e0e0, 0 0 0 2px transparent;
+    transition: border-color 300ms ease;
+    transition: border-radius 300ms ease-in-out;
+    transition: box-shadow 300ms ease-in-out;
+}
+
+.search-input:focus {
+    border-color: #66afe9;
+    border-radius: 2px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 0 8px #078dd8;
 }
 
 .search-results .desc {
@@ -329,7 +317,6 @@ button {
     background: #e9e9e9;
     border-radius: 4px;
     box-shadow: 0 0 6px rgba(0,0,0,.2);
-
     position: absolute;
     top: 300px;
     left: 50%;
@@ -361,13 +348,14 @@ button {
 }
 
 .stability {
-    border-left: 5px solid #000;
+    border-left: 6px solid #000;
     border-radius: 3px;
-    padding: 0 3px;
-    float: right;
-    background: #fff;
+    padding: 8px 3px 8px 10px;
     text-transform: lowercase;
+    display: block;
+    margin-bottom: 20px;
 }
+
 .stability.Deprecated { border-color: #D60027; color: #880017; }
 .stability.Experimental { border-color: #EC5315; color: #a53c0e; }
 .stability.Unstable { border-color: #FFD700; color: #b39800; }
@@ -375,14 +363,42 @@ button {
 .stability.Frozen { border-color: #009431; color: #007726; }
 .stability.Locked { border-color: #0084B6; color: #00668c; }
 
+:target { background: #FDFFD3; }
+
+pre.rust, pre.line-numbers { background-color: #F5F5F5; }
+
 /* Code highlighting */
-pre.rust .kw { font-weight: bold; color: #0000d0; }
-pre.rust .kw-2 { color: #0000d0; }
-pre.rust .number { color: #3C037F; }
-pre.rust .string { color: #E028C2; }
-pre.rust .self, pre.rust .boolval { font-weight: bold; color: #0000d0; }
-pre.rust .attribute, pre.rust .attribute .ident { color: #6D1173; }
-pre.rust .comment { color: #017106; }
-pre.rust .doccomment { color: #3F5FBF; }
-pre.rust .macro, pre.rust .macro-nonterminal { color: #007F7F; }
-pre.rust .lifetime { color: #0000d0; }
+pre.rust .kw { color: #8959A8; }
+pre.rust .kw-2, pre.rust .prelude-ty { color: #4271AE; }
+pre.rust .number, pre.rust .string { color: #718C00; }
+pre.rust .self, pre.rust .boolval, pre.rust .prelude-val,
+pre.rust .attribute, pre.rust .attribute .ident { color: #C82829; }
+pre.rust .comment { color: #8E908C; }
+pre.rust .doccomment { color: #4D4D4C; }
+pre.rust .macro, pre.rust .macro-nonterminal { color: #3E999F; }
+pre.rust .lifetime { color: #B76514; }
+
+h1.section-link:hover a:after,
+h2.section-link:hover a:after,
+h3.section-link:hover a:after,
+h4.section-link:hover a:after,
+h5.section-link:hover a:after,
+h6.section-link:hover a:after {
+  content: ' § ';
+}
+
+/** Media Queries **/
+
+@media (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        margin-left: 0px;
+    }
+
+    nav.sub {
+        margin: 0 auto;
+    }
+}
