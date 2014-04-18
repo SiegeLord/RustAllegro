@@ -89,6 +89,14 @@ rust_crate(${AUDIO_EXAMPLE_ROOT}
            DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_AUDIO_FULL_TARGET};${ALLEGRO_ACODEC_FULL_TARGET};${AUDIO_EXAMPLE_DEPS}"
            OTHER_RUSTC_FLAGS -g)
 
+# Build documentation
+
+rust_doc(${ALLEGRO_ROOT}
+         TARGET_NAME ALLEGRO_DOC
+         DESTINATION doc
+         DEPENDS "${ALLEGRO_DEPS}")
+
+
 # Copy the data directory
 set(EXAMPLE_DATA_FILES_DEST "")
 foreach(rel_file IN ITEMS ${EXAMPLE_DATA_FILES})
@@ -119,6 +127,7 @@ add_custom_command(OUTPUT "${CUSTOM_CSS_DEST}"
                    COMMAND "${CMAKE_COMMAND}" -E copy "${CUSTOM_CSS_SRC}" "${CUSTOM_CSS_DEST}")
 
 add_custom_target(doc
+                  DEPENDS ${ALLEGRO_DOC_FULL_TARGET}
                   DEPENDS ${DOC_TARGET_DEPENDS}
                   DEPENDS ${CUSTOM_CSS_DEST})
 
