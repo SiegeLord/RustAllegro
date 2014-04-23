@@ -9,11 +9,13 @@ use sync::Arc;
 use std::sync::atomics::{AtomicBool, SeqCst};
 use libc::c_void;
 
+#[doc(hidden)]
 pub trait AttachToMixerImpl
 {
 	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Option<Connection>;
 }
 
+#[doc(hidden)]
 pub trait HasMixer
 {
 	fn get_mixer<'l>(&'l self) -> &'l Mixer;
