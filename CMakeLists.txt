@@ -133,6 +133,5 @@ add_custom_target(doc
                   DEPENDS ${CUSTOM_CSS_DEST})
 
 # Install library
-install(FILES ${ALLEGRO_ARTIFACTS}
-        FILES ${ARTIFACTS}
+install(FILES ${ALLEGRO_ARTIFACTS} ${ARTIFACTS}
         DESTINATION lib)
