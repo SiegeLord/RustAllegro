@@ -8,6 +8,7 @@ extern crate allegro5;
 extern crate allegro_image;
 extern crate allegro_font;
 extern crate allegro_ttf;
+extern crate allegro_primitives;
 extern crate getopts;
 
 use getopts::*;
@@ -17,6 +18,7 @@ use allegro5::*;
 use allegro_image::*;
 use allegro_font::*;
 use allegro_ttf::*;
+use allegro_primitives::*;
 
 allegro_main!
 {
@@ -38,6 +40,7 @@ allegro_main!
 	ImageAddon::init(&core).expect("Failed to initialize the image addon");
 	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
 	let ttf_addon = TtfAddon::init(&font_addon).expect("Failed to initialize the ttf addon");
+	let prim = PrimitivesAddon::init(&core).expect("Failed to initialize the primitives addon");
 
 	if init_only
 	{
@@ -89,6 +92,7 @@ allegro_main!
 			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
 			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
 			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, AlignCentre, "TTF text!");
+			prim.draw_line(100.0, 200.0, 300.0, 200.0, white, 10.0);
 			disp.flip();
 			redraw = false;
 		}

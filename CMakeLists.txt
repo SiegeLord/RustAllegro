@@ -65,6 +65,7 @@ add_addon(src/allegro_font/lib.rs ALLEGRO_FONT "")
 add_addon(src/allegro_ttf/lib.rs ALLEGRO_TTF "${ALLEGRO_FONT_FULL_TARGET}")
 add_addon(src/allegro_audio/lib.rs ALLEGRO_AUDIO "")
 add_addon(src/allegro_acodec/lib.rs ALLEGRO_ACODEC "${ALLEGRO_AUDIO_FULL_TARGET}")
+add_addon(src/allegro_primitives/lib.rs ALLEGRO_PRIMITIVES "")
 
 add_custom_target(library_target
                   ALL
@@ -86,7 +87,7 @@ rust_crate(${MULTIPLE_WINDOWS_ROOT}
 rust_crate(${AUDIO_EXAMPLE_ROOT}
            TARGET_NAME AUDIO_EXAMPLE
            DESTINATION examples
-           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_AUDIO_FULL_TARGET};${ALLEGRO_ACODEC_FULL_TARGET};${AUDIO_EXAMPLE_DEPS}"
+           DEPENDS "${ALLEGRO_FULL_TARGET};${ALLEGRO_FONT_FULL_TARGET};${ALLEGRO_AUDIO_FULL_TARGET};${ALLEGRO_ACODEC_FULL_TARGET};${ALLEGRO_PRIMITIVES_FULL_TARGET};${AUDIO_EXAMPLE_DEPS}"
            OTHER_RUSTC_FLAGS -g)
 
 # Build documentation

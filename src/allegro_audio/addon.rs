@@ -41,10 +41,16 @@ impl AudioAddon
 			}
 			else
 			{
-				al_install_audio();
-				initialized = true;
-				spawned_on_this_thread = true;
-				Some(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+				if al_install_audio() != 0
+				{
+					initialized = true;
+					spawned_on_this_thread = true;
+					Some(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+				}
+				else
+				{
+					None
+				}
 			}
 		}
 	}
