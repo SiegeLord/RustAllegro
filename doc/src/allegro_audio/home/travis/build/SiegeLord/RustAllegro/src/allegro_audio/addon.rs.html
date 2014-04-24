@@ -102,6 +102,12 @@
 <span id='62'>62</span>
 <span id='63'>63</span>
 <span id='64'>64</span>
+<span id='65'>65</span>
+<span id='66'>66</span>
+<span id='67'>67</span>
+<span id='68'>68</span>
+<span id='69'>69</span>
+<span id='70'>70</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -146,10 +152,16 @@
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='ident'>al_install_audio</span>();
-				<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-				<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-				<span class='prelude-val'>Some</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
+				<span class='kw'>if</span> <span class='ident'>al_install_audio</span>() <span class='op'>!=</span> <span class='number'>0</span>
+				{
+					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+					<span class='prelude-val'>Some</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
+				}
+				<span class='kw'>else</span>
+				{
+					<span class='prelude-val'>None</span>
+				}
 			}
 		}
 	}
