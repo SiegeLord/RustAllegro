@@ -7,11 +7,12 @@ env:
     - secure: UsmZSrX1K7DLfHQZcw1vMZBYm1zE27XgypCK1Jd4cmo4wKogx+uFCCIya53Cw8Jfd/MazcMpGjKFgdv+/qMDSctJqAgVUWRcbE7cxlO8F0OmpLDirTfOE/tTZ26pdQxxEpGfdQdbEGkl0HV/xYznmsKRR25VX+KY+yVU/jzyF6c=
 before_install:
   - yes | sudo add-apt-repository ppa:hansjorg/rust
-  - yes | sudo add-apt-repository ppa:allegro/5.0
   - sudo apt-get update
+  - wget http://static.rust-lang.org/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.gz
+  - tar xf rust-nightly-x86_64-unknown-linux-gnu.tar.gz
 install:
-  - sudo apt-get install rust-nightly
   - sudo apt-get install liballegro5-dev
+  - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
 script:
   - mkdir build
   - cd build
