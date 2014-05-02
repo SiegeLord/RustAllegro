@@ -380,7 +380,7 @@
 		<span class='kw'>use</span> <span class='ident'>sync</span>::<span class='ident'>one</span>::{<span class='ident'>Once</span>, <span class='ident'>ONCE_INIT</span>};
 		<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>run_once</span>: <span class='ident'>Once</span> <span class='op'>=</span> <span class='ident'>ONCE_INIT</span>;
 
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='kw-2'>~</span><span class='string'>&quot;Already initialized.&quot;</span>);
+		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;Already initialized.&quot;</span>.<span class='ident'>to_owned</span>());
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>run_once</span>.<span class='ident'>doit</span>(<span class='op'>||</span>
@@ -392,7 +392,7 @@
 					<span class='ident'>al_set_new_bitmap_flags</span>(<span class='number'>0</span>);
 					<span class='kw'>if</span> <span class='ident'>dummy_target</span>.<span class='ident'>is_null</span>()
 					{
-						<span class='prelude-val'>Err</span>(<span class='kw-2'>~</span><span class='string'>&quot;Failed to create the dummy target... something is very wrong!&quot;</span>)
+						<span class='prelude-val'>Err</span>(<span class='string'>&quot;Failed to create the dummy target... something is very wrong!&quot;</span>.<span class='ident'>to_owned</span>())
 					}
 					<span class='kw'>else</span>
 					{
