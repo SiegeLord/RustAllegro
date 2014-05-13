@@ -17,6 +17,7 @@ extern crate libc;
 extern crate sync;
 
 pub use addon::*;
+pub use stream::*;
 pub use properties::*;
 pub use sink::*;
 pub use mixer::*;
@@ -31,6 +32,7 @@ pub mod macros;
 
 pub mod ffi;
 pub mod addon;
+pub mod stream;
 pub mod properties;
 pub mod sink;
 pub mod mixer;

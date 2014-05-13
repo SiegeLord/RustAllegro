@@ -68,6 +68,8 @@ allegro_main!
 	let font = font_addon.create_builtin_font().unwrap();
 	let mut _sample_instance = None;
 	let sample = audio_addon.load_sample("data/welcome.ogg").unwrap();
+	let mut stream = audio_addon.load_audio_stream("data/music.ogg").unwrap();
+	stream.attach(&mut sink);
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
