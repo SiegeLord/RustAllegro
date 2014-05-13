@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 use std::str;
 use std::kinds::marker::NoSend;
 
@@ -63,7 +63,7 @@ impl Joystick
 	{
 		unsafe
 		{
-			cast::transmute(al_get_joystick_stick_flags(self.allegro_joystick, stick as c_int))
+			mem::transmute(al_get_joystick_stick_flags(self.allegro_joystick, stick as c_int))
 		}
 	}
 

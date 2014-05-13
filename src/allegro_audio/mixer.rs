@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 
 use ffi::*;
 use internal::Connection;
@@ -71,7 +71,7 @@ impl Mixer
 	{
 		unsafe
 		{
-			al_detach_mixer(cast::transmute(allegro_mixer));
+			al_detach_mixer(mem::transmute(allegro_mixer));
 		}
 	}
 }
@@ -122,7 +122,7 @@ impl AttachToMixerImpl for Mixer
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe{ cast::transmute(self.allegro_mixer) }, Mixer::detach);
+			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_mixer) }, Mixer::detach);
 			self.parent = Some(c1);
 			Some(c2)
 		}

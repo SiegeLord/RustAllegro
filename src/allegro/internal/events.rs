@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 use std::kinds::marker::NoSend;
 
 use internal::keycodes::*;
@@ -351,7 +351,7 @@ impl Event
 				{
 					let k = *e.keyboard();
 					KeyChar{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
-					        unichar: cast::transmute(k.unichar), repeat: k.repeat != 0, modifiers: cast::transmute(k.modifiers)}
+					        unichar: mem::transmute(k.unichar), repeat: k.repeat != 0, modifiers: mem::transmute(k.modifiers)}
 				},
 				ALLEGRO_EVENT_MOUSE_AXES =>
 				{

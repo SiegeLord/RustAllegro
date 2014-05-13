@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 
 use ffi::*;
 
@@ -15,7 +15,7 @@ pub fn run(argc: int, argv: **u8, main_func: extern "Rust" fn()) -> int
 	unsafe
 	{
 		global_main_func = Some(main_func);
-		al_run_main(argc as c_int, cast::transmute(argv), cast::transmute(allegro_main)) as int
+		al_run_main(argc as c_int, mem::transmute(argv), mem::transmute(allegro_main)) as int
 	}
 }
 

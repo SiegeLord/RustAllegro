@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 use ffi::*;
 use internal::events::*;
 
@@ -52,7 +52,7 @@ impl Timer
 	{
 		unsafe
 		{
-			al_get_timer_started(cast::transmute(self.allegro_timer)) != 0
+			al_get_timer_started(mem::transmute(self.allegro_timer)) != 0
 		}
 	}
 
@@ -60,7 +60,7 @@ impl Timer
 	{
 		unsafe
 		{
-			al_get_timer_speed(cast::transmute(self.allegro_timer)) as f64
+			al_get_timer_speed(mem::transmute(self.allegro_timer)) as f64
 		}
 	}
 
@@ -76,7 +76,7 @@ impl Timer
 	{
 		unsafe
 		{
-			al_get_timer_count(cast::transmute(self.allegro_timer)) as i64
+			al_get_timer_count(mem::transmute(self.allegro_timer)) as i64
 		}
 	}
 

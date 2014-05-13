@@ -6,7 +6,7 @@ use allegro::c_bool;
 
 use libc::*;
 use sync::Arc;
-use std::cast;
+use std::mem;
 use std::ptr;
 use std::option::Some;
 use std::sync::atomics::{AtomicBool, SeqCst};
@@ -105,7 +105,7 @@ impl SampleInstance
 	{
 		unsafe
 		{
-			al_detach_sample_instance(cast::transmute(allegro_sample_instance));
+			al_detach_sample_instance(mem::transmute(allegro_sample_instance));
 		}
 	}
 
@@ -201,7 +201,7 @@ impl AttachToMixerImpl for SampleInstance
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe{ cast::transmute(self.allegro_sample_instance) }, SampleInstance::detach);
+			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_sample_instance) }, SampleInstance::detach);
 			self.parent = Some(c1);
 			Some(c2)
 		}

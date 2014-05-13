@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::cast;
+use std::mem;
 
 use rust_util::c_bool;
 
@@ -140,42 +140,42 @@ impl ALLEGRO_EVENT
 
 	pub fn _type(&mut self) -> *mut ALLEGRO_EVENT_TYPE
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn any(&mut self) -> *mut ALLEGRO_ANY_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn display(&mut self) -> *mut ALLEGRO_DISPLAY_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn joystick(&mut self) -> *mut ALLEGRO_JOYSTICK_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn keyboard(&mut self) -> *mut ALLEGRO_KEYBOARD_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn mouse(&mut self) -> *mut ALLEGRO_MOUSE_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn timer(&mut self) -> *mut ALLEGRO_TIMER_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 
 	pub fn user(&mut self) -> *mut ALLEGRO_USER_EVENT
 	{
-		unsafe { cast::transmute(self) }
+		unsafe { mem::transmute(self) }
 	}
 }
 

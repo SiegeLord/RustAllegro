@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::cast;
+use std::mem;
 use libc::*;
 use std::option::Some;
 use std::kinds::marker::NoSend;
@@ -90,7 +90,7 @@ impl Bitmap
 			unsafe
 			{
 				// Don't run Bitmap's destructor
-				cast::forget(self);
+				mem::forget(self);
 			}
 			Ok(MemoryBitmap{ allegro_bitmap: bmp })
 		}
@@ -146,7 +146,7 @@ impl MemoryBitmap
 		unsafe
 		{
 			// Don't run MemoryBitmap's destructor
-			cast::forget(self);
+			mem::forget(self);
 		}
 		Bitmap{ allegro_bitmap: bmp, is_ref: false, no_send_marker: NoSend }
 	}
@@ -272,7 +272,7 @@ impl ::internal::core::Core
 	{
 		unsafe
 		{
-			cast::transmute(al_get_new_bitmap_flags() as u32)
+			mem::transmute(al_get_new_bitmap_flags() as u32)
 		}
 	}
 
@@ -288,7 +288,7 @@ impl ::internal::core::Core
 	{
 		unsafe
 		{
-			cast::transmute(al_get_new_bitmap_format() as u32)
+			mem::transmute(al_get_new_bitmap_format() as u32)
 		}
 	}
 

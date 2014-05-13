@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 use std::str;
 use std::kinds::marker::NoSend;
 
@@ -120,7 +120,7 @@ impl Core
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
-			let ret = al_get_monitor_info(adapter as c_int, cast::transmute(&mut c_info)) != 0;
+			let ret = al_get_monitor_info(adapter as c_int, mem::transmute(&mut c_info)) != 0;
 			if ret
 			{
 				Some((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))

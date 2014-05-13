@@ -9,7 +9,6 @@ use std::kinds::marker::NoSend;
 
 use libc::*;
 use std::option::Some;
-use std::cast;
 use std::mem;
 
 pub enum FontAlignment
@@ -47,7 +46,7 @@ impl FontDrawing for Core
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 
-			al_draw_justified_ustr(cast::transmute(font.get_font()), *color, x1 as c_float,
+			al_draw_justified_ustr(mem::transmute(font.get_font()), *color, x1 as c_float,
 			                       x2 as c_float, y as c_float, diff as c_float, align.get_allegro_flags(), ustr);
 		}
 	}
@@ -59,7 +58,7 @@ impl FontDrawing for Core
 			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 
-			al_draw_ustr(cast::transmute(font.get_font()), *color, x as c_float, y as c_float, align.get_allegro_flags(), ustr);
+			al_draw_ustr(mem::transmute(font.get_font()), *color, x as c_float, y as c_float, align.get_allegro_flags(), ustr);
 		}
 	}
 }

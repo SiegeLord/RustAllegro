@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::option::Some;
-use std::cast;
+use std::mem;
 use std::c_str::CString;
 
 use internal::bitmap::*;
@@ -150,7 +150,7 @@ impl Display
 	{
 		unsafe
 		{
-			cast::transmute(al_get_display_format(self.allegro_display) as u32)
+			mem::transmute(al_get_display_format(self.allegro_display) as u32)
 		}
 	}
 
@@ -166,7 +166,7 @@ impl Display
 	{
 		unsafe
 		{
-			cast::transmute(al_get_display_flags(self.allegro_display))
+			mem::transmute(al_get_display_flags(self.allegro_display))
 		}
 	}
 
@@ -350,7 +350,7 @@ impl ::internal::core::Core
 	{
 		unsafe
 		{
-			cast::transmute(al_get_new_display_flags())
+			mem::transmute(al_get_new_display_flags())
 		}
 	}
 
@@ -432,7 +432,7 @@ impl ::internal::core::Core
 			let mut imp: c_int = uninit();
 
 			let val = al_get_new_display_option(option as c_int, &mut imp);
-			(val as i32, cast::transmute(imp))
+			(val as i32, mem::transmute(imp))
 		}
 	}
 

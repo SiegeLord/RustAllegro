@@ -8,7 +8,7 @@ use rust_util::Flag;
 pub mod key
 {
 	use libc::*;
-	use std::cast;
+	use std::mem;
 
 	#[deriving(Eq)]
 	#[repr(u32)]
@@ -140,7 +140,7 @@ pub mod key
 	{
 		pub unsafe fn from_allegro_key(k: c_int) -> KeyCode
 		{
-			cast::transmute(k as u32)
+			mem::transmute(k as u32)
 		}
 	}
 }

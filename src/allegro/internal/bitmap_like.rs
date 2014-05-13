@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::cast;
+use std::mem;
 use libc::*;
 
 use internal::color::*;
@@ -50,7 +50,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			cast::transmute(al_get_bitmap_format(self.get_bitmap()) as u32)
+			mem::transmute(al_get_bitmap_format(self.get_bitmap()) as u32)
 		}
 	}
 
@@ -58,7 +58,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			cast::transmute(al_get_bitmap_flags(self.get_bitmap()) as u32)
+			mem::transmute(al_get_bitmap_flags(self.get_bitmap()) as u32)
 		}
 	}
 
