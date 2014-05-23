@@ -140,6 +140,14 @@ impl Core
 		}
 	}
 
+	pub fn get_time(&self) -> f64
+	{
+		unsafe
+		{
+			al_get_time() as f64
+		}
+	}
+
 	pub fn install_keyboard(&self) -> bool
 	{
 		unsafe
