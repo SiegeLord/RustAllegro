@@ -15,7 +15,7 @@ impl Transform
 	{
 		Transform(unsafe
 		{
-			let mut t = mem::uninit();
+			let mut t = mem::uninitialized();
 			al_identity_transform(&mut t);
 			t
 		})
@@ -25,7 +25,7 @@ impl Transform
 	{
 		Transform(unsafe
 		{
-			let mut t = mem::uninit();
+			let mut t = mem::uninitialized();
 			al_build_transform(&mut t, x as c_float, y as c_float, sx as c_float, sy as c_float, theta as c_float);
 			t
 		})

@@ -21,7 +21,7 @@ use allegro_acodec::*;
 
 allegro_main!
 {
-	let args: Vec<_> = os::args().iter().map(|s| s.to_strbuf()).collect();
+	let args = os::args();
 
 	let opts = ~[
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else")

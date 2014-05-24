@@ -43,7 +43,7 @@ impl FontDrawing for Core
 	{
 		unsafe
 		{
-			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 
 			al_draw_justified_ustr(mem::transmute(font.get_font()), *color, x1 as c_float,
@@ -55,7 +55,7 @@ impl FontDrawing for Core
 	{
 		unsafe
 		{
-			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 
 			al_draw_ustr(mem::transmute(font.get_font()), *color, x as c_float, y as c_float, align.get_allegro_flags(), ustr);
@@ -97,7 +97,7 @@ impl Font
 	{
 		unsafe
 		{
-			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 			al_get_ustr_width(self.get_font() as *_, ustr) as i32
 		}
@@ -131,8 +131,8 @@ impl Font
 	{
 		unsafe
 		{
-			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninit();
-			let mut info: ALLEGRO_USTR_INFO = mem::uninit();
+			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninitialized();
+			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
 			al_get_ustr_dimensions(self.get_font() as *_, ustr, &mut x, &mut y, &mut w, &mut h);
 			(x as i32, y as i32, w as i32, h as i32)

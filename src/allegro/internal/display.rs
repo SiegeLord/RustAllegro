@@ -398,10 +398,10 @@ impl ::internal::core::Core
 	{
 		unsafe
 		{
-			use std::mem::uninit;
+			use std::mem::uninitialized;
 
-			let mut x: c_int = uninit();
-			let mut y: c_int = uninit();
+			let mut x: c_int = uninitialized();
+			let mut y: c_int = uninitialized();
 			al_get_new_window_position(&mut x, &mut y);
 			(x as i32, y as i32)
 		}
@@ -427,9 +427,9 @@ impl ::internal::core::Core
 	{
 		unsafe
 		{
-			use std::mem::uninit;
+			use std::mem::uninitialized;
 
-			let mut imp: c_int = uninit();
+			let mut imp: c_int = uninitialized();
 
 			let val = al_get_new_display_option(option as c_int, &mut imp);
 			(val as i32, mem::transmute(imp))
