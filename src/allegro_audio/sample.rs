@@ -177,6 +177,14 @@ impl SampleInstance
 			al_set_sample_instance_playmode(self.allegro_sample_instance, playmode.get()) != 0
 		}
 	}
+
+	pub fn get_playing(&self) -> bool
+	{
+		unsafe
+		{
+			al_get_sample_instance_playing(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) != 0
+		}
+	}
 }
 
 impl Drop for SampleInstance
