@@ -222,6 +222,14 @@
 <span id='182'>182</span>
 <span id='183'>183</span>
 <span id='184'>184</span>
+<span id='185'>185</span>
+<span id='186'>186</span>
+<span id='187'>187</span>
+<span id='188'>188</span>
+<span id='189'>189</span>
+<span id='190'>190</span>
+<span id='191'>191</span>
+<span id='192'>192</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -266,6 +274,10 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>draw_justified_text</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>font</span>: <span class='kw-2'>&amp;</span><span class='ident'>Font</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>, <span class='ident'>x1</span>: <span class='ident'>f32</span>, <span class='ident'>x2</span>: <span class='ident'>f32</span>, <span class='ident'>y</span>: <span class='ident'>f32</span>, <span class='ident'>diff</span>: <span class='ident'>f32</span>, <span class='ident'>align</span>: <span class='ident'>FontAlignment</span>, <span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
 	{
+		<span class='kw'>if</span> <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='op'>==</span> <span class='number'>0</span>
+		{
+			<span class='kw'>return</span>;
+		}
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
@@ -278,6 +290,10 @@
 
 	<span class='kw'>fn</span> <span class='ident'>draw_text</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>font</span>: <span class='kw-2'>&amp;</span><span class='ident'>Font</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>, <span class='ident'>x</span>: <span class='ident'>f32</span>, <span class='ident'>y</span>: <span class='ident'>f32</span>, <span class='ident'>align</span>: <span class='ident'>FontAlignment</span>, <span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
 	{
+		<span class='kw'>if</span> <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='op'>==</span> <span class='number'>0</span>
+		{
+			<span class='kw'>return</span>;
+		}
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
