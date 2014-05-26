@@ -41,6 +41,10 @@ impl FontDrawing for Core
 {
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str)
 	{
+		if text.len() == 0
+		{
+			return;
+		}
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
@@ -53,6 +57,10 @@ impl FontDrawing for Core
 
 	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlignment, text: &str)
 	{
+		if text.len() == 0
+		{
+			return;
+		}
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
