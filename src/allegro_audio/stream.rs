@@ -9,6 +9,7 @@ use std::option::Some;
 use mixer::AttachToMixer;
 use ffi::*;
 use internal::{Connection, AttachToMixerImpl};
+use properties::Playmode;
 
 pub struct AudioStream
 {
@@ -46,6 +47,22 @@ impl AudioStream
 		unsafe
 		{
 			al_detach_audio_stream(mem::transmute(allegro_audio_stream));
+		}
+	}
+
+	pub fn set_gain(&self, gain: f32) -> bool
+	{
+		unsafe
+		{
+			al_set_audio_stream_gain(self.allegro_audio_stream, gain as c_float) != 0
+		}
+	}
+
+	pub fn set_playmode(&self, playmode: Playmode) -> bool
+	{
+		unsafe
+		{
+			al_set_audio_stream_playmode(self.allegro_audio_stream, playmode.get()) != 0
 		}
 	}
 }
