@@ -35,7 +35,7 @@ impl Joystick
 		}
 	}
 
-	pub fn get_name(&self) -> Option<StrBuf>
+	pub fn get_name(&self) -> Option<String>
 	{
 		unsafe
 		{
@@ -67,7 +67,7 @@ impl Joystick
 		}
 	}
 
-	pub fn get_stick_name(&self, stick: i32) -> Option<StrBuf>
+	pub fn get_stick_name(&self, stick: i32) -> Option<String>
 	{
 		unsafe
 		{
@@ -91,7 +91,7 @@ impl Joystick
 		}
 	}
 
-	pub fn get_axis_name(&self, stick: i32, axis: i32) -> Option<StrBuf>
+	pub fn get_axis_name(&self, stick: i32, axis: i32) -> Option<String>
 	{
 		unsafe
 		{
@@ -115,7 +115,7 @@ impl Joystick
 		}
 	}
 
-	pub fn get_button_name(&self, button: i32) -> Option<StrBuf>
+	pub fn get_button_name(&self, button: i32) -> Option<String>
 	{
 		unsafe
 		{

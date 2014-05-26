@@ -42,7 +42,7 @@ pub mod ffi
 pub mod macros;
 
 static mut initialized: bool = false;
-#[thread_local]
+//#[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
 pub struct ImageAddon

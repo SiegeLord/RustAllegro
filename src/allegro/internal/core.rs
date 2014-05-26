@@ -33,7 +33,7 @@ pub struct Core
 
 impl Core
 {
-	pub fn init() -> Result<Core, StrBuf>
+	pub fn init() -> Result<Core, String>
 	{
 		use sync::one::{Once, ONCE_INIT};
 		static mut run_once: Once = ONCE_INIT;
@@ -196,7 +196,7 @@ impl Core
 		}
 	}
 
-	pub fn keycode_to_name(&self, k: key::KeyCode) -> Option<StrBuf>
+	pub fn keycode_to_name(&self, k: key::KeyCode) -> Option<String>
 	{
 		if self.is_keyboard_installed()
 		{
