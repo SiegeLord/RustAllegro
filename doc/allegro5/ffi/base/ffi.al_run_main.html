@@ -40,7 +40,7 @@
 
     <section id='main' class="content ffi">
 <h1 class='fqn'><a href='../../index.html'>allegro5</a>::<a href='../index.html'>ffi</a>::<a href='index.html'>base</a>::<a class='ffi' href=''>al_run_main</a><a class='source' id='src-141' href='../../../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/ffi/base.rs.html#20'>[src]</a></h1>
-<pre class='rust fn'>pub unsafe fn al_run_main(argc: <a class='type' href='../../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>, argv: **<a class='type' href='../../../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>, user_main:  extern "C" fn(argc: <a class='type' href='../../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>, argv: **<a class='type' href='../../../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>) -&gt; <a class='type' href='../../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>) -&gt; <a class='type' href='../../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></pre></section>
+<pre class='rust fn'>pub unsafe fn al_run_main(argc: c_int, argv: **c_char, user_main:  extern "C" fn(argc: c_int, argv: **c_char) -&gt; c_int) -&gt; c_int</pre></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
