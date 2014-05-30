@@ -38,7 +38,7 @@ impl Core
 		use sync::one::{Once, ONCE_INIT};
 		static mut run_once: Once = ONCE_INIT;
 
-		let mut res = Err("Already initialized.".to_owned());
+		let mut res = Err("Already initialized.".to_string());
 		unsafe
 		{
 			run_once.doit(||
@@ -50,7 +50,7 @@ impl Core
 					al_set_new_bitmap_flags(0);
 					if dummy_target.is_null()
 					{
-						Err("Failed to create the dummy target... something is very wrong!".to_owned())
+						Err("Failed to create the dummy target... something is very wrong!".to_string())
 					}
 					else
 					{
