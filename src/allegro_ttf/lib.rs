@@ -24,6 +24,13 @@ use libc::*;
 use std::option::Some;
 use std::kinds::marker::NoSend;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_ttf")]
+	extern "C" {}
+}
+
 pub mod ffi
 {
 	pub use self::allegro_ttf::*;
@@ -37,7 +44,6 @@ pub mod ffi
 		pub static ALLEGRO_TTF_MONOCHROME: u32  = 2;
 		pub static ALLEGRO_TTF_NO_AUTOHINT: u32 = 4;
 
-		#[link(name = "allegro_ttf")]
 		extern "C"
 		{
 			pub fn al_load_ttf_font(filename: *c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;

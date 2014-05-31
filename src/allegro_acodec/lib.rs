@@ -22,6 +22,13 @@ use ffi::allegro_acodec::*;
 use std::option::Some;
 use std::kinds::marker::NoSend;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_acodec")]
+	extern "C" {}
+}
+
 pub mod ffi
 {
 	pub use self::allegro_acodec::*;
@@ -30,7 +37,6 @@ pub mod ffi
 		use libc::*;
 		use allegro::c_bool;
 
-		#[link(name = "allegro_acodec")]
 		extern "C"
 		{
 			pub fn al_init_acodec_addon() -> c_bool;

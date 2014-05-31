@@ -25,6 +25,13 @@ use std::kinds::marker::NoSend;
 #[path = "../macros.rs"]
 pub mod macros;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_dialog")]
+	extern "C" {}
+}
+
 pub mod ffi
 {
 	pub use self::allegro_dialog::*;
@@ -57,7 +64,6 @@ pub mod ffi
 
 		pub static ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE: c_uint = 600;
 
-		#[link(name = "allegro_dialog")]
 		extern "C"
 		{
 			pub fn al_init_native_dialog_addon() -> c_bool;

@@ -29,6 +29,13 @@ pub use internal::timer::*;
 pub use rust_util::*;
 pub use transformations::*;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro")]
+	extern "C" {}
+}
+
 #[macro_escape]
 #[path = "../macros.rs"]
 pub mod macros;

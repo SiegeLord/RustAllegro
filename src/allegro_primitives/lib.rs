@@ -33,6 +33,13 @@ static mut spawned_on_this_thread: bool = false;
 #[path = "../macros.rs"]
 pub mod macros;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_primitives")]
+	extern "C" {}
+}
+
 pub mod ffi
 {
 	#![allow(non_camel_case_types)]
@@ -85,7 +92,6 @@ pub mod ffi
 			pub color: ALLEGRO_COLOR,
 		}
 
-		#[link(name = "allegro_primitives")]
 		extern "C"
 		{
 			pub fn al_get_allegro_primitives_version() -> uint32_t;

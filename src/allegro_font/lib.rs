@@ -19,8 +19,12 @@ extern crate sync;
 pub use font::*;
 pub use addon::*;
 
-#[link(name = "allegro_font")]
-extern "C" {}
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_font")]
+	extern "C" {}
+}
 
 pub mod ffi;
 pub mod addon;

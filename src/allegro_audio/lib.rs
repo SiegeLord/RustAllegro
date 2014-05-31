@@ -23,8 +23,12 @@ pub use sink::*;
 pub use mixer::*;
 pub use sample::*;
 
-#[link(name = "allegro_audio")]
-extern "C" {}
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_audio")]
+	extern "C" {}
+}
 
 #[macro_escape]
 #[path = "../macros.rs"]

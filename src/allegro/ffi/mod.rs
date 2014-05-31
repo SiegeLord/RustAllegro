@@ -23,9 +23,6 @@ pub use ffi::system::*;
 pub use ffi::timer::*;
 pub use ffi::transformations::*;
 
-#[link(name = "allegro")]
-extern "C" {}
-
 pub mod altime;
 pub mod base;
 pub mod color;

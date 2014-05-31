@@ -6,6 +6,8 @@ find_package(rustc)
 find_package(rustdoc)
 include(Rust)
 
+option(USE_LINK_NAME "Whether to use #[link(name=lib] directives. Turn off if you want to set link_args manually." on)
+
 set(ALLEGRO_ROOT src/allegro/lib.rs)
 
 set(EXAMPLE_ROOT examples/example.rs)
@@ -18,6 +20,10 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 
 set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
+
+if(USE_LINK_NAME)
+   list(APPEND RUSTC_FLAGS --cfg use_link_name)
+endif()
 
 set(LIB_TARGET_DEPENDS "")
 set(DOC_TARGET_DEPENDS "")

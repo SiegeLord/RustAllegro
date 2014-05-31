@@ -20,6 +20,13 @@ use std::kinds::marker::NoSend;
 use allegro::Core;
 use ffi::allegro_image::*;
 
+#[cfg(use_link_name)]
+mod link_name
+{
+	#[link(name = "allegro_image")]
+	extern "C" {}
+}
+
 pub mod ffi
 {
 	pub use self::allegro_image::*;
@@ -28,8 +35,8 @@ pub mod ffi
 		use libc::*;
 		use allegro::c_bool;
 
-		#[link(name = "allegro_image")]
-		extern "C" {
+		extern "C"
+		{
 			pub fn al_init_image_addon() -> c_bool;
 			pub fn al_shutdown_image_addon();
 			pub fn al_get_allegro_image_version() -> uint32_t;
