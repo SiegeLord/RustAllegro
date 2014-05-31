@@ -10,7 +10,7 @@ pub mod key
 	use libc::*;
 	use std::mem;
 
-	#[deriving(Eq)]
+	#[deriving(PartialEq)]
 	#[repr(u32)]
 	pub enum KeyCode
 	{
