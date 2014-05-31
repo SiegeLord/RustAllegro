@@ -225,6 +225,12 @@
 <span id='185'>185</span>
 <span id='186'>186</span>
 <span id='187'>187</span>
+<span id='188'>188</span>
+<span id='189'>189</span>
+<span id='190'>190</span>
+<span id='191'>191</span>
+<span id='192'>192</span>
+<span id='193'>193</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -252,6 +258,13 @@
 <span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
 <span class='attribute'>#[<span class='ident'>path</span> <span class='op'>=</span> <span class='string'>&quot;../macros.rs&quot;</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>macros</span>;
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>use_link_name</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>link_name</span>
+{
+	<span class='attribute'>#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro_dialog&quot;</span>)]</span>
+	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {}
+}
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ffi</span>
 {
@@ -285,7 +298,6 @@
 
 		<span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>600</span>;
 
-		<span class='attribute'>#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro_dialog&quot;</span>)]</span>
 		<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 		{
 			<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_init_native_dialog_addon</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
