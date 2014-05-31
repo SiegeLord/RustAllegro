@@ -14,7 +14,7 @@ use std::sync::atomics::{AtomicBool, SeqCst};
 use mixer::AttachToMixer;
 use ffi::*;
 use internal::{Connection, AttachToMixerImpl};
-use properties::Playmode;
+use properties::{AudioDepth, ChannelConf, Playmode};
 
 // TODO: ALLEGRO_SAMPLE and ALLEGRO_SAMPLE_INSTANCE can probably race on each other...
 // consider adding mutexes (maybe Allegro's mutexes prevent everything bad already)
@@ -81,6 +81,56 @@ pub struct SampleInstance
 	allegro_sample_instance: *mut ALLEGRO_SAMPLE_INSTANCE,
 }
 
+macro_rules! check_or_else
+{
+	($valid: expr, $invalid: expr) =>
+	{
+		if self.sample_valid.load(SeqCst)
+		{
+			unsafe
+			{
+				$valid
+			}
+		}
+		else
+		{
+			$invalid
+		}
+	}
+}
+
+macro_rules! set_impl
+{
+	($c_func: ident, $var: expr) =>
+	{
+		check_or_else!($c_func(self.allegro_sample_instance, $var) != 0, false)
+	}
+}
+
+macro_rules! get_opt_impl
+{
+	($c_func: ident, $dest_ty: ty) =>
+	{
+		check_or_else!(Some($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
+	}
+}
+
+macro_rules! get_conv_impl
+{
+	($c_func: ident, $conv: path) =>
+	{
+		check_or_else!(Some($conv($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE))), None)
+	}
+}
+
+macro_rules! get_bool_impl
+{
+	($c_func: ident) =>
+	{
+		check_or_else!($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) != 0, false)
+	}
+}
+
 impl SampleInstance
 {
 	fn new() -> Option<SampleInstance>
@@ -125,65 +175,104 @@ impl SampleInstance
 		}
 	}
 
+	pub fn set_position(&self, position: u32) -> bool
+	{
+		set_impl!(al_set_sample_instance_position, position as c_uint)
+	}
+
+	pub fn set_length(&self, length: u32) -> bool
+	{
+		set_impl!(al_set_sample_instance_length, length as c_uint)
+	}
+
 	pub fn set_playing(&self, playing: bool) -> bool
 	{
-		if self.sample_valid.load(SeqCst)
-		{
-			unsafe
-			{
-				al_set_sample_instance_playing(self.allegro_sample_instance, playing as c_bool) != 0
-			}
-		}
-		else
-		{
-			false
-		}
+		set_impl!(al_set_sample_instance_playing, playing as c_bool)
 	}
 
 	pub fn set_gain(&self, gain: f32) -> bool
 	{
-		unsafe
-		{
-			al_set_sample_instance_gain(self.allegro_sample_instance, gain as c_float) != 0
-		}
+		set_impl!(al_set_sample_instance_gain, gain as c_float)
 	}
 
 	pub fn set_pan(&self, pan: Option<f32>) -> bool
 	{
-		unsafe
+		set_impl!(al_set_sample_instance_pan,
+		match pan
 		{
-			let pan = match pan
-			{
-				Some(p) => p as c_float,
-				None => ALLEGRO_AUDIO_PAN_NONE
-			};
-
-			al_set_sample_instance_pan(self.allegro_sample_instance, pan) != 0
-		}
+			Some(p) => p as c_float,
+			None => ALLEGRO_AUDIO_PAN_NONE
+		})
 	}
 
 	pub fn set_speed(&self, speed: f32) -> bool
 	{
-		unsafe
-		{
-			al_set_sample_instance_speed(self.allegro_sample_instance, speed as c_float) != 0
-		}
+		set_impl!(al_set_sample_instance_speed, speed as c_float)
 	}
 
 	pub fn set_playmode(&self, playmode: Playmode) -> bool
 	{
-		unsafe
-		{
-			al_set_sample_instance_playmode(self.allegro_sample_instance, playmode.get()) != 0
-		}
+		set_impl!(al_set_sample_instance_playmode, playmode.get())
+	}
+
+	pub fn get_frequency(&self) -> Option<u32>
+	{
+		get_opt_impl!(al_get_sample_instance_frequency, u32)
+	}
+
+	pub fn get_length(&self) -> Option<u32>
+	{
+		get_opt_impl!(al_get_sample_instance_length, u32)
+	}
+
+	pub fn get_position(&self) -> Option<u32>
+	{
+		get_opt_impl!(al_get_sample_instance_position, u32)
+	}
+
+	pub fn get_speed(&self) -> Option<f32>
+	{
+		get_opt_impl!(al_get_sample_instance_speed, f32)
+	}
+
+	pub fn get_gain(&self) -> Option<f32>
+	{
+		get_opt_impl!(al_get_sample_instance_gain, f32)
+	}
+
+	pub fn get_pan(&self) -> Option<f32>
+	{
+		get_opt_impl!(al_get_sample_instance_pan, f32)
+	}
+
+	pub fn get_time(&self) -> Option<f32>
+	{
+		get_opt_impl!(al_get_sample_instance_time, f32)
+	}
+
+	pub fn get_playmode(&self) -> Option<Playmode>
+	{
+		get_conv_impl!(al_get_sample_instance_playmode, Playmode::from_allegro)
+	}
+
+	pub fn get_channels(&self) -> Option<ChannelConf>
+	{
+		get_conv_impl!(al_get_sample_instance_channels, ChannelConf::from_allegro)
+	}
+
+	pub fn get_depth(&self) -> Option<AudioDepth>
+	{
+		get_conv_impl!(al_get_sample_instance_depth, AudioDepth::from_allegro)
 	}
 
 	pub fn get_playing(&self) -> bool
 	{
-		unsafe
-		{
-			al_get_sample_instance_playing(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) != 0
-		}
+		get_bool_impl!(al_get_sample_instance_playing)
+	}
+
+	pub fn get_attached(&self) -> bool
+	{
+		get_bool_impl!(al_get_sample_instance_attached)
 	}
 }
 

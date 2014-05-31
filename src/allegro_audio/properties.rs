@@ -17,6 +17,20 @@ pub enum AudioDepth
 
 impl AudioDepth
 {
+	pub fn from_allegro(val: ALLEGRO_AUDIO_DEPTH) -> AudioDepth
+	{
+		match val
+		{
+			ALLEGRO_AUDIO_DEPTH_INT8     => AudioDepthI8,
+			ALLEGRO_AUDIO_DEPTH_INT16    => AudioDepthI16,
+			ALLEGRO_AUDIO_DEPTH_INT24    => AudioDepthI24,
+			ALLEGRO_AUDIO_DEPTH_UNSIGNED => AudioDepthU8,
+			ALLEGRO_AUDIO_DEPTH_UINT16   => AudioDepthU16,
+			ALLEGRO_AUDIO_DEPTH_UINT24   => AudioDepthU24,
+			ALLEGRO_AUDIO_DEPTH_FLOAT32  => AudioDepthF32,
+		}
+	}
+
 	pub fn get(&self) -> ALLEGRO_AUDIO_DEPTH
 	{
 		match *self
@@ -45,6 +59,20 @@ pub enum ChannelConf
 
 impl ChannelConf
 {
+	pub fn from_allegro(val: ALLEGRO_CHANNEL_CONF) -> ChannelConf
+	{
+		match val
+		{
+			ALLEGRO_CHANNEL_CONF_1   => ChannelConf1,
+			ALLEGRO_CHANNEL_CONF_2   => ChannelConf2,
+			ALLEGRO_CHANNEL_CONF_3   => ChannelConf3,
+			ALLEGRO_CHANNEL_CONF_4   => ChannelConf4,
+			ALLEGRO_CHANNEL_CONF_5_1 => ChannelConf51,
+			ALLEGRO_CHANNEL_CONF_6_1 => ChannelConf61,
+			ALLEGRO_CHANNEL_CONF_7_1 => ChannelConf71,
+		}
+	}
+
 	pub fn get(&self) -> ALLEGRO_CHANNEL_CONF
 	{
 		match *self
@@ -69,6 +97,17 @@ pub enum Playmode
 
 impl Playmode
 {
+	pub fn from_allegro(val: ALLEGRO_PLAYMODE) -> Playmode
+	{
+		match val
+		{
+			ALLEGRO_PLAYMODE_ONCE => PlaymodeOnce,
+			ALLEGRO_PLAYMODE_LOOP => PlaymodeLoop,
+			ALLEGRO_PLAYMODE_BIDIR => PlaymodeBiDir,
+			_ => unreachable!(),
+		}
+	}
+
 	pub fn get(&self) -> ALLEGRO_PLAYMODE
 	{
 		match *self
@@ -89,6 +128,16 @@ pub enum MixerQuality
 
 impl MixerQuality
 {
+	pub fn from_allegro(val: ALLEGRO_MIXER_QUALITY) -> MixerQuality
+	{
+		match val
+		{
+			ALLEGRO_MIXER_QUALITY_POINT  => MixerQualityPoint,
+			ALLEGRO_MIXER_QUALITY_LINEAR => MixerQualityLinear,
+			ALLEGRO_MIXER_QUALITY_CUBIC  => MixerQualityCubic,
+		}
+	}
+
 	pub fn get(&self) -> ALLEGRO_MIXER_QUALITY
 	{
 		match *self
