@@ -45,7 +45,7 @@
     pub y: c_int,
     pub z: c_int,
     pub w: c_int,
-    pub more_axes: [c_int, ..ALLEGRO_MOUSE_MAX_EXTRA_AXES],
+    pub more_axes: <a href='http://doc.rust-lang.org/core/primitive.slice.html'>[c_int, ..ALLEGRO_MOUSE_MAX_EXTRA_AXES]</a>,
     pub buttons: c_int,
     pub pressure: c_float,
     pub display: *mut <a class='type' href='../../../allegro5/ffi/display/type.ALLEGRO_DISPLAY.html' title='allegro5::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a>,
