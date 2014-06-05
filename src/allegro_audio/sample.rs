@@ -10,11 +10,37 @@ use std::mem;
 use std::ptr;
 use std::option::Some;
 use std::sync::atomics::{AtomicBool, SeqCst};
+use std::raw::Slice;
 
 use mixer::AttachToMixer;
 use ffi::*;
 use internal::{Connection, AttachToMixerImpl};
-use properties::{AudioDepth, ChannelConf, Playmode};
+use properties::*;
+
+pub trait DataSample
+{
+	fn get_depth(_: Option<Self>) -> AudioDepth;
+}
+
+macro_rules! data_sample_impl
+{
+	($t: ty, $d: ident) =>
+	{
+		impl DataSample for $t
+		{
+			fn get_depth(_: Option<$t>) -> AudioDepth
+			{
+				$d
+			}
+		}
+	}
+}
+
+data_sample_impl!(i8, AudioDepthI8)
+data_sample_impl!(i16, AudioDepthI16)
+data_sample_impl!(u8, AudioDepthU8)
+data_sample_impl!(u16, AudioDepthU16)
+data_sample_impl!(f32, AudioDepthF32)
 
 // TODO: ALLEGRO_SAMPLE and ALLEGRO_SAMPLE_INSTANCE can probably race on each other...
 // consider adding mutexes (maybe Allegro's mutexes prevent everything bad already)
@@ -22,6 +48,7 @@ use properties::{AudioDepth, ChannelConf, Playmode};
 pub struct Sample
 {
 	allegro_sample: *mut ALLEGRO_SAMPLE,
+	// This will inform sample instances that this sample got dropped
 	sample_valid: Arc<AtomicBool>,
 }
 
@@ -58,6 +85,98 @@ impl Sample
 			inst.set_sample(self);
 		});
 		inst
+	}
+
+	pub fn get_frequency(&self) -> uint
+	{
+		unsafe
+		{
+			al_get_sample_frequency(self.allegro_sample as *ALLEGRO_SAMPLE) as uint
+		}
+	}
+
+	pub fn get_length(&self) -> uint
+	{
+		unsafe
+		{
+			al_get_sample_length(self.allegro_sample as *ALLEGRO_SAMPLE) as uint
+		}
+	}
+
+	pub fn get_byte_length(&self) -> uint
+	{
+		self.get_length() * self.get_channels().get_num_channels() * self.get_depth().get_byte_size()
+	}
+
+	pub fn get_depth(&self) -> AudioDepth
+	{
+		unsafe
+		{
+			AudioDepth::from_allegro(al_get_sample_depth(self.allegro_sample as *ALLEGRO_SAMPLE))
+		}
+	}
+
+	pub fn get_channels(&self) -> ChannelConf
+	{
+		unsafe
+		{
+			ChannelConf::from_allegro(al_get_sample_channels(self.allegro_sample as *ALLEGRO_SAMPLE))
+		}
+	}
+
+	pub fn get_raw_data<'l>(&'l self) -> &'l [u8]
+	{
+		let len = self.get_byte_length();
+		unsafe
+		{
+			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+		}
+	}
+
+	pub fn get_data<'l, T: DataSample>(&'l self) -> Option<&'l [T]>
+	{
+		if self.get_depth() == DataSample::get_depth(None::<T>)
+		{
+			let len = self.get_byte_length() / mem::size_of::<T>();
+			Some(unsafe
+			{
+				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+			})
+		}
+		else
+		{
+			None
+		}
+	}
+
+	pub fn get_data_mut<'l, T: DataSample>(&'l mut self) -> Option<&'l mut [T]>
+	{
+		if self.get_depth() == DataSample::get_depth(None::<T>)
+		{
+			let len = self.get_byte_length() / mem::size_of::<T>();
+			Some(unsafe
+			{
+				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+			})
+		}
+		else
+		{
+			None
+		}
+	}
+
+	pub fn get_raw_data_mut<'l>(&'l mut self) -> &'l mut [u8]
+	{
+		let len = self.get_byte_length();
+		unsafe
+		{
+			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+		}
+	}
+
+	pub fn get_allegro_sample(&self) -> *mut ALLEGRO_SAMPLE
+	{
+		self.allegro_sample
 	}
 }
 
@@ -273,6 +392,11 @@ impl SampleInstance
 	pub fn get_attached(&self) -> bool
 	{
 		get_bool_impl!(al_get_sample_instance_attached)
+	}
+
+	pub fn get_allegro_sample_instance(&self) -> *mut ALLEGRO_SAMPLE_INSTANCE
+	{
+		self.allegro_sample_instance
 	}
 }
 

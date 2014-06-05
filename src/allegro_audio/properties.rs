@@ -4,6 +4,7 @@
 
 use ffi::*;
 
+#[deriving(PartialEq)]
 pub enum AudioDepth
 {
 	AudioDepthI8,
@@ -35,13 +36,27 @@ impl AudioDepth
 	{
 		match *self
 		{
-			AudioDepthI8 => ALLEGRO_AUDIO_DEPTH_INT8,
+			AudioDepthI8  => ALLEGRO_AUDIO_DEPTH_INT8,
 			AudioDepthI16 => ALLEGRO_AUDIO_DEPTH_INT16,
 			AudioDepthI24 => ALLEGRO_AUDIO_DEPTH_INT24,
-			AudioDepthU8 => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
+			AudioDepthU8  => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
 			AudioDepthU16 => ALLEGRO_AUDIO_DEPTH_UINT16,
 			AudioDepthU24 => ALLEGRO_AUDIO_DEPTH_UINT24,
 			AudioDepthF32 => ALLEGRO_AUDIO_DEPTH_FLOAT32,
+		}
+	}
+
+	pub fn get_byte_size(&self) -> uint
+	{
+		match *self
+		{
+			AudioDepthI8  => 1,
+			AudioDepthI16 => 2,
+			AudioDepthI24 => 3,
+			AudioDepthU8  => 1,
+			AudioDepthU16 => 2,
+			AudioDepthU24 => 3,
+			AudioDepthF32 => 4,
 		}
 	}
 }
@@ -77,13 +92,27 @@ impl ChannelConf
 	{
 		match *self
 		{
-			ChannelConf1   => ALLEGRO_CHANNEL_CONF_1,
-			ChannelConf2   => ALLEGRO_CHANNEL_CONF_2,
-			ChannelConf3   => ALLEGRO_CHANNEL_CONF_3,
-			ChannelConf4   => ALLEGRO_CHANNEL_CONF_4,
+			ChannelConf1  => ALLEGRO_CHANNEL_CONF_1,
+			ChannelConf2  => ALLEGRO_CHANNEL_CONF_2,
+			ChannelConf3  => ALLEGRO_CHANNEL_CONF_3,
+			ChannelConf4  => ALLEGRO_CHANNEL_CONF_4,
 			ChannelConf51 => ALLEGRO_CHANNEL_CONF_5_1,
 			ChannelConf61 => ALLEGRO_CHANNEL_CONF_6_1,
 			ChannelConf71 => ALLEGRO_CHANNEL_CONF_7_1,
+		}
+	}
+
+	pub fn get_num_channels(&self) -> uint
+	{
+		match *self
+		{
+			ChannelConf1  => 1,
+			ChannelConf2  => 2,
+			ChannelConf3  => 3,
+			ChannelConf4  => 4,
+			ChannelConf51 => 6,
+			ChannelConf61 => 7,
+			ChannelConf71 => 8,
 		}
 	}
 }
