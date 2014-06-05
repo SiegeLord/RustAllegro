@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The allegro_audio library documentation.">
 
-    <title>allegro_audio::mixer::AttachToMixer - Rust</title>
+    <title>allegro_audio::sample::DataSample - Rust</title>
 
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
           rel='stylesheet' type='text/css'>
@@ -24,7 +24,7 @@
     <section class="sidebar">
         
 
-        <p class='location'><a href='../index.html'>allegro_audio</a>&#8203;::<a href='index.html'>mixer</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Mixer.html'>Mixer</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait current' href='trait.AttachToMixer.html'>AttachToMixer</a><br/><a class='trait ' href='trait.MixerLike.html'>MixerLike</a><br/></div>
+        <p class='location'><a href='../index.html'>allegro_audio</a>&#8203;::<a href='index.html'>sample</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Sample.html'>Sample</a><br/><a class='struct ' href='struct.SampleInstance.html'>SampleInstance</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait current' href='trait.DataSample.html'>DataSample</a><br/></div>
     </section>
 
     <nav class="sub">
@@ -39,25 +39,22 @@
     </nav>
 
     <section id='main' class="content trait">
-<h1 class='fqn'>Trait <a href='../index.html'>allegro_audio</a>::<a href='index.html'>mixer</a>::<a class='trait' href=''>AttachToMixer</a><a class='source' id='src-2326' href='../../src/allegro_audio/home/travis/build/SiegeLord/RustAllegro/src/allegro_audio/mixer.rs.html#16-36'>[src]</a></h1>
-<pre class='rust trait'>pub trait AttachToMixer: AttachToMixerImpl {
-    fn <a href='#tymethod.detach' class='fnname'>detach</a>(&amp;mut self);
-
-    fn <a href='#method.attach' class='fnname'>attach</a>&lt;T: HasMixer&gt;(&amp;mut self, mixer: &amp;mut T) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a> { ... }
+<h1 class='fqn'>Trait <a href='../index.html'>allegro_audio</a>::<a href='index.html'>sample</a>::<a class='trait' href=''>DataSample</a><a class='source' id='src-2749' href='../../src/allegro_audio/home/travis/build/SiegeLord/RustAllegro/src/allegro_audio/sample.rs.html#20-23'>[src]</a></h1>
+<pre class='rust trait'>pub trait DataSample {
+    fn <a href='#tymethod.get_depth' class='fnname'>get_depth</a>(_: <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a class='type' href='../../allegro_audio/properties/type.AudioDepth.html' title='allegro_audio::properties::AudioDepth'>AudioDepth</a>;
 }</pre>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.detach' class='method'><code>fn <a href='#tymethod.detach' class='fnname'>detach</a>(&amp;mut self)</code></h3></div>
-            <h2 id='provided-methods'>Provided Methods</h2>
-            <div class='methods'>
-        <h3 id='method.attach' class='method'><code>fn <a href='#method.attach' class='fnname'>attach</a>&lt;T: HasMixer&gt;(&amp;mut self, mixer: &amp;mut T) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h3></div>
+        <h3 id='tymethod.get_depth' class='method'><code>fn <a href='#tymethod.get_depth' class='fnname'>get_depth</a>(_: <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a class='type' href='../../allegro_audio/properties/type.AudioDepth.html' title='allegro_audio::properties::AudioDepth'>AudioDepth</a></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../allegro_audio/mixer/trait.AttachToMixer.html' title='allegro_audio::mixer::AttachToMixer'>AttachToMixer</a> for <a class='struct' href='../../allegro_audio/stream/struct.AudioStream.html' title='allegro_audio::stream::AudioStream'>AudioStream</a></code></li>
-<li><code>impl <a class='trait' href='../../allegro_audio/mixer/trait.AttachToMixer.html' title='allegro_audio::mixer::AttachToMixer'>AttachToMixer</a> for <a class='struct' href='../../allegro_audio/mixer/struct.Mixer.html' title='allegro_audio::mixer::Mixer'>Mixer</a></code></li>
-<li><code>impl <a class='trait' href='../../allegro_audio/mixer/trait.AttachToMixer.html' title='allegro_audio::mixer::AttachToMixer'>AttachToMixer</a> for <a class='struct' href='../../allegro_audio/sample/struct.SampleInstance.html' title='allegro_audio::sample::SampleInstance'>SampleInstance</a></code></li>
+    <li><code>impl <a class='trait' href='../../allegro_audio/sample/trait.DataSample.html' title='allegro_audio::sample::DataSample'>DataSample</a> for <a href='http://doc.rust-lang.org/std/primitive.i8.html'>i8</a></code></li>
+<li><code>impl <a class='trait' href='../../allegro_audio/sample/trait.DataSample.html' title='allegro_audio::sample::DataSample'>DataSample</a> for <a href='http://doc.rust-lang.org/std/primitive.i16.html'>i16</a></code></li>
+<li><code>impl <a class='trait' href='../../allegro_audio/sample/trait.DataSample.html' title='allegro_audio::sample::DataSample'>DataSample</a> for <a href='http://doc.rust-lang.org/std/primitive.u8.html'>u8</a></code></li>
+<li><code>impl <a class='trait' href='../../allegro_audio/sample/trait.DataSample.html' title='allegro_audio::sample::DataSample'>DataSample</a> for <a href='http://doc.rust-lang.org/std/primitive.u16.html'>u16</a></code></li>
+<li><code>impl <a class='trait' href='../../allegro_audio/sample/trait.DataSample.html' title='allegro_audio::sample::DataSample'>DataSample</a> for <a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/allegro_audio/mixer/trait.AttachToMixer.js">
+                              src="../../implementors/allegro_audio/sample/trait.DataSample.js">
                       </script></section>
     <section id='search' class="content hidden"></section>
 
