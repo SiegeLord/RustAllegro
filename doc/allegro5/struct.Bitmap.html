@@ -53,7 +53,7 @@
 <h4 id='method.get_pixel' class='method'><code>fn <a href='#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a href='http://doc.rust-lang.org/std/primitive.i32.html'>i32</a>, y: <a href='http://doc.rust-lang.org/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro5/struct.Color.html' title='allegro5::Color'>Color</a></code></h4>
 <h4 id='method.convert_mask_to_alpha' class='method'><code>fn <a href='#method.convert_mask_to_alpha' class='fnname'>convert_mask_to_alpha</a>(&amp;self, mask_color: <a class='struct' href='../allegro5/struct.Color.html' title='allegro5::Color'>Color</a>)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../allegro5/struct.Bitmap.html' title='allegro5::Bitmap'>Bitmap</a></code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../allegro5/struct.Bitmap.html' title='allegro5::Bitmap'>Bitmap</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, &amp;Self)</code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro5/struct.Bitmap.html' title='allegro5::Bitmap'>Bitmap</a></code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
@@ -92,11 +92,13 @@
     </div>
 
     <script>
-        var rootPath = "../";
-        var currentCrate = "allegro5";
+        window.rootPath = "../";
+        window.currentCrate = "allegro5";
+        window.playgroundUrl = "";
     </script>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
+    
     <script async src="../search-index.js"></script>
 </body>
 </html>
