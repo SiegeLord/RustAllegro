@@ -3,7 +3,7 @@
 #![feature(struct_variant)]
 #![feature(phase)]
 
-#[phase(syntax, link)]
+#[phase(plugin, link)]
 extern crate allegro5;
 extern crate allegro_font;
 extern crate allegro_audio;
