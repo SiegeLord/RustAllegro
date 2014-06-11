@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The allegro_audio library documentation.">
+
+    <title>allegro_audio::sample::SampleInstance - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../index.html'>allegro_audio</a>&#8203;::<a href='index.html'>sample</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Sample.html'>Sample</a><br/><a class='struct current' href='struct.SampleInstance.html'>SampleInstance</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.DataSample.html'>DataSample</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='../index.html'>allegro_audio</a>::<a href='index.html'>sample</a>::<a class='struct' href=''>SampleInstance</a><a class='source' id='src-3245' href='../../src/allegro_audio/home/travis/build/SiegeLord/RustAllegro/src/allegro_audio/sample.rs.html#195-201'>[src]</a></h1>
+<pre class='rust struct'>pub struct SampleInstance {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../allegro_audio/sample/struct.SampleInstance.html' title='allegro_audio::sample::SampleInstance'>SampleInstance</a></code></h3><div class='methods'><h4 id='method.set_sample' class='method'><code>fn <a href='#method.set_sample' class='fnname'>set_sample</a>(&amp;mut self, sample: &amp;<a class='struct' href='../../allegro_audio/sample/struct.Sample.html' title='allegro_audio::sample::Sample'>Sample</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_position' class='method'><code>fn <a href='#method.set_position' class='fnname'>set_position</a>(&amp;self, position: <a href='http://doc.rust-lang.org/std/primitive.u32.html'>u32</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_length' class='method'><code>fn <a href='#method.set_length' class='fnname'>set_length</a>(&amp;self, length: <a href='http://doc.rust-lang.org/std/primitive.u32.html'>u32</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_playing' class='method'><code>fn <a href='#method.set_playing' class='fnname'>set_playing</a>(&amp;self, playing: <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_gain' class='method'><code>fn <a href='#method.set_gain' class='fnname'>set_gain</a>(&amp;self, gain: <a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_pan' class='method'><code>fn <a href='#method.set_pan' class='fnname'>set_pan</a>(&amp;self, pan: <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>&gt;) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_speed' class='method'><code>fn <a href='#method.set_speed' class='fnname'>set_speed</a>(&amp;self, speed: <a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_playmode' class='method'><code>fn <a href='#method.set_playmode' class='fnname'>set_playmode</a>(&amp;self, playmode: <a class='type' href='../../allegro_audio/properties/type.Playmode.html' title='allegro_audio::properties::Playmode'>Playmode</a>) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_frequency' class='method'><code>fn <a href='#method.get_frequency' class='fnname'>get_frequency</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+<h4 id='method.get_length' class='method'><code>fn <a href='#method.get_length' class='fnname'>get_length</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+<h4 id='method.get_position' class='method'><code>fn <a href='#method.get_position' class='fnname'>get_position</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+<h4 id='method.get_speed' class='method'><code>fn <a href='#method.get_speed' class='fnname'>get_speed</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>&gt;</code></h4>
+<h4 id='method.get_gain' class='method'><code>fn <a href='#method.get_gain' class='fnname'>get_gain</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>&gt;</code></h4>
+<h4 id='method.get_pan' class='method'><code>fn <a href='#method.get_pan' class='fnname'>get_pan</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>&gt;</code></h4>
+<h4 id='method.get_time' class='method'><code>fn <a href='#method.get_time' class='fnname'>get_time</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.f32.html'>f32</a>&gt;</code></h4>
+<h4 id='method.get_playmode' class='method'><code>fn <a href='#method.get_playmode' class='fnname'>get_playmode</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../allegro_audio/properties/type.Playmode.html' title='allegro_audio::properties::Playmode'>Playmode</a>&gt;</code></h4>
+<h4 id='method.get_channels' class='method'><code>fn <a href='#method.get_channels' class='fnname'>get_channels</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../allegro_audio/properties/type.ChannelConf.html' title='allegro_audio::properties::ChannelConf'>ChannelConf</a>&gt;</code></h4>
+<h4 id='method.get_depth' class='method'><code>fn <a href='#method.get_depth' class='fnname'>get_depth</a>(&amp;self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../allegro_audio/properties/type.AudioDepth.html' title='allegro_audio::properties::AudioDepth'>AudioDepth</a>&gt;</code></h4>
+<h4 id='method.get_playing' class='method'><code>fn <a href='#method.get_playing' class='fnname'>get_playing</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_attached' class='method'><code>fn <a href='#method.get_attached' class='fnname'>get_attached</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_allegro_sample_instance' class='method'><code>fn <a href='#method.get_allegro_sample_instance' class='fnname'>get_allegro_sample_instance</a>(&amp;self) -&gt; *mut <a class='type' href='../../allegro_audio/ffi/allegro_audio/type.ALLEGRO_SAMPLE_INSTANCE.html' title='allegro_audio::ffi::allegro_audio::ALLEGRO_SAMPLE_INSTANCE'>ALLEGRO_SAMPLE_INSTANCE</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../allegro_audio/sample/struct.SampleInstance.html' title='allegro_audio::sample::SampleInstance'>SampleInstance</a></code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../allegro_audio/mixer/trait.AttachToMixer.html' title='allegro_audio::mixer::AttachToMixer'>AttachToMixer</a> for <a class='struct' href='../../allegro_audio/sample/struct.SampleInstance.html' title='allegro_audio::sample::SampleInstance'>SampleInstance</a></code></h3><div class='methods'><h4 id='method.detach' class='method'><code>fn <a href='#method.detach' class='fnname'>detach</a>(&amp;mut self)</code></h4>
+<h4 id='method.attach' class='method'><code>fn <a href='#method.attach' class='fnname'>attach</a>&lt;T: HasMixer&gt;(&amp;mut self, mixer: &amp;mut T) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "allegro_audio";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
