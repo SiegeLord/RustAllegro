@@ -381,7 +381,7 @@ impl Event
 				ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY =>
 				{
 					let m = *e.mouse();
-					MouseEnterDisplay{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, display: m.display}
+					MouseLeaveDisplay{source: src, timestamp: ts, x: m.x, y: m.y, z: m.z, w: m.w, display: m.display}
 				},
 				ALLEGRO_EVENT_TIMER =>
 				{

@@ -24,11 +24,11 @@ allegro_main!
 {
 	let args = os::args();
 
-	let opts = ~[
+	let opts = vec![
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else")
 	];
 
-	let matches = match getopts(args.tail(), opts)
+	let matches = match getopts(args.tail(), opts.as_slice())
 	{
 		Ok(m) => { m }
 		Err(f) => { fail!(f.to_err_msg()) }
