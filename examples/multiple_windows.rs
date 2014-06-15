@@ -90,11 +90,7 @@ allegro_main!
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else")
 	];
 
-	let matches = match getopts(args.tail(), opts.as_slice())
-	{
-		Ok(m) => { m }
-		Err(f) => { fail!(f.to_err_msg()) }
-	};
+	let matches = getopts(args.tail(), opts.as_slice()).unwrap();
 
 	let init_only = matches.opt_present("i");
 
