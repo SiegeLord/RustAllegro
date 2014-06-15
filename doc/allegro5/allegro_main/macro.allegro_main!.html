@@ -23,8 +23,7 @@
 
     <section class="sidebar">
         
-
-        <p class='location'><a href='../index.html'>allegro5</a>&#8203;::<a href='index.html'>allegro_main</a></p><div class='block macro'><h2>Macros</h2><a class='macro current' href='macro.allegro_main!.html'>allegro_main!</a><br/></div>
+        <p class='location'><a href='../index.html'>allegro5</a>&#8203;::<a href='index.html'>allegro_main</a></p><div class='block macro'><h2>Macros</h2><a class='macro current' href='macro.allegro_main!.html'>allegro_main!</a></div>
     </section>
 
     <nav class="sub">
@@ -39,14 +38,14 @@
     </nav>
 
     <section id='main' class="content macro">
-<h1 class='fqn'><a href='../index.html'>allegro5</a>::<a href='index.html'>allegro_main</a>::<a class='macro' href=''>allegro_main!</a><a class='source' id='src-14267' href='../../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/allegro_main.rs.html#6-22'>[src]</a></h1>
+<h1 class='fqn'><a href='../index.html'>allegro5</a>::<a href='index.html'>allegro_main</a>::<a class='macro' href=''>allegro_main!</a><a class='source' id='src-14259' href='../../src/allegro5/home/travis/build/SiegeLord/RustAllegro/src/allegro/allegro_main.rs.html#6-22'>[src]</a></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>allegro_main</span>
 {
 	(<span class='op'>^</span><span class='ident'>tt_expander</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>};
 	($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='attribute'>#[<span class='ident'>start</span>]</span>
+		<span class='attribute'>\#[<span class='ident'>start</span>]</span>
 		<span class='kw'>fn</span> <span class='ident'>start</span>(<span class='ident'>argc</span>: <span class='ident'>int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='op'>*</span><span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>int</span>
 		{
 			<span class='ident'>allegro5</span>::<span class='ident'>run</span>(<span class='ident'>argc</span>, <span class='ident'>argv</span>, <span class='ident'>main</span>)
@@ -76,7 +75,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&#9166;</dt>
+                <dt>&\#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>

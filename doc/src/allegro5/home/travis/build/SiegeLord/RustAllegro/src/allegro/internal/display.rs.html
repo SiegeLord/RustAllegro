@@ -23,7 +23,6 @@
 
     <section class="sidebar">
         
-
         
     </section>
 
@@ -519,7 +518,7 @@
 	}
 )
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>\#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOption</span>
 {
 	<span class='ident'>RedSize</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_RED_SIZE</span>,
@@ -555,7 +554,7 @@
 	<span class='ident'>SupportSeparateAlpha</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SUPPORT_SEPARATE_ALPHA</span>,
 }
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>\#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOptionImportance</span>
 {
 	<span class='ident'>DontCare</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DONTCARE</span>,
@@ -563,7 +562,7 @@
 	<span class='ident'>Suggest</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SUGGEST</span>,
 }
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>\#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOrientation</span>
 {
 	<span class='ident'>DisplayOrientation0Degrees</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES</span>,
@@ -803,7 +802,7 @@
 }<span class='comment'>
 
 // Not Send just because of the marker in the event source
-</span><span class='attribute'>#[<span class='ident'>unsafe_destructor</span>]</span>
+</span><span class='attribute'>\#[<span class='ident'>unsafe_destructor</span>]</span>
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Display</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
@@ -943,7 +942,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&#9166;</dt>
+                <dt>&\#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>
