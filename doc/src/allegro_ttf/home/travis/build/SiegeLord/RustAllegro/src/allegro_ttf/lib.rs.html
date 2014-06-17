@@ -196,15 +196,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-</span><span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>crate_id</span><span class='op'>=</span><span class='string'>&quot;allegro_ttf#5.0.10.1&quot;</span>]</span>
+</span><span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_id</span><span class='op'>=</span><span class='string'>&quot;allegro_ttf#5.0.10.1&quot;</span>]</span>
 
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>comment</span> <span class='op'>=</span> <span class='string'>&quot;Allegro 5 TTF addon Rust bindings&quot;</span>]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>license</span> <span class='op'>=</span> <span class='string'>&quot;zlib&quot;</span>]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>globs</span>)]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>macro_rules</span>)]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>struct_variant</span>)]</span>
-<span class='attribute'>\#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>thread_local</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>comment</span> <span class='op'>=</span> <span class='string'>&quot;Allegro 5 TTF addon Rust bindings&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>license</span> <span class='op'>=</span> <span class='string'>&quot;zlib&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>globs</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>macro_rules</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>struct_variant</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>thread_local</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro</span> <span class='op'>=</span> <span class='string'>&quot;allegro5#5.0.10.1&quot;</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_font</span> <span class='op'>=</span> <span class='string'>&quot;allegro_font#5.0.10.1&quot;</span>;
@@ -218,10 +218,10 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>::<span class='prelude-val'>Some</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 
-<span class='attribute'>\#[<span class='ident'>cfg</span>(<span class='ident'>use_link_name</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>use_link_name</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>link_name</span>
 {
-	<span class='attribute'>\#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro_ttf&quot;</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro_ttf&quot;</span>)]</span>
 	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {}
 }
 
@@ -251,8 +251,8 @@
 	}
 }
 
-<span class='attribute'>\#[<span class='ident'>macro_escape</span>]</span>
-<span class='attribute'>\#[<span class='ident'>path</span> <span class='op'>=</span> <span class='string'>&quot;../macros.rs&quot;</span>]</span>
+<span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
+<span class='attribute'>#[<span class='ident'>path</span> <span class='op'>=</span> <span class='string'>&quot;../macros.rs&quot;</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>macros</span>;
 
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;<span class='comment'>
@@ -364,7 +364,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&\#9166;</dt>
+                <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>

@@ -97,14 +97,14 @@
 
 <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
 
-<span class='attribute'>\#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_NATIVE_PATH_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;\\&#39;</span>;
-<span class='attribute'>\#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;:&#39;</span>;
 
-<span class='attribute'>\#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_NATIVE_PATH_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;/&#39;</span>;
-<span class='attribute'>\#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;\x00&#39;</span>;
 
 <span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_PATH</span>)
@@ -158,7 +158,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&\#9166;</dt>
+                <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>
