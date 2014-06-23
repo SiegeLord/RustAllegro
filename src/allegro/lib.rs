@@ -10,6 +10,7 @@
 #![feature(globs)]
 #![feature(macro_rules)]
 #![feature(struct_variant)]
+#![feature(unsafe_destructor)]
 
 extern crate native;
 extern crate sync;

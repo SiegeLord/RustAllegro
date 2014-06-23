@@ -11,6 +11,7 @@
 #![feature(macro_rules)]
 #![feature(struct_variant)]
 #![feature(thread_local)]
+#![feature(unsafe_destructor)]
 
 extern crate allegro = "allegro5#5.0.10.1";
 extern crate libc;
