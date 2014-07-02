@@ -239,10 +239,7 @@ impl Display
 	{
 		unsafe
 		{
-			title.with_ref(|c_str|
-			{
-				al_set_window_title(self.allegro_display, c_str);
-			});
+			al_set_window_title(self.allegro_display, title.as_ptr());
 		}
 	}
 
