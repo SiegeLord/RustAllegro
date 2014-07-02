@@ -10,7 +10,7 @@ use ffi::*;
 
 static mut global_main_func: Option<extern "Rust" fn()> = None;
 
-pub fn run(argc: int, argv: **u8, main_func: extern "Rust" fn()) -> int
+pub fn run(argc: int, argv: *const *const u8, main_func: extern "Rust" fn()) -> int
 {
 	unsafe
 	{
@@ -20,7 +20,7 @@ pub fn run(argc: int, argv: **u8, main_func: extern "Rust" fn()) -> int
 }
 
 extern "C"
-fn allegro_main(argc: int, argv: **u8) -> c_int
+fn allegro_main(argc: int, argv: *const *const u8) -> c_int
 {
 	use native;
 	native::start(argc, argv, rust_main) as c_int

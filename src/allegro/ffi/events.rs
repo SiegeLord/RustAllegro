@@ -188,7 +188,7 @@ extern "C"
 	pub fn al_emit_user_event(arg1: *mut ALLEGRO_EVENT_SOURCE, arg2: *mut ALLEGRO_EVENT, dtor: extern "C" fn(arg1: *mut ALLEGRO_USER_EVENT)) -> c_bool;
 	pub fn al_unref_user_event(arg1: *mut ALLEGRO_USER_EVENT);
 	pub fn al_set_event_source_data(arg1: *mut ALLEGRO_EVENT_SOURCE, data: intptr_t);
-	pub fn al_get_event_source_data(arg1: *ALLEGRO_EVENT_SOURCE) -> intptr_t;
+	pub fn al_get_event_source_data(arg1: *const ALLEGRO_EVENT_SOURCE) -> intptr_t;
 	pub fn al_create_event_queue() -> *mut ALLEGRO_EVENT_QUEUE;
 	pub fn al_destroy_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE);
 	pub fn al_register_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE);

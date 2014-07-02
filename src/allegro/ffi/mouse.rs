@@ -35,8 +35,8 @@ extern "C"
 	pub fn al_set_mouse_w(w: c_int) -> c_bool;
 	pub fn al_set_mouse_axis(axis: c_int, value: c_int) -> c_bool;
 	pub fn al_get_mouse_state(ret_state: *mut ALLEGRO_MOUSE_STATE);
-	pub fn al_mouse_button_down(state: *ALLEGRO_MOUSE_STATE, button: c_int) -> c_bool;
-	pub fn al_get_mouse_state_axis(state: *ALLEGRO_MOUSE_STATE, axis: c_int) -> c_int;
+	pub fn al_mouse_button_down(state: *const ALLEGRO_MOUSE_STATE, button: c_int) -> c_bool;
+	pub fn al_get_mouse_state_axis(state: *const ALLEGRO_MOUSE_STATE, axis: c_int) -> c_int;
 	pub fn al_get_mouse_cursor_position(ret_x: *mut c_int, ret_y: *mut c_int) -> c_bool;
 	pub fn al_grab_mouse(display: *mut ALLEGRO_DISPLAY) -> c_bool;
 	pub fn al_ungrab_mouse() -> c_bool;

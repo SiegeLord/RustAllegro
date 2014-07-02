@@ -98,10 +98,10 @@ pub mod ffi
 			pub fn al_init_primitives_addon() -> c_bool;
 			pub fn al_shutdown_primitives_addon();
 
-			pub fn al_draw_prim(vtxs: *c_void, decl: *ALLEGRO_VERTEX_DECL, texture: *mut ALLEGRO_BITMAP, start: c_int, end: c_int, _type: c_int) -> c_int;
-			pub fn al_draw_indexed_prim(vtxs: *c_void, decl: *ALLEGRO_VERTEX_DECL, texture: *mut ALLEGRO_BITMAP, indices: *c_int, num_vtx: c_int, _type: c_int) -> c_int;
+			pub fn al_draw_prim(vtxs: *const c_void, decl: *const ALLEGRO_VERTEX_DECL, texture: *mut ALLEGRO_BITMAP, start: c_int, end: c_int, _type: c_int) -> c_int;
+			pub fn al_draw_indexed_prim(vtxs: *const c_void, decl: *const ALLEGRO_VERTEX_DECL, texture: *mut ALLEGRO_BITMAP, indices: *const c_int, num_vtx: c_int, _type: c_int) -> c_int;
 
-			pub fn al_create_vertex_decl(elements: *ALLEGRO_VERTEX_ELEMENT, stride: c_int) -> *mut ALLEGRO_VERTEX_DECL;
+			pub fn al_create_vertex_decl(elements: *const ALLEGRO_VERTEX_ELEMENT, stride: c_int) -> *mut ALLEGRO_VERTEX_DECL;
 			pub fn al_destroy_vertex_decl(decl: *mut ALLEGRO_VERTEX_DECL);
 
 			pub fn al_draw_soft_triangle(v1: *mut ALLEGRO_VERTEX, v2: *mut ALLEGRO_VERTEX, v3: *mut ALLEGRO_VERTEX, state: uintptr_t, init: ::std::option::Option<extern "C" fn (arg1: uintptr_t, arg2: *mut ALLEGRO_VERTEX, arg3: *mut ALLEGRO_VERTEX, arg4: *mut ALLEGRO_VERTEX)>, first: ::std::option::Option<extern "C" fn (arg1: uintptr_t, arg2: c_int, arg3: c_int, arg4: c_int, arg5: c_int)>, step: ::std::option::Option<extern "C" fn (arg1: uintptr_t, arg2: c_int)>, draw: ::std::option::Option<extern "C" fn (arg1: uintptr_t, arg2: c_int, arg3: c_int, arg4: c_int)>);
@@ -119,8 +119,8 @@ pub mod ffi
 			pub fn al_draw_pieslice(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
 			pub fn al_calculate_spline(dest: *mut c_float, stride: c_int, points: [c_float, ..8u], thickness: c_float, num_segments: c_int);
 			pub fn al_draw_spline(points: [c_float, ..8u], color: ALLEGRO_COLOR, thickness: c_float);
-			pub fn al_calculate_ribbon(dest: *mut c_float, dest_stride: c_int, points: *c_float, points_stride: c_int, thickness: c_float, num_segments: c_int);
-			pub fn al_draw_ribbon(points: *c_float, points_stride: c_int, color: ALLEGRO_COLOR, thickness: c_float, num_segments: c_int);
+			pub fn al_calculate_ribbon(dest: *mut c_float, dest_stride: c_int, points: *const c_float, points_stride: c_int, thickness: c_float, num_segments: c_int);
+			pub fn al_draw_ribbon(points: *const c_float, points_stride: c_int, color: ALLEGRO_COLOR, thickness: c_float, num_segments: c_int);
 			pub fn al_draw_filled_triangle(x1: c_float, y1: c_float, x2: c_float, y2: c_float, x3: c_float, y3: c_float, color: ALLEGRO_COLOR);
 			pub fn al_draw_filled_rectangle(x1: c_float, y1: c_float, x2: c_float, y2: c_float, color: ALLEGRO_COLOR);
 			pub fn al_draw_filled_ellipse(cx: c_float, cy: c_float, rx: c_float, ry: c_float, color: ALLEGRO_COLOR);

@@ -109,7 +109,7 @@ extern "C"
 	pub fn al_set_window_position(display: *mut ALLEGRO_DISPLAY, x: c_int, y: c_int);
 	pub fn al_get_window_position(display: *mut ALLEGRO_DISPLAY, x: *mut c_int, y: *mut c_int);
 
-	pub fn al_set_window_title(display: *mut ALLEGRO_DISPLAY, title: *c_char);
+	pub fn al_set_window_title(display: *mut ALLEGRO_DISPLAY, title: *const c_char);
 
 	pub fn al_set_new_display_option(option: c_int, value: c_int, importance: c_int);
 	pub fn al_get_new_display_option(option: c_int, importance: *mut c_int) -> c_int;

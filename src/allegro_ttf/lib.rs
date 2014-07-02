@@ -46,10 +46,10 @@ pub mod ffi
 
 		extern "C"
 		{
-			pub fn al_load_ttf_font(filename: *c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			//~ pub fn al_load_ttf_font_f(file: *mut ALLEGRO_FILE, filename: *c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			pub fn al_load_ttf_font_stretch(filename: *c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			//~ pub fn al_load_ttf_font_stretch_f(file: *mut ALLEGRO_FILE, filename: *c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
+			pub fn al_load_ttf_font(filename: *const c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
+			//~ pub fn al_load_ttf_font_f(file: *mut ALLEGRO_FILE, filename: *const c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
+			pub fn al_load_ttf_font_stretch(filename: *const c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
+			//~ pub fn al_load_ttf_font_stretch_f(file: *mut ALLEGRO_FILE, filename: *const c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
 			pub fn al_init_ttf_addon() -> c_bool;
 			pub fn al_shutdown_ttf_addon();
 			pub fn al_get_allegro_ttf_version() -> uint32_t;

@@ -17,7 +17,7 @@ pub static ALLEGRO_VERSION_INT: u32          = ((ALLEGRO_VERSION << 24) | (ALLEG
 extern "C"
 {
 	pub fn al_get_allegro_version() -> uint32_t;
-	pub fn al_run_main(argc: c_int, argv: **c_char, user_main: extern "C" fn(argc: c_int, argv: **c_char) -> c_int) -> c_int;
+	pub fn al_run_main(argc: c_int, argv: *const *const c_char, user_main: extern "C" fn(argc: c_int, argv: *const *const c_char) -> c_int) -> c_int;
 }
 
 pub static ALLEGRO_PI: f64 = 3.14159265358979323846;

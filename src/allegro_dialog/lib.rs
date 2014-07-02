@@ -68,15 +68,15 @@ pub mod ffi
 		{
 			pub fn al_init_native_dialog_addon() -> c_bool;
 			pub fn al_shutdown_native_dialog_addon();
-			pub fn al_create_native_file_dialog(initial_path: *c_char, title: *c_char, patterns: *c_char, mode: c_int) -> *mut ALLEGRO_FILECHOOSER;
+			pub fn al_create_native_file_dialog(initial_path: *const c_char, title: *const c_char, patterns: *const c_char, mode: c_int) -> *mut ALLEGRO_FILECHOOSER;
 			pub fn al_show_native_file_dialog(display: *mut ALLEGRO_DISPLAY, dialog: *mut ALLEGRO_FILECHOOSER) -> c_bool;
-			pub fn al_get_native_file_dialog_count(dialog: *ALLEGRO_FILECHOOSER) -> c_int;
-			pub fn al_get_native_file_dialog_path(dialog: *ALLEGRO_FILECHOOSER, index: size_t) -> *c_char;
+			pub fn al_get_native_file_dialog_count(dialog: *const ALLEGRO_FILECHOOSER) -> c_int;
+			pub fn al_get_native_file_dialog_path(dialog: *const ALLEGRO_FILECHOOSER, index: size_t) -> *const c_char;
 			pub fn al_destroy_native_file_dialog(dialog: *mut ALLEGRO_FILECHOOSER);
-			pub fn al_show_native_message_box(display: *mut ALLEGRO_DISPLAY, title: *c_char, heading: *c_char, text: *c_char, buttons: *c_char, flags: c_int) -> c_int;
-			pub fn al_open_native_text_log(title: *c_char, flags: c_int) -> *mut ALLEGRO_TEXTLOG;
+			pub fn al_show_native_message_box(display: *mut ALLEGRO_DISPLAY, title: *const c_char, heading: *const c_char, text: *const c_char, buttons: *const c_char, flags: c_int) -> c_int;
+			pub fn al_open_native_text_log(title: *const c_char, flags: c_int) -> *mut ALLEGRO_TEXTLOG;
 			pub fn al_close_native_text_log(textlog: *mut ALLEGRO_TEXTLOG);
-			pub fn al_append_native_text_log(textlog: *mut ALLEGRO_TEXTLOG, format: *c_char, ...);
+			pub fn al_append_native_text_log(textlog: *mut ALLEGRO_TEXTLOG, format: *const c_char, ...);
 			pub fn al_get_native_text_log_event_source(textlog: *mut ALLEGRO_TEXTLOG) -> *mut ALLEGRO_EVENT_SOURCE;
 			pub fn al_get_allegro_native_dialog_version() -> uint32_t;
 		}

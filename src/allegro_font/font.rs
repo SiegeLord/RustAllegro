@@ -48,7 +48,7 @@ impl FontDrawing for Core
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
 
 			al_draw_justified_ustr(mem::transmute(font.get_font()), *color, x1 as c_float,
 			                       x2 as c_float, y as c_float, diff as c_float, align.get_allegro_flags(), ustr);
@@ -64,7 +64,7 @@ impl FontDrawing for Core
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
 
 			al_draw_ustr(mem::transmute(font.get_font()), *color, x as c_float, y as c_float, align.get_allegro_flags(), ustr);
 		}
@@ -106,8 +106,8 @@ impl Font
 		unsafe
 		{
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
-			al_get_ustr_width(self.get_font() as *_, ustr) as i32
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
+			al_get_ustr_width(self.get_font() as *const _, ustr) as i32
 		}
 	}
 
@@ -115,7 +115,7 @@ impl Font
 	{
 		unsafe
 		{
-			al_get_font_line_height(self.get_font() as *_) as i32
+			al_get_font_line_height(self.get_font() as *const _) as i32
 		}
 	}
 
@@ -123,7 +123,7 @@ impl Font
 	{
 		unsafe
 		{
-			al_get_font_ascent(self.get_font() as *_) as i32
+			al_get_font_ascent(self.get_font() as *const _) as i32
 		}
 	}
 
@@ -131,7 +131,7 @@ impl Font
 	{
 		unsafe
 		{
-			al_get_font_descent(self.get_font() as *_) as i32
+			al_get_font_descent(self.get_font() as *const _) as i32
 		}
 	}
 
@@ -141,8 +141,8 @@ impl Font
 		{
 			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninitialized();
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *i8, text.len() as size_t);
-			al_get_ustr_dimensions(self.get_font() as *_, ustr, &mut x, &mut y, &mut w, &mut h);
+			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
+			al_get_ustr_dimensions(self.get_font() as *const _, ustr, &mut x, &mut y, &mut w, &mut h);
 			(x as i32, y as i32, w as i32, h as i32)
 		}
 	}
@@ -186,7 +186,7 @@ impl ::addon::FontAddon
 	{
 		Font::new(unsafe
 		{
-			al_grab_font_from_bitmap(bmp.get_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *c_int)
+			al_grab_font_from_bitmap(bmp.get_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int)
 		})
 	}
 }

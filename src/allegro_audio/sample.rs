@@ -91,7 +91,7 @@ impl Sample
 	{
 		unsafe
 		{
-			al_get_sample_frequency(self.allegro_sample as *ALLEGRO_SAMPLE) as uint
+			al_get_sample_frequency(self.allegro_sample as *const ALLEGRO_SAMPLE) as uint
 		}
 	}
 
@@ -99,7 +99,7 @@ impl Sample
 	{
 		unsafe
 		{
-			al_get_sample_length(self.allegro_sample as *ALLEGRO_SAMPLE) as uint
+			al_get_sample_length(self.allegro_sample as *const ALLEGRO_SAMPLE) as uint
 		}
 	}
 
@@ -112,7 +112,7 @@ impl Sample
 	{
 		unsafe
 		{
-			AudioDepth::from_allegro(al_get_sample_depth(self.allegro_sample as *ALLEGRO_SAMPLE))
+			AudioDepth::from_allegro(al_get_sample_depth(self.allegro_sample as *const ALLEGRO_SAMPLE))
 		}
 	}
 
@@ -120,7 +120,7 @@ impl Sample
 	{
 		unsafe
 		{
-			ChannelConf::from_allegro(al_get_sample_channels(self.allegro_sample as *ALLEGRO_SAMPLE))
+			ChannelConf::from_allegro(al_get_sample_channels(self.allegro_sample as *const ALLEGRO_SAMPLE))
 		}
 	}
 
@@ -129,7 +129,7 @@ impl Sample
 		let len = self.get_byte_length();
 		unsafe
 		{
-			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 		}
 	}
 
@@ -140,7 +140,7 @@ impl Sample
 			let len = self.get_byte_length() / mem::size_of::<T>();
 			Some(unsafe
 			{
-				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 			})
 		}
 		else
@@ -156,7 +156,7 @@ impl Sample
 			let len = self.get_byte_length() / mem::size_of::<T>();
 			Some(unsafe
 			{
-				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 			})
 		}
 		else
@@ -170,7 +170,7 @@ impl Sample
 		let len = self.get_byte_length();
 		unsafe
 		{
-			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *ALLEGRO_SAMPLE) as *u8, len: len })
+			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 		}
 	}
 
@@ -230,7 +230,7 @@ macro_rules! get_opt_impl
 {
 	($c_func: ident, $dest_ty: ty) =>
 	{
-		check_or_else!(Some($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
+		check_or_else!(Some($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
 	}
 }
 
@@ -238,7 +238,7 @@ macro_rules! get_conv_impl
 {
 	($c_func: ident, $conv: path) =>
 	{
-		check_or_else!(Some($conv($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE))), None)
+		check_or_else!(Some($conv($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE))), None)
 	}
 }
 
@@ -246,7 +246,7 @@ macro_rules! get_bool_impl
 {
 	($c_func: ident) =>
 	{
-		check_or_else!($c_func(self.allegro_sample_instance as *ALLEGRO_SAMPLE_INSTANCE) != 0, false)
+		check_or_else!($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) != 0, false)
 	}
 }
 
