@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The allegro library documentation.">
+
+    <title>allegro - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'>Crate <a class='mod' href=''>allegro</a><a class='source' id='src-0' href='../src/allegro/home/travis/build/SiegeLord/RustAllegro/allegro/src/lib.rs.html#5-62'>[src]</a></h1>
+<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use rust_util::<a class='type' href='../allegro/rust_util/type.c_bool.html' title='allegro::rust_util::c_bool'>c_bool</a>;</code></td></tr><tr><td><code>pub use super::{<a class='type' href='../allegro/type.Event.html' title='allegro::Event'>NoEvent</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>DisplayClose</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>KeyDown</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>KeyUp</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>KeyChar</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseAxes</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseButtonDown</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseButtonUp</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseWarped</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseEnterDisplay</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>MouseLeaveDisplay</a>, <a class='type' href='../allegro/type.Event.html' title='allegro::Event'>TimerTick</a>};</code></td></tr><tr><td><code>pub use <a class='mod' href='../allegro/rust_util/index.html' title='allegro::rust_util'>rust_util</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../allegro/transformations/index.html' title='allegro::transformations'>transformations</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='allegro_main/index.html'
+                               title='allegro::allegro_main'>allegro_main</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='ffi/index.html'
+                               title='allegro::ffi'>ffi</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='key/index.html'
+                               title='allegro::key'>key</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='rust_util/index.html'
+                               title='allegro::rust_util'>rust_util</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='transformations/index.html'
+                               title='allegro::transformations'>transformations</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Bitmap.html'
+                               title='allegro::Bitmap'>Bitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BitmapDrawingFlags.html'
+                               title='allegro::BitmapDrawingFlags'>BitmapDrawingFlags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BitmapFlags.html'
+                               title='allegro::BitmapFlags'>BitmapFlags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Color.html'
+                               title='allegro::Color'>Color</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Core.html'
+                               title='allegro::Core'>Core</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Display.html'
+                               title='allegro::Display'>Display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DisplayFlags.html'
+                               title='allegro::DisplayFlags'>DisplayFlags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.EventQueue.html'
+                               title='allegro::EventQueue'>EventQueue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.EventSource.html'
+                               title='allegro::EventSource'>EventSource</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Joystick.html'
+                               title='allegro::Joystick'>Joystick</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.KeyModifier.html'
+                               title='allegro::KeyModifier'>KeyModifier</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.MemoryBitmap.html'
+                               title='allegro::MemoryBitmap'>MemoryBitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.StickFlags.html'
+                               title='allegro::StickFlags'>StickFlags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SubBitmap.html'
+                               title='allegro::SubBitmap'>SubBitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Timer.html'
+                               title='allegro::Timer'>Timer</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.DisplayOption.html'
+                               title='allegro::DisplayOption'>DisplayOption</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.DisplayOptionImportance.html'
+                               title='allegro::DisplayOptionImportance'>DisplayOptionImportance</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.DisplayOrientation.html'
+                               title='allegro::DisplayOrientation'>DisplayOrientation</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.Event.html'
+                               title='allegro::Event'>Event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.PixelFormat.html'
+                               title='allegro::PixelFormat'>PixelFormat</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ACCENT1: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ACCENT2: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ACCENT3: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ACCENT4: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALPHA_TEST: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALT: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALTGR: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ANALOGUE: <a class='struct' href='../allegro/struct.StickFlags.html' title='allegro::StickFlags'>StickFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static CAPSLOCK: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static COMMAND: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static CTRL: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static DIGITAL: <a class='struct' href='../allegro/struct.StickFlags.html' title='allegro::StickFlags'>StickFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static DIRECT3D: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FLIP_HORIZONTAL: <a class='struct' href='../allegro/struct.BitmapDrawingFlags.html' title='allegro::BitmapDrawingFlags'>BitmapDrawingFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FLIP_NONE: <a class='struct' href='../allegro/struct.BitmapDrawingFlags.html' title='allegro::BitmapDrawingFlags'>BitmapDrawingFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FLIP_VERTICAL: <a class='struct' href='../allegro/struct.BitmapDrawingFlags.html' title='allegro::BitmapDrawingFlags'>BitmapDrawingFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FORCE_LOCKING: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FRAMELESS: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FULLSCREEN: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static FULLSCREEN_WINDOW: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static GENERATE_EXPOSE_EVENTS: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static INALTSEQ: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static KEEP_BITMAP_FORMAT: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static LWIN: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MAG_LINEAR: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MEMORY_BITMAP: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MENU: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MINIMIZED: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MIN_LINEAR: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static MIPMAP: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static NO_PREMULTIPLIED_ALPHA: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static NO_PRESERVE_TEXTURE: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static NUMLOCK: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static OPENGL: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static OPENGL_3_0: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static OPENGL_FORWARD_COMPATIBLE: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static RESIZABLE: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static RWIN: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static SCROLLLOCK: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static SHIFT: <a class='struct' href='../allegro/struct.KeyModifier.html' title='allegro::KeyModifier'>KeyModifier</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static VIDEO_BITMAP: <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static WINDOWED: <a class='struct' href='../allegro/struct.DisplayFlags.html' title='allegro::DisplayFlags'>DisplayFlags</a></code><code> = </code><code>f{bits: $v}</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.BitmapLike.html'
+                               title='allegro::BitmapLike'>BitmapLike</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.run.html'
+                               title='allegro::run'>run</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "allegro";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
