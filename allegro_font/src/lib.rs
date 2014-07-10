@@ -20,7 +20,7 @@ extern crate sync;
 pub use font::*;
 pub use addon::*;
 
-#[cfg(use_link_name)]
+#[cfg(not(manual_link))]
 mod link_name
 {
 	#[link(name = "allegro_font")]
@@ -32,5 +32,5 @@ pub mod addon;
 pub mod font;
 
 #[macro_escape]
-#[path = "../macros.rs"]
+#[path = "../../src/common_macros.rs"]
 pub mod macros;

@@ -2,9 +2,9 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_acodec"]
+#![crate_name="allegro_image"]
 
-#![comment = "Allegro 5 Acodec addon Rust bindings"]
+#![comment = "Allegro 5 image addon Rust bindings"]
 #![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
@@ -13,56 +13,55 @@
 #![feature(thread_local)]
 
 extern crate allegro;
-extern crate allegro_audio;
 extern crate libc;
 
-use allegro_audio::AudioAddon;
-use ffi::allegro_acodec::*;
-
-use std::option::Some;
 use std::kinds::marker::NoSend;
 
-#[cfg(use_link_name)]
+use allegro::Core;
+use ffi::allegro_image::*;
+
+#[cfg(not(manual_link))]
 mod link_name
 {
-	#[link(name = "allegro_acodec")]
+	#[link(name = "allegro_image")]
 	extern "C" {}
 }
 
 pub mod ffi
 {
-	pub use self::allegro_acodec::*;
-	pub mod allegro_acodec
+	pub use self::allegro_image::*;
+	pub mod allegro_image
 	{
 		use libc::*;
 		use allegro::c_bool;
 
 		extern "C"
 		{
-			pub fn al_init_acodec_addon() -> c_bool;
-			pub fn al_get_allegro_acodec_version() -> uint32_t;
+			pub fn al_init_image_addon() -> c_bool;
+			pub fn al_shutdown_image_addon();
+			pub fn al_get_allegro_image_version() -> uint32_t;
 		}
 	}
 }
 
 #[macro_escape]
-#[path = "../macros.rs"]
+#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 static mut initialized: bool = false;
 //#[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
-pub struct AcodecAddon
+pub struct ImageAddon
 {
 	no_send_marker: NoSend
 }
 
-impl AcodecAddon
+impl ImageAddon
 {
-	pub fn init(audio_addon: &AudioAddon) -> Option<AcodecAddon>
+	pub fn init(core: &Core) -> Option<ImageAddon>
 	{
-		let mutex = audio_addon.get_core_mutex();
+		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
 		unsafe
 		{
@@ -75,16 +74,16 @@ impl AcodecAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(AcodecAddon{ no_send_marker: NoSend })
+					Some(ImageAddon{ no_send_marker: NoSend })
 				}
 			}
 			else
 			{
-				if al_init_acodec_addon() != 0
+				if al_init_image_addon() != 0
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(AcodecAddon{ no_send_marker: NoSend })
+					Some(ImageAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
@@ -98,7 +97,7 @@ impl AcodecAddon
 	{
 		unsafe
 		{
-			al_get_allegro_acodec_version() as i32
+			al_get_allegro_image_version() as i32
 		}
 	}
 }

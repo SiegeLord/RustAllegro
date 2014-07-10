@@ -1,0 +1,48 @@
+[package]
+
+name = "allegro_examples"
+version = "0.0.0"
+authors = [ "SiegeLord <slabode@aim.com>" ]
+
+[[bin]]
+
+name = "example"
+path = "example.rs"
+
+[[bin]]
+
+name = "audio_example"
+path = "audio_example.rs"
+
+[[bin]]
+
+name = "multiple_windows"
+path = "multiple_windows.rs"
+
+[dependencies.allegro]
+
+path = "../allegro"
+
+[dependencies.allegro_font]
+
+path = "../allegro_font"
+
+[dependencies.allegro_ttf]
+
+path = "../allegro_ttf"
+
+[dependencies.allegro_image]
+
+path = "../allegro_image"
+
+[dependencies.allegro_acodec]
+
+path = "../allegro_acodec"
+
+[dependencies.allegro_audio]
+
+path = "../allegro_audio"
+
+[dependencies.allegro_primitives]
+
+path = "../allegro_primitives"

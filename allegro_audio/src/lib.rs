@@ -23,7 +23,7 @@ pub use sink::*;
 pub use mixer::*;
 pub use sample::*;
 
-#[cfg(use_link_name)]
+#[cfg(not(manual_link))]
 mod link_name
 {
 	#[link(name = "allegro_audio")]
@@ -31,7 +31,7 @@ mod link_name
 }
 
 #[macro_escape]
-#[path = "../macros.rs"]
+#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 pub mod ffi;

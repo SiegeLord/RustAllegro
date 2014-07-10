@@ -24,7 +24,7 @@ use libc::*;
 use std::option::Some;
 use std::kinds::marker::NoSend;
 
-#[cfg(use_link_name)]
+#[cfg(not(manual_link))]
 mod link_name
 {
 	#[link(name = "allegro_ttf")]
@@ -58,7 +58,7 @@ pub mod ffi
 }
 
 #[macro_escape]
-#[path = "../macros.rs"]
+#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 static mut initialized: bool = false;

@@ -1,0 +1,18 @@
+[package]
+
+name = "allegro_ttf"
+version = "0.0.0"
+authors = [ "SiegeLord <slabode@aim.com>" ]
+
+[[lib]]
+
+name = "allegro_ttf"
+path = "src/lib.rs"
+
+[dependencies.allegro]
+
+path = "../allegro"
+
+[dependencies.allegro_font]
+
+path = "../allegro_font"

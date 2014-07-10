@@ -6,9 +6,9 @@ find_package(rustc)
 find_package(rustdoc)
 include(Rust)
 
-option(USE_LINK_NAME "Whether to use #[link(name=lib] directives. Turn off if you want to set link_args manually." on)
+option(MANUAL_LINK "If turned on, the libraries will be compiled without the #[link(name=lib)] directives." off)
 
-set(ALLEGRO_ROOT src/allegro/lib.rs)
+set(ALLEGRO_ROOT allegro/src/lib.rs)
 
 set(EXAMPLE_ROOT examples/example.rs)
 set(MULTIPLE_WINDOWS_ROOT examples/multiple_windows.rs)
@@ -21,8 +21,8 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 
-if(USE_LINK_NAME)
-   list(APPEND RUSTC_FLAGS --cfg use_link_name)
+if(MANUAL_LINK)
+   list(APPEND RUSTC_FLAGS --cfg manual_link)
 endif()
 
 set(LIB_TARGET_DEPENDS "")
@@ -66,13 +66,13 @@ rust_crate(${ALLEGRO_ROOT}
            DEPENDS "${ALLEGRO_DEPS}"
            OTHER_RUSTC_FLAGS --crate-type rlib)
 
-add_addon(src/allegro_image/lib.rs ALLEGRO_IMAGE "")
-add_addon(src/allegro_font/lib.rs ALLEGRO_FONT "")
-add_addon(src/allegro_ttf/lib.rs ALLEGRO_TTF "${ALLEGRO_FONT_FULL_TARGET}")
-add_addon(src/allegro_audio/lib.rs ALLEGRO_AUDIO "")
-add_addon(src/allegro_acodec/lib.rs ALLEGRO_ACODEC "${ALLEGRO_AUDIO_FULL_TARGET}")
-add_addon(src/allegro_primitives/lib.rs ALLEGRO_PRIMITIVES "")
-add_addon(src/allegro_dialog/lib.rs ALLEGRO_DIALOG "")
+add_addon(allegro_image/src/lib.rs ALLEGRO_IMAGE "")
+add_addon(allegro_font/src/lib.rs ALLEGRO_FONT "")
+add_addon(allegro_ttf/src/lib.rs ALLEGRO_TTF "${ALLEGRO_FONT_FULL_TARGET}")
+add_addon(allegro_audio/src/lib.rs ALLEGRO_AUDIO "")
+add_addon(allegro_acodec/src/lib.rs ALLEGRO_ACODEC "${ALLEGRO_AUDIO_FULL_TARGET}")
+add_addon(allegro_primitives/src/lib.rs ALLEGRO_PRIMITIVES "")
+add_addon(allegro_dialog/src/lib.rs ALLEGRO_DIALOG "")
 
 add_custom_target(library_target
                   ALL

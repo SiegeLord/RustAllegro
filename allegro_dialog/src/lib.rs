@@ -22,10 +22,10 @@ use std::option::Some;
 use std::kinds::marker::NoSend;
 
 #[macro_escape]
-#[path = "../macros.rs"]
+#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
-#[cfg(use_link_name)]
+#[cfg(not(manual_link))]
 mod link_name
 {
 	#[link(name = "allegro_dialog")]
