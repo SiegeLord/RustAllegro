@@ -12,7 +12,26 @@ See [here](http://siegelord.github.io/RustAllegro/doc/allegro5/index.html). Note
 
 ## Building
 
-You will need CMake 2.8+ to build this library.
+### Via Cargo:
+
+The included packages are:
+
+Main crates:
+
+* allegro
+* allegro_acodec
+* allegro_audio
+* allegro_dialog
+* allegro_font
+* allegro_image
+* allegro_primitives
+* allegro_ttf
+
+Examples:
+
+* allegro_examples
+
+### Via CMake 2.8:
 
 ~~~
 mkdir build
