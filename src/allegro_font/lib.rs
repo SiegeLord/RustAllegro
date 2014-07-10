@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_id="allegro_font#5.0.10.1"]
+#![crate_name="allegro_font"]
 
 #![comment = "Allegro 5 font addon Rust bindings"]
 #![license = "zlib"]
@@ -13,7 +13,7 @@
 #![feature(thread_local)]
 #![feature(unsafe_destructor)]
 
-extern crate allegro = "allegro5#5.0.10.1";
+extern crate allegro;
 extern crate libc;
 extern crate sync;
 

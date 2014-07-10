@@ -11,7 +11,7 @@ macro_rules! allegro_main
 		#[start]
 		fn start(argc: int, argv: *const *const u8) -> int
 		{
-			allegro5::run(argc, argv, main)
+			allegro::run(argc, argv, main)
 		}
 
 		fn main()

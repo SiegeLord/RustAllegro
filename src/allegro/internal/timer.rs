@@ -98,7 +98,7 @@ impl Timer
 
 	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
 	{
-		&'l self.event_source
+		&self.event_source
 	}
 }
 

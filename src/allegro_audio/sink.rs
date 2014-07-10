@@ -60,12 +60,12 @@ impl HasMixer for Sink
 {
 	fn get_mixer<'l>(&'l self) -> &'l Mixer
 	{
-		&'l self.mixer
+		&self.mixer
 	}
 
 	fn get_mixer_mut<'l>(&'l mut self) -> &'l mut Mixer
 	{
-		&'l mut self.mixer
+		&mut self.mixer
 	}
 }
 

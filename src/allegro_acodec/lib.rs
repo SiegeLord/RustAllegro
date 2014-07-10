@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_id="allegro_acodec#5.0.10.1"]
+#![crate_name="allegro_acodec"]
 
 #![comment = "Allegro 5 Acodec addon Rust bindings"]
 #![license = "zlib"]
@@ -12,8 +12,8 @@
 #![feature(struct_variant)]
 #![feature(thread_local)]
 
-extern crate allegro = "allegro5#5.0.10.1";
-extern crate allegro_audio = "allegro_audio#5.0.10.1";
+extern crate allegro;
+extern crate allegro_audio;
 extern crate libc;
 
 use allegro_audio::AudioAddon;

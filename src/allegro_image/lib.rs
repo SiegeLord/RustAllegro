@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_id="allegro_image#5.0.10.1"]
+#![crate_name="allegro_image"]
 
 #![comment = "Allegro 5 image addon Rust bindings"]
 #![license = "zlib"]
@@ -12,7 +12,7 @@
 #![feature(struct_variant)]
 #![feature(thread_local)]
 
-extern crate allegro = "allegro5#5.0.10.1";
+extern crate allegro;
 extern crate libc;
 
 use std::kinds::marker::NoSend;

@@ -4,7 +4,7 @@
 #![feature(phase)]
 
 #[phase(plugin, link)]
-extern crate allegro5;
+extern crate allegro;
 extern crate allegro_font;
 extern crate getopts;
 
@@ -12,7 +12,7 @@ use getopts::*;
 use std::comm;
 use std::os;
 use std::c_str::*;
-use allegro5::*;
+use allegro::*;
 use allegro_font::*;
 
 fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)

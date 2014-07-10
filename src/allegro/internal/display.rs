@@ -258,7 +258,7 @@ impl Display
 
 	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
 	{
-		&'l self.event_source
+		&self.event_source
 	}
 
 	pub fn get_allegro_display(&self) -> *mut ALLEGRO_DISPLAY

@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_id="allegro5#5.0.10.1"]
+#![crate_name="allegro"]
 
 #![comment = "Allegro 5 core library Rust bindings"]
 #![license = "zlib"]

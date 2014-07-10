@@ -4,7 +4,7 @@
 #![feature(phase)]
 
 #[phase(plugin, link)]
-extern crate allegro5;
+extern crate allegro;
 extern crate allegro_font;
 extern crate allegro_audio;
 extern crate allegro_acodec;
@@ -14,7 +14,7 @@ use getopts::*;
 use std::os;
 use std::c_str::*;
 use std::os::getenv;
-use allegro5::*;
+use allegro::*;
 use allegro_font::*;
 use allegro_audio::*;
 use allegro_acodec::*;

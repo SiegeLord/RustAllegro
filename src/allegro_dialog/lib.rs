@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_id="allegro_dialog#5.0.10.1"]
+#![crate_name="allegro_dialog"]
 
 #![comment = "Allegro 5 native dialog addon Rust bindings"]
 #![license = "zlib"]
@@ -12,7 +12,7 @@
 #![feature(struct_variant)]
 #![feature(thread_local)]
 
-extern crate allegro = "allegro5#5.0.10.1";
+extern crate allegro;
 extern crate libc;
 
 use allegro::{Core, Flag, Display};
