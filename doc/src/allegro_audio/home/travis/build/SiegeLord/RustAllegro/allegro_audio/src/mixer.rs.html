@@ -292,7 +292,7 @@
 		<span class='ident'>inst</span>.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='kw-2'>mut</span> <span class='ident'>inst</span><span class='op'>|</span>
 		{
 			<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>();
-			<span class='ident'>inst</span>.<span class='ident'>attach</span>(<span class='ident'>m</span>);
+			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>attach</span>(<span class='ident'>m</span>))
 			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_gain</span>(<span class='ident'>gain</span>))
 			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_pan</span>(<span class='ident'>pan</span>))
 			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_speed</span>(<span class='ident'>speed</span>))
