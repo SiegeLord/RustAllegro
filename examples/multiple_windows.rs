@@ -17,7 +17,7 @@ use allegro_font::*;
 
 fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 {
-	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
+	let font_addon = FontAddon::init(&core).unwrap();
 
 	if init_only
 	{
@@ -96,8 +96,8 @@ allegro_main!
 
 	let mut core = Core::init().unwrap();
 
-	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
-	core.install_keyboard();
+	let font_addon = FontAddon::init(&core).unwrap();
+	core.install_keyboard().unwrap();
 
 	let (sender, receiver) = comm::sync_channel(0);
 

@@ -21,7 +21,7 @@ pub struct AudioAddon
 
 impl AudioAddon
 {
-	pub fn init(core: &Core) -> Option<AudioAddon>
+	pub fn init(core: &Core) -> Result<AudioAddon, String>
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
@@ -31,12 +31,12 @@ impl AudioAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The audio addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -45,11 +45,11 @@ impl AudioAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the audio addon.".to_string())
 				}
 			}
 		}

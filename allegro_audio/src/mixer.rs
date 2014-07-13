@@ -17,21 +17,15 @@ pub trait AttachToMixer : AttachToMixerImpl
 {
 	fn detach(&mut self);
 
-	fn attach<T: HasMixer>(&mut self, mixer: &mut T) -> bool
+	fn attach<T: HasMixer>(&mut self, mixer: &mut T) -> Result<(), ()>
 	{
 		self.detach();
 
 		let m = mixer.get_mixer_mut();
-		let conn = self.create_connection(m.allegro_mixer);
-		match conn
+		self.create_connection(m.allegro_mixer).map(|conn|
 		{
-			Some(conn) =>
-			{
-				m.children.push(conn);
-				true
-			},
-			_ => false
-		}
+			m.children.push(conn);
+		})
 	}
 }
 
@@ -44,16 +38,16 @@ pub struct Mixer
 
 impl Mixer
 {
-	fn new(frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Option<Mixer>
+	fn new(frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
 	{
 		let mixer = unsafe { al_create_mixer(frequency as c_uint, depth.get(), chan_conf.get()) };
 		if mixer.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(Mixer
+			Ok(Mixer
 			{
 				allegro_mixer: mixer,
 				parent: None,
@@ -91,40 +85,40 @@ impl Drop for Mixer
 
 pub trait MixerLike : HasMixer
 {
-	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Option<SampleInstance>
+	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Result<SampleInstance, ()>
 	{
-		let mut inst = sample.create_instance();
-		inst.as_mut().map(|inst|
+		let inst = sample.create_instance();
+		inst.and_then(|mut inst|
 		{
 			let m = self.get_mixer_mut();
 			inst.attach(m);
-			inst.set_gain(gain);
-			inst.set_pan(pan);
-			inst.set_speed(speed);
-			inst.set_playmode(playmode);
-			inst.set_playing(true);
-		});
-		inst
+			if_ok!(inst.set_gain(gain))
+			if_ok!(inst.set_pan(pan))
+			if_ok!(inst.set_speed(speed))
+			if_ok!(inst.set_playmode(playmode))
+			if_ok!(inst.set_playing(true))
+			Ok(inst)
+		})
 	}
 }
 
 impl AttachToMixerImpl for Mixer
 {
-	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Option<Connection>
+	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
 	{
 		if self.allegro_mixer == allegro_mixer
 		{
-			None
+			Err(())
 		}
 		else if unsafe{ al_attach_mixer_to_mixer(self.allegro_mixer, allegro_mixer) == 0 }
 		{
-			None
+			Err(())
 		}
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_mixer) }, Mixer::detach);
 			self.parent = Some(c1);
-			Some(c2)
+			Ok(c2)
 		}
 	}
 }
@@ -154,12 +148,12 @@ impl MixerLike for Mixer {}
 
 impl ::addon::AudioAddon
 {
-	pub fn create_mixer(&self) -> Option<Mixer>
+	pub fn create_mixer(&self) -> Result<Mixer, ()>
 	{
 		self.create_custom_mixer(44100, AudioDepthF32, ChannelConf2)
 	}
 
-	pub fn create_custom_mixer(&self, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Option<Mixer>
+	pub fn create_custom_mixer(&self, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
 	{
 		Mixer::new(frequency, depth, chan_conf)
 	}

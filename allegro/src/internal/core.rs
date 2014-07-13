@@ -116,19 +116,18 @@ impl Core
 		}
 	}
 
-	pub fn get_monitor_info(&self, adapter: i32) -> Option<(i32, i32, i32, i32)>
+	pub fn get_monitor_info(&self, adapter: i32) -> Result<(i32, i32, i32, i32), ()>
 	{
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
-			let ret = al_get_monitor_info(adapter as c_int, mem::transmute(&mut c_info)) != 0;
-			if ret
+			if al_get_monitor_info(adapter as c_int, mem::transmute(&mut c_info)) != 0
 			{
-				Some((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
+				Ok((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -149,11 +148,18 @@ impl Core
 		}
 	}
 
-	pub fn install_keyboard(&self) -> bool
+	pub fn install_keyboard(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_install_keyboard() != 0
+			if al_install_keyboard() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
@@ -182,41 +188,55 @@ impl Core
 		}
 	}
 
-	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> bool
+	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> Result<(), String>
 	{
 		if self.is_keyboard_installed()
 		{
 			unsafe
 			{
-				al_set_keyboard_leds(leds.get() as c_int) != 0
+				if al_set_keyboard_leds(leds.get() as c_int) != 0
+				{
+					Ok(())
+				}
+				else
+				{
+					Err("Could not set keyboard LEDs".to_string())
+				}
 			}
 		}
 		else
 		{
-			false
+			Err("Keyboard not initialized yet.".to_string())
 		}
 	}
 
-	pub fn keycode_to_name(&self, k: key::KeyCode) -> Option<String>
+	pub fn keycode_to_name(&self, k: key::KeyCode) -> Result<String, ()>
 	{
 		if self.is_keyboard_installed()
 		{
 			unsafe
 			{
-				Some(str::raw::from_c_str(al_keycode_to_name(k as c_int)))
+				Ok(str::raw::from_c_str(al_keycode_to_name(k as c_int)))
 			}
 		}
 		else
 		{
-			None
+			Err(())
 		}
 	}
 
-	pub fn install_mouse(&self) -> bool
+	pub fn install_mouse(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_install_mouse() != 0
+			if al_install_mouse() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
@@ -245,11 +265,18 @@ impl Core
 		}
 	}
 
-	pub fn install_joystick(&self) -> bool
+	pub fn install_joystick(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_install_joystick() != 0
+			if al_install_joystick() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
@@ -278,33 +305,33 @@ impl Core
 		}
 	}
 
-	pub fn reconfigure_joysticks(&self) -> bool
+	pub fn reconfigure_joysticks(&self) -> Result<bool, ()>
 	{
 		if self.is_joystick_installed()
 		{
 			unsafe
 			{
-				al_reconfigure_joysticks() != 0
+				Ok(al_reconfigure_joysticks() != 0)
 			}
 		}
 		else
 		{
-			false
+			Err(())
 		}
 	}
 
-	pub fn get_num_joysticks(&self) -> i32
+	pub fn get_num_joysticks(&self) -> Result<i32, ()>
 	{
 		if self.is_joystick_installed()
 		{
 			unsafe
 			{
-				al_get_num_joysticks() as i32
+				Ok(al_get_num_joysticks() as i32)
 			}
 		}
 		else
 		{
-			0
+			Err(())
 		}
 	}
 }

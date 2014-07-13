@@ -35,18 +35,18 @@ impl Joystick
 		}
 	}
 
-	pub fn get_name(&self) -> Option<String>
+	pub fn get_name(&self) -> Result<String, ()>
 	{
 		unsafe
 		{
 			let ptr = al_get_joystick_name(self.allegro_joystick);
 			if !ptr.is_null()
 			{
-				Some(str::raw::from_c_str(ptr))
+				Ok(str::raw::from_c_str(ptr))
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -67,18 +67,18 @@ impl Joystick
 		}
 	}
 
-	pub fn get_stick_name(&self, stick: i32) -> Option<String>
+	pub fn get_stick_name(&self, stick: i32) -> Result<String, ()>
 	{
 		unsafe
 		{
 			let ptr = al_get_joystick_stick_name(self.allegro_joystick, stick as c_int);
 			if !ptr.is_null()
 			{
-				Some(str::raw::from_c_str(ptr))
+				Ok(str::raw::from_c_str(ptr))
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -91,18 +91,18 @@ impl Joystick
 		}
 	}
 
-	pub fn get_axis_name(&self, stick: i32, axis: i32) -> Option<String>
+	pub fn get_axis_name(&self, stick: i32, axis: i32) -> Result<String, ()>
 	{
 		unsafe
 		{
 			let ptr = al_get_joystick_axis_name(self.allegro_joystick, stick as c_int, axis as c_int);
 			if !ptr.is_null()
 			{
-				Some(str::raw::from_c_str(ptr))
+				Ok(str::raw::from_c_str(ptr))
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -115,18 +115,18 @@ impl Joystick
 		}
 	}
 
-	pub fn get_button_name(&self, button: i32) -> Option<String>
+	pub fn get_button_name(&self, button: i32) -> Result<String, ()>
 	{
 		unsafe
 		{
 			let ptr = al_get_joystick_button_name(self.allegro_joystick, button as c_int);
 			if !ptr.is_null()
 			{
-				Some(str::raw::from_c_str(ptr))
+				Ok(str::raw::from_c_str(ptr))
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -139,7 +139,7 @@ impl Joystick
 
 impl ::internal::core::Core
 {
-	pub fn get_joystick(&self, idx: i32) -> Option<Joystick>
+	pub fn get_joystick(&self, idx: i32) -> Result<Joystick, String>
 	{
 		if self.is_joystick_installed()
 		{
@@ -149,16 +149,16 @@ impl ::internal::core::Core
 			};
 			if !ptr.is_null()
 			{
-				Some(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
+				Ok(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
 			}
 			else
 			{
-				None
+				Err("Could not get joystick.".to_string())
 			}
 		}
 		else
 		{
-			None
+			Err("Joystick support is not installed.".to_string())
 		}
 	}
 }

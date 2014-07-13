@@ -79,20 +79,20 @@ pub struct Font
 
 impl Font
 {
-	pub unsafe fn wrap_allegro_font(font: *mut ALLEGRO_FONT) -> Option<Font>
+	pub unsafe fn wrap_allegro_font(font: *mut ALLEGRO_FONT) -> Result<Font, ()>
 	{
 		Font::new(font)
 	}
 
-	fn new(font: *mut ALLEGRO_FONT) -> Option<Font>
+	fn new(font: *mut ALLEGRO_FONT) -> Result<Font, ()>
 	{
 		if font.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(Font{ allegro_font: font, no_send_marker: NoSend })
+			Ok(Font{ allegro_font: font, no_send_marker: NoSend })
 		}
 	}
 
@@ -163,7 +163,7 @@ impl Drop for Font
 
 impl ::addon::FontAddon
 {
-	pub fn create_builtin_font(&self) -> Option<Font>
+	pub fn create_builtin_font(&self) -> Result<Font, ()>
 	{
 		Font::new(unsafe
 		{
@@ -171,7 +171,7 @@ impl ::addon::FontAddon
 		})
 	}
 
-	pub fn load_bitmap_font(&self, filename: &str) -> Option<Font>
+	pub fn load_bitmap_font(&self, filename: &str) -> Result<Font, ()>
 	{
 		Font::new(unsafe
 		{
@@ -182,7 +182,7 @@ impl ::addon::FontAddon
 		})
 	}
 
-	pub fn grab_font_from_bitmap(&self, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Option<Font>
+	pub fn grab_font_from_bitmap(&self, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Result<Font, ()>
 	{
 		Font::new(unsafe
 		{

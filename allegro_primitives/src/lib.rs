@@ -139,7 +139,7 @@ pub struct PrimitivesAddon
 
 impl PrimitivesAddon
 {
-	pub fn init(core: &Core) -> Option<PrimitivesAddon>
+	pub fn init(core: &Core) -> Result<PrimitivesAddon, String>
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
@@ -149,12 +149,12 @@ impl PrimitivesAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The primitives addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -163,11 +163,11 @@ impl PrimitivesAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the primitives addon.".to_string())
 				}
 			}
 		}

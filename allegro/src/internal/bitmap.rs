@@ -26,23 +26,23 @@ pub struct Bitmap
 
 impl Bitmap
 {
-	fn new(w: i32, h: i32) -> Option<Bitmap>
+	fn new(w: i32, h: i32) -> Result<Bitmap, ()>
 	{
 		unsafe
 		{
 			let b =	al_create_bitmap(w as c_int, h as c_int);
 			if b.is_null()
 			{
-				None
+				Err(())
 			}
 			else
 			{
-				Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+				Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 			}
 		}
 	}
 
-	fn load(filename: &str) -> Option<Bitmap>
+	fn load(filename: &str) -> Result<Bitmap, ()>
 	{
 		let b = filename.with_c_str(|s|
 		{
@@ -53,31 +53,31 @@ impl Bitmap
 		});
 		if b.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+			Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 		}
 	}
 
-	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
+	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap<'l>, ()>
 	{
 		unsafe
 		{
 			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
 			if b.is_null()
 			{
-				None
+				Err(())
 			}
 			else
 			{
-				Some(SubBitmap{ allegro_bitmap: b, parent: self })
+				Ok(SubBitmap{ allegro_bitmap: b, parent: self })
 			}
 		}
 	}
 
-	pub fn maybe_clone(&self) -> Option<Bitmap>
+	pub fn maybe_clone(&self) -> Result<Bitmap, ()>
 	{
 		clone_bitmap(self.allegro_bitmap)
 	}
@@ -171,18 +171,18 @@ pub struct SubBitmap<'m>
 
 impl<'m> SubBitmap<'m>
 {
-	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Option<SubBitmap<'l>>
+	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap<'l>, ()>
 	{
 		unsafe
 		{
 			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
 			if b.is_null()
 			{
-				None
+				Err(())
 			}
 			else
 			{
-				Some(SubBitmap{ allegro_bitmap: b, parent: self.parent })
+				Ok(SubBitmap{ allegro_bitmap: b, parent: self.parent })
 			}
 		}
 	}
@@ -192,7 +192,7 @@ impl<'m> SubBitmap<'m>
 		self.parent
 	}
 
-	pub fn to_bitmap(&self) -> Option<Bitmap>
+	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
 	{
 		clone_bitmap(self.allegro_bitmap)
 	}
@@ -242,18 +242,18 @@ pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 	Bitmap{ allegro_bitmap: bmp, is_ref: true, no_send_marker: NoSend }
 }
 
-pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Option<Bitmap>
+pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
 {
 	unsafe
 	{
 		let b = al_clone_bitmap(bmp);
 		if b.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+			Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 		}
 	}
 }
@@ -292,12 +292,12 @@ impl ::internal::core::Core
 		}
 	}
 
-	pub fn create_bitmap(&self, w: i32, h: i32) -> Option<Bitmap>
+	pub fn create_bitmap(&self, w: i32, h: i32) -> Result<Bitmap, ()>
 	{
 		Bitmap::new(w, h)
 	}
 
-	pub fn load_bitmap(&self, filename: &str) -> Option<Bitmap>
+	pub fn load_bitmap(&self, filename: &str) -> Result<Bitmap, ()>
 	{
 		Bitmap::load(filename)
 	}

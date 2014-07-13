@@ -16,18 +16,18 @@ pub struct Timer
 
 impl Timer
 {
-	pub fn new(speed_secs: f64) -> Option<Timer>
+	fn new(speed_secs: f64) -> Result<Timer, ()>
 	{
 		unsafe
 		{
 			let t = al_create_timer(speed_secs as c_double);
 			if !t.is_null()
 			{
-				Some(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
+				Ok(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
 			}
 			else
 			{
-				None
+				Err(())
 			}
 		}
 	}
@@ -117,7 +117,7 @@ impl Drop for Timer
 
 impl ::internal::core::Core
 {
-	pub fn create_timer(&self, speed_secs: f64) -> Option<Timer>
+	pub fn create_timer(&self, speed_secs: f64) -> Result<Timer, ()>
 	{
 		Timer::new(speed_secs)
 	}

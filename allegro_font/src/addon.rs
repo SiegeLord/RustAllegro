@@ -21,7 +21,7 @@ pub struct FontAddon
 
 impl FontAddon
 {
-	pub fn init(core: &Core) -> Option<FontAddon>
+	pub fn init(core: &Core) -> Result<FontAddon, String>
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
@@ -31,12 +31,12 @@ impl FontAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The font addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -44,7 +44,7 @@ impl FontAddon
 				al_init_font_addon();
 				initialized = true;
 				spawned_on_this_thread = true;
-				Some(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+				Ok(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
 			}
 		}
 	}

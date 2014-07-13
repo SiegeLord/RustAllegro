@@ -112,7 +112,7 @@ pub struct DialogAddon
 
 impl DialogAddon
 {
-	pub fn init(core: &Core) -> Option<DialogAddon>
+	pub fn init(core: &Core) -> Result<DialogAddon, String>
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
@@ -122,12 +122,12 @@ impl DialogAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The dialog addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(DialogAddon{ no_send_marker: NoSend })
+					Ok(DialogAddon{ no_send_marker: NoSend })
 				}
 			}
 			else
@@ -136,11 +136,11 @@ impl DialogAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(DialogAddon{ no_send_marker: NoSend })
+					Ok(DialogAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the dialog addon.".to_string())
 				}
 			}
 		}

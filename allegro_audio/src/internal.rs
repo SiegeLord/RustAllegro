@@ -12,7 +12,7 @@ use libc::c_void;
 #[doc(hidden)]
 pub trait AttachToMixerImpl
 {
-	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Option<Connection>;
+	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>;
 }
 
 #[doc(hidden)]

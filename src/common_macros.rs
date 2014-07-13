@@ -2,6 +2,17 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+macro_rules! if_ok
+{
+	($e: expr) =>
+	{
+		if ($e).is_err()
+		{
+			return Err(());
+		}
+	}
+}
+
 macro_rules! opaque
 (
 	($f: ident) =>

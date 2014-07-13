@@ -81,7 +81,7 @@ pub struct TtfAddon
 
 impl TtfAddon
 {
-	pub fn init(font_addon: &FontAddon) -> Option<TtfAddon>
+	pub fn init(font_addon: &FontAddon) -> Result<TtfAddon, String>
 	{
 		let mutex = font_addon.get_core_mutex();
 		let _guard = mutex.lock();
@@ -91,12 +91,12 @@ impl TtfAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The ttf addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(TtfAddon{ no_send_marker: NoSend })
+					Ok(TtfAddon{ no_send_marker: NoSend })
 				}
 			}
 			else
@@ -105,11 +105,11 @@ impl TtfAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(TtfAddon{ no_send_marker: NoSend })
+					Ok(TtfAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the ttf addon.".to_string())
 				}
 			}
 		}
@@ -123,7 +123,7 @@ impl TtfAddon
 		}
 	}
 
-	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Option<Font>
+	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Result<Font, ()>
 	{
 		filename.with_c_str(|s|
 		{
@@ -134,11 +134,11 @@ impl TtfAddon
 		})
 	}
 
-	pub fn load_ttf_font_stretch(&self, filename: &str, width: i32, height: i32, flags: TtfFlags) -> Option<Font>
+	pub fn load_ttf_font_stretch(&self, filename: &str, width: i32, height: i32, flags: TtfFlags) -> Result<Font, String>
 	{
 		if width < 0 && height >= 0 || width >= 0 && height < 0
 		{
-			None
+			Err("Invalid dimension combination.".to_string())
 		}
 		else
 		{
@@ -147,6 +147,7 @@ impl TtfAddon
 				unsafe
 				{
 					Font::wrap_allegro_font(al_load_ttf_font_stretch(s, width as c_int, height as c_int, flags.get() as c_int))
+						.map_err(|_| "Failed to load the ttf font.".to_string())
 				}
 			})
 		}

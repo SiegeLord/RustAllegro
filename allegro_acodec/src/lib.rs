@@ -60,7 +60,7 @@ pub struct AcodecAddon
 
 impl AcodecAddon
 {
-	pub fn init(audio_addon: &AudioAddon) -> Option<AcodecAddon>
+	pub fn init(audio_addon: &AudioAddon) -> Result<AcodecAddon, String>
 	{
 		let mutex = audio_addon.get_core_mutex();
 		let _guard = mutex.lock();
@@ -70,12 +70,12 @@ impl AcodecAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The acodec addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(AcodecAddon{ no_send_marker: NoSend })
+					Ok(AcodecAddon{ no_send_marker: NoSend })
 				}
 			}
 			else
@@ -84,11 +84,11 @@ impl AcodecAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(AcodecAddon{ no_send_marker: NoSend })
+					Ok(AcodecAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the acodec addon.".to_string())
 				}
 			}
 		}

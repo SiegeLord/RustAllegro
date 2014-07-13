@@ -39,9 +39,9 @@ allegro_main!
 	}
 
 	let mut core = Core::init().unwrap();
-	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
-	let audio_addon = AudioAddon::init(&core).expect("Failed to initialize the audio addon");
-	AcodecAddon::init(&audio_addon).expect("Failed to initialize the acodec addon");
+	let font_addon = FontAddon::init(&core).unwrap();
+	let audio_addon = AudioAddon::init(&core).unwrap();
+	AcodecAddon::init(&audio_addon).unwrap();
 
 	if init_only
 	{
@@ -51,7 +51,7 @@ allegro_main!
 	let disp = core.create_display(800, 600).unwrap();
 	disp.set_window_title(&"Audio example".to_c_str());
 
-	core.install_keyboard();
+	core.install_keyboard().unwrap();
 
 	let timer = core.create_timer(1.0 / 60.0).unwrap();
 
@@ -60,12 +60,12 @@ allegro_main!
 	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
-	let mut sink = audio_addon.create_sink().expect("Couldn't create sink");
+	let mut sink = audio_addon.create_sink().unwrap();
 	let font = font_addon.create_builtin_font().unwrap();
 	let mut _sample_instance = None;
 	let sample = audio_addon.load_sample("data/welcome.ogg").unwrap();
 	let mut stream = audio_addon.load_audio_stream("data/music.ogg").unwrap();
-	stream.attach(&mut sink);
+	stream.attach(&mut sink).ok().expect("Could not attach to stream");
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
@@ -93,7 +93,7 @@ allegro_main!
 			},
 			KeyDown{keycode: k, ..} if k == key::Space =>
 			{
-				_sample_instance = sink.play_sample(&sample, 1.0, Some(0.0), 1.0, PlaymodeOnce);
+				_sample_instance = sink.play_sample(&sample, 1.0, Some(0.0), 1.0, PlaymodeOnce).ok();
 				println!("Welcome to Allegro!");
 			},
 			TimerTick{..} =>

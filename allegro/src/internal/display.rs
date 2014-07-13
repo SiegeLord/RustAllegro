@@ -99,24 +99,24 @@ pub struct Display
 
 impl Display
 {
-	fn new(w: i32, h: i32) -> Option<Display>
+	fn new(w: i32, h: i32) -> Result<Display, String>
 	{
 		unsafe
 		{
 			if !al_get_current_display().is_null()
 			{
-				None
+				Err("Only one display is allowed per thread.".to_string())
 			}
 			else
 			{
 				let d = al_create_display(w as c_int, h as c_int);
 				if d.is_null()
 				{
-					None
+					Err("Could not create the display".to_string())
 				}
 				else
 				{
-					Some
+					Ok
 					(
 						Display
 						{
@@ -183,19 +183,33 @@ impl Display
 		&self.backbuffer
 	}
 
-	pub fn acknowledge_resize(&self) -> bool
+	pub fn acknowledge_resize(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_acknowledge_resize(self.allegro_display) != 0
+			if al_acknowledge_resize(self.allegro_display) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
-	pub fn resize(&self, w: i32, h: i32) -> bool
+	pub fn resize(&self, w: i32, h: i32) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_resize_display(self.allegro_display, w as c_int, h as c_int) != 0
+			if al_resize_display(self.allegro_display, w as c_int, h as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
@@ -251,7 +265,7 @@ impl Display
 		}
 	}
 
-	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Option<Bitmap>
+	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Result<Bitmap, ()>
 	{
 		clone_bitmap(bmp.get_bitmap())
 	}
@@ -290,11 +304,18 @@ impl Display
 		}
 	}
 
-	pub fn wait_for_vsync(&self) -> bool
+	pub fn wait_for_vsync(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_wait_for_vsync() != 0
+			if al_wait_for_vsync() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
@@ -433,7 +454,7 @@ impl ::internal::core::Core
 		}
 	}
 
-	pub fn create_display(&self, w: i32, h: i32) -> Option<Display>
+	pub fn create_display(&self, w: i32, h: i32) -> Result<Display, String>
 	{
 		Display::new(w, h)
 	}

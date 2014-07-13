@@ -19,7 +19,7 @@ pub struct AudioStream
 
 impl AudioStream
 {
-	fn load(filename: &str, buffer_count: uint, samples: u32) -> Option<AudioStream>
+	fn load(filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
 	{
 		let stream = filename.with_c_str(|s|
 		{
@@ -30,11 +30,11 @@ impl AudioStream
 		});
 		if stream.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(AudioStream
+			Ok(AudioStream
 			{
 				parent: None,
 				allegro_audio_stream: stream,
@@ -81,17 +81,17 @@ impl Drop for AudioStream
 
 impl AttachToMixerImpl for AudioStream
 {
-	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Option<Connection>
+	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
 	{
 		if unsafe{ al_attach_audio_stream_to_mixer(self.allegro_audio_stream, allegro_mixer) == 0 }
 		{
-			None
+			Err(())
 		}
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_audio_stream) }, AudioStream::detach);
 			self.parent = Some(c1);
-			Some(c2)
+			Ok(c2)
 		}
 	}
 }
@@ -106,12 +106,12 @@ impl AttachToMixer for AudioStream
 
 impl ::addon::AudioAddon
 {
-	pub fn load_audio_stream(&self, filename: &str) -> Option<AudioStream>
+	pub fn load_audio_stream(&self, filename: &str) -> Result<AudioStream, ()>
 	{
 		self.load_custom_audio_stream(filename, 4, 2048)
 	}
 
-	pub fn load_custom_audio_stream(&self, filename: &str, buffer_count: uint, samples: u32) -> Option<AudioStream>
+	pub fn load_custom_audio_stream(&self, filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
 	{
 		AudioStream::load(filename, buffer_count, samples)
 	}

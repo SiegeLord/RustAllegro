@@ -54,7 +54,7 @@ pub struct Sample
 
 impl Sample
 {
-	fn load(filename: &str) -> Option<Sample>
+	fn load(filename: &str) -> Result<Sample, ()>
 	{
 		let samp = filename.with_c_str(|s|
 		{
@@ -65,11 +65,11 @@ impl Sample
 		});
 		if samp.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(Sample
+			Ok(Sample
 			{
 				allegro_sample: samp,
 				sample_valid: Arc::new(AtomicBool::new(true))
@@ -77,14 +77,14 @@ impl Sample
 		}
 	}
 
-	pub fn create_instance(&self) -> Option<SampleInstance>
+	pub fn create_instance(&self) -> Result<SampleInstance, ()>
 	{
-		let mut inst = SampleInstance::new();
-		inst.as_mut().map(|inst|
+		let inst = SampleInstance::new();
+		inst.and_then(|mut inst|
 		{
-			inst.set_sample(self);
-		});
-		inst
+			if_ok!(inst.set_sample(self))
+			Ok(inst)
+		})
 	}
 
 	pub fn get_frequency(&self) -> uint
@@ -133,35 +133,35 @@ impl Sample
 		}
 	}
 
-	pub fn get_data<'l, T: DataSample>(&'l self) -> Option<&'l [T]>
+	pub fn get_data<'l, T: DataSample>(&'l self) -> Result<&'l [T], ()>
 	{
 		if self.get_depth() == DataSample::get_depth(None::<T>)
 		{
 			let len = self.get_byte_length() / mem::size_of::<T>();
-			Some(unsafe
+			Ok(unsafe
 			{
 				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 			})
 		}
 		else
 		{
-			None
+			Err(())
 		}
 	}
 
-	pub fn get_data_mut<'l, T: DataSample>(&'l mut self) -> Option<&'l mut [T]>
+	pub fn get_data_mut<'l, T: DataSample>(&'l mut self) -> Result<&'l mut [T], ()>
 	{
 		if self.get_depth() == DataSample::get_depth(None::<T>)
 		{
 			let len = self.get_byte_length() / mem::size_of::<T>();
-			Some(unsafe
+			Ok(unsafe
 			{
 				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const ALLEGRO_SAMPLE) as *const u8, len: len })
 			})
 		}
 		else
 		{
-			None
+			Err(())
 		}
 	}
 
@@ -222,7 +222,7 @@ macro_rules! set_impl
 {
 	($self_: ident, $c_func: ident, $var: expr) =>
 	{
-		check_or_else!($self_, $c_func($self_.allegro_sample_instance, $var) != 0, false)
+		check_or_else!($self_, if $c_func($self_.allegro_sample_instance, $var) != 0 { Ok(()) } else { Err(()) }, Err(()))
 	}
 }
 
@@ -230,7 +230,7 @@ macro_rules! get_opt_impl
 {
 	($self_: ident,$c_func: ident, $dest_ty: ty) =>
 	{
-		check_or_else!($self_, Some($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
+		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), Err(()))
 	}
 }
 
@@ -238,7 +238,7 @@ macro_rules! get_conv_impl
 {
 	($self_: ident,$c_func: ident, $conv: path) =>
 	{
-		check_or_else!($self_, Some($conv($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE))), None)
+		check_or_else!($self_, Ok($conv($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE))), Err(()))
 	}
 }
 
@@ -246,22 +246,22 @@ macro_rules! get_bool_impl
 {
 	($self_: ident,$c_func: ident) =>
 	{
-		check_or_else!($self_, $c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) != 0, false)
+		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) != 0), Err(()))
 	}
 }
 
 impl SampleInstance
 {
-	fn new() -> Option<SampleInstance>
+	fn new() -> Result<SampleInstance, ()>
 	{
 		let inst = unsafe { al_create_sample_instance(ptr::mut_null()) };
 		if inst.is_null()
 		{
-			None
+			Err(())
 		}
 		else
 		{
-			Some(SampleInstance
+			Ok(SampleInstance
 			{
 				parent: None,
 				sample_valid: Arc::new(AtomicBool::new(false)),
@@ -278,43 +278,43 @@ impl SampleInstance
 		}
 	}
 
-	pub fn set_sample(&mut self, sample: &Sample) -> bool
+	pub fn set_sample(&mut self, sample: &Sample) -> Result<(), ()>
 	{
 		if unsafe { al_set_sample(self.allegro_sample_instance, sample.allegro_sample) != 0 }
 		{
 			self.sample_valid = sample.sample_valid.clone();
-			true
+			Ok(())
 		}
 		else
 		{
 			self.sample_valid = Arc::new(AtomicBool::new(false));
 			// As per docs of al_set_sample
 			self.parent = None;
-			false
+			Err(())
 		}
 	}
 
-	pub fn set_position(&self, position: u32) -> bool
+	pub fn set_position(&self, position: u32) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_position, position as c_uint)
 	}
 
-	pub fn set_length(&self, length: u32) -> bool
+	pub fn set_length(&self, length: u32) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_length, length as c_uint)
 	}
 
-	pub fn set_playing(&self, playing: bool) -> bool
+	pub fn set_playing(&self, playing: bool) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_playing, playing as c_bool)
 	}
 
-	pub fn set_gain(&self, gain: f32) -> bool
+	pub fn set_gain(&self, gain: f32) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_gain, gain as c_float)
 	}
 
-	pub fn set_pan(&self, pan: Option<f32>) -> bool
+	pub fn set_pan(&self, pan: Option<f32>) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_pan,
 		match pan
@@ -324,72 +324,72 @@ impl SampleInstance
 		})
 	}
 
-	pub fn set_speed(&self, speed: f32) -> bool
+	pub fn set_speed(&self, speed: f32) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_speed, speed as c_float)
 	}
 
-	pub fn set_playmode(&self, playmode: Playmode) -> bool
+	pub fn set_playmode(&self, playmode: Playmode) -> Result<(), ()>
 	{
 		set_impl!(self, al_set_sample_instance_playmode, playmode.get())
 	}
 
-	pub fn get_frequency(&self) -> Option<u32>
+	pub fn get_frequency(&self) -> Result<u32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_frequency, u32)
 	}
 
-	pub fn get_length(&self) -> Option<u32>
+	pub fn get_length(&self) -> Result<u32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_length, u32)
 	}
 
-	pub fn get_position(&self) -> Option<u32>
+	pub fn get_position(&self) -> Result<u32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_position, u32)
 	}
 
-	pub fn get_speed(&self) -> Option<f32>
+	pub fn get_speed(&self) -> Result<f32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_speed, f32)
 	}
 
-	pub fn get_gain(&self) -> Option<f32>
+	pub fn get_gain(&self) -> Result<f32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_gain, f32)
 	}
 
-	pub fn get_pan(&self) -> Option<f32>
+	pub fn get_pan(&self) -> Result<f32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_pan, f32)
 	}
 
-	pub fn get_time(&self) -> Option<f32>
+	pub fn get_time(&self) -> Result<f32, ()>
 	{
 		get_opt_impl!(self, al_get_sample_instance_time, f32)
 	}
 
-	pub fn get_playmode(&self) -> Option<Playmode>
+	pub fn get_playmode(&self) -> Result<Playmode, ()>
 	{
 		get_conv_impl!(self, al_get_sample_instance_playmode, Playmode::from_allegro)
 	}
 
-	pub fn get_channels(&self) -> Option<ChannelConf>
+	pub fn get_channels(&self) -> Result<ChannelConf, ()>
 	{
 		get_conv_impl!(self, al_get_sample_instance_channels, ChannelConf::from_allegro)
 	}
 
-	pub fn get_depth(&self) -> Option<AudioDepth>
+	pub fn get_depth(&self) -> Result<AudioDepth, ()>
 	{
 		get_conv_impl!(self, al_get_sample_instance_depth, AudioDepth::from_allegro)
 	}
 
-	pub fn get_playing(&self) -> bool
+	pub fn get_playing(&self) -> Result<bool, ()>
 	{
 		get_bool_impl!(self, al_get_sample_instance_playing)
 	}
 
-	pub fn get_attached(&self) -> bool
+	pub fn get_attached(&self) -> Result<bool, ()>
 	{
 		get_bool_impl!(self, al_get_sample_instance_attached)
 	}
@@ -414,17 +414,17 @@ impl Drop for SampleInstance
 
 impl AttachToMixerImpl for SampleInstance
 {
-	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Option<Connection>
+	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
 	{
 		if unsafe{ al_attach_sample_instance_to_mixer(self.allegro_sample_instance, allegro_mixer) == 0 }
 		{
-			None
+			Err(())
 		}
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_sample_instance) }, SampleInstance::detach);
 			self.parent = Some(c1);
-			Some(c2)
+			Ok(c2)
 		}
 	}
 }
@@ -439,12 +439,12 @@ impl AttachToMixer for SampleInstance
 
 impl ::addon::AudioAddon
 {
-	pub fn create_sample_instance(&self) -> Option<SampleInstance>
+	pub fn create_sample_instance(&self) -> Result<SampleInstance, ()>
 	{
 		SampleInstance::new()
 	}
 
-	pub fn load_sample(&self, filename: &str) -> Option<Sample>
+	pub fn load_sample(&self, filename: &str) -> Result<Sample, ()>
 	{
 		Sample::load(filename)
 	}

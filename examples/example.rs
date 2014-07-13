@@ -33,10 +33,10 @@ allegro_main!
 	let init_only = matches.opt_present("i");
 
 	let mut core = Core::init().unwrap();
-	ImageAddon::init(&core).expect("Failed to initialize the image addon");
-	let font_addon = FontAddon::init(&core).expect("Failed to initialize the font addon");
-	let ttf_addon = TtfAddon::init(&font_addon).expect("Failed to initialize the ttf addon");
-	let prim = PrimitivesAddon::init(&core).expect("Failed to initialize the primitives addon");
+	ImageAddon::init(&core).unwrap();
+	let font_addon = FontAddon::init(&core).unwrap();
+	let ttf_addon = TtfAddon::init(&font_addon).unwrap();
+	let prim = PrimitivesAddon::init(&core).unwrap();
 
 	if init_only
 	{
@@ -46,8 +46,8 @@ allegro_main!
 	let disp = core.create_display(800, 600).unwrap();
 	disp.set_window_title(&"Rust example".to_c_str());
 
-	core.install_keyboard();
-	core.install_mouse();
+	core.install_keyboard().unwrap();
+	core.install_mouse().unwrap();
 
 	let timer = core.create_timer(1.0 / 60.0).unwrap();
 

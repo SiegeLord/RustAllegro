@@ -59,7 +59,7 @@ pub struct ImageAddon
 
 impl ImageAddon
 {
-	pub fn init(core: &Core) -> Option<ImageAddon>
+	pub fn init(core: &Core) -> Result<ImageAddon, String>
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
@@ -69,12 +69,12 @@ impl ImageAddon
 			{
 				if spawned_on_this_thread
 				{
-					None
+					Err("The image addon has already been created in this task.".to_string())
 				}
 				else
 				{
 					spawned_on_this_thread = true;
-					Some(ImageAddon{ no_send_marker: NoSend })
+					Ok(ImageAddon{ no_send_marker: NoSend })
 				}
 			}
 			else
@@ -83,11 +83,11 @@ impl ImageAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Some(ImageAddon{ no_send_marker: NoSend })
+					Ok(ImageAddon{ no_send_marker: NoSend })
 				}
 				else
 				{
-					None
+					Err("Could not initialize the image addon.".to_string())
 				}
 			}
 		}
