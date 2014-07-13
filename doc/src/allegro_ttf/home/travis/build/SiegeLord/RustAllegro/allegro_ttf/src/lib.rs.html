@@ -192,6 +192,7 @@
 <span id='152'>152</span>
 <span id='153'>153</span>
 <span id='154'>154</span>
+<span id='155'>155</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -276,7 +277,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>TtfAddon</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>init</span>(<span class='ident'>font_addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>FontAddon</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TtfAddon</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>init</span>(<span class='ident'>font_addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>FontAddon</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>TtfAddon</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>mutex</span> <span class='op'>=</span> <span class='ident'>font_addon</span>.<span class='ident'>get_core_mutex</span>();
 		<span class='kw'>let</span> <span class='ident'>_guard</span> <span class='op'>=</span> <span class='ident'>mutex</span>.<span class='ident'>lock</span>();
@@ -286,12 +287,12 @@
 			{
 				<span class='kw'>if</span> <span class='ident'>spawned_on_this_thread</span>
 				{
-					<span class='prelude-val'>None</span>
+					<span class='prelude-val'>Err</span>(<span class='string'>&quot;The ttf addon has already been created in this task.&quot;</span>.<span class='ident'>to_string</span>())
 				}
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Some</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
 				}
 			}
 			<span class='kw'>else</span>
@@ -300,11 +301,11 @@
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Some</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
 				}
 				<span class='kw'>else</span>
 				{
-					<span class='prelude-val'>None</span>
+					<span class='prelude-val'>Err</span>(<span class='string'>&quot;Could not initialize the ttf addon.&quot;</span>.<span class='ident'>to_string</span>())
 				}
 			}
 		}
@@ -318,7 +319,7 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_ttf_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>size</span>: <span class='ident'>i32</span>, <span class='ident'>flags</span>: <span class='ident'>TtfFlags</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_ttf_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>size</span>: <span class='ident'>i32</span>, <span class='ident'>flags</span>: <span class='ident'>TtfFlags</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='ident'>filename</span>.<span class='ident'>with_c_str</span>(<span class='op'>|</span><span class='ident'>s</span><span class='op'>|</span>
 		{
@@ -329,11 +330,11 @@
 		})
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_ttf_font_stretch</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>width</span>: <span class='ident'>i32</span>, <span class='ident'>height</span>: <span class='ident'>i32</span>, <span class='ident'>flags</span>: <span class='ident'>TtfFlags</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_ttf_font_stretch</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>width</span>: <span class='ident'>i32</span>, <span class='ident'>height</span>: <span class='ident'>i32</span>, <span class='ident'>flags</span>: <span class='ident'>TtfFlags</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='ident'>width</span> <span class='op'>&lt;</span> <span class='number'>0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>height</span> <span class='op'>&gt;=</span> <span class='number'>0</span> <span class='op'>||</span> <span class='ident'>width</span> <span class='op'>&gt;=</span> <span class='number'>0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>height</span> <span class='op'>&lt;</span> <span class='number'>0</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class='prelude-val'>Err</span>(<span class='string'>&quot;Invalid dimension combination.&quot;</span>.<span class='ident'>to_string</span>())
 		}
 		<span class='kw'>else</span>
 		{
@@ -342,6 +343,7 @@
 				<span class='kw'>unsafe</span>
 				{
 					<span class='ident'>Font</span>::<span class='ident'>wrap_allegro_font</span>(<span class='ident'>al_load_ttf_font_stretch</span>(<span class='ident'>s</span>, <span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>))
+						.<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='string'>&quot;Failed to load the ttf font.&quot;</span>.<span class='ident'>to_string</span>())
 				}
 			})
 		}

@@ -312,20 +312,20 @@
 
 <span class='kw'>impl</span> <span class='ident'>Font</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='ident'>Font</span>::<span class='ident'>new</span>(<span class='ident'>font</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='ident'>font</span>.<span class='ident'>is_null</span>()
 		{
-			<span class='prelude-val'>None</span>
+			<span class='prelude-val'>Err</span>(())
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='prelude-val'>Some</span>(<span class='ident'>Font</span>{ <span class='ident'>allegro_font</span>: <span class='ident'>font</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+			<span class='prelude-val'>Ok</span>(<span class='ident'>Font</span>{ <span class='ident'>allegro_font</span>: <span class='ident'>font</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
 		}
 	}
 
@@ -396,7 +396,7 @@
 
 <span class='kw'>impl</span> ::<span class='ident'>addon</span>::<span class='ident'>FontAddon</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_builtin_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_builtin_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='ident'>Font</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span>
 		{
@@ -404,7 +404,7 @@
 		})
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_bitmap_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_bitmap_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='ident'>Font</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span>
 		{
@@ -415,7 +415,7 @@
 		})
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>grab_font_from_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>Bitmap</span>, <span class='ident'>ranges</span>: <span class='kw-2'>&amp;</span>[(<span class='ident'>c_int</span>, <span class='ident'>c_int</span>)]) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Font</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>grab_font_from_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>Bitmap</span>, <span class='ident'>ranges</span>: <span class='kw-2'>&amp;</span>[(<span class='ident'>c_int</span>, <span class='ident'>c_int</span>)]) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='ident'>Font</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span>
 		{

@@ -240,18 +240,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -272,18 +272,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_stick_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stick</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_stick_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stick</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_stick_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>stick</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -296,18 +296,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_axis_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stick</span>: <span class='ident'>i32</span>, <span class='ident'>axis</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_axis_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stick</span>: <span class='ident'>i32</span>, <span class='ident'>axis</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_axis_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>stick</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>axis</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -320,18 +320,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_button_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>button</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_button_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>button</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_button_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>button</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -344,7 +344,7 @@
 
 <span class='kw'>impl</span> ::<span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>Core</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Joystick</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Joystick</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>()
 		{
@@ -354,16 +354,16 @@
 			};
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>Joystick</span>{ <span class='ident'>allegro_joystick</span>: <span class='ident'>ptr</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+				<span class='prelude-val'>Ok</span>(<span class='ident'>Joystick</span>{ <span class='ident'>allegro_joystick</span>: <span class='ident'>ptr</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(<span class='string'>&quot;Could not get joystick.&quot;</span>.<span class='ident'>to_string</span>())
 			}
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class='prelude-val'>Err</span>(<span class='string'>&quot;Joystick support is not installed.&quot;</span>.<span class='ident'>to_string</span>())
 		}
 	}
 }

@@ -348,6 +348,33 @@
 <span id='308'>308</span>
 <span id='309'>309</span>
 <span id='310'>310</span>
+<span id='311'>311</span>
+<span id='312'>312</span>
+<span id='313'>313</span>
+<span id='314'>314</span>
+<span id='315'>315</span>
+<span id='316'>316</span>
+<span id='317'>317</span>
+<span id='318'>318</span>
+<span id='319'>319</span>
+<span id='320'>320</span>
+<span id='321'>321</span>
+<span id='322'>322</span>
+<span id='323'>323</span>
+<span id='324'>324</span>
+<span id='325'>325</span>
+<span id='326'>326</span>
+<span id='327'>327</span>
+<span id='328'>328</span>
+<span id='329'>329</span>
+<span id='330'>330</span>
+<span id='331'>331</span>
+<span id='332'>332</span>
+<span id='333'>333</span>
+<span id='334'>334</span>
+<span id='335'>335</span>
+<span id='336'>336</span>
+<span id='337'>337</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -467,19 +494,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_monitor_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>adapter</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span>(<span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>)<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_monitor_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>adapter</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(<span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c_info</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>{ <span class='ident'>x1</span>: <span class='number'>0</span>, <span class='ident'>y1</span>: <span class='number'>0</span>, <span class='ident'>x2</span>: <span class='number'>0</span>, <span class='ident'>y2</span>: <span class='number'>0</span> };
-			<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c_info</span>)) <span class='op'>!=</span> <span class='number'>0</span>;
-			<span class='kw'>if</span> <span class='ident'>ret</span>
+			<span class='kw'>if</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c_info</span>)) <span class='op'>!=</span> <span class='number'>0</span>
 			{
-				<span class='prelude-val'>Some</span>((<span class='ident'>c_info</span>.<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>i32</span>))
+				<span class='prelude-val'>Ok</span>((<span class='ident'>c_info</span>.<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>i32</span>))
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>None</span>
+				<span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -500,11 +526,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_keyboard</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_keyboard</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_install_keyboard</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			<span class='kw'>if</span> <span class='ident'>al_install_keyboard</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			{
+				<span class='prelude-val'>Ok</span>(())
+			}
+			<span class='kw'>else</span>
+			{
+				<span class='prelude-val'>Err</span>(())
+			}
 		}
 	}
 
@@ -533,41 +566,55 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_keyboard_leds</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>leds</span>: <span class='ident'>KeyModifier</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_keyboard_leds</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>leds</span>: <span class='ident'>KeyModifier</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_keyboard_installed</span>()
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>al_set_keyboard_leds</span>(<span class='ident'>leds</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
+				<span class='kw'>if</span> <span class='ident'>al_set_keyboard_leds</span>(<span class='ident'>leds</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
+				{
+					<span class='prelude-val'>Ok</span>(())
+				}
+				<span class='kw'>else</span>
+				{
+					<span class='prelude-val'>Err</span>(<span class='string'>&quot;Could not set keyboard LEDs&quot;</span>.<span class='ident'>to_string</span>())
+				}
 			}
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='boolval'>false</span>
+			<span class='prelude-val'>Err</span>(<span class='string'>&quot;Keyboard not initialized yet.&quot;</span>.<span class='ident'>to_string</span>())
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>keycode_to_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>k</span>: <span class='ident'>key</span>::<span class='ident'>KeyCode</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>keycode_to_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>k</span>: <span class='ident'>key</span>::<span class='ident'>KeyCode</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_keyboard_installed</span>()
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>al_keycode_to_name</span>(<span class='ident'>k</span> <span class='kw'>as</span> <span class='ident'>c_int</span>)))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>al_keycode_to_name</span>(<span class='ident'>k</span> <span class='kw'>as</span> <span class='ident'>c_int</span>)))
 			}
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class='prelude-val'>Err</span>(())
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_mouse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_mouse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_install_mouse</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			<span class='kw'>if</span> <span class='ident'>al_install_mouse</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			{
+				<span class='prelude-val'>Ok</span>(())
+			}
+			<span class='kw'>else</span>
+			{
+				<span class='prelude-val'>Err</span>(())
+			}
 		}
 	}
 
@@ -596,11 +643,18 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_install_joystick</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			<span class='kw'>if</span> <span class='ident'>al_install_joystick</span>() <span class='op'>!=</span> <span class='number'>0</span>
+			{
+				<span class='prelude-val'>Ok</span>(())
+			}
+			<span class='kw'>else</span>
+			{
+				<span class='prelude-val'>Err</span>(())
+			}
 		}
 	}
 
@@ -629,33 +683,33 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reconfigure_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reconfigure_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>bool</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>()
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>al_reconfigure_joysticks</span>() <span class='op'>!=</span> <span class='number'>0</span>
+				<span class='prelude-val'>Ok</span>(<span class='ident'>al_reconfigure_joysticks</span>() <span class='op'>!=</span> <span class='number'>0</span>)
 			}
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='boolval'>false</span>
+			<span class='prelude-val'>Err</span>(())
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_num_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_num_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>i32</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>()
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>al_get_num_joysticks</span>() <span class='kw'>as</span> <span class='ident'>i32</span>
+				<span class='prelude-val'>Ok</span>(<span class='ident'>al_get_num_joysticks</span>() <span class='kw'>as</span> <span class='ident'>i32</span>)
 			}
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='number'>0</span>
+			<span class='prelude-val'>Err</span>(())
 		}
 	}
 }
