@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The allegro library documentation.">
+
+    <title>allegro::ffi::display - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>allegro</a>&#8203;::<a href='../index.html'>ffi</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='../altime/index.html'>altime</a><a class='mod ' href='../base/index.html'>base</a><a class='mod ' href='../bitmap/index.html'>bitmap</a><a class='mod ' href='../bitmap_draw/index.html'>bitmap_draw</a><a class='mod ' href='../bitmap_io/index.html'>bitmap_io</a><a class='mod ' href='../color/index.html'>color</a><a class='mod current' href='../display/index.html'>display</a><a class='mod ' href='../drawing/index.html'>drawing</a><a class='mod ' href='../events/index.html'>events</a><a class='mod ' href='../joystick/index.html'>joystick</a><a class='mod ' href='../keyboard/index.html'>keyboard</a><a class='mod ' href='../keycodes/index.html'>keycodes</a><a class='mod ' href='../monitor/index.html'>monitor</a><a class='mod ' href='../mouse/index.html'>mouse</a><a class='mod ' href='../path/index.html'>path</a><a class='mod ' href='../system/index.html'>system</a><a class='mod ' href='../timer/index.html'>timer</a><a class='mod ' href='../transformations/index.html'>transformations</a><a class='mod ' href='../utf8/index.html'>utf8</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'>Module <a href='../../index.html'>allegro</a>::<a href='../index.html'>ffi</a>::<a class='mod' href=''>display</a><span class='out-of-band'><a id='src-1309' href='../../../src/allegro/home/travis/build/SiegeLord/RustAllegro/allegro/src/ffi/display.rs.html#5-121'>[src]</a></span></h1>
+<h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.ALLEGRO_DISPLAY.html'
+                               title='allegro::ffi::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ACC_ALPHA_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>11</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ACC_BLUE_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>10</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ACC_GREEN_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>9</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ACC_RED_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>8</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ALPHA_SHIFT: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>7</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_ALPHA_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>3</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_AUX_BUFFERS: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>13</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_BLUE_SHIFT: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>6</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_BLUE_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>2</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_CAN_DRAW_INTO_BITMAP: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>29</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_COLOR_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>14</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_COMPATIBLE_DISPLAY: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>24</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DEPTH_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>15</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DIRECT3D_INTERNAL: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 3</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_OPTIONS_COUNT: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>31</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>0</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_180_DEGREES: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>2</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_270_DEGREES: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>3</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_90_DEGREES: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>5</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DISPLAY_ORIENTATION_FACE_UP: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>4</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_DONTCARE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>0</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_FLOAT_COLOR: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>20</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_FLOAT_DEPTH: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>21</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_FRAMELESS: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 5</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_FULLSCREEN: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 1</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_FULLSCREEN_WINDOW: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 9</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_GENERATE_EXPOSE_EVENTS: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 6</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_GREEN_SHIFT: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>5</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_GREEN_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_MAX_BITMAP_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>27</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_MINIMIZED: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 10</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_NOFRAME: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>ALLEGRO_FRAMELESS</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_OPENGL: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 2</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_OPENGL_3_0: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 7</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_OPENGL_FORWARD_COMPATIBLE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 8</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_RED_SHIFT: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>4</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_RED_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>0</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_RENDER_METHOD: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>19</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_REQUIRE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_RESIZABLE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 4</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SAMPLES: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>18</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SAMPLE_BUFFERS: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>17</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SINGLE_BUFFER: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>22</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_STENCIL_SIZE: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>16</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_STEREO: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>12</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SUGGEST: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>2</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SUPPORT_NPOT_BITMAP: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>28</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SUPPORT_SEPARATE_ALPHA: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>30</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_SWAP_METHOD: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>23</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_UPDATE_DISPLAY_REGION: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>25</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_VSYNC: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>26</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub static ALLEGRO_WINDOWED: <a href='http://doc.rust-lang.org/master/std/primitive.u32.html'>u32</a></code><code> = </code><code>1 << 0</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                </table><h2 id='ffi-fns' class='section-header'><a href="#ffi-fns">Foreign Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_acknowledge_resize.html'
+                               title='allegro::ffi::display::al_acknowledge_resize'>al_acknowledge_resize</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_create_display.html'
+                               title='allegro::ffi::display::al_create_display'>al_create_display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_destroy_display.html'
+                               title='allegro::ffi::display::al_destroy_display'>al_destroy_display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_flip_display.html'
+                               title='allegro::ffi::display::al_flip_display'>al_flip_display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_backbuffer.html'
+                               title='allegro::ffi::display::al_get_backbuffer'>al_get_backbuffer</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_current_display.html'
+                               title='allegro::ffi::display::al_get_current_display'>al_get_current_display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_event_source.html'
+                               title='allegro::ffi::display::al_get_display_event_source'>al_get_display_event_source</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_flags.html'
+                               title='allegro::ffi::display::al_get_display_flags'>al_get_display_flags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_format.html'
+                               title='allegro::ffi::display::al_get_display_format'>al_get_display_format</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_height.html'
+                               title='allegro::ffi::display::al_get_display_height'>al_get_display_height</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_option.html'
+                               title='allegro::ffi::display::al_get_display_option'>al_get_display_option</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_refresh_rate.html'
+                               title='allegro::ffi::display::al_get_display_refresh_rate'>al_get_display_refresh_rate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_display_width.html'
+                               title='allegro::ffi::display::al_get_display_width'>al_get_display_width</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_new_display_adapter.html'
+                               title='allegro::ffi::display::al_get_new_display_adapter'>al_get_new_display_adapter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_new_display_flags.html'
+                               title='allegro::ffi::display::al_get_new_display_flags'>al_get_new_display_flags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_new_display_option.html'
+                               title='allegro::ffi::display::al_get_new_display_option'>al_get_new_display_option</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_new_display_refresh_rate.html'
+                               title='allegro::ffi::display::al_get_new_display_refresh_rate'>al_get_new_display_refresh_rate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_new_window_position.html'
+                               title='allegro::ffi::display::al_get_new_window_position'>al_get_new_window_position</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_target_bitmap.html'
+                               title='allegro::ffi::display::al_get_target_bitmap'>al_get_target_bitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_window_position.html'
+                               title='allegro::ffi::display::al_get_window_position'>al_get_window_position</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_hold_bitmap_drawing.html'
+                               title='allegro::ffi::display::al_hold_bitmap_drawing'>al_hold_bitmap_drawing</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_is_bitmap_drawing_held.html'
+                               title='allegro::ffi::display::al_is_bitmap_drawing_held'>al_is_bitmap_drawing_held</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_is_compatible_bitmap.html'
+                               title='allegro::ffi::display::al_is_compatible_bitmap'>al_is_compatible_bitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_reset_new_display_options.html'
+                               title='allegro::ffi::display::al_reset_new_display_options'>al_reset_new_display_options</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_resize_display.html'
+                               title='allegro::ffi::display::al_resize_display'>al_resize_display</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_display_flag.html'
+                               title='allegro::ffi::display::al_set_display_flag'>al_set_display_flag</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_display_icon.html'
+                               title='allegro::ffi::display::al_set_display_icon'>al_set_display_icon</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_display_icons.html'
+                               title='allegro::ffi::display::al_set_display_icons'>al_set_display_icons</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_new_display_adapter.html'
+                               title='allegro::ffi::display::al_set_new_display_adapter'>al_set_new_display_adapter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_new_display_flags.html'
+                               title='allegro::ffi::display::al_set_new_display_flags'>al_set_new_display_flags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_new_display_option.html'
+                               title='allegro::ffi::display::al_set_new_display_option'>al_set_new_display_option</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_new_display_refresh_rate.html'
+                               title='allegro::ffi::display::al_set_new_display_refresh_rate'>al_set_new_display_refresh_rate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_new_window_position.html'
+                               title='allegro::ffi::display::al_set_new_window_position'>al_set_new_window_position</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_target_backbuffer.html'
+                               title='allegro::ffi::display::al_set_target_backbuffer'>al_set_target_backbuffer</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_target_bitmap.html'
+                               title='allegro::ffi::display::al_set_target_bitmap'>al_set_target_bitmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_window_position.html'
+                               title='allegro::ffi::display::al_set_window_position'>al_set_window_position</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_window_title.html'
+                               title='allegro::ffi::display::al_set_window_title'>al_set_window_title</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_update_display_region.html'
+                               title='allegro::ffi::display::al_update_display_region'>al_update_display_region</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_wait_for_vsync.html'
+                               title='allegro::ffi::display::al_wait_for_vsync'>al_wait_for_vsync</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "allegro";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>
