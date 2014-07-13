@@ -202,9 +202,9 @@ pub struct SampleInstance
 
 macro_rules! check_or_else
 {
-	($valid: expr, $invalid: expr) =>
+	($self_: ident, $valid: expr, $invalid: expr) =>
 	{
-		if self.sample_valid.load(SeqCst)
+		if $self_.sample_valid.load(SeqCst)
 		{
 			unsafe
 			{
@@ -220,33 +220,33 @@ macro_rules! check_or_else
 
 macro_rules! set_impl
 {
-	($c_func: ident, $var: expr) =>
+	($self_: ident, $c_func: ident, $var: expr) =>
 	{
-		check_or_else!($c_func(self.allegro_sample_instance, $var) != 0, false)
+		check_or_else!($self_, $c_func($self_.allegro_sample_instance, $var) != 0, false)
 	}
 }
 
 macro_rules! get_opt_impl
 {
-	($c_func: ident, $dest_ty: ty) =>
+	($self_: ident,$c_func: ident, $dest_ty: ty) =>
 	{
-		check_or_else!(Some($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
+		check_or_else!($self_, Some($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) as $dest_ty), None)
 	}
 }
 
 macro_rules! get_conv_impl
 {
-	($c_func: ident, $conv: path) =>
+	($self_: ident,$c_func: ident, $conv: path) =>
 	{
-		check_or_else!(Some($conv($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE))), None)
+		check_or_else!($self_, Some($conv($c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE))), None)
 	}
 }
 
 macro_rules! get_bool_impl
 {
-	($c_func: ident) =>
+	($self_: ident,$c_func: ident) =>
 	{
-		check_or_else!($c_func(self.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) != 0, false)
+		check_or_else!($self_, $c_func($self_.allegro_sample_instance as *const ALLEGRO_SAMPLE_INSTANCE) != 0, false)
 	}
 }
 
@@ -296,27 +296,27 @@ impl SampleInstance
 
 	pub fn set_position(&self, position: u32) -> bool
 	{
-		set_impl!(al_set_sample_instance_position, position as c_uint)
+		set_impl!(self, al_set_sample_instance_position, position as c_uint)
 	}
 
 	pub fn set_length(&self, length: u32) -> bool
 	{
-		set_impl!(al_set_sample_instance_length, length as c_uint)
+		set_impl!(self, al_set_sample_instance_length, length as c_uint)
 	}
 
 	pub fn set_playing(&self, playing: bool) -> bool
 	{
-		set_impl!(al_set_sample_instance_playing, playing as c_bool)
+		set_impl!(self, al_set_sample_instance_playing, playing as c_bool)
 	}
 
 	pub fn set_gain(&self, gain: f32) -> bool
 	{
-		set_impl!(al_set_sample_instance_gain, gain as c_float)
+		set_impl!(self, al_set_sample_instance_gain, gain as c_float)
 	}
 
 	pub fn set_pan(&self, pan: Option<f32>) -> bool
 	{
-		set_impl!(al_set_sample_instance_pan,
+		set_impl!(self, al_set_sample_instance_pan,
 		match pan
 		{
 			Some(p) => p as c_float,
@@ -326,72 +326,72 @@ impl SampleInstance
 
 	pub fn set_speed(&self, speed: f32) -> bool
 	{
-		set_impl!(al_set_sample_instance_speed, speed as c_float)
+		set_impl!(self, al_set_sample_instance_speed, speed as c_float)
 	}
 
 	pub fn set_playmode(&self, playmode: Playmode) -> bool
 	{
-		set_impl!(al_set_sample_instance_playmode, playmode.get())
+		set_impl!(self, al_set_sample_instance_playmode, playmode.get())
 	}
 
 	pub fn get_frequency(&self) -> Option<u32>
 	{
-		get_opt_impl!(al_get_sample_instance_frequency, u32)
+		get_opt_impl!(self, al_get_sample_instance_frequency, u32)
 	}
 
 	pub fn get_length(&self) -> Option<u32>
 	{
-		get_opt_impl!(al_get_sample_instance_length, u32)
+		get_opt_impl!(self, al_get_sample_instance_length, u32)
 	}
 
 	pub fn get_position(&self) -> Option<u32>
 	{
-		get_opt_impl!(al_get_sample_instance_position, u32)
+		get_opt_impl!(self, al_get_sample_instance_position, u32)
 	}
 
 	pub fn get_speed(&self) -> Option<f32>
 	{
-		get_opt_impl!(al_get_sample_instance_speed, f32)
+		get_opt_impl!(self, al_get_sample_instance_speed, f32)
 	}
 
 	pub fn get_gain(&self) -> Option<f32>
 	{
-		get_opt_impl!(al_get_sample_instance_gain, f32)
+		get_opt_impl!(self, al_get_sample_instance_gain, f32)
 	}
 
 	pub fn get_pan(&self) -> Option<f32>
 	{
-		get_opt_impl!(al_get_sample_instance_pan, f32)
+		get_opt_impl!(self, al_get_sample_instance_pan, f32)
 	}
 
 	pub fn get_time(&self) -> Option<f32>
 	{
-		get_opt_impl!(al_get_sample_instance_time, f32)
+		get_opt_impl!(self, al_get_sample_instance_time, f32)
 	}
 
 	pub fn get_playmode(&self) -> Option<Playmode>
 	{
-		get_conv_impl!(al_get_sample_instance_playmode, Playmode::from_allegro)
+		get_conv_impl!(self, al_get_sample_instance_playmode, Playmode::from_allegro)
 	}
 
 	pub fn get_channels(&self) -> Option<ChannelConf>
 	{
-		get_conv_impl!(al_get_sample_instance_channels, ChannelConf::from_allegro)
+		get_conv_impl!(self, al_get_sample_instance_channels, ChannelConf::from_allegro)
 	}
 
 	pub fn get_depth(&self) -> Option<AudioDepth>
 	{
-		get_conv_impl!(al_get_sample_instance_depth, AudioDepth::from_allegro)
+		get_conv_impl!(self, al_get_sample_instance_depth, AudioDepth::from_allegro)
 	}
 
 	pub fn get_playing(&self) -> bool
 	{
-		get_bool_impl!(al_get_sample_instance_playing)
+		get_bool_impl!(self, al_get_sample_instance_playing)
 	}
 
 	pub fn get_attached(&self) -> bool
 	{
-		get_bool_impl!(al_get_sample_instance_attached)
+		get_bool_impl!(self, al_get_sample_instance_attached)
 	}
 
 	pub fn get_allegro_sample_instance(&self) -> *mut ALLEGRO_SAMPLE_INSTANCE
