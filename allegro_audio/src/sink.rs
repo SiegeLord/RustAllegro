@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::option::Some;
 use ffi::*;
 use properties::*;
 use mixer::{MixerLike, Mixer};
@@ -78,7 +77,7 @@ impl ::addon::AudioAddon
 	                       mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Result<Sink, String>
 	{
 		self.create_custom_mixer(frequency, mixer_depth, mixer_chan_conf)
-		.map_err(|e| "Could not create the mixer.".to_string())
+		.map_err(|_| "Could not create the mixer.".to_string())
 		.and_then(|mixer|
 			Sink::new(frequency, voice_depth, voice_chan_conf, mixer)
 		)

@@ -4,7 +4,6 @@
 
 use std::mem;
 use libc::*;
-use std::option::Some;
 use std::kinds::marker::NoSend;
 
 use internal::bitmap_like::*;

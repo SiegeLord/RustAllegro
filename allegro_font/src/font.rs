@@ -8,7 +8,6 @@ use allegro::{Core, Color, Bitmap, BitmapLike};
 use std::kinds::marker::NoSend;
 
 use libc::*;
-use std::option::Some;
 use std::mem;
 
 pub enum FontAlignment

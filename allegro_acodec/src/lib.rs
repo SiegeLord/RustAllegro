@@ -19,7 +19,6 @@ extern crate libc;
 use allegro_audio::AudioAddon;
 use ffi::allegro_acodec::*;
 
-use std::option::Some;
 use std::kinds::marker::NoSend;
 
 #[cfg(not(manual_link))]

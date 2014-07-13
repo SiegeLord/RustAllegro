@@ -23,7 +23,6 @@ use sync::{Arc, Mutex};
 use allegro::{Core, Color};
 use ffi::*;
 use libc::*;
-use std::option::Some;
 
 static mut initialized: bool = false;
 //#[thread_local]

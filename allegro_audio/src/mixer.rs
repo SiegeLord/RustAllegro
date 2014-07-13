@@ -91,7 +91,7 @@ pub trait MixerLike : HasMixer
 		inst.and_then(|mut inst|
 		{
 			let m = self.get_mixer_mut();
-			inst.attach(m);
+			if_ok!(inst.attach(m))
 			if_ok!(inst.set_gain(gain))
 			if_ok!(inst.set_pan(pan))
 			if_ok!(inst.set_speed(speed))

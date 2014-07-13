@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::option::Some;
 use std::mem;
 use std::str;
 use std::kinds::marker::NoSend;

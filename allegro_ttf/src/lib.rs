@@ -21,7 +21,6 @@ use allegro_font::{FontAddon, Font};
 use ffi::allegro_ttf::*;
 use libc::*;
 
-use std::option::Some;
 use std::kinds::marker::NoSend;
 
 #[cfg(not(manual_link))]
