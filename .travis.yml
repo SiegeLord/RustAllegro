@@ -15,7 +15,7 @@ before_install:
 install:
   - sudo apt-get install liballegro5-dev
   - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
-  - sudo cp -r cargo-nightly/bin /usr/local/
+  - sudo ./cargo-nightly/install.sh
 script:
   - cd examples
   - cargo build
