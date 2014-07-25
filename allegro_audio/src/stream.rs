@@ -26,7 +26,7 @@ macro_rules! get_impl
 {
 	($self_: ident,$c_func: ident, $dest_ty: ty) =>
 	{
-		unsafe{ $c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM) as $dest_ty }
+		unsafe{ $c_func($self_.allegro_audio_stream as *const _) as $dest_ty }
 	}
 }
 
@@ -34,7 +34,7 @@ macro_rules! get_conv_impl
 {
 	($self_: ident,$c_func: ident, $conv: path) =>
 	{
-		unsafe{ $conv($c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM)) }
+		unsafe{ $conv($c_func($self_.allegro_audio_stream as *const _)) }
 	}
 }
 
