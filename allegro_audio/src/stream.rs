@@ -2,19 +2,56 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use allegro::c_bool;
+
 use libc::*;
 use std::mem;
 use std::option::Some;
+use std::io::BufWriter;
 
 use mixer::AttachToMixer;
 use ffi::*;
 use internal::{Connection, AttachToMixerImpl};
-use properties::Playmode;
+use properties::*;
+
+macro_rules! set_impl
+{
+	($self_: ident, $c_func: ident, $($var: expr),+) =>
+	{
+		unsafe{ if $c_func($self_.allegro_audio_stream, $($var),+) != 0 { Ok(()) } else { Err(()) } }
+	}
+}
+
+macro_rules! get_impl
+{
+	($self_: ident,$c_func: ident, $dest_ty: ty) =>
+	{
+		unsafe{ $c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM) as $dest_ty }
+	}
+}
+
+macro_rules! get_conv_impl
+{
+	($self_: ident,$c_func: ident, $conv: path) =>
+	{
+		unsafe{ $conv($c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM)) }
+	}
+}
+
+macro_rules! get_bool_impl
+{
+	($self_: ident,$c_func: ident) =>
+	{
+		unsafe{ $c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM) != 0 }
+	}
+}
 
 pub struct AudioStream
 {
 	parent: Option<Connection>,
 	allegro_audio_stream: *mut ALLEGRO_AUDIO_STREAM,
+	fragment_samples: uint,
+	created_by_load: bool,
 }
 
 impl AudioStream
@@ -38,6 +75,30 @@ impl AudioStream
 			{
 				parent: None,
 				allegro_audio_stream: stream,
+				fragment_samples: samples as uint,
+				created_by_load: true,
+			})
+		}
+	}
+
+	fn new(buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
+	{
+		let stream = unsafe
+		{
+			al_create_audio_stream(buffer_count as size_t, samples as c_uint, frequency as c_uint, depth.get(), chan_conf.get())
+		};
+		if stream.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			Ok(AudioStream
+			{
+				parent: None,
+				allegro_audio_stream: stream,
+				fragment_samples: samples as uint,
+				created_by_load: false,
 			})
 		}
 	}
@@ -50,19 +111,186 @@ impl AudioStream
 		}
 	}
 
-	pub fn set_gain(&self, gain: f32) -> bool
+	pub fn set_loop_secs(&self, start: f64, end: f64) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_loop_secs, start as c_double, end as c_double)
+	}
+
+	pub fn set_playing(&self, playing: bool) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_playing, playing as c_bool)
+	}
+
+	pub fn set_gain(&self, gain: f32) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_gain, gain as c_float)
+	}
+
+	pub fn set_pan(&self, pan: Option<f32>) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_pan,
+		match pan
+		{
+			Some(p) => p as c_float,
+			None => ALLEGRO_AUDIO_PAN_NONE
+		})
+	}
+
+	pub fn set_speed(&self, speed: f32) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_speed, speed as c_float)
+	}
+
+	pub fn set_playmode(&self, playmode: Playmode) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_audio_stream_playmode, playmode.get())
+	}
+
+	pub fn seek_secs(&self, time: f64) -> Result<(), ()>
+	{
+		set_impl!(self, al_seek_audio_stream_secs, time as c_double)
+	}
+
+	pub fn rewind(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
-			al_set_audio_stream_gain(self.allegro_audio_stream, gain as c_float) != 0
+			match al_rewind_audio_stream(self.allegro_audio_stream) != 0
+			{
+				true => Ok(()),
+				false => Err(())
+			}
 		}
 	}
 
-	pub fn set_playmode(&self, playmode: Playmode) -> bool
+	pub fn drain(&self)
 	{
 		unsafe
 		{
-			al_set_audio_stream_playmode(self.allegro_audio_stream, playmode.get()) != 0
+			al_drain_audio_stream(self.allegro_audio_stream)
+		}
+	}
+
+	pub fn get_frequency(&self) -> u32
+	{
+		get_impl!(self, al_get_audio_stream_frequency, u32)
+	}
+
+	pub fn get_num_fragments(&self) -> u32
+	{
+		get_impl!(self, al_get_audio_stream_fragments, u32)
+	}
+
+	pub fn get_num_available_fragments(&self) -> u32
+	{
+		get_impl!(self, al_get_available_audio_stream_fragments, u32)
+	}
+
+	pub fn get_length_secs(&self) -> Result<f64, ()>
+	{
+		if self.created_by_load
+		{
+			Ok(unsafe
+			{
+				al_get_audio_stream_length_secs(self.allegro_audio_stream) as f64
+			})
+		}
+		else
+		{
+			Err(())
+		}
+	}
+
+	pub fn get_length(&self) -> u32
+	{
+		get_impl!(self, al_get_audio_stream_length, u32)
+	}
+
+	pub fn get_position_secs(&self) -> Result<f64, ()>
+	{
+		if self.created_by_load
+		{
+			Ok(unsafe
+			{
+				al_get_audio_stream_position_secs(self.allegro_audio_stream) as f64
+			})
+		}
+		else
+		{
+			Err(())
+		}
+	}
+
+	pub fn get_speed(&self) -> f32
+	{
+		get_impl!(self, al_get_audio_stream_speed, f32)
+	}
+
+	pub fn get_gain(&self) -> f32
+	{
+		get_impl!(self, al_get_audio_stream_gain, f32)
+	}
+
+	pub fn get_pan(&self) -> f32
+	{
+		get_impl!(self, al_get_audio_stream_pan, f32)
+	}
+
+	pub fn get_playmode(&self) -> Playmode
+	{
+		get_conv_impl!(self, al_get_audio_stream_playmode, Playmode::from_allegro)
+	}
+
+	pub fn get_channels(&self) -> ChannelConf
+	{
+		get_conv_impl!(self, al_get_audio_stream_channels, ChannelConf::from_allegro)
+	}
+
+	pub fn get_depth(&self) -> AudioDepth
+	{
+		get_conv_impl!(self, al_get_audio_stream_depth, AudioDepth::from_allegro)
+	}
+
+	pub fn get_playing(&self) -> bool
+	{
+		get_bool_impl!(self, al_get_audio_stream_playing)
+	}
+
+	pub fn get_attached(&self) -> bool
+	{
+		get_bool_impl!(self, al_get_audio_stream_attached)
+	}
+
+	pub fn write_fragment(&self, write_cb: |writer: &mut BufWriter|) -> Result<bool, ()>
+	{
+		use std::slice::raw::mut_buf_as_slice;
+		let fragment = unsafe
+		{
+			al_get_audio_stream_fragment(self.allegro_audio_stream as *const _)
+		};
+		if fragment.is_null()
+		{
+			return Ok(false);
+		}
+
+		let frag_size = self.get_channels().get_num_channels() * self.get_depth().get_byte_size() * self.fragment_samples;
+		unsafe
+		{
+			mut_buf_as_slice(fragment as *mut u8, frag_size, |buf|
+			{
+				let mut writer = BufWriter::new(buf);
+				write_cb(&mut writer);
+				// Fill the rest with silence
+				while writer.write_u8(0).is_ok() {}
+			});
+			if al_set_audio_stream_fragment(self.allegro_audio_stream, fragment) != 0
+			{
+				Ok(true)
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 }
@@ -106,6 +334,11 @@ impl AttachToMixer for AudioStream
 
 impl ::addon::AudioAddon
 {
+	pub fn create_audio_stream(&self, buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
+	{
+		AudioStream::new(buffer_count, samples, frequency, depth, chan_conf)
+	}
+
 	pub fn load_audio_stream(&self, filename: &str) -> Result<AudioStream, ()>
 	{
 		self.load_custom_audio_stream(filename, 4, 2048)
