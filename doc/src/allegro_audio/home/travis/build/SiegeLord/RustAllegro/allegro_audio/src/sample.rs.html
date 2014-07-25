@@ -583,7 +583,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_sample_frequency</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='ident'>uint</span>
+			<span class='ident'>al_get_sample_frequency</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>uint</span>
 		}
 	}
 
@@ -591,7 +591,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_sample_length</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='ident'>uint</span>
+			<span class='ident'>al_get_sample_length</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>uint</span>
 		}
 	}
 
@@ -604,7 +604,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>AudioDepth</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_sample_depth</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>))
+			<span class='ident'>AudioDepth</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_sample_depth</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 		}
 	}
 
@@ -612,7 +612,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>ChannelConf</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_sample_channels</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>))
+			<span class='ident'>ChannelConf</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_sample_channels</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 		}
 	}
 
@@ -621,7 +621,7 @@
 		<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>();
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
 		}
 	}
 
@@ -632,7 +632,7 @@
 			<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>() <span class='op'>/</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>();
 			<span class='prelude-val'>Ok</span>(<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
 			})
 		}
 		<span class='kw'>else</span>
@@ -648,7 +648,7 @@
 			<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>() <span class='op'>/</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>();
 			<span class='prelude-val'>Ok</span>(<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
 			})
 		}
 		<span class='kw'>else</span>
@@ -662,7 +662,7 @@
 		<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>();
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
 		}
 	}
 
@@ -722,7 +722,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span>: <span class='ident'>ty</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE_INSTANCE</span>) <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span>), <span class='prelude-val'>Err</span>(()))
+		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span>), <span class='prelude-val'>Err</span>(()))
 	}
 }
 
@@ -730,7 +730,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>: <span class='ident'>path</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE_INSTANCE</span>))), <span class='prelude-val'>Err</span>(()))
+		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))), <span class='prelude-val'>Err</span>(()))
 	}
 }
 
@@ -738,7 +738,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_SAMPLE_INSTANCE</span>) <span class='op'>!=</span> <span class='number'>0</span>), <span class='prelude-val'>Err</span>(()))
+		<span class='macro'>check_or_else</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>, <span class='prelude-val'>Ok</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_sample_instance</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='op'>!=</span> <span class='number'>0</span>), <span class='prelude-val'>Err</span>(()))
 	}
 }
 
