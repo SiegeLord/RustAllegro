@@ -2,9 +2,12 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use allegro::c_bool;
+
 use libc::*;
 use std::option::Some;
 use std::mem;
+use std::ptr;
 
 use ffi::*;
 use internal::Connection;
@@ -12,6 +15,38 @@ use internal::HasMixer;
 use internal::AttachToMixerImpl;
 use properties::*;
 use sample::{Sample, SampleInstance};
+
+macro_rules! set_impl
+{
+	($self_: ident, $c_func: ident, $($var: expr),+) =>
+	{
+		unsafe{ if $c_func($self_.get_mixer().allegro_mixer, $($var),+) != 0 { Ok(()) } else { Err(()) } }
+	}
+}
+
+macro_rules! get_impl
+{
+	($self_: ident,$c_func: ident, $dest_ty: ty) =>
+	{
+		unsafe{ $c_func($self_.get_mixer().allegro_mixer as *const _) as $dest_ty }
+	}
+}
+
+macro_rules! get_conv_impl
+{
+	($self_: ident,$c_func: ident, $conv: path) =>
+	{
+		unsafe{ $conv($c_func($self_.get_mixer().allegro_mixer as *const _)) }
+	}
+}
+
+macro_rules! get_bool_impl
+{
+	($self_: ident,$c_func: ident) =>
+	{
+		unsafe{ $c_func($self_.get_mixer().allegro_mixer as *const _) != 0 }
+	}
+}
 
 pub trait AttachToMixer : AttachToMixerImpl
 {
@@ -29,11 +64,18 @@ pub trait AttachToMixer : AttachToMixerImpl
 	}
 }
 
+struct CallbackHolder
+{
+	cb: Box<PostProcessCallback + Send>,
+	sample_size: uint,
+}
+
 pub struct Mixer
 {
 	allegro_mixer: *mut ALLEGRO_MIXER,
 	parent: Option<Connection>,
-	children: Vec<Connection>
+	children: Vec<Connection>,
+	callback: Option<Box<CallbackHolder>>,
 }
 
 impl Mixer
@@ -52,6 +94,7 @@ impl Mixer
 				allegro_mixer: mixer,
 				parent: None,
 				children: Vec::new(),
+				callback: None,
 			})
 		}
 	}
@@ -100,6 +143,105 @@ pub trait MixerLike : HasMixer
 			Ok(inst)
 		})
 	}
+
+	fn get_frequency(&self) -> u32
+	{
+		get_impl!(self, al_get_mixer_frequency, u32)
+	}
+
+	fn get_gain(&self) -> f32
+	{
+		get_impl!(self, al_get_mixer_gain, f32)
+	}
+
+	fn get_quality(&self) -> MixerQuality
+	{
+		get_conv_impl!(self, al_get_mixer_quality, MixerQuality::from_allegro)
+	}
+
+	fn get_channels(&self) -> ChannelConf
+	{
+		get_conv_impl!(self, al_get_mixer_channels, ChannelConf::from_allegro)
+	}
+
+	fn get_depth(&self) -> AudioDepth
+	{
+		get_conv_impl!(self, al_get_mixer_depth, AudioDepth::from_allegro)
+	}
+
+	fn get_playing(&self) -> bool
+	{
+		get_bool_impl!(self, al_get_mixer_playing)
+	}
+
+	fn get_attached(&self) -> bool
+	{
+		get_bool_impl!(self, al_get_mixer_attached)
+	}
+
+	fn set_playing(&self, playing: bool) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_mixer_playing, playing as c_bool)
+	}
+
+	fn set_gain(&self, gain: f32) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_mixer_gain, gain as c_float)
+	}
+
+	fn set_frequency(&self, freq: u32) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_mixer_frequency, freq as u32)
+	}
+
+	fn set_quality(&self, quality: MixerQuality) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_mixer_quality, quality.get())
+	}
+
+	fn set_postprocess_callback<T>(&mut self, cb: Option<Box<PostProcessCallback + Send>>)
+	{
+		let allegro_mixer = self.get_mixer().allegro_mixer;
+
+		match cb
+		{
+			Some(cb) =>
+			{
+				let mut cbh = box CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() };
+				unsafe
+				{
+					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback), &mut *cbh as *mut _ as *mut _);
+				}
+				self.get_mixer_mut().callback = Some(cbh);
+			},
+			None =>
+			{
+				unsafe
+				{
+					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::mut_null());
+				}
+				self.get_mixer_mut().callback = None;
+			}
+		}
+	}
+}
+
+extern "C" fn mixer_callback(data: *mut c_void, num_samples: c_uint, cb: *mut c_void)
+{
+	use std::slice::raw::mut_buf_as_slice;
+	unsafe
+	{
+		let cbh: &mut CallbackHolder = mem::transmute(cb);
+		mut_buf_as_slice(data as *mut u8, num_samples as uint * cbh.sample_size, |buf|
+		{
+			cbh.cb.process(buf, num_samples as u32);
+		});
+	}
+}
+
+pub trait PostProcessCallback
+{
+	fn process(&mut self, data: &mut [u8], num_samples: u32);
 }
 
 impl AttachToMixerImpl for Mixer

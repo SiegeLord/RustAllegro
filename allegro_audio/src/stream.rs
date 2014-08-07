@@ -42,7 +42,7 @@ macro_rules! get_bool_impl
 {
 	($self_: ident,$c_func: ident) =>
 	{
-		unsafe{ $c_func($self_.allegro_audio_stream as *const ALLEGRO_AUDIO_STREAM) != 0 }
+		unsafe{ $c_func($self_.allegro_audio_stream as *const _) != 0 }
 	}
 }
 
