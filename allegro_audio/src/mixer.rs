@@ -199,7 +199,7 @@ pub trait MixerLike : HasMixer
 		set_impl!(self, al_set_mixer_quality, quality.get())
 	}
 
-	fn set_postprocess_callback<T>(&mut self, cb: Option<Box<PostProcessCallback + Send>>)
+	fn set_postprocess_callback(&mut self, cb: Option<Box<PostProcessCallback + Send>>) -> Result<(), ()>
 	{
 		let allegro_mixer = self.get_mixer().allegro_mixer;
 
@@ -208,21 +208,30 @@ pub trait MixerLike : HasMixer
 			Some(cb) =>
 			{
 				let mut cbh = box CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() };
-				unsafe
+				let ret = unsafe
 				{
-					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback), &mut *cbh as *mut _ as *mut _);
+					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback), &mut *cbh as *mut _ as *mut _)
+				};
+				if ret == 0
+				{
+					return Err(())
 				}
 				self.get_mixer_mut().callback = Some(cbh);
 			},
 			None =>
 			{
-				unsafe
+				let ret = unsafe
 				{
-					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::mut_null());
+					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::mut_null())
+				};
+				if ret == 0
+				{
+					return Err(())
 				}
 				self.get_mixer_mut().callback = None;
 			}
 		}
+		Ok(())
 	}
 }
 

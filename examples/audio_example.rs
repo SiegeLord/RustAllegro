@@ -19,12 +19,32 @@ use allegro_font::*;
 use allegro_audio::*;
 use allegro_acodec::*;
 
+struct AudioCallback
+{
+	silence: bool,
+}
+
+impl PostProcessCallback for AudioCallback
+{
+	fn process(&mut self, data: &mut [u8], _: u32)
+	{
+		if self.silence
+		{
+			for u in data.mut_iter()
+			{
+				*u = 0;
+			}
+		}
+	}
+}
+
 allegro_main!
 {
 	let args = os::args();
 
 	let opts = vec![
-		optflag("i", "init-only", "only initialize Allegro, don't do anything else")
+		optflag("i", "init-only", "only initialize Allegro, don't do anything else"),
+		optflag("s", "silence", "use the post-process callback to silence the audio")
 	];
 
 	let matches = getopts(args.tail(), opts.as_slice()).unwrap();
@@ -60,12 +80,15 @@ allegro_main!
 	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
+	let callback = box AudioCallback{ silence: matches.opt_present("silence") } as Box<PostProcessCallback + Send>;
 	let mut sink = audio_addon.create_sink().unwrap();
+	sink.set_postprocess_callback(Some(callback)).unwrap();
 	let font = font_addon.create_builtin_font().unwrap();
 	let mut _sample_instance = None;
 	let sample = audio_addon.load_sample("data/welcome.ogg").unwrap();
 	let mut stream = audio_addon.load_audio_stream("data/music.ogg").unwrap();
 	stream.attach(&mut sink).ok().expect("Could not attach to stream");
+	stream.set_playmode(PlaymodeLoop).unwrap();
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
