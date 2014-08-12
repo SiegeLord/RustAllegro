@@ -5,7 +5,7 @@
 use libc::*;
 use std::option::Some;
 use std::mem;
-use std::str;
+use std::string;
 use std::kinds::marker::NoSend;
 use std::task::TaskBuilder;
 use native::NativeTaskBuilder;
@@ -216,7 +216,7 @@ impl Core
 		{
 			unsafe
 			{
-				Ok(str::raw::from_c_str(al_keycode_to_name(k as c_int)))
+				Ok(string::raw::from_buf(al_keycode_to_name(k as c_int) as *const _))
 			}
 		}
 		else

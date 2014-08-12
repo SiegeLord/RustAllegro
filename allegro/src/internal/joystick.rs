@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::mem;
-use std::str;
+use std::string;
 use std::kinds::marker::NoSend;
 
 use ffi::*;
@@ -41,7 +41,7 @@ impl Joystick
 			let ptr = al_get_joystick_name(self.allegro_joystick);
 			if !ptr.is_null()
 			{
-				Ok(str::raw::from_c_str(ptr))
+				Ok(string::raw::from_buf(ptr as *const _))
 			}
 			else
 			{
@@ -73,7 +73,7 @@ impl Joystick
 			let ptr = al_get_joystick_stick_name(self.allegro_joystick, stick as c_int);
 			if !ptr.is_null()
 			{
-				Ok(str::raw::from_c_str(ptr))
+				Ok(string::raw::from_buf(ptr as *const _))
 			}
 			else
 			{
@@ -97,7 +97,7 @@ impl Joystick
 			let ptr = al_get_joystick_axis_name(self.allegro_joystick, stick as c_int, axis as c_int);
 			if !ptr.is_null()
 			{
-				Ok(str::raw::from_c_str(ptr))
+				Ok(string::raw::from_buf(ptr as *const _))
 			}
 			else
 			{
@@ -121,7 +121,7 @@ impl Joystick
 			let ptr = al_get_joystick_button_name(self.allegro_joystick, button as c_int);
 			if !ptr.is_null()
 			{
-				Ok(str::raw::from_c_str(ptr))
+				Ok(string::raw::from_buf(ptr as *const _))
 			}
 			else
 			{
