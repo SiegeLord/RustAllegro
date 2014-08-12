@@ -210,7 +210,7 @@
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>string</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
@@ -247,7 +247,7 @@
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>string</span>::<span class='ident'>raw</span>::<span class='ident'>from_buf</span>(<span class='ident'>ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 			}
 			<span class='kw'>else</span>
 			{
@@ -279,7 +279,7 @@
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_stick_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>stick</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>string</span>::<span class='ident'>raw</span>::<span class='ident'>from_buf</span>(<span class='ident'>ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 			}
 			<span class='kw'>else</span>
 			{
@@ -303,7 +303,7 @@
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_axis_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>stick</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>axis</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>string</span>::<span class='ident'>raw</span>::<span class='ident'>from_buf</span>(<span class='ident'>ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 			}
 			<span class='kw'>else</span>
 			{
@@ -327,7 +327,7 @@
 			<span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>al_get_joystick_button_name</span>(<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>, <span class='ident'>button</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>ptr</span>.<span class='ident'>is_null</span>()
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>ptr</span>))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>string</span>::<span class='ident'>raw</span>::<span class='ident'>from_buf</span>(<span class='ident'>ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 			}
 			<span class='kw'>else</span>
 			{

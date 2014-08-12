@@ -385,7 +385,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>::<span class='prelude-val'>Some</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>string</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>task</span>::<span class='ident'>TaskBuilder</span>;
 <span class='kw'>use</span> <span class='ident'>native</span>::<span class='ident'>NativeTaskBuilder</span>;
@@ -596,7 +596,7 @@
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>str</span>::<span class='ident'>raw</span>::<span class='ident'>from_c_str</span>(<span class='ident'>al_keycode_to_name</span>(<span class='ident'>k</span> <span class='kw'>as</span> <span class='ident'>c_int</span>)))
+				<span class='prelude-val'>Ok</span>(<span class='ident'>string</span>::<span class='ident'>raw</span>::<span class='ident'>from_buf</span>(<span class='ident'>al_keycode_to_name</span>(<span class='ident'>k</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _))
 			}
 		}
 		<span class='kw'>else</span>
