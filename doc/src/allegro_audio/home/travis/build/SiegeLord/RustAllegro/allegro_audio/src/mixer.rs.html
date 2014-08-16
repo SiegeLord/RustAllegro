@@ -351,6 +351,11 @@
 <span id='309'>309</span>
 <span id='310'>310</span>
 <span id='311'>311</span>
+<span id='312'>312</span>
+<span id='313'>313</span>
+<span id='314'>314</span>
+<span id='315'>315</span>
+<span id='316'>316</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -482,6 +487,11 @@
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MixerLike</span> : <span class='ident'>HasMixer</span>
 {
+	<span class='kw'>fn</span> <span class='ident'>get_allegro_mixer</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>
+	{
+		<span class='self'>self</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span>
+	}
+
 	<span class='kw'>fn</span> <span class='ident'>play_sample</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>sample</span>: <span class='kw-2'>&amp;</span><span class='ident'>Sample</span>, <span class='ident'>gain</span>: <span class='ident'>f32</span>, <span class='ident'>pan</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f32</span><span class='op'>&gt;</span>, <span class='ident'>speed</span>: <span class='ident'>f32</span>, <span class='ident'>playmode</span>: <span class='ident'>Playmode</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>SampleInstance</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>inst</span> <span class='op'>=</span> <span class='ident'>sample</span>.<span class='ident'>create_instance</span>();
