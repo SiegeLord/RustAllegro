@@ -128,6 +128,11 @@ impl Drop for Mixer
 
 pub trait MixerLike : HasMixer
 {
+	fn get_allegro_mixer(&self) -> *mut ALLEGRO_MIXER
+	{
+		self.get_mixer().allegro_mixer
+	}
+
 	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Result<SampleInstance, ()>
 	{
 		let inst = sample.create_instance();

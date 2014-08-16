@@ -2,11 +2,45 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use allegro::c_bool;
+
 use libc::*;
 use ffi::*;
 use properties::*;
 use mixer::{MixerLike, Mixer};
 use internal::HasMixer;
+
+macro_rules! set_impl
+{
+	($self_: ident, $c_func: ident, $($var: expr),+) =>
+	{
+		unsafe{ if $c_func($self_.allegro_voice, $($var),+) != 0 { Ok(()) } else { Err(()) } }
+	}
+}
+
+macro_rules! get_impl
+{
+	($self_: ident,$c_func: ident, $dest_ty: ty) =>
+	{
+		unsafe{ $c_func($self_.allegro_voice as *const _) as $dest_ty }
+	}
+}
+
+macro_rules! get_conv_impl
+{
+	($self_: ident,$c_func: ident, $conv: path) =>
+	{
+		unsafe{ $conv($c_func($self_.allegro_voice as *const _)) }
+	}
+}
+
+macro_rules! get_bool_impl
+{
+	($self_: ident,$c_func: ident) =>
+	{
+		unsafe{ $c_func($self_.allegro_voice as *const _) != 0 }
+	}
+}
 
 pub struct Sink
 {
@@ -36,6 +70,46 @@ impl Sink
 				Err("Could not attach mixer to voice".to_string())
 			}
 		}
+	}
+
+	pub fn get_allegro_voice(&self) -> *mut ALLEGRO_VOICE
+	{
+		self.allegro_voice
+	}
+
+	pub fn get_voice_frequency(&self) -> u32
+	{
+		get_impl!(self, al_get_voice_frequency, u32)
+	}
+
+	pub fn get_voice_position(&self) -> u32
+	{
+		get_impl!(self, al_get_voice_position, u32)
+	}
+
+	pub fn get_voice_channels(&self) -> ChannelConf
+	{
+		get_conv_impl!(self, al_get_voice_channels, ChannelConf::from_allegro)
+	}
+
+	pub fn get_voice_depth(&self) -> AudioDepth
+	{
+		get_conv_impl!(self, al_get_voice_depth, AudioDepth::from_allegro)
+	}
+
+	pub fn get_voice_playing(&self) -> bool
+	{
+		get_bool_impl!(self, al_get_voice_playing)
+	}
+
+	pub fn set_voice_playing(&self, playing: bool) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_voice_playing, playing as c_bool)
+	}
+
+	pub fn set_voice_position(&self, pos: u32) -> Result<(), ()>
+	{
+		set_impl!(self, al_set_voice_position, pos as c_uint)
 	}
 }
 
