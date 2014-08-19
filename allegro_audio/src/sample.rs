@@ -8,7 +8,7 @@ use libc::*;
 use sync::Arc;
 use std::mem;
 use std::ptr;
-use std::option::Some;
+use RealSome = std::option::Some;
 use std::sync::atomics::{AtomicBool, SeqCst};
 use std::raw::Slice;
 
@@ -319,7 +319,7 @@ impl SampleInstance
 		set_impl!(self, al_set_sample_instance_pan,
 		match pan
 		{
-			Some(p) => p as c_float,
+			RealSome(p) => p as c_float,
 			None => ALLEGRO_AUDIO_PAN_NONE
 		})
 	}
@@ -423,7 +423,7 @@ impl AttachToMixerImpl for SampleInstance
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_sample_instance) }, SampleInstance::detach);
-			self.parent = Some(c1);
+			self.parent = RealSome(c1);
 			Ok(c2)
 		}
 	}

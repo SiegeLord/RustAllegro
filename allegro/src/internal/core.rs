@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::option::Some;
+use RealSome = std::option::Some;
 use std::mem;
 use std::string;
 use std::kinds::marker::NoSend;
@@ -14,7 +14,7 @@ use sync::{Arc, Mutex};
 
 use ffi::*;
 
-use internal::events::*;
+use internal::events::{EventSource, new_event_source_ref};
 use internal::keycodes::*;
 
 pub mod external
@@ -177,13 +177,13 @@ impl Core
 		{
 			unsafe
 			{
-				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
+				self.keyboard_event_source = RealSome(new_event_source_ref(al_get_keyboard_event_source()));
 			}
 		}
 
 		match self.keyboard_event_source
 		{
-			Some(ref s) => Some(s),
+			RealSome(ref s) => RealSome(s),
 			None => None
 		}
 	}
@@ -254,13 +254,13 @@ impl Core
 		{
 			unsafe
 			{
-				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
+				self.mouse_event_source = RealSome(new_event_source_ref(al_get_mouse_event_source()));
 			}
 		}
 
 		match self.mouse_event_source
 		{
-			Some(ref s) => Some(s),
+			RealSome(ref s) => RealSome(s),
 			None => None
 		}
 	}
@@ -294,13 +294,13 @@ impl Core
 		{
 			unsafe
 			{
-				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
+				self.joystick_event_source = RealSome(new_event_source_ref(al_get_joystick_event_source()));
 			}
 		}
 
 		match self.joystick_event_source
 		{
-			Some(ref s) => Some(s),
+			RealSome(ref s) => RealSome(s),
 			None => None
 		}
 	}

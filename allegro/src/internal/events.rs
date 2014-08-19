@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::option::Some;
 use std::mem;
 use std::kinds::marker::NoSend;
 
@@ -131,6 +130,7 @@ impl Iterator<Event> for EventQueue
 {
 	fn next(&mut self) -> Option<Event>
 	{
+		use std::option::Some;
 		match self.get_next_event()
 		{
 			NoEvent => None,
