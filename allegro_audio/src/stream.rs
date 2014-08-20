@@ -6,7 +6,7 @@ use allegro::c_bool;
 
 use libc::*;
 use std::mem;
-use RealSome = std::option::Some;
+use std::option::Some as RealSome;
 use std::io::BufWriter;
 
 use mixer::AttachToMixer;

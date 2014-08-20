@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use RealSome = std::option::Some;
+use std::option::Some as RealSome;
 use std::mem;
 use std::string;
 use std::kinds::marker::NoSend;

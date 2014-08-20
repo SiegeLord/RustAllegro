@@ -8,7 +8,7 @@ use libc::*;
 use sync::Arc;
 use std::mem;
 use std::ptr;
-use RealSome = std::option::Some;
+use std::option::Some as RealSome;
 use std::sync::atomics::{AtomicBool, SeqCst};
 use std::raw::Slice;
 

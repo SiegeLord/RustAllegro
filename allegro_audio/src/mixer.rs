@@ -5,7 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
-use RealSome = std::option::Some;
+use std::option::Some as RealSome;
 use std::mem;
 use std::ptr;
 
