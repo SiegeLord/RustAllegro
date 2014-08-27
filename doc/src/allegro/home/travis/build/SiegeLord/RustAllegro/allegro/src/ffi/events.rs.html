@@ -244,6 +244,15 @@
 <span id='202'>202</span>
 <span id='203'>203</span>
 <span id='204'>204</span>
+<span id='205'>205</span>
+<span id='206'>206</span>
+<span id='207'>207</span>
+<span id='208'>208</span>
+<span id='209'>209</span>
+<span id='210'>210</span>
+<span id='211'>211</span>
+<span id='212'>212</span>
+<span id='213'>213</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -261,6 +270,7 @@
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='ident'>joystick</span>::<span class='ident'>ALLEGRO_JOYSTICK</span>;
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='ident'>timer</span>::<span class='ident'>ALLEGRO_TIMER</span>;
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>__pad</span>: [<span class='ident'>c_int</span>, ..<span class='number'>32</span>]
@@ -291,6 +301,7 @@
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_EVENT_DISPLAY_SWITCH_OUT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>46</span>;
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALLEGRO_EVENT_DISPLAY_ORIENTATION</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>47</span>;
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_ANY_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -298,6 +309,7 @@
 	<span class='kw'>pub</span> <span class='ident'>timestamp</span>: <span class='ident'>c_double</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_DISPLAY_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -310,6 +322,7 @@
 	<span class='kw'>pub</span> <span class='ident'>orientation</span>: <span class='ident'>c_int</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_JOYSTICK_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -322,6 +335,7 @@
 	<span class='kw'>pub</span> <span class='ident'>button</span>: <span class='ident'>c_int</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_KEYBOARD_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -334,6 +348,7 @@
 	<span class='kw'>pub</span> <span class='ident'>repeat</span>: <span class='ident'>c_bool</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_MOUSE_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -352,6 +367,7 @@
 	<span class='kw'>pub</span> <span class='ident'>pressure</span>: <span class='ident'>c_float</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_TIMER_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -361,6 +377,7 @@
 	<span class='kw'>pub</span> <span class='ident'>error</span>: <span class='ident'>c_double</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_USER_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_EVENT_TYPE</span>,
@@ -373,6 +390,7 @@
 	<span class='kw'>pub</span> <span class='ident'>data4</span>: <span class='ident'>intptr_t</span>,
 }
 
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_EVENT</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>data</span>: [<span class='ident'>c_bool</span>, ..<span class='number'>72u</span>],
