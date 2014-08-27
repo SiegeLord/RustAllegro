@@ -193,11 +193,97 @@ impl PrimitivesAddon
 		}
 	}
 
+	pub fn draw_triangle(&self, x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, y3: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, *color, thickness as c_float);
+		}
+	}
+
 	pub fn draw_rectangle(&self, x1: f32, y1: f32, x2: f32, y2: f32, color: Color, thickness: f32)
 	{
 		unsafe
 		{
-			al_draw_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color, thickness as c_float)
+			al_draw_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_rounded_rectangle(&self, x1: f32, y1: f32, x2: f32, y2: f32, rx: f32, ry: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_circle(&self, cx: f32, cy: f32, r: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_circle(cx as c_float, cy as c_float, r as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_ellipse(&self, cx: f32, cy: f32, rx: f32, ry: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_arc(&self, cx: f32, cy: f32, r: f32, start_theta: f32, delta_theta: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_arc(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_elliptical_arc(&self, cx: f32, cy: f32, rx: f32, ry: f32, start_theta: f32, delta_theta: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_elliptical_arc(cx as c_float, cy as c_float, rx as c_float, ry as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_pieslice(&self, cx: f32, cy: f32, r: f32, start_theta: f32, delta_theta: f32, color: Color, thickness: f32)
+	{
+		unsafe
+		{
+			al_draw_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+		}
+	}
+
+	pub fn draw_spline<T: Iterator<(f32, f32)>>(&self, mut points: T, color: Color, thickness: f32) -> Result<(), ()>
+	{
+		let mut c_points: [c_float, ..8] = [0.0, ..8];
+		let mut idx = 0;
+		for (x, y) in points
+		{
+			if idx >= c_points.len()
+			{
+				return Err(())
+			}
+			c_points[idx + 0] = x as c_float;
+			c_points[idx + 1] = y as c_float;
+			idx += 2;
+		}
+
+		unsafe
+		{
+			al_draw_spline(c_points, *color, thickness as c_float);
+		}
+		Ok(())
+	}
+
+	pub fn draw_filled_triangle(&self, x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, y3: f32, color: Color)
+	{
+		unsafe
+		{
+			al_draw_filled_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, *color);
 		}
 	}
 
@@ -205,23 +291,39 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color)
+			al_draw_filled_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color);
 		}
 	}
 
-	pub fn draw_circle(&self, x: f32, y: f32, radius: f32, color: Color, thickness: f32)
+	pub fn draw_filled_ellipse(&self, cx: f32, cy: f32, rx: f32, ry: f32, color: Color)
 	{
 		unsafe
 		{
-			al_draw_circle(x as c_float, y as c_float, radius as c_float, *color, thickness as c_float)
+			al_draw_filled_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, *color);
 		}
 	}
 
-	pub fn draw_filled_circle(&self, x: f32, y: f32, radius: f32, color: Color)
+	pub fn draw_filled_circle(&self, cx: f32, cy: f32, r: f32, color: Color)
 	{
 		unsafe
 		{
-			al_draw_filled_circle(x as c_float, y as c_float, radius as c_float, *color)
+			al_draw_filled_circle(cx as c_float, cy as c_float, r as c_float, *color);
+		}
+	}
+
+	pub fn draw_filled_pieslice(&self, cx: f32, cy: f32, r: f32, start_theta: f32, delta_theta: f32, color: Color)
+	{
+		unsafe
+		{
+			al_draw_filled_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color);
+		}
+	}
+
+	pub fn draw_filled_rounded_rectangle(&self, x1: f32, y1: f32, x2: f32, y2: f32, rx: f32, ry: f32, color: Color)
+	{
+		unsafe
+		{
+			al_draw_filled_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, *color);
 		}
 	}
 }
