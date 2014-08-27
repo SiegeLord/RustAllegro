@@ -4,6 +4,7 @@
 
 use libc::*;
 
+#[repr(C)]
 pub struct ALLEGRO_COLOR
 {
 	pub r: f32,

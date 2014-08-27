@@ -8,6 +8,7 @@ use rust_util::c_bool;
 pub type ALLEGRO_USTR = __al_tagbstring;
 pub type ALLEGRO_USTR_INFO = __al_tagbstring;
 
+#[repr(C)]
 pub struct __al_tagbstring
 {
     pub mlen: c_int,

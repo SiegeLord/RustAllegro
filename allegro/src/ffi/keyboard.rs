@@ -10,6 +10,7 @@ use rust_util::c_bool;
 
 opaque!(ALLEGRO_KEYBOARD)
 
+#[repr(C)]
 pub struct ALLEGRO_KEYBOARD_STATE
 {
 	pub display: *mut ALLEGRO_DISPLAY,

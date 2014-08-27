@@ -11,6 +11,7 @@ opaque!(ALLEGRO_MOUSE)
 
 pub static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
+#[repr(C)]
 pub struct ALLEGRO_MOUSE_STATE
 {
     pub x: c_int,

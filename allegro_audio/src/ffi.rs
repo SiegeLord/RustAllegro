@@ -63,6 +63,7 @@ pub mod allegro_audio
 
 	opaque!(ALLEGRO_SAMPLE)
 
+	#[repr(C)]
 	pub struct ALLEGRO_SAMPLE_ID
 	{
 		pub _index: c_int,

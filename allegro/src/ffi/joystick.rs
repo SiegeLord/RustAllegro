@@ -9,12 +9,14 @@ use ffi::events::ALLEGRO_EVENT_SOURCE;
 
 opaque!(ALLEGRO_JOYSTICK)
 
+#[repr(C)]
 pub struct ALLEGRO_JOYSTICK_STATE
 {
 	pub stick: [Stick, ..8u],
 	pub button: [c_int, ..32u],
 }
 
+#[repr(C)]
 pub struct Stick
 {
 	pub axis: [c_float, ..3u],

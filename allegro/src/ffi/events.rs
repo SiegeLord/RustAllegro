@@ -14,6 +14,7 @@ use ffi::mouse::ALLEGRO_MOUSE;
 use ffi::joystick::ALLEGRO_JOYSTICK;
 use ffi::timer::ALLEGRO_TIMER;
 
+#[repr(C)]
 pub struct ALLEGRO_EVENT_SOURCE
 {
 	pub __pad: [c_int, ..32]
@@ -44,6 +45,7 @@ pub static ALLEGRO_EVENT_DISPLAY_SWITCH_IN: u32 = 45;
 pub static ALLEGRO_EVENT_DISPLAY_SWITCH_OUT: u32 = 46;
 pub static ALLEGRO_EVENT_DISPLAY_ORIENTATION: u32 = 47;
 
+#[repr(C)]
 pub struct ALLEGRO_ANY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -51,6 +53,7 @@ pub struct ALLEGRO_ANY_EVENT
 	pub timestamp: c_double,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_DISPLAY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -63,6 +66,7 @@ pub struct ALLEGRO_DISPLAY_EVENT
 	pub orientation: c_int,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_JOYSTICK_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -75,6 +79,7 @@ pub struct ALLEGRO_JOYSTICK_EVENT
 	pub button: c_int,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_KEYBOARD_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -87,6 +92,7 @@ pub struct ALLEGRO_KEYBOARD_EVENT
 	pub repeat: c_bool,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_MOUSE_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -105,6 +111,7 @@ pub struct ALLEGRO_MOUSE_EVENT
 	pub pressure: c_float,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_TIMER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -114,6 +121,7 @@ pub struct ALLEGRO_TIMER_EVENT
 	pub error: c_double,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_USER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -126,6 +134,7 @@ pub struct ALLEGRO_USER_EVENT
 	pub data4: intptr_t,
 }
 
+#[repr(C)]
 pub struct ALLEGRO_EVENT
 {
 	pub data: [c_bool, ..72u],

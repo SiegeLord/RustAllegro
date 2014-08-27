@@ -12,6 +12,7 @@ pub mod allegro_font
 	use allegro::c_bool;
     use allegro::ffi::{ALLEGRO_USTR, ALLEGRO_COLOR, ALLEGRO_BITMAP};
 
+	#[repr(C)]
 	pub struct ALLEGRO_FONT
 	{
 		pub data: *mut c_void,
@@ -19,6 +20,7 @@ pub mod allegro_font
 		pub vtable: *mut ALLEGRO_FONT_VTABLE,
 	}
 
+	#[repr(C)]
 	pub struct ALLEGRO_FONT_VTABLE
 	{
 		pub font_height: Option<extern "C" fn(arg1: *const ALLEGRO_FONT) -> c_int>,

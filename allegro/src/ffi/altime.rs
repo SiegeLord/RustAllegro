@@ -4,6 +4,7 @@
 
 use libc::*;
 
+#[repr(C)]
 pub struct ALLEGRO_TIMEOUT
 {
 	pub __pad1__: uint64_t,

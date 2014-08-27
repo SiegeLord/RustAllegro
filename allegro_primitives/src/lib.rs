@@ -70,6 +70,7 @@ pub mod ffi
 		pub static ALLEGRO_PRIM_FLOAT_3: c_uint = 1;
 		pub static ALLEGRO_PRIM_SHORT_2: c_uint = 2;
 
+		#[repr(C)]
 		pub struct ALLEGRO_VERTEX_ELEMENT
 		{
 			pub attribute: c_int,
@@ -81,6 +82,7 @@ pub mod ffi
 
 		opaque!(ALLEGRO_VERTEX_DECL)
 
+		#[repr(C)]
 		pub struct ALLEGRO_VERTEX
 		{
 			pub x: c_float,
