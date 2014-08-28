@@ -7,6 +7,7 @@ use std::ops::Deref;
 
 use ffi::*;
 
+#[deriving(Clone)]
 pub struct Color(pub ALLEGRO_COLOR);
 
 impl Color
