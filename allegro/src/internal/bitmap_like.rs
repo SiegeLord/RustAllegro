@@ -28,13 +28,13 @@ flag_type!(
 
 pub trait BitmapLike
 {
-	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP;
+	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP;
 
 	fn get_width(&self) -> i32
 	{
 		unsafe
 		{
-			al_get_bitmap_width(self.get_bitmap()) as i32
+			al_get_bitmap_width(self.get_allegro_bitmap()) as i32
 		}
 	}
 
@@ -42,7 +42,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			al_get_bitmap_height(self.get_bitmap()) as i32
+			al_get_bitmap_height(self.get_allegro_bitmap()) as i32
 		}
 	}
 
@@ -50,7 +50,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			mem::transmute(al_get_bitmap_format(self.get_bitmap()) as u32)
+			mem::transmute(al_get_bitmap_format(self.get_allegro_bitmap()) as u32)
 		}
 	}
 
@@ -58,7 +58,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			mem::transmute(al_get_bitmap_flags(self.get_bitmap()) as u32)
+			mem::transmute(al_get_bitmap_flags(self.get_allegro_bitmap()) as u32)
 		}
 	}
 
@@ -66,7 +66,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			Color(al_get_pixel(self.get_bitmap(), x as c_int, y as c_int))
+			Color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int))
 		}
 	}
 
@@ -74,7 +74,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			al_convert_mask_to_alpha(self.get_bitmap(), *mask_color);
+			al_convert_mask_to_alpha(self.get_allegro_bitmap(), *mask_color);
 		}
 	}
 }

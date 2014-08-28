@@ -185,7 +185,7 @@ impl ::addon::FontAddon
 	{
 		Font::new(unsafe
 		{
-			al_grab_font_from_bitmap(bmp.get_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int)
+			al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int)
 		})
 	}
 }

@@ -216,13 +216,13 @@ impl Display
 	{
 		unsafe
 		{
-			al_set_display_icon(self.allegro_display, icon.get_bitmap());
+			al_set_display_icon(self.allegro_display, icon.get_allegro_bitmap());
 		}
 	}
 
 	pub fn set_icons<'l, U: Iterator<&'l BitmapLike>>(&self, icons: U)
 	{
-		let mut c_icons: Vec<_> = icons.map(|b| b.get_bitmap()).collect();
+		let mut c_icons: Vec<_> = icons.map(|b| b.get_allegro_bitmap()).collect();
 		unsafe
 		{
 			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, c_icons.as_mut_ptr());
@@ -266,7 +266,7 @@ impl Display
 
 	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Result<Bitmap, ()>
 	{
-		clone_bitmap(bmp.get_bitmap())
+		clone_bitmap(bmp.get_allegro_bitmap())
 	}
 
 	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
@@ -299,7 +299,7 @@ impl Display
 	{
 		unsafe
 		{
-			al_is_compatible_bitmap(bitmap.get_bitmap()) != 0
+			al_is_compatible_bitmap(bitmap.get_allegro_bitmap()) != 0
 		}
 	}
 

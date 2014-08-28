@@ -102,7 +102,7 @@ impl Bitmap
 
 impl BitmapLike for Bitmap
 {
-	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
 		self.allegro_bitmap
 	}
@@ -199,7 +199,7 @@ impl<'m> SubBitmap<'m>
 
 impl<'m> BitmapLike for SubBitmap<'m>
 {
-	fn get_bitmap(&self) -> *mut ALLEGRO_BITMAP
+	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
 		self.allegro_bitmap
 	}
