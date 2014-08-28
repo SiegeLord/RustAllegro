@@ -9,18 +9,19 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
-#![feature(struct_variant)]
 #![feature(thread_local)]
+#![feature(default_type_params)]
 
 extern crate allegro;
 extern crate libc;
 extern crate sync;
 
 use std::kinds::marker::NoSend;
+use std::ptr;
 
 use sync::{Arc, Mutex};
 
-use allegro::{Core, Color};
+use allegro::{Bitmap, BitmapLike, Core, Color};
 use ffi::*;
 use libc::*;
 
@@ -132,6 +133,18 @@ pub mod ffi
 	}
 }
 
+#[repr(u32)]
+pub enum PrimType
+{
+	LineList = ALLEGRO_PRIM_LINE_LIST,
+	LineStrip = ALLEGRO_PRIM_LINE_STRIP,
+	LineLoop = ALLEGRO_PRIM_LINE_LOOP,
+	TriangleList = ALLEGRO_PRIM_TRIANGLE_LIST,
+	TriangleStrip = ALLEGRO_PRIM_TRIANGLE_STRIP,
+	TriangleFan = ALLEGRO_PRIM_TRIANGLE_FAN,
+	PointList = ALLEGRO_PRIM_POINT_LIST,
+}
+
 pub struct PrimitivesAddon
 {
 	no_send_marker: NoSend,
@@ -185,6 +198,24 @@ impl PrimitivesAddon
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
 	{
 		self.core_mutex.clone()
+	}
+
+	pub fn draw_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType) -> u32
+	{
+		let tex = texture.map_or(ptr::mut_null(), |bmp| bmp.get_allegro_bitmap());
+		unsafe
+		{
+			al_draw_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, start as c_int, end as c_int, type_ as c_int) as u32
+		}
+	}
+
+	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32, type_: PrimType) -> u32
+	{
+		let tex = texture.map_or(ptr::mut_null(), |bmp| bmp.get_allegro_bitmap());
+		unsafe
+		{
+			al_draw_indexed_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, indices.as_ptr(), num_vtx as c_int, type_ as c_int) as u32
+		}
 	}
 
 	pub fn draw_line(&self, x1: f32, y1: f32, x2: f32, y2: f32, color: Color, thickness: f32)
@@ -327,5 +358,36 @@ impl PrimitivesAddon
 		{
 			al_draw_filled_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, *color);
 		}
+	}
+}
+
+#[repr(C)]
+#[deriving(Clone)]
+pub struct Vertex
+{
+	pub x: f32,
+	pub y: f32,
+	pub z: f32,
+	pub u: f32,
+	pub v: f32,
+	pub color: Color,
+}
+
+pub trait VertexVector
+{
+	fn get_ptr(&self) -> *const u8;
+	fn get_decl(&self) -> *const ALLEGRO_VERTEX_DECL;
+}
+
+impl<'l> VertexVector for &'l [Vertex]
+{
+	fn get_ptr(&self) -> *const u8
+	{
+		self.as_ptr() as *const _
+	}
+
+	fn get_decl(&self) -> *const ALLEGRO_VERTEX_DECL
+	{
+		ptr::null()
 	}
 }
