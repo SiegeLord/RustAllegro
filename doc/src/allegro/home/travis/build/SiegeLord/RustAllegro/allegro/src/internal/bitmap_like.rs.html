@@ -151,13 +151,13 @@
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitmapLike</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
 
 	<span class='kw'>fn</span> <span class='ident'>get_width</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_bitmap_width</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span>
+			<span class='ident'>al_get_bitmap_width</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span>
 		}
 	}
 
@@ -165,7 +165,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_bitmap_height</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span>
+			<span class='ident'>al_get_bitmap_height</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span>
 		}
 	}
 
@@ -173,7 +173,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_format</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>)
+			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_format</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>)
 		}
 	}
 
@@ -181,7 +181,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_flags</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>)
+			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_flags</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>)
 		}
 	}
 
@@ -189,7 +189,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>Color</span>(<span class='ident'>al_get_pixel</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>))
+			<span class='ident'>Color</span>(<span class='ident'>al_get_pixel</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>))
 		}
 	}
 
@@ -197,7 +197,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_bitmap</span>(), <span class='op'>*</span><span class='ident'>mask_color</span>);
+			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>mask_color</span>);
 		}
 	}
 }

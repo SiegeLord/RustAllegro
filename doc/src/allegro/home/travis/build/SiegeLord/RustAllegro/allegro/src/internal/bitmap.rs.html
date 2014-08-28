@@ -448,7 +448,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>BitmapLike</span> <span class='kw'>for</span> <span class='ident'>Bitmap</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>
+	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>
 	}
@@ -545,7 +545,7 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;m</span><span class='op'>&gt;</span> <span class='ident'>BitmapLike</span> <span class='kw'>for</span> <span class='ident'>SubBitmap</span><span class='op'>&lt;</span><span class='lifetime'>&#39;m</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>
+	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>
 	}

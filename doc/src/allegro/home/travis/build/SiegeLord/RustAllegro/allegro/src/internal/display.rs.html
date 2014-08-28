@@ -719,13 +719,13 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_set_display_icon</span>(<span class='self'>self</span>.<span class='ident'>allegro_display</span>, <span class='ident'>icon</span>.<span class='ident'>get_bitmap</span>());
+			<span class='ident'>al_set_display_icon</span>(<span class='self'>self</span>.<span class='ident'>allegro_display</span>, <span class='ident'>icon</span>.<span class='ident'>get_allegro_bitmap</span>());
 		}
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_icons</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span>, <span class='ident'>U</span>: <span class='ident'>Iterator</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>BitmapLike</span><span class='op'>&gt;&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>icons</span>: <span class='ident'>U</span>)
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c_icons</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>icons</span>.<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>b</span><span class='op'>|</span> <span class='ident'>b</span>.<span class='ident'>get_bitmap</span>()).<span class='ident'>collect</span>();
+		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c_icons</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>icons</span>.<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>b</span><span class='op'>|</span> <span class='ident'>b</span>.<span class='ident'>get_allegro_bitmap</span>()).<span class='ident'>collect</span>();
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_set_display_icons</span>(<span class='self'>self</span>.<span class='ident'>allegro_display</span>, <span class='ident'>c_icons</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>c_icons</span>.<span class='ident'>as_mut_ptr</span>());
@@ -769,7 +769,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>convert_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span>, ()<span class='op'>&gt;</span>
 	{
-		<span class='ident'>clone_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_bitmap</span>())
+		<span class='ident'>clone_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>())
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_event_source</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>EventSource</span>
@@ -802,7 +802,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_is_compatible_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_bitmap</span>()) <span class='op'>!=</span> <span class='number'>0</span>
+			<span class='ident'>al_is_compatible_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='op'>!=</span> <span class='number'>0</span>
 		}
 	}
 

@@ -99,6 +99,7 @@
 <span id='57'>57</span>
 <span id='58'>58</span>
 <span id='59'>59</span>
+<span id='60'>60</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -107,6 +108,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_COLOR</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>r</span>: <span class='ident'>f32</span>,
