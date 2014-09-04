@@ -53,8 +53,8 @@ allegro_main!
 
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source().unwrap());
-	q.register_event_source(core.get_mouse_event_source().unwrap());
+	q.register_event_source(core.get_keyboard_event_source());
+	q.register_event_source(core.get_mouse_event_source());
 	q.register_event_source(timer.get_event_source());
 
 	let bmp = core.create_bitmap(256, 256).unwrap();

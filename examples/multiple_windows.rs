@@ -31,7 +31,7 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source().unwrap());
+	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
 	let font = font_addon.create_builtin_font().unwrap();
@@ -118,7 +118,7 @@ allegro_main!
 
 	let q = core.create_event_queue().unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source().unwrap());
+	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
 	let font = font_addon.create_builtin_font().unwrap();

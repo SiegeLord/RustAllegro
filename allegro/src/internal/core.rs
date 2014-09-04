@@ -172,7 +172,7 @@ impl Core
 		}
 	}
 
-	pub fn get_keyboard_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
+	pub fn get_keyboard_event_source(&mut self) -> &EventSource
 	{
 		if self.keyboard_event_source.is_none() && self.is_keyboard_installed()
 		{
@@ -182,47 +182,31 @@ impl Core
 			}
 		}
 
-		match self.keyboard_event_source
+		self.keyboard_event_source.as_ref().expect("Keyboard not installed")
+	}
+
+	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> Result<(), ()>
+	{
+		assert!(self.is_keyboard_installed());
+		unsafe
 		{
-			RealSome(ref s) => RealSome(s),
-			None => None
+			if al_set_keyboard_leds(leds.get() as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
-	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> Result<(), String>
+	pub fn keycode_to_name(&self, k: key::KeyCode) -> String
 	{
-		if self.is_keyboard_installed()
+		assert!(self.is_keyboard_installed());
+		unsafe
 		{
-			unsafe
-			{
-				if al_set_keyboard_leds(leds.get() as c_int) != 0
-				{
-					Ok(())
-				}
-				else
-				{
-					Err("Could not set keyboard LEDs".to_string())
-				}
-			}
-		}
-		else
-		{
-			Err("Keyboard not initialized yet.".to_string())
-		}
-	}
-
-	pub fn keycode_to_name(&self, k: key::KeyCode) -> Result<String, ()>
-	{
-		if self.is_keyboard_installed()
-		{
-			unsafe
-			{
-				Ok(string::raw::from_buf(al_keycode_to_name(k as c_int) as *const _))
-			}
-		}
-		else
-		{
-			Err(())
+			string::raw::from_buf(al_keycode_to_name(k as c_int) as *const _)
 		}
 	}
 
@@ -249,7 +233,7 @@ impl Core
 		}
 	}
 
-	pub fn get_mouse_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
+	pub fn get_mouse_event_source(&mut self) -> &EventSource
 	{
 		if self.mouse_event_source.is_none() && self.is_mouse_installed()
 		{
@@ -259,11 +243,7 @@ impl Core
 			}
 		}
 
-		match self.mouse_event_source
-		{
-			RealSome(ref s) => RealSome(s),
-			None => None
-		}
+		self.mouse_event_source.as_ref().expect("Mouse not installed")
 	}
 
 	pub fn install_joystick(&self) -> Result<(), ()>
@@ -289,7 +269,7 @@ impl Core
 		}
 	}
 
-	pub fn get_joystick_event_source<'l>(&'l mut self) -> Option<&'l EventSource>
+	pub fn get_joystick_event_source(&mut self) -> &EventSource
 	{
 		if self.joystick_event_source.is_none() && self.is_joystick_installed()
 		{
@@ -299,40 +279,31 @@ impl Core
 			}
 		}
 
-		match self.joystick_event_source
+		self.joystick_event_source.as_ref().expect("Joystick not installed")
+	}
+
+	pub fn reconfigure_joysticks(&self) -> Result<(), ()>
+	{
+		assert!(self.is_joystick_installed());
+		unsafe
 		{
-			RealSome(ref s) => RealSome(s),
-			None => None
+			if al_reconfigure_joysticks() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
 		}
 	}
 
-	pub fn reconfigure_joysticks(&self) -> Result<bool, ()>
+	pub fn get_num_joysticks(&self) -> i32
 	{
-		if self.is_joystick_installed()
+		assert!(self.is_joystick_installed());
+		unsafe
 		{
-			unsafe
-			{
-				Ok(al_reconfigure_joysticks() != 0)
-			}
-		}
-		else
-		{
-			Err(())
-		}
-	}
-
-	pub fn get_num_joysticks(&self) -> Result<i32, ()>
-	{
-		if self.is_joystick_installed()
-		{
-			unsafe
-			{
-				Ok(al_get_num_joysticks() as i32)
-			}
-		}
-		else
-		{
-			Err(())
+			al_get_num_joysticks() as i32
 		}
 	}
 
