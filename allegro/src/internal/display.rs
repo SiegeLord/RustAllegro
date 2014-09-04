@@ -9,7 +9,7 @@ use std::c_str::CString;
 use internal::bitmap::*;
 use internal::bitmap_like::*;
 use internal::color::*;
-use internal::core::*;
+use internal::core::dummy_target;
 use internal::events::*;
 use rust_util::Flag;
 

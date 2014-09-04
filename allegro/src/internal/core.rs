@@ -16,6 +16,7 @@ use ffi::*;
 
 use internal::events::{EventSource, new_event_source_ref};
 use internal::keycodes::*;
+use internal::display::Display;
 
 pub mod external
 {
@@ -334,4 +335,119 @@ impl Core
 			Err(())
 		}
 	}
+
+	pub fn get_mouse_num_buttons(&self) -> u32
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			al_get_mouse_num_buttons() as u32
+		}
+	}
+
+	pub fn get_mouse_num_axes(&self) -> u32
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			al_get_mouse_num_axes() as u32
+		}
+	}
+
+	pub fn set_mouse_xy(&self, display: &Display, x: i32, y: i32) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_set_mouse_xy(display.get_allegro_display(), x as c_int, y as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn set_mouse_z(&self, z: i32) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_set_mouse_z(z as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn set_mouse_w(&self, w: i32) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_set_mouse_w(w as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn set_mouse_axis(&self, axis: i32, value: i32) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_set_mouse_axis(axis as c_int, value as c_int) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn grab_mouse(&self, display: &Display) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_grab_mouse(display.get_allegro_display()) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn ungrab_mouse(&self) -> Result<(), ()>
+	{
+		assert!(self.is_mouse_installed())
+		unsafe
+		{
+			if al_ungrab_mouse() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
 }
