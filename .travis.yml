@@ -1,3 +1,4 @@
+language: rust
 notifications:
   email:
     on_success: never
@@ -8,14 +9,8 @@ env:
 before_install:
   - yes | sudo add-apt-repository ppa:allegro/5.0
   - sudo apt-get update
-  - wget http://static.rust-lang.org/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.gz
-  - tar xf rust-nightly-x86_64-unknown-linux-gnu.tar.gz
-  - wget http://static.rust-lang.org/cargo-dist/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz
-  - tar xf cargo-nightly-x86_64-unknown-linux-gnu.tar.gz
 install:
   - sudo apt-get install liballegro5-dev
-  - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
-  - sudo ./cargo-nightly-x86_64-unknown-linux-gnu/install.sh
 script:
   - cd examples
   - cargo build
