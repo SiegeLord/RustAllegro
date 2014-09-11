@@ -2,6 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(non_snake_case)]
+
 use libc::*;
 use std::mem;
 
