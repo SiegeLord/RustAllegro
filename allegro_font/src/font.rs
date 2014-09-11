@@ -6,6 +6,7 @@ use ffi::*;
 use allegro::ffi::*;
 use allegro::{Core, Color, Bitmap, BitmapLike};
 use std::kinds::marker::NoSend;
+use addon::FontAddon;
 
 use libc::*;
 use std::mem;
@@ -78,12 +79,36 @@ pub struct Font
 
 impl Font
 {
-	pub unsafe fn wrap_allegro_font(font: *mut ALLEGRO_FONT) -> Result<Font, ()>
+	pub fn new_builtin(_: &FontAddon) -> Result<Font, ()>
 	{
-		Font::new(font)
+		unsafe
+		{
+			Font::wrap_allegro_font(al_create_builtin_font())
+		}
 	}
 
-	fn new(font: *mut ALLEGRO_FONT) -> Result<Font, ()>
+	pub fn load_bitmap_font(_: &FontAddon, filename: &str) -> Result<Font, ()>
+	{
+		unsafe
+		{
+			let font = filename.with_c_str(|s|
+			{
+				al_load_bitmap_font(s)
+			});
+			Font::wrap_allegro_font(font)
+		}
+	}
+
+	pub fn grab_from_bitmap(_: &FontAddon, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Result<Font, ()>
+	{
+		unsafe
+		{
+			let font = al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int);
+			Font::wrap_allegro_font(font)
+		}
+	}
+
+	pub unsafe fn wrap_allegro_font(font: *mut ALLEGRO_FONT) -> Result<Font, ()>
 	{
 		if font.is_null()
 		{
@@ -157,35 +182,5 @@ impl Drop for Font
 		{
 			al_destroy_font(self.allegro_font);
 		}
-	}
-}
-
-impl ::addon::FontAddon
-{
-	pub fn create_builtin_font(&self) -> Result<Font, ()>
-	{
-		Font::new(unsafe
-		{
-			al_create_builtin_font()
-		})
-	}
-
-	pub fn load_bitmap_font(&self, filename: &str) -> Result<Font, ()>
-	{
-		Font::new(unsafe
-		{
-			filename.with_c_str(|s|
-			{
-				al_load_bitmap_font(s)
-			})
-		})
-	}
-
-	pub fn grab_font_from_bitmap(&self, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Result<Font, ()>
-	{
-		Font::new(unsafe
-		{
-			al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int)
-		})
 	}
 }

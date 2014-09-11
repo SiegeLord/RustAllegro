@@ -24,17 +24,17 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 		return;
 	}
 
-	let disp = core.create_display(800, 600).unwrap();
+	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title(&"Secondary Window".to_c_str());
 
-	let timer = core.create_timer(1.0 / 60.0).unwrap();
+	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
-	let q = core.create_event_queue().unwrap();
+	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let font = font_addon.create_builtin_font().unwrap();
+	let font = Font::new_builtin(&font_addon).unwrap();
 
 	let mut c = 0.0f32;
 	let mut d = 0.01;
@@ -111,17 +111,17 @@ allegro_main!
 		return;
 	}
 
-	let disp = core.create_display(800, 600).unwrap();
+	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title(&"Main Window".to_c_str());
 
-	let timer = core.create_timer(1.0 / 60.0).unwrap();
+	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
-	let q = core.create_event_queue().unwrap();
+	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let font = font_addon.create_builtin_font().unwrap();
+	let font = Font::new_builtin(&font_addon).unwrap();
 
 	let mut text = "Whee... multiple windows!";
 	let mut c = 0.0f32;

@@ -68,25 +68,25 @@ allegro_main!
 		return;
 	}
 
-	let disp = core.create_display(800, 600).unwrap();
+	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title(&"Audio example".to_c_str());
 
 	core.install_keyboard().unwrap();
 
-	let timer = core.create_timer(1.0 / 60.0).unwrap();
+	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
-	let q = core.create_event_queue().unwrap();
+	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
 	let callback = box AudioCallback{ silence: matches.opt_present("silence") } as Box<PostProcessCallback + Send>;
-	let mut sink = audio_addon.create_sink().unwrap();
+	let mut sink = Sink::new(&audio_addon).unwrap();
 	sink.set_postprocess_callback(Some(callback)).unwrap();
-	let font = font_addon.create_builtin_font().unwrap();
+	let font = Font::new_builtin(&font_addon).unwrap();
 	let mut _sample_instance = None;
-	let sample = audio_addon.load_sample("data/welcome.ogg").unwrap();
-	let mut stream = audio_addon.load_audio_stream("data/music.ogg").unwrap();
+	let sample = Sample::load(&audio_addon, "data/welcome.ogg").unwrap();
+	let mut stream = AudioStream::load(&audio_addon, "data/music.ogg").unwrap();
 	stream.attach(&mut sink).ok().expect("Could not attach to stream");
 	stream.set_playmode(PlaymodeLoop).unwrap();
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);

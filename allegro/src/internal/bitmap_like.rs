@@ -5,7 +5,7 @@
 use std::mem;
 use libc::*;
 
-use internal::color::*;
+use internal::color::{Color, PixelFormat};
 use rust_util::Flag;
 
 use ffi::*;

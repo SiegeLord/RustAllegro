@@ -43,21 +43,21 @@ allegro_main!
 		return;
 	}
 
-	let disp = core.create_display(800, 600).unwrap();
+	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title(&"Rust example".to_c_str());
 
 	core.install_keyboard().unwrap();
 	core.install_mouse().unwrap();
 
-	let timer = core.create_timer(1.0 / 60.0).unwrap();
+	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
-	let q = core.create_event_queue().unwrap();
+	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(core.get_mouse_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let bmp = core.create_bitmap(256, 256).unwrap();
+	let bmp = Bitmap::new(&core, 256, 256).unwrap();
 
 	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
 	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
@@ -70,8 +70,8 @@ allegro_main!
 	core.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
 	core.set_target_bitmap(disp.get_backbuffer());
 
-	let bkg = core.load_bitmap("data/mysha.pcx").unwrap();
-	let font = font_addon.create_builtin_font().unwrap();
+	let bkg = Bitmap::load(&core, "data/mysha.pcx").unwrap();
+	let font = Font::new_builtin(&font_addon).unwrap();
 	let ttf = ttf_addon.load_ttf_font("data/DroidSans.ttf", -32, Flag::zero()).unwrap();
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);

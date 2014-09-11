@@ -9,6 +9,7 @@ use std::mem;
 use std::option::Some as RealSome;
 use std::io::BufWriter;
 
+use addon::AudioAddon;
 use mixer::AttachToMixer;
 use ffi::*;
 use internal::{Connection, AttachToMixerImpl};
@@ -56,7 +57,12 @@ pub struct AudioStream
 
 impl AudioStream
 {
-	fn load(filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
+	pub fn load(addon: &AudioAddon, filename: &str) -> Result<AudioStream, ()>
+	{
+		AudioStream::load_custom(addon, filename, 4, 2048)
+	}
+
+	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
 	{
 		let stream = filename.with_c_str(|s|
 		{
@@ -81,7 +87,7 @@ impl AudioStream
 		}
 	}
 
-	fn new(buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
+	pub fn new(_: &AudioAddon, buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
 	{
 		let stream = unsafe
 		{
@@ -329,23 +335,5 @@ impl AttachToMixer for AudioStream
 	fn detach(&mut self)
 	{
 		self.parent = None;
-	}
-}
-
-impl ::addon::AudioAddon
-{
-	pub fn create_audio_stream(&self, buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
-	{
-		AudioStream::new(buffer_count, samples, frequency, depth, chan_conf)
-	}
-
-	pub fn load_audio_stream(&self, filename: &str) -> Result<AudioStream, ()>
-	{
-		self.load_custom_audio_stream(filename, 4, 2048)
-	}
-
-	pub fn load_custom_audio_stream(&self, filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
-	{
-		AudioStream::load(filename, buffer_count, samples)
 	}
 }

@@ -14,6 +14,7 @@ use std::raw::Slice;
 
 use mixer::AttachToMixer;
 use ffi::*;
+use addon::AudioAddon;
 use internal::{Connection, AttachToMixerImpl};
 use properties::*;
 
@@ -54,7 +55,7 @@ pub struct Sample
 
 impl Sample
 {
-	fn load(filename: &str) -> Result<Sample, ()>
+	pub fn load(_: &AudioAddon, filename: &str) -> Result<Sample, ()>
 	{
 		let samp = filename.with_c_str(|s|
 		{
@@ -79,7 +80,7 @@ impl Sample
 
 	pub fn create_instance(&self) -> Result<SampleInstance, ()>
 	{
-		let inst = SampleInstance::new();
+		let inst = SampleInstance::new_raw();
 		inst.and_then(|mut inst|
 		{
 			if_ok!(inst.set_sample(self))
@@ -252,7 +253,12 @@ macro_rules! get_bool_impl
 
 impl SampleInstance
 {
-	fn new() -> Result<SampleInstance, ()>
+	pub fn new(_: &AudioAddon) -> Result<SampleInstance, ()>
+	{
+		SampleInstance::new_raw()
+	}
+
+	fn new_raw() -> Result<SampleInstance, ()>
 	{
 		let inst = unsafe { al_create_sample_instance(ptr::mut_null()) };
 		if inst.is_null()
@@ -434,18 +440,5 @@ impl AttachToMixer for SampleInstance
 	fn detach(&mut self)
 	{
 		self.parent = None;
-	}
-}
-
-impl ::addon::AudioAddon
-{
-	pub fn create_sample_instance(&self) -> Result<SampleInstance, ()>
-	{
-		SampleInstance::new()
-	}
-
-	pub fn load_sample(&self, filename: &str) -> Result<Sample, ()>
-	{
-		Sample::load(filename)
 	}
 }

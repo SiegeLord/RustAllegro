@@ -6,6 +6,7 @@ use allegro::c_bool;
 
 use libc::*;
 use ffi::*;
+use addon::AudioAddon;
 use properties::*;
 use mixer::{MixerLike, Mixer};
 use internal::HasMixer;
@@ -50,8 +51,23 @@ pub struct Sink
 
 impl Sink
 {
-	fn new(frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
-	       mixer: Mixer) -> Result<Sink, String>
+	pub fn new(addon: &AudioAddon) -> Result<Sink, String>
+	{
+		Sink::new_custom(addon, 44100, AudioDepthI16, ChannelConf2, AudioDepthF32, ChannelConf2)
+	}
+
+	pub fn new_custom(addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
+		mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Result<Sink, String>
+	{
+		Mixer::new_custom(addon, frequency, mixer_depth, mixer_chan_conf)
+		.map_err(|_| "Could not create the mixer.".to_string())
+		.and_then(|mixer|
+			Sink::new_with_mixer(frequency, voice_depth, voice_chan_conf, mixer)
+		)
+	}
+
+	pub fn new_with_mixer(frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
+		mixer: Mixer) -> Result<Sink, String>
 	{
 		let voice = unsafe { al_create_voice(frequency as c_uint, voice_depth.get(), voice_chan_conf.get()) };
 		if voice.is_null()
@@ -139,21 +155,3 @@ impl HasMixer for Sink
 }
 
 impl MixerLike for Sink {}
-
-impl ::addon::AudioAddon
-{
-	pub fn create_sink(&self) -> Result<Sink, String>
-	{
-		self.create_custom_sink(44100, AudioDepthI16, ChannelConf2, AudioDepthF32, ChannelConf2)
-	}
-
-	pub fn create_custom_sink(&self, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
-	                       mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf) -> Result<Sink, String>
-	{
-		self.create_custom_mixer(frequency, mixer_depth, mixer_chan_conf)
-		.map_err(|_| "Could not create the mixer.".to_string())
-		.and_then(|mixer|
-			Sink::new(frequency, voice_depth, voice_chan_conf, mixer)
-		)
-	}
-}

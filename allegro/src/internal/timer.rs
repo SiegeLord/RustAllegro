@@ -5,7 +5,9 @@
 use libc::*;
 use std::mem;
 use ffi::*;
-use internal::events::*;
+
+use internal::events::{EventSource, new_event_source_ref};
+use internal::core::Core;
 
 pub struct Timer
 {
@@ -15,7 +17,7 @@ pub struct Timer
 
 impl Timer
 {
-	fn new(speed_secs: f64) -> Result<Timer, ()>
+	pub fn new(_: &Core, speed_secs: f64) -> Result<Timer, ()>
 	{
 		unsafe
 		{
@@ -111,13 +113,5 @@ impl Drop for Timer
 		{
 			al_destroy_timer(self.allegro_timer);
 		}
-	}
-}
-
-impl ::internal::core::Core
-{
-	pub fn create_timer(&self, speed_secs: f64) -> Result<Timer, ()>
-	{
-		Timer::new(speed_secs)
 	}
 }

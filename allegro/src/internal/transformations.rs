@@ -9,6 +9,11 @@ use ffi::*;
 
 pub struct Transform(ALLEGRO_TRANSFORM);
 
+pub mod external
+{
+	pub use super::Transform;
+}
+
 impl Transform
 {
 	pub fn identity() -> Transform
@@ -110,30 +115,7 @@ impl DerefMut<ALLEGRO_TRANSFORM> for Transform
 	}
 }
 
-impl ::internal::core::Core
+pub fn new_transform_wrap(trans: ALLEGRO_TRANSFORM) -> Transform
 {
-	pub fn get_current_transform(&self) -> Transform
-	{
-		let t = unsafe
-		{
-			al_get_current_transform()
-		};
-		if t.is_null()
-		{
-			/* We always have a valid target */
-			unreachable!();
-		}
-		unsafe
-		{
-			Transform(*t)
-		}
-	}
-
-	pub fn use_transform(&self, trans: &Transform)
-	{
-		unsafe
-		{
-			al_use_transform(&**trans);
-		}
-	}
+	Transform(trans)
 }

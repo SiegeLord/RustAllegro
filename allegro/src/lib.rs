@@ -20,15 +20,14 @@ pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
 pub use internal::color::*;
 pub use internal::core::external::*;
-pub use internal::core_drawing::*;
 pub use internal::display::*;
 pub use internal::events::external::*;
 pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
 pub use internal::timer::*;
+pub use internal::transformations::external::*;
 pub use rust_util::*;
-pub use transformations::*;
 
 #[cfg(not(manual_link))]
 mod link_name
@@ -50,13 +49,12 @@ mod internal
 	pub mod bitmap_like;
 	pub mod color;
 	pub mod core;
-	pub mod core_drawing;
 	pub mod display;
 	pub mod events;
 	pub mod joystick;
 	pub mod keycodes;
 	pub mod run;
 	pub mod timer;
+	pub mod transformations;
 }
-pub mod transformations;
 pub mod allegro_main;

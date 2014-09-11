@@ -10,6 +10,7 @@ use std::mem;
 use std::ptr;
 
 use ffi::*;
+use addon::AudioAddon;
 use internal::Connection;
 use internal::HasMixer;
 use internal::AttachToMixerImpl;
@@ -80,7 +81,12 @@ pub struct Mixer
 
 impl Mixer
 {
-	fn new(frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
+	pub fn new(addon: &AudioAddon) -> Result<Mixer, ()>
+	{
+		Mixer::new_custom(addon, 44100, AudioDepthF32, ChannelConf2)
+	}
+
+	pub fn new_custom(_: &AudioAddon, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
 	{
 		let mixer = unsafe { al_create_mixer(frequency as c_uint, depth.get(), chan_conf.get()) };
 		if mixer.is_null()
@@ -301,16 +307,3 @@ impl HasMixer for Mixer
 }
 
 impl MixerLike for Mixer {}
-
-impl ::addon::AudioAddon
-{
-	pub fn create_mixer(&self) -> Result<Mixer, ()>
-	{
-		self.create_custom_mixer(44100, AudioDepthF32, ChannelConf2)
-	}
-
-	pub fn create_custom_mixer(&self, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
-	{
-		Mixer::new(frequency, depth, chan_conf)
-	}
-}

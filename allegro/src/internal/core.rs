@@ -15,12 +15,32 @@ use sync::{Arc, Mutex};
 use ffi::*;
 
 use internal::events::{EventSource, new_event_source_ref};
-use internal::keycodes::*;
-use internal::display::Display;
+use internal::keycodes::{key, KeyModifier};
+use internal::display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
+use internal::color::{Color, PixelFormat};
+use internal::bitmap_like::{BitmapLike, BitmapFlags};
+use internal::transformations::{Transform, new_transform_wrap};
+use rust_util::Flag;
+
+flag_type!(
+	BitmapDrawingFlags
+	{
+		FLIP_NONE = 0x1,
+		FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
+		FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
+	}
+)
 
 pub mod external
 {
-	pub use super::Core;
+	pub use super::
+	{
+		Core,
+		BitmapDrawingFlags,
+		FLIP_NONE,
+		FLIP_HORIZONTAL,
+		FLIP_VERTICAL
+	};
 }
 
 pub static mut dummy_target: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
@@ -421,4 +441,341 @@ impl Core
 		}
 	}
 
+	pub fn set_new_bitmap_flags(&self, flags: BitmapFlags)
+	{
+		unsafe
+		{
+			al_set_new_bitmap_flags(flags.get() as c_int);
+		}
+	}
+
+	pub fn get_new_bitmap_flags(&self) -> BitmapFlags
+	{
+		unsafe
+		{
+			mem::transmute(al_get_new_bitmap_flags() as u32)
+		}
+	}
+
+	pub fn set_new_bitmap_format(&self, format: PixelFormat)
+	{
+		unsafe
+		{
+			al_set_new_bitmap_format(format as c_int);
+		}
+	}
+
+	pub fn get_new_bitmap_format(&self) -> PixelFormat
+	{
+		unsafe
+		{
+			mem::transmute(al_get_new_bitmap_format() as u32)
+		}
+	}
+
+	pub fn map_rgb(&self, r: u8, g: u8, b: u8) -> Color
+	{
+		unsafe
+		{
+			Color(al_map_rgb(r as c_uchar, g as c_uchar, b as c_uchar))
+		}
+	}
+
+	pub fn map_rgba(&self, r: u8, g: u8, b: u8, a: u8) -> Color
+	{
+		unsafe
+		{
+			Color(al_map_rgba(r as c_uchar, g as c_uchar, b as c_uchar, a as c_uchar))
+		}
+	}
+
+	pub fn map_rgb_f(&self, r: f32, g: f32, b: f32) -> Color
+	{
+		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: 1.0})
+	}
+
+	pub fn map_rgba_f(&self, r: f32, g: f32, b: f32, a: f32) -> Color
+	{
+		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: a})
+	}
+
+	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: &T)
+	{
+		unsafe
+		{
+			al_set_target_bitmap(bmp.get_allegro_bitmap());
+		}
+	}
+
+	pub fn clear_to_color(&self, color: Color)
+	{
+		unsafe
+		{
+			al_clear_to_color(*color);
+		}
+	}
+
+	pub fn draw_pixel(&self, x: f32, y: f32, color: Color)
+	{
+		unsafe
+		{
+			al_draw_pixel(x as c_float, y as c_float, *color);
+		}
+	}
+
+	pub fn put_pixel(&self, x: i32, y: i32, color: Color)
+	{
+		unsafe
+		{
+			al_put_pixel(x as c_int, y as c_int, *color);
+		}
+	}
+
+	pub fn put_blended_pixel(&self, x: i32, y: i32, color: Color)
+	{
+		unsafe
+		{
+			al_put_blended_pixel(x as c_int, y as c_int, *color);
+		}
+	}
+
+	pub fn draw_bitmap<T: BitmapLike>(&self, bitmap: &T, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_bitmap(bitmap.get_allegro_bitmap(), dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+    {
+        unsafe
+        {
+            al_draw_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+        }
+    }
+
+	pub fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_scaled_bitmap(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_rotated_bitmap(bitmap.get_allegro_bitmap(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(), *tint, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	{
+		unsafe
+		{
+			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+		}
+	}
+
+	pub fn set_clipping_rectangle(&self, x: i32, y: i32, width: i32, height: i32)
+	{
+		unsafe
+		{
+			al_set_clipping_rectangle(x as c_int, y as c_int, width as c_int, height as c_int);
+		}
+	}
+
+	pub fn reset_clipping_rectangle(&self)
+	{
+		unsafe
+		{
+			al_reset_clipping_rectangle();
+		}
+	}
+
+	pub fn get_clipping_rectangle(&self) -> (i32, i32, i32, i32)
+	{
+		unsafe
+		{
+			let mut x: c_int = 0;
+			let mut y: c_int = 0;
+			let mut width: c_int = 0;
+			let mut height: c_int = 0;
+			al_get_clipping_rectangle(&mut x, &mut y, &mut width, &mut height);
+			(x as i32, y as i32, width as i32, height as i32)
+		}
+	}
+
+	pub fn set_new_display_flags(&self, flags: DisplayFlags)
+	{
+		unsafe
+		{
+			al_set_new_display_flags(flags.get() as c_int);
+		}
+	}
+
+	pub fn get_new_display_flags(&self) -> DisplayFlags
+	{
+		unsafe
+		{
+			mem::transmute(al_get_new_display_flags())
+		}
+	}
+
+	pub fn set_new_display_refresh_rate(&self, rate: i32)
+	{
+		unsafe
+		{
+			al_set_new_display_refresh_rate(rate as c_int);
+		}
+	}
+
+	pub fn get_new_display_refresh_rate(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_new_display_refresh_rate() as i32
+		}
+	}
+
+	pub fn set_new_display_adapter(&self, adapter: i32)
+	{
+		unsafe
+		{
+			al_set_new_display_adapter(adapter as c_int);
+		}
+	}
+
+	pub fn get_new_display_adapter(&self) -> i32
+	{
+		unsafe
+		{
+			al_get_new_display_adapter() as i32
+		}
+	}
+
+	pub fn set_new_window_position(&self, x: i32, y: i32)
+	{
+		unsafe
+		{
+			al_set_new_window_position(x as c_int, y as c_int);
+		}
+	}
+
+	pub fn get_new_window_position(&self) -> (i32, i32)
+	{
+		unsafe
+		{
+			use std::mem::uninitialized;
+
+			let mut x: c_int = uninitialized();
+			let mut y: c_int = uninitialized();
+			al_get_new_window_position(&mut x, &mut y);
+			(x as i32, y as i32)
+		}
+	}
+
+	pub fn reset_new_display_options(&self)
+	{
+		unsafe
+		{
+			al_reset_new_display_options();
+		}
+	}
+
+	pub fn set_new_display_option(&self, option: DisplayOption, value: i32, importance: DisplayOptionImportance)
+	{
+		unsafe
+		{
+			al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
+		}
+	}
+
+	pub fn get_new_display_option(&self, option: DisplayOption) -> (i32, DisplayOptionImportance)
+	{
+		unsafe
+		{
+			use std::mem::uninitialized;
+
+			let mut imp: c_int = uninitialized();
+
+			let val = al_get_new_display_option(option as c_int, &mut imp);
+			(val as i32, mem::transmute(imp))
+		}
+	}
+
+	pub fn get_current_transform(&self) -> Transform
+	{
+		let t = unsafe
+		{
+			al_get_current_transform()
+		};
+		if t.is_null()
+		{
+			/* We always have a valid target */
+			unreachable!();
+		}
+		unsafe
+		{
+			new_transform_wrap(*t)
+		}
+	}
+
+	pub fn use_transform(&self, trans: &Transform)
+	{
+		unsafe
+		{
+			al_use_transform(&**trans);
+		}
+	}
 }

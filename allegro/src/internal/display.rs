@@ -6,11 +6,11 @@ use libc::*;
 use std::mem;
 use std::c_str::CString;
 
-use internal::bitmap::*;
-use internal::bitmap_like::*;
-use internal::color::*;
-use internal::core::dummy_target;
-use internal::events::*;
+use internal::bitmap::{Bitmap, new_bitmap_ref, clone_bitmap};
+use internal::bitmap_like::BitmapLike;
+use internal::color::PixelFormat;
+use internal::core::{Core, dummy_target};
+use internal::events::{EventSource, new_event_source_ref};
 use rust_util::Flag;
 
 use ffi::*;
@@ -98,7 +98,7 @@ pub struct Display
 
 impl Display
 {
-	fn new(w: i32, h: i32) -> Result<Display, String>
+	pub fn new(_: &Core, w: i32, h: i32) -> Result<Display, String>
 	{
 		unsafe
 		{
@@ -350,111 +350,5 @@ impl Drop for Display
 			}
 			al_destroy_display(self.allegro_display);
 		}
-	}
-}
-
-impl ::internal::core::Core
-{
-	pub fn set_new_display_flags(&self, flags: DisplayFlags)
-	{
-		unsafe
-		{
-			al_set_new_display_flags(flags.get() as c_int);
-		}
-	}
-
-	pub fn get_new_display_flags(&self) -> DisplayFlags
-	{
-		unsafe
-		{
-			mem::transmute(al_get_new_display_flags())
-		}
-	}
-
-	pub fn set_new_display_refresh_rate(&self, rate: i32)
-	{
-		unsafe
-		{
-			al_set_new_display_refresh_rate(rate as c_int);
-		}
-	}
-
-	pub fn get_new_display_refresh_rate(&self) -> i32
-	{
-		unsafe
-		{
-			al_get_new_display_refresh_rate() as i32
-		}
-	}
-
-	pub fn set_new_display_adapter(&self, adapter: i32)
-	{
-		unsafe
-		{
-			al_set_new_display_adapter(adapter as c_int);
-		}
-	}
-
-	pub fn get_new_display_adapter(&self) -> i32
-	{
-		unsafe
-		{
-			al_get_new_display_adapter() as i32
-		}
-	}
-
-	pub fn set_new_window_position(&self, x: i32, y: i32)
-	{
-		unsafe
-		{
-			al_set_new_window_position(x as c_int, y as c_int);
-		}
-	}
-
-	pub fn get_new_window_position(&self) -> (i32, i32)
-	{
-		unsafe
-		{
-			use std::mem::uninitialized;
-
-			let mut x: c_int = uninitialized();
-			let mut y: c_int = uninitialized();
-			al_get_new_window_position(&mut x, &mut y);
-			(x as i32, y as i32)
-		}
-	}
-
-	pub fn reset_new_display_options(&self)
-	{
-		unsafe
-		{
-			al_reset_new_display_options();
-		}
-	}
-
-	pub fn set_new_display_option(&self, option: DisplayOption, value: i32, importance: DisplayOptionImportance)
-	{
-		unsafe
-		{
-			al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
-		}
-	}
-
-	pub fn get_new_display_option(&self, option: DisplayOption) -> (i32, DisplayOptionImportance)
-	{
-		unsafe
-		{
-			use std::mem::uninitialized;
-
-			let mut imp: c_int = uninitialized();
-
-			let val = al_get_new_display_option(option as c_int, &mut imp);
-			(val as i32, mem::transmute(imp))
-		}
-	}
-
-	pub fn create_display(&self, w: i32, h: i32) -> Result<Display, String>
-	{
-		Display::new(w, h)
 	}
 }

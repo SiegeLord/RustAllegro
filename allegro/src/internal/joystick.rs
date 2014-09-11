@@ -9,6 +9,7 @@ use std::kinds::marker::NoSend;
 
 use ffi::*;
 use rust_util::Flag;
+use internal::core::Core;
 
 flag_type!(
 	StickFlags
@@ -26,6 +27,23 @@ pub struct Joystick
 
 impl Joystick
 {
+	pub fn new(core: &Core, idx: i32) -> Result<Joystick, ()>
+	{
+		assert!(core.is_joystick_installed(), "Joystick support not installed!");
+		let ptr = unsafe
+		{
+			al_get_joystick(idx as i32)
+		};
+		if !ptr.is_null()
+		{
+			Ok(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
+		}
+		else
+		{
+			Err(())
+		}
+	}
+
 	pub fn is_active(&self) -> bool
 	{
 		unsafe
@@ -133,31 +151,5 @@ impl Joystick
 	pub fn get_allegro_joystick(&self) -> *mut ALLEGRO_JOYSTICK
 	{
 		self.allegro_joystick
-	}
-}
-
-impl ::internal::core::Core
-{
-	pub fn get_joystick(&self, idx: i32) -> Result<Joystick, String>
-	{
-		if self.is_joystick_installed()
-		{
-			let ptr = unsafe
-			{
-				al_get_joystick(idx as i32)
-			};
-			if !ptr.is_null()
-			{
-				Ok(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
-			}
-			else
-			{
-				Err("Could not get joystick.".to_string())
-			}
-		}
-		else
-		{
-			Err("Joystick support is not installed.".to_string())
-		}
 	}
 }

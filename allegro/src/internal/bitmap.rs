@@ -6,8 +6,8 @@ use std::mem;
 use libc::*;
 use std::kinds::marker::NoSend;
 
-use internal::bitmap_like::*;
-use internal::color::*;
+use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};
+use internal::core::Core;
 
 use ffi::*;
 
@@ -25,7 +25,7 @@ pub struct Bitmap
 
 impl Bitmap
 {
-	fn new(w: i32, h: i32) -> Result<Bitmap, ()>
+	pub fn new(_: &Core, w: i32, h: i32) -> Result<Bitmap, ()>
 	{
 		unsafe
 		{
@@ -41,7 +41,7 @@ impl Bitmap
 		}
 	}
 
-	fn load(filename: &str) -> Result<Bitmap, ()>
+	pub fn load(_: &Core, filename: &str) -> Result<Bitmap, ()>
 	{
 		let b = filename.with_c_str(|s|
 		{
@@ -254,50 +254,5 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
 		{
 			Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
 		}
-	}
-}
-
-impl ::internal::core::Core
-{
-	pub fn set_new_bitmap_flags(&self, flags: BitmapFlags)
-	{
-		unsafe
-		{
-			al_set_new_bitmap_flags(flags.get() as c_int);
-		}
-	}
-
-	pub fn get_new_bitmap_flags(&self) -> BitmapFlags
-	{
-		unsafe
-		{
-			mem::transmute(al_get_new_bitmap_flags() as u32)
-		}
-	}
-
-	pub fn set_new_bitmap_format(&self, format: PixelFormat)
-	{
-		unsafe
-		{
-			al_set_new_bitmap_format(format as c_int);
-		}
-	}
-
-	pub fn get_new_bitmap_format(&self) -> PixelFormat
-	{
-		unsafe
-		{
-			mem::transmute(al_get_new_bitmap_format() as u32)
-		}
-	}
-
-	pub fn create_bitmap(&self, w: i32, h: i32) -> Result<Bitmap, ()>
-	{
-		Bitmap::new(w, h)
-	}
-
-	pub fn load_bitmap(&self, filename: &str) -> Result<Bitmap, ()>
-	{
-		Bitmap::load(filename)
 	}
 }

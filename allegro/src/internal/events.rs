@@ -6,7 +6,8 @@ use libc::*;
 use std::mem;
 use std::kinds::marker::NoSend;
 
-use internal::keycodes::*;
+use internal::keycodes::{key, KeyModifier};
+use internal::core::Core;
 use ffi::*;
 
 pub mod external
@@ -25,7 +26,7 @@ pub struct EventQueue
 
 impl EventQueue
 {
-	pub fn new() -> Result<EventQueue, ()>
+	pub fn new(_: &Core) -> Result<EventQueue, ()>
 	{
 		unsafe
 		{
@@ -397,12 +398,4 @@ impl Event
 pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
 {
 	EventSource{ allegro_source: source, no_send_marker: NoSend }
-}
-
-impl ::internal::core::Core
-{
-	pub fn create_event_queue(&self) -> Result<EventQueue, ()>
-	{
-		EventQueue::new()
-	}
 }
