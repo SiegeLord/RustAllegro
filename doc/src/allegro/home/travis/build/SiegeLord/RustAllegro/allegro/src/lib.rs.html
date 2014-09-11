@@ -100,8 +100,6 @@
 <span id='58'>58</span>
 <span id='59'>59</span>
 <span id='60'>60</span>
-<span id='61'>61</span>
-<span id='62'>62</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -125,15 +123,14 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>external</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core_drawing</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>display</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>events</span>::<span class='ident'>external</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>joystick</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>keycodes</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>run</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>timer</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>transformations</span>::<span class='ident'>external</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>transformations</span>::<span class='op'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>manual_link</span>))]</span>
 <span class='kw'>mod</span> <span class='ident'>link_name</span>
@@ -155,15 +152,14 @@
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bitmap_like</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>color</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>core</span>;
-	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>core_drawing</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>display</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>events</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>joystick</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>keycodes</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>run</span>;
 	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>timer</span>;
+	<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>transformations</span>;
 }
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>transformations</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>allegro_main</span>;
 </pre>
 </section>

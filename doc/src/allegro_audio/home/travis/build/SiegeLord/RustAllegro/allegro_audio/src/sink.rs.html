@@ -197,8 +197,6 @@
 <span id='155'>155</span>
 <span id='156'>156</span>
 <span id='157'>157</span>
-<span id='158'>158</span>
-<span id='159'>159</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -208,6 +206,7 @@
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>;
 <span class='kw'>use</span> <span class='ident'>properties</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>mixer</span>::{<span class='ident'>MixerLike</span>, <span class='ident'>Mixer</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>HasMixer</span>;
@@ -252,8 +251,23 @@
 
 <span class='kw'>impl</span> <span class='ident'>Sink</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
-	       <span class='ident'>mixer</span>: <span class='ident'>Mixer</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	{
+		<span class='ident'>Sink</span>::<span class='ident'>new_custom</span>(<span class='ident'>addon</span>, <span class='number'>44100</span>, <span class='ident'>AudioDepthI16</span>, <span class='ident'>ChannelConf2</span>, <span class='ident'>AudioDepthF32</span>, <span class='ident'>ChannelConf2</span>)
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_custom</span>(<span class='ident'>addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
+		<span class='ident'>mixer_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>mixer_chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	{
+		<span class='ident'>Mixer</span>::<span class='ident'>new_custom</span>(<span class='ident'>addon</span>, <span class='ident'>frequency</span>, <span class='ident'>mixer_depth</span>, <span class='ident'>mixer_chan_conf</span>)
+		.<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='string'>&quot;Could not create the mixer.&quot;</span>.<span class='ident'>to_string</span>())
+		.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>mixer</span><span class='op'>|</span>
+			<span class='ident'>Sink</span>::<span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>, <span class='ident'>voice_depth</span>, <span class='ident'>voice_chan_conf</span>, <span class='ident'>mixer</span>)
+		)
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
+		<span class='ident'>mixer</span>: <span class='ident'>Mixer</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>voice</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_create_voice</span>(<span class='ident'>frequency</span> <span class='kw'>as</span> <span class='ident'>c_uint</span>, <span class='ident'>voice_depth</span>.<span class='ident'>get</span>(), <span class='ident'>voice_chan_conf</span>.<span class='ident'>get</span>()) };
 		<span class='kw'>if</span> <span class='ident'>voice</span>.<span class='ident'>is_null</span>()
@@ -341,24 +355,6 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>MixerLike</span> <span class='kw'>for</span> <span class='ident'>Sink</span> {}
-
-<span class='kw'>impl</span> ::<span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>
-{
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_sink</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
-	{
-		<span class='self'>self</span>.<span class='ident'>create_custom_sink</span>(<span class='number'>44100</span>, <span class='ident'>AudioDepthI16</span>, <span class='ident'>ChannelConf2</span>, <span class='ident'>AudioDepthF32</span>, <span class='ident'>ChannelConf2</span>)
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_custom_sink</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
-	                       <span class='ident'>mixer_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>mixer_chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
-	{
-		<span class='self'>self</span>.<span class='ident'>create_custom_mixer</span>(<span class='ident'>frequency</span>, <span class='ident'>mixer_depth</span>, <span class='ident'>mixer_chan_conf</span>)
-		.<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='string'>&quot;Could not create the mixer.&quot;</span>.<span class='ident'>to_string</span>())
-		.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>mixer</span><span class='op'>|</span>
-			<span class='ident'>Sink</span>::<span class='ident'>new</span>(<span class='ident'>frequency</span>, <span class='ident'>voice_depth</span>, <span class='ident'>voice_chan_conf</span>, <span class='ident'>mixer</span>)
-		)
-	}
-}
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
