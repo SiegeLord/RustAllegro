@@ -18,14 +18,53 @@ The included packages are:
 
 Main crates:
 
-* allegro
-* allegro_acodec
-* allegro_audio
-* allegro_dialog
-* allegro_font
-* allegro_image
-* allegro_primitives
-* allegro_ttf
+```
+[dependencies.allegro]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_acodec]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_audio]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_dialog]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_font]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_image]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_primitives]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
+
+```
+[dependencies.allegro_ttf]
+
+git = "https://github.com/SiegeLord/RustAllegro.git"
+```
 
 Examples:
 

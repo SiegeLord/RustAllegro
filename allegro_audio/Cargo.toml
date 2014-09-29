@@ -4,7 +4,7 @@ name = "allegro_audio"
 version = "0.0.0"
 authors = [ "SiegeLord <slabode@aim.com>" ]
 
-[[lib]]
+[lib]
 
 name = "allegro_audio"
 path = "src/lib.rs"

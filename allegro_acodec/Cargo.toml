@@ -4,7 +4,7 @@ name = "allegro_acodec"
 version = "0.0.0"
 authors = [ "SiegeLord <slabode@aim.com>" ]
 
-[[lib]]
+[lib]
 
 name = "allegro_acodec"
 path = "src/lib.rs"
