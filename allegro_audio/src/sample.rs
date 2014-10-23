@@ -9,7 +9,7 @@ use sync::Arc;
 use std::mem;
 use std::ptr;
 use std::option::Some as RealSome;
-use std::sync::atomics::{AtomicBool, SeqCst};
+use std::sync::atomic::{AtomicBool, SeqCst};
 use std::raw::Slice;
 
 use mixer::AttachToMixer;
@@ -260,7 +260,7 @@ impl SampleInstance
 
 	fn new_raw() -> Result<SampleInstance, ()>
 	{
-		let inst = unsafe { al_create_sample_instance(ptr::mut_null()) };
+		let inst = unsafe { al_create_sample_instance(ptr::null_mut()) };
 		if inst.is_null()
 		{
 			Err(())

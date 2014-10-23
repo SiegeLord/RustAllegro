@@ -52,24 +52,24 @@ pub mod ffi
 		use allegro::c_bool;
 		use allegro::ffi::{ALLEGRO_BITMAP, ALLEGRO_COLOR};
 
-		pub static ALLEGRO_PRIM_LINE_LIST: c_uint = 0;
-		pub static ALLEGRO_PRIM_LINE_STRIP: c_uint = 1;
-		pub static ALLEGRO_PRIM_LINE_LOOP: c_uint = 2;
-		pub static ALLEGRO_PRIM_TRIANGLE_LIST: c_uint = 3;
-		pub static ALLEGRO_PRIM_TRIANGLE_STRIP: c_uint = 4;
-		pub static ALLEGRO_PRIM_TRIANGLE_FAN: c_uint = 5;
-		pub static ALLEGRO_PRIM_POINT_LIST: c_uint = 6;
-		pub static ALLEGRO_PRIM_NUM_TYPES: c_uint = 7;
+		pub const ALLEGRO_PRIM_LINE_LIST: c_uint = 0;
+		pub const ALLEGRO_PRIM_LINE_STRIP: c_uint = 1;
+		pub const ALLEGRO_PRIM_LINE_LOOP: c_uint = 2;
+		pub const ALLEGRO_PRIM_TRIANGLE_LIST: c_uint = 3;
+		pub const ALLEGRO_PRIM_TRIANGLE_STRIP: c_uint = 4;
+		pub const ALLEGRO_PRIM_TRIANGLE_FAN: c_uint = 5;
+		pub const ALLEGRO_PRIM_POINT_LIST: c_uint = 6;
+		pub const ALLEGRO_PRIM_NUM_TYPES: c_uint = 7;
 
-		pub static ALLEGRO_PRIM_POSITION: c_uint = 1;
-		pub static ALLEGRO_PRIM_COLOR_ATTR: c_uint = 2;
-		pub static ALLEGRO_PRIM_TEX_COORD: c_uint = 3;
-		pub static ALLEGRO_PRIM_TEX_COORD_PIXEL: c_uint = 4;
-		pub static ALLEGRO_PRIM_ATTR_NUM: c_uint = 5;
+		pub const ALLEGRO_PRIM_POSITION: c_uint = 1;
+		pub const ALLEGRO_PRIM_COLOR_ATTR: c_uint = 2;
+		pub const ALLEGRO_PRIM_TEX_COORD: c_uint = 3;
+		pub const ALLEGRO_PRIM_TEX_COORD_PIXEL: c_uint = 4;
+		pub const ALLEGRO_PRIM_ATTR_NUM: c_uint = 5;
 
-		pub static ALLEGRO_PRIM_FLOAT_2: c_uint = 0;
-		pub static ALLEGRO_PRIM_FLOAT_3: c_uint = 1;
-		pub static ALLEGRO_PRIM_SHORT_2: c_uint = 2;
+		pub const ALLEGRO_PRIM_FLOAT_2: c_uint = 0;
+		pub const ALLEGRO_PRIM_FLOAT_3: c_uint = 1;
+		pub const ALLEGRO_PRIM_SHORT_2: c_uint = 2;
 
 		#[repr(C)]
 		pub struct ALLEGRO_VERTEX_ELEMENT
@@ -202,7 +202,7 @@ impl PrimitivesAddon
 
 	pub fn draw_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType) -> u32
 	{
-		let tex = texture.map_or(ptr::mut_null(), |bmp| bmp.get_allegro_bitmap());
+		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe
 		{
 			al_draw_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, start as c_int, end as c_int, type_ as c_int) as u32
@@ -211,7 +211,7 @@ impl PrimitivesAddon
 
 	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32, type_: PrimType) -> u32
 	{
-		let tex = texture.map_or(ptr::mut_null(), |bmp| bmp.get_allegro_bitmap());
+		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe
 		{
 			al_draw_indexed_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, indices.as_ptr(), num_vtx as c_int, type_ as c_int) as u32

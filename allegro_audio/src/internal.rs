@@ -6,7 +6,7 @@ use ffi::ALLEGRO_MIXER;
 use mixer::Mixer;
 
 use sync::Arc;
-use std::sync::atomics::{AtomicBool, SeqCst};
+use std::sync::atomic::{AtomicBool, SeqCst};
 use libc::c_void;
 
 #[doc(hidden)]

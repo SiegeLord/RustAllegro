@@ -39,9 +39,9 @@ pub mod ffi
 		use allegro::c_bool;
 		use allegro_font::ffi::ALLEGRO_FONT;
 
-		pub static ALLEGRO_TTF_NO_KERNING: u32  = 1;
-		pub static ALLEGRO_TTF_MONOCHROME: u32  = 2;
-		pub static ALLEGRO_TTF_NO_AUTOHINT: u32 = 4;
+		pub const ALLEGRO_TTF_NO_KERNING: u32  = 1;
+		pub const ALLEGRO_TTF_MONOCHROME: u32  = 2;
+		pub const ALLEGRO_TTF_NO_AUTOHINT: u32 = 4;
 
 		extern "C"
 		{

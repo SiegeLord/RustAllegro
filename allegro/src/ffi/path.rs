@@ -7,14 +7,14 @@ use libc::*;
 use rust_util::c_bool;
 
 #[cfg(windows)]
-pub static ALLEGRO_NATIVE_PATH_SEP: char = '\\';
+pub const ALLEGRO_NATIVE_PATH_SEP: char = '\\';
 #[cfg(windows)]
-pub static ALLEGRO_NATIVE_DRIVE_SEP: char = ':';
+pub const ALLEGRO_NATIVE_DRIVE_SEP: char = ':';
 
 #[cfg(not(windows))]
-pub static ALLEGRO_NATIVE_PATH_SEP: char = '/';
+pub const ALLEGRO_NATIVE_PATH_SEP: char = '/';
 #[cfg(not(windows))]
-pub static ALLEGRO_NATIVE_DRIVE_SEP: char = '\x00';
+pub const ALLEGRO_NATIVE_DRIVE_SEP: char = '\x00';
 
 opaque!(ALLEGRO_PATH)
 

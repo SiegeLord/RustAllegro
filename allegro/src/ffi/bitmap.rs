@@ -9,17 +9,17 @@ use rust_util::c_bool;
 
 opaque!(ALLEGRO_BITMAP)
 
-pub static ALLEGRO_MEMORY_BITMAP: u32 = 1;
-pub static ALLEGRO_KEEP_BITMAP_FORMAT: u32 = 2;
-pub static ALLEGRO_FORCE_LOCKING: u32 = 4;
-pub static ALLEGRO_NO_PRESERVE_TEXTURE: u32 = 8;
-pub static ALLEGRO_ALPHA_TEST: u32 = 16;
-pub static _ALLEGRO_INTERNAL_OPENGL: u32 = 32;
-pub static ALLEGRO_MIN_LINEAR: u32 = 64;
-pub static ALLEGRO_MAG_LINEAR: u32 = 128;
-pub static ALLEGRO_MIPMAP: u32 = 256;
-pub static ALLEGRO_NO_PREMULTIPLIED_ALPHA: u32 = 512;
-pub static ALLEGRO_VIDEO_BITMAP: u32 = 1024;
+pub const ALLEGRO_MEMORY_BITMAP: u32 = 1;
+pub const ALLEGRO_KEEP_BITMAP_FORMAT: u32 = 2;
+pub const ALLEGRO_FORCE_LOCKING: u32 = 4;
+pub const ALLEGRO_NO_PRESERVE_TEXTURE: u32 = 8;
+pub const ALLEGRO_ALPHA_TEST: u32 = 16;
+pub const _ALLEGRO_INTERNAL_OPENGL: u32 = 32;
+pub const ALLEGRO_MIN_LINEAR: u32 = 64;
+pub const ALLEGRO_MAG_LINEAR: u32 = 128;
+pub const ALLEGRO_MIPMAP: u32 = 256;
+pub const ALLEGRO_NO_PREMULTIPLIED_ALPHA: u32 = 512;
+pub const ALLEGRO_VIDEO_BITMAP: u32 = 1024;
 
 extern "C"
 {

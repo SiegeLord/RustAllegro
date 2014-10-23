@@ -67,7 +67,7 @@ macro_rules! flag_type
 		}
 
 		$(
-			pub static $n: $f = $f{bits: $v};
+			pub const $n: $f = $f{bits: $v};
 		)+
 	}
 )

@@ -14,7 +14,7 @@ pub struct ALLEGRO_MONITOR_INFO
 	pub y2: c_int,
 }
 
-pub static ALLEGRO_DEFAULT_DISPLAY_ADAPTER: i32 = -1;
+pub const ALLEGRO_DEFAULT_DISPLAY_ADAPTER: i32 = -1;
 
 extern "C"
 {

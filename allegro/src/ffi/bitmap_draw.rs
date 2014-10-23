@@ -7,8 +7,8 @@ use libc::*;
 use ffi::bitmap::*;
 use ffi::color::*;
 
-pub static ALLEGRO_FLIP_HORIZONTAL: u32 = 1;
-pub static ALLEGRO_FLIP_VERTICAL: u32 = 2;
+pub const ALLEGRO_FLIP_HORIZONTAL: u32 = 1;
+pub const ALLEGRO_FLIP_VERTICAL: u32 = 2;
 
 extern "C"
 {

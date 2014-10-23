@@ -12,9 +12,9 @@ pub mod allegro_audio
 	use allegro::c_bool;
 	use allegro::ffi::*;
 
-	pub static ALLEGRO_AUDIO_PAN_NONE: c_float = -1000.0;
+	pub const ALLEGRO_AUDIO_PAN_NONE: c_float = -1000.0;
 
-	// These are enums instead of statics because functions expect these an arguments.
+	// These are enums instead of consts because functions expect these an arguments.
 	// An API bug that cannot really be fixed.
 	#[repr(C)]
 	pub enum ALLEGRO_AUDIO_DEPTH
@@ -29,7 +29,7 @@ pub mod allegro_audio
 		ALLEGRO_AUDIO_DEPTH_UINT16 = 9,
 		ALLEGRO_AUDIO_DEPTH_UINT24 = 10,
 	}
-	pub static ALLEGRO_AUDIO_DEPTH_UINT8: u32 = 8;
+	pub const ALLEGRO_AUDIO_DEPTH_UINT8: u32 = 8;
 
 	#[repr(C)]
 	pub enum ALLEGRO_CHANNEL_CONF

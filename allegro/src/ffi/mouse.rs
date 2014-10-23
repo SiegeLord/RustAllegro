@@ -9,7 +9,7 @@ use rust_util::c_bool;
 
 opaque!(ALLEGRO_MOUSE)
 
-pub static ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
+pub const ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
 #[repr(C)]
 pub struct ALLEGRO_MOUSE_STATE

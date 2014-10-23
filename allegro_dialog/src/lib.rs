@@ -46,23 +46,23 @@ pub mod ffi
 		opaque!(ALLEGRO_FILECHOOSER)
 		opaque!(ALLEGRO_TEXTLOG)
 
-		pub static ALLEGRO_FILECHOOSER_FILE_MUST_EXIST: u32 = 1;
-		pub static ALLEGRO_FILECHOOSER_SAVE: u32 = 2;
-		pub static ALLEGRO_FILECHOOSER_FOLDER: u32 = 4;
-		pub static ALLEGRO_FILECHOOSER_PICTURES: u32 = 8;
-		pub static ALLEGRO_FILECHOOSER_SHOW_HIDDEN: u32 = 16;
-		pub static ALLEGRO_FILECHOOSER_MULTIPLE: u32 = 32;
+		pub const ALLEGRO_FILECHOOSER_FILE_MUST_EXIST: u32 = 1;
+		pub const ALLEGRO_FILECHOOSER_SAVE: u32 = 2;
+		pub const ALLEGRO_FILECHOOSER_FOLDER: u32 = 4;
+		pub const ALLEGRO_FILECHOOSER_PICTURES: u32 = 8;
+		pub const ALLEGRO_FILECHOOSER_SHOW_HIDDEN: u32 = 16;
+		pub const ALLEGRO_FILECHOOSER_MULTIPLE: u32 = 32;
 
-		pub static ALLEGRO_MESSAGEBOX_WARN: u32 = 1;
-		pub static ALLEGRO_MESSAGEBOX_ERROR: u32 = 2;
-		pub static ALLEGRO_MESSAGEBOX_OK_CANCEL: u32 = 4;
-		pub static ALLEGRO_MESSAGEBOX_YES_NO: u32 = 8;
-		pub static ALLEGRO_MESSAGEBOX_QUESTION: u32 = 16;
+		pub const ALLEGRO_MESSAGEBOX_WARN: u32 = 1;
+		pub const ALLEGRO_MESSAGEBOX_ERROR: u32 = 2;
+		pub const ALLEGRO_MESSAGEBOX_OK_CANCEL: u32 = 4;
+		pub const ALLEGRO_MESSAGEBOX_YES_NO: u32 = 8;
+		pub const ALLEGRO_MESSAGEBOX_QUESTION: u32 = 16;
 
-		pub static ALLEGRO_TEXTLOG_NO_CLOSE: u32 = 1;
-		pub static ALLEGRO_TEXTLOG_MONOSPACE: u32 = 2;
+		pub const ALLEGRO_TEXTLOG_NO_CLOSE: u32 = 1;
+		pub const ALLEGRO_TEXTLOG_MONOSPACE: u32 = 2;
 
-		pub static ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE: c_uint = 600;
+		pub const ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE: c_uint = 600;
 
 		extern "C"
 		{
@@ -160,7 +160,7 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 	use std::ptr;
 	use libc::c_int;
 
-	let d = display.map_or(ptr::mut_null(), |d| d.get_allegro_display());
+	let d = display.map_or(ptr::null_mut(), |d| d.get_allegro_display());
 	let ret = title.with_c_str(|title|
 	{
 		heading.with_c_str(|heading|

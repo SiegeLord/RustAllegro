@@ -34,11 +34,11 @@ pub mod allegro_font
 		pub get_text_dimensions: Option<extern "C" fn(arg1: *const ALLEGRO_FONT, arg2: *const ALLEGRO_USTR, arg3: *mut c_int, arg4: *mut c_int, arg5: *mut c_int, arg6: *mut c_int)>,
 	}
 
-	pub static ALLEGRO_ALIGN_LEFT: c_int = 0;
-	pub static ALLEGRO_ALIGN_CENTRE: c_int = 1;
-	pub static ALLEGRO_ALIGN_CENTER: c_int = 1;
-	pub static ALLEGRO_ALIGN_RIGHT: c_int = 2;
-	pub static ALLEGRO_ALIGN_INTEGER: c_int = 4;
+	pub const ALLEGRO_ALIGN_LEFT: c_int = 0;
+	pub const ALLEGRO_ALIGN_CENTRE: c_int = 1;
+	pub const ALLEGRO_ALIGN_CENTER: c_int = 1;
+	pub const ALLEGRO_ALIGN_RIGHT: c_int = 2;
+	pub const ALLEGRO_ALIGN_INTEGER: c_int = 4;
 
 	extern "C"
 	{

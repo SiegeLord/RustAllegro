@@ -30,7 +30,7 @@ impl PostProcessCallback for AudioCallback
 	{
 		if self.silence
 		{
-			for u in data.mut_iter()
+			for u in data.iter_mut()
 			{
 				*u = 0;
 			}

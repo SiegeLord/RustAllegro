@@ -233,7 +233,7 @@ pub trait MixerLike : HasMixer
 			{
 				let ret = unsafe
 				{
-					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::mut_null())
+					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::null_mut())
 				};
 				if ret == 0
 				{

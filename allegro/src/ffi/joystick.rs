@@ -22,8 +22,8 @@ pub struct Stick
 	pub axis: [c_float, ..3u],
 }
 
-pub static ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;
-pub static ALLEGRO_JOYFLAG_ANALOGUE: c_uint = 2;
+pub const ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;
+pub const ALLEGRO_JOYFLAG_ANALOGUE: c_uint = 2;
 
 extern "C"
 {
