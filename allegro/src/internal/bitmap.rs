@@ -227,7 +227,7 @@ unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: boo
 	let target = al_get_target_bitmap();
 	if target.is_null()
 	{
-		fail!("Null target bitmap!");
+		panic!("Null target bitmap!");
 	}
 	if target == bmp || (!is_sub_bitmap && al_get_parent_bitmap(target) == bmp)
 	{
