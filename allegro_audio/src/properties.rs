@@ -7,13 +7,13 @@ use ffi::*;
 #[deriving(PartialEq)]
 pub enum AudioDepth
 {
-	AudioDepthI8,
-	AudioDepthI16,
-	AudioDepthI24,
-	AudioDepthU8,
-	AudioDepthU16,
-	AudioDepthU24,
-	AudioDepthF32,
+	I8,
+	I16,
+	I24,
+	U8,
+	U16,
+	U24,
+	F32,
 }
 
 impl AudioDepth
@@ -22,13 +22,13 @@ impl AudioDepth
 	{
 		match val
 		{
-			ALLEGRO_AUDIO_DEPTH_INT8     => AudioDepthI8,
-			ALLEGRO_AUDIO_DEPTH_INT16    => AudioDepthI16,
-			ALLEGRO_AUDIO_DEPTH_INT24    => AudioDepthI24,
-			ALLEGRO_AUDIO_DEPTH_UNSIGNED => AudioDepthU8,
-			ALLEGRO_AUDIO_DEPTH_UINT16   => AudioDepthU16,
-			ALLEGRO_AUDIO_DEPTH_UINT24   => AudioDepthU24,
-			ALLEGRO_AUDIO_DEPTH_FLOAT32  => AudioDepthF32,
+			ALLEGRO_AUDIO_DEPTH_INT8     => AudioDepth::I8,
+			ALLEGRO_AUDIO_DEPTH_INT16    => AudioDepth::I16,
+			ALLEGRO_AUDIO_DEPTH_INT24    => AudioDepth::I24,
+			ALLEGRO_AUDIO_DEPTH_UNSIGNED => AudioDepth::U8,
+			ALLEGRO_AUDIO_DEPTH_UINT16   => AudioDepth::U16,
+			ALLEGRO_AUDIO_DEPTH_UINT24   => AudioDepth::U24,
+			ALLEGRO_AUDIO_DEPTH_FLOAT32  => AudioDepth::F32,
 		}
 	}
 
@@ -36,13 +36,13 @@ impl AudioDepth
 	{
 		match *self
 		{
-			AudioDepthI8  => ALLEGRO_AUDIO_DEPTH_INT8,
-			AudioDepthI16 => ALLEGRO_AUDIO_DEPTH_INT16,
-			AudioDepthI24 => ALLEGRO_AUDIO_DEPTH_INT24,
-			AudioDepthU8  => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
-			AudioDepthU16 => ALLEGRO_AUDIO_DEPTH_UINT16,
-			AudioDepthU24 => ALLEGRO_AUDIO_DEPTH_UINT24,
-			AudioDepthF32 => ALLEGRO_AUDIO_DEPTH_FLOAT32,
+			AudioDepth::I8  => ALLEGRO_AUDIO_DEPTH_INT8,
+			AudioDepth::I16 => ALLEGRO_AUDIO_DEPTH_INT16,
+			AudioDepth::I24 => ALLEGRO_AUDIO_DEPTH_INT24,
+			AudioDepth::U8  => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
+			AudioDepth::U16 => ALLEGRO_AUDIO_DEPTH_UINT16,
+			AudioDepth::U24 => ALLEGRO_AUDIO_DEPTH_UINT24,
+			AudioDepth::F32 => ALLEGRO_AUDIO_DEPTH_FLOAT32,
 		}
 	}
 
@@ -50,26 +50,26 @@ impl AudioDepth
 	{
 		match *self
 		{
-			AudioDepthI8  => 1,
-			AudioDepthI16 => 2,
-			AudioDepthI24 => 3,
-			AudioDepthU8  => 1,
-			AudioDepthU16 => 2,
-			AudioDepthU24 => 3,
-			AudioDepthF32 => 4,
+			AudioDepth::I8  => 1,
+			AudioDepth::I16 => 2,
+			AudioDepth::I24 => 3,
+			AudioDepth::U8  => 1,
+			AudioDepth::U16 => 2,
+			AudioDepth::U24 => 3,
+			AudioDepth::F32 => 4,
 		}
 	}
 }
 
 pub enum ChannelConf
 {
-	ChannelConf1,
-	ChannelConf2,
-	ChannelConf3,
-	ChannelConf4,
-	ChannelConf51,
-	ChannelConf61,
-	ChannelConf71,
+	Conf1,
+	Conf2,
+	Conf3,
+	Conf4,
+	Conf51,
+	Conf61,
+	Conf71,
 }
 
 impl ChannelConf
@@ -78,13 +78,13 @@ impl ChannelConf
 	{
 		match val
 		{
-			ALLEGRO_CHANNEL_CONF_1   => ChannelConf1,
-			ALLEGRO_CHANNEL_CONF_2   => ChannelConf2,
-			ALLEGRO_CHANNEL_CONF_3   => ChannelConf3,
-			ALLEGRO_CHANNEL_CONF_4   => ChannelConf4,
-			ALLEGRO_CHANNEL_CONF_5_1 => ChannelConf51,
-			ALLEGRO_CHANNEL_CONF_6_1 => ChannelConf61,
-			ALLEGRO_CHANNEL_CONF_7_1 => ChannelConf71,
+			ALLEGRO_CHANNEL_CONF_1   => ChannelConf::Conf1,
+			ALLEGRO_CHANNEL_CONF_2   => ChannelConf::Conf2,
+			ALLEGRO_CHANNEL_CONF_3   => ChannelConf::Conf3,
+			ALLEGRO_CHANNEL_CONF_4   => ChannelConf::Conf4,
+			ALLEGRO_CHANNEL_CONF_5_1 => ChannelConf::Conf51,
+			ALLEGRO_CHANNEL_CONF_6_1 => ChannelConf::Conf61,
+			ALLEGRO_CHANNEL_CONF_7_1 => ChannelConf::Conf71,
 		}
 	}
 
@@ -92,13 +92,13 @@ impl ChannelConf
 	{
 		match *self
 		{
-			ChannelConf1  => ALLEGRO_CHANNEL_CONF_1,
-			ChannelConf2  => ALLEGRO_CHANNEL_CONF_2,
-			ChannelConf3  => ALLEGRO_CHANNEL_CONF_3,
-			ChannelConf4  => ALLEGRO_CHANNEL_CONF_4,
-			ChannelConf51 => ALLEGRO_CHANNEL_CONF_5_1,
-			ChannelConf61 => ALLEGRO_CHANNEL_CONF_6_1,
-			ChannelConf71 => ALLEGRO_CHANNEL_CONF_7_1,
+			ChannelConf::Conf1  => ALLEGRO_CHANNEL_CONF_1,
+			ChannelConf::Conf2  => ALLEGRO_CHANNEL_CONF_2,
+			ChannelConf::Conf3  => ALLEGRO_CHANNEL_CONF_3,
+			ChannelConf::Conf4  => ALLEGRO_CHANNEL_CONF_4,
+			ChannelConf::Conf51 => ALLEGRO_CHANNEL_CONF_5_1,
+			ChannelConf::Conf61 => ALLEGRO_CHANNEL_CONF_6_1,
+			ChannelConf::Conf71 => ALLEGRO_CHANNEL_CONF_7_1,
 		}
 	}
 
@@ -106,22 +106,22 @@ impl ChannelConf
 	{
 		match *self
 		{
-			ChannelConf1  => 1,
-			ChannelConf2  => 2,
-			ChannelConf3  => 3,
-			ChannelConf4  => 4,
-			ChannelConf51 => 6,
-			ChannelConf61 => 7,
-			ChannelConf71 => 8,
+			ChannelConf::Conf1  => 1,
+			ChannelConf::Conf2  => 2,
+			ChannelConf::Conf3  => 3,
+			ChannelConf::Conf4  => 4,
+			ChannelConf::Conf51 => 6,
+			ChannelConf::Conf61 => 7,
+			ChannelConf::Conf71 => 8,
 		}
 	}
 }
 
 pub enum Playmode
 {
-	PlaymodeOnce,
-	PlaymodeLoop,
-	PlaymodeBiDir,
+	Once,
+	Loop,
+	BiDir,
 }
 
 impl Playmode
@@ -130,9 +130,9 @@ impl Playmode
 	{
 		match val
 		{
-			ALLEGRO_PLAYMODE_ONCE => PlaymodeOnce,
-			ALLEGRO_PLAYMODE_LOOP => PlaymodeLoop,
-			ALLEGRO_PLAYMODE_BIDIR => PlaymodeBiDir,
+			ALLEGRO_PLAYMODE_ONCE => Playmode::Once,
+			ALLEGRO_PLAYMODE_LOOP => Playmode::Loop,
+			ALLEGRO_PLAYMODE_BIDIR => Playmode::BiDir,
 			_ => unreachable!(),
 		}
 	}
@@ -141,18 +141,18 @@ impl Playmode
 	{
 		match *self
 		{
-			PlaymodeOnce => ALLEGRO_PLAYMODE_ONCE,
-			PlaymodeLoop => ALLEGRO_PLAYMODE_LOOP,
-			PlaymodeBiDir => ALLEGRO_PLAYMODE_BIDIR,
+			Playmode::Once => ALLEGRO_PLAYMODE_ONCE,
+			Playmode::Loop => ALLEGRO_PLAYMODE_LOOP,
+			Playmode::BiDir => ALLEGRO_PLAYMODE_BIDIR,
 		}
 	}
 }
 
 pub enum MixerQuality
 {
-	MixerQualityPoint,
-	MixerQualityLinear,
-	MixerQualityCubic,
+	Point,
+	Linear,
+	Cubic,
 }
 
 impl MixerQuality
@@ -161,9 +161,9 @@ impl MixerQuality
 	{
 		match val
 		{
-			ALLEGRO_MIXER_QUALITY_POINT  => MixerQualityPoint,
-			ALLEGRO_MIXER_QUALITY_LINEAR => MixerQualityLinear,
-			ALLEGRO_MIXER_QUALITY_CUBIC  => MixerQualityCubic,
+			ALLEGRO_MIXER_QUALITY_POINT  => MixerQuality::Point,
+			ALLEGRO_MIXER_QUALITY_LINEAR => MixerQuality::Linear,
+			ALLEGRO_MIXER_QUALITY_CUBIC  => MixerQuality::Cubic,
 		}
 	}
 
@@ -171,9 +171,9 @@ impl MixerQuality
 	{
 		match *self
 		{
-			MixerQualityPoint => ALLEGRO_MIXER_QUALITY_POINT,
-			MixerQualityLinear => ALLEGRO_MIXER_QUALITY_LINEAR,
-			MixerQualityCubic => ALLEGRO_MIXER_QUALITY_CUBIC,
+			MixerQuality::Point => ALLEGRO_MIXER_QUALITY_POINT,
+			MixerQuality::Linear => ALLEGRO_MIXER_QUALITY_LINEAR,
+			MixerQuality::Cubic => ALLEGRO_MIXER_QUALITY_CUBIC,
 		}
 	}
 }

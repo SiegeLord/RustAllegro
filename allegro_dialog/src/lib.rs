@@ -9,7 +9,6 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
-#![feature(struct_variant)]
 #![feature(thread_local)]
 
 extern crate allegro;
@@ -186,8 +185,8 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 	});
 	match ret
 	{
-		1 => Affirmative,
-		2 => Negatory,
-		_ => NoButton,
+		1 => MessageBoxResult::Affirmative,
+		2 => MessageBoxResult::Negatory,
+		_ => MessageBoxResult::NoButton,
 	}
 }

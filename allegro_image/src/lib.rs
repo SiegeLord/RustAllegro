@@ -9,7 +9,6 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
-#![feature(struct_variant)]
 #![feature(thread_local)]
 
 extern crate allegro;

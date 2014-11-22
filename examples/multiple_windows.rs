@@ -1,6 +1,5 @@
 // This file is released into Public Domain.
 #![feature(globs)]
-#![feature(struct_variant)]
 #![feature(phase)]
 
 #[phase(plugin, link)]
@@ -45,7 +44,7 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(core.map_rgb_f(0.0, 0.0, c));
-			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, AlignCentre, "Whee... multiple windows!");
+			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, "Whee... multiple windows!");
 			disp.flip();
 			redraw = false;
 		}
@@ -133,7 +132,7 @@ allegro_main!
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(core.map_rgb_f(c, 0.0, 0.0));
-			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, AlignCentre, text);
+			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, text);
 			disp.flip();
 			redraw = false;
 		}

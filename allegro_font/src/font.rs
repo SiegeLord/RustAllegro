@@ -11,35 +11,35 @@ use addon::FontAddon;
 use libc::*;
 use std::mem;
 
-pub enum FontAlignment
+pub enum FontAlign
 {
-	AlignLeft,
-	AlignCentre,
-	AlignRight
+	Left,
+	Centre,
+	Right
 }
 
-impl FontAlignment
+impl FontAlign
 {
 	fn get_allegro_flags(&self) -> c_int
 	{
 		match *self
 		{
-			AlignLeft => ALLEGRO_ALIGN_LEFT,
-			AlignRight => ALLEGRO_ALIGN_RIGHT,
-			AlignCentre => ALLEGRO_ALIGN_CENTRE,
+			FontAlign::Left => ALLEGRO_ALIGN_LEFT,
+			FontAlign::Right => ALLEGRO_ALIGN_RIGHT,
+			FontAlign::Centre => ALLEGRO_ALIGN_CENTRE,
 		}
 	}
 }
 
 pub trait FontDrawing
 {
-	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlignment, text: &str);
-	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str);
+	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlign, text: &str);
+	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str);
 }
 
 impl FontDrawing for Core
 {
-	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlignment, text: &str)
+	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str)
 	{
 		if text.len() == 0
 		{
@@ -55,7 +55,7 @@ impl FontDrawing for Core
 		}
 	}
 
-	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlignment, text: &str)
+	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlign, text: &str)
 	{
 		if text.len() == 0
 		{

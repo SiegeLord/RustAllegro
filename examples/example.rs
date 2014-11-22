@@ -1,6 +1,5 @@
 // This file is released into Public Domain.
 #![feature(globs)]
-#![feature(struct_variant)]
 #![feature(phase)]
 
 #[phase(plugin, link)]
@@ -86,8 +85,8 @@ allegro_main!
 			core.clear_to_color(black);
 			core.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
 			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
-			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Welcome to RustAllegro!");
-			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, AlignCentre, "TTF text!");
+			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, FontAlign::Centre, "Welcome to RustAllegro!");
+			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, FontAlign::Centre, "TTF text!");
 			prim.draw_line(100.0, 200.0, 300.0, 200.0, white, 10.0);
 			disp.flip();
 			redraw = false;

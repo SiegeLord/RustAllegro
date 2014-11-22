@@ -83,7 +83,7 @@ impl Mixer
 {
 	pub fn new(addon: &AudioAddon) -> Result<Mixer, ()>
 	{
-		Mixer::new_custom(addon, 44100, AudioDepthF32, ChannelConf2)
+		Mixer::new_custom(addon, 44100, AudioDepth::F32, ChannelConf::Conf2)
 	}
 
 	pub fn new_custom(_: &AudioAddon, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>

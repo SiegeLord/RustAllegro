@@ -53,7 +53,7 @@ impl Sink
 {
 	pub fn new(addon: &AudioAddon) -> Result<Sink, String>
 	{
-		Sink::new_custom(addon, 44100, AudioDepthI16, ChannelConf2, AudioDepthF32, ChannelConf2)
+		Sink::new_custom(addon, 44100, AudioDepth::I16, ChannelConf::Conf2, AudioDepth::F32, ChannelConf::Conf2)
 	}
 
 	pub fn new_custom(addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,

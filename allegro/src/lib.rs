@@ -9,7 +9,6 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
-#![feature(struct_variant)]
 #![feature(unsafe_destructor)]
 
 extern crate native;

@@ -1,6 +1,5 @@
 // This file is released into Public Domain.
 #![feature(globs)]
-#![feature(struct_variant)]
 #![feature(phase)]
 
 #[phase(plugin, link)]
@@ -88,7 +87,7 @@ allegro_main!
 	let sample = Sample::load(&audio_addon, "data/welcome.ogg").unwrap();
 	let mut stream = AudioStream::load(&audio_addon, "data/music.ogg").unwrap();
 	stream.attach(&mut sink).ok().expect("Could not attach to stream");
-	stream.set_playmode(PlaymodeLoop).unwrap();
+	stream.set_playmode(Playmode::Loop).unwrap();
 	let white = core.map_rgb_f(1.0, 1.0, 1.0);
 	let black = core.map_rgb_f(0.0, 0.0, 0.0);
 
@@ -99,7 +98,7 @@ allegro_main!
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(black);
-			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, AlignCentre, "Press SPACE to be welcomed!");
+			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, FontAlign::Centre, "Press SPACE to be welcomed!");
 			disp.flip();
 			redraw = false;
 		}
@@ -116,7 +115,7 @@ allegro_main!
 			},
 			KeyDown{keycode: k, ..} if k == key::Space =>
 			{
-				_sample_instance = sink.play_sample(&sample, 1.0, Some(0.0), 1.0, PlaymodeOnce).ok();
+				_sample_instance = sink.play_sample(&sample, 1.0, Some(0.0), 1.0, Playmode::Once).ok();
 				println!("Welcome to Allegro!");
 			},
 			TimerTick{..} =>

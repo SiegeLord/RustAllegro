@@ -11,6 +11,10 @@ pub mod allegro_audio
 	use libc::*;
 	use allegro::c_bool;
 	use allegro::ffi::*;
+	pub use self::ALLEGRO_AUDIO_DEPTH::*;
+	pub use self::ALLEGRO_CHANNEL_CONF::*;
+	pub use self::ALLEGRO_PLAYMODE::*;
+	pub use self::ALLEGRO_MIXER_QUALITY::*;
 
 	pub const ALLEGRO_AUDIO_PAN_NONE: c_float = -1000.0;
 
