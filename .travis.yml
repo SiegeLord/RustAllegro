@@ -22,7 +22,7 @@ script:
   - make doc
   - cd examples
   - ./example --init-only
-after_script:
+after_success:
   - cd ..
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
   - ../doc/gh_pages_upload.sh
