@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Transform` struct in crate `allegro`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Transform">
+
+    <title>allegro::Transform - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>allegro</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='ffi/index.html'>ffi</a><a class='mod ' href='key/index.html'>key</a><a class='mod ' href='rust_util/index.html'>rust_util</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Bitmap.html'>Bitmap</a><a class='struct ' href='struct.BitmapDrawingFlags.html'>BitmapDrawingFlags</a><a class='struct ' href='struct.BitmapFlags.html'>BitmapFlags</a><a class='struct ' href='struct.Color.html'>Color</a><a class='struct ' href='struct.Core.html'>Core</a><a class='struct ' href='struct.Display.html'>Display</a><a class='struct ' href='struct.DisplayFlags.html'>DisplayFlags</a><a class='struct ' href='struct.EventQueue.html'>EventQueue</a><a class='struct ' href='struct.EventSource.html'>EventSource</a><a class='struct ' href='struct.Joystick.html'>Joystick</a><a class='struct ' href='struct.KeyModifier.html'>KeyModifier</a><a class='struct ' href='struct.MemoryBitmap.html'>MemoryBitmap</a><a class='struct ' href='struct.StickFlags.html'>StickFlags</a><a class='struct ' href='struct.SubBitmap.html'>SubBitmap</a><a class='struct ' href='struct.Timer.html'>Timer</a><a class='struct current' href='struct.Transform.html'>Transform</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.DisplayOption.html'>DisplayOption</a><a class='enum ' href='enum.DisplayOptionImportance.html'>DisplayOptionImportance</a><a class='enum ' href='enum.DisplayOrientation.html'>DisplayOrientation</a><a class='enum ' href='enum.Event.html'>Event</a><a class='enum ' href='enum.PixelFormat.html'>PixelFormat</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.BitmapLike.html'>BitmapLike</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.run.html'>run</a></div><div class='block macro'><h2>Macros</h2><a class='macro ' href='macro.allegro_main!.html'>allegro_main!</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>allegro</a>::<wbr><a class='struct' href=''>Transform</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15610' href='../src/allegro/home/travis/build/SiegeLord/RustAllegro/allegro/src/internal/transformations.rs.html#10'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Transform(_);</pre><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h3><div class='impl-methods'><h4 id='method.identity' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.identity' class='fnname'>identity</a>() -&gt; <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h4>
+<h4 id='method.build' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build' class='fnname'>build</a>(x: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, y: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, sx: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, sy: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, theta: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>) -&gt; <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h4>
+<h4 id='method.translate' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.translate' class='fnname'>translate</a>(&amp;mut self, x: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, y: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>)</code></h4>
+<h4 id='method.rotate' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.rotate' class='fnname'>rotate</a>(&amp;mut self, theta: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>)</code></h4>
+<h4 id='method.scale' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.scale' class='fnname'>scale</a>(&amp;mut self, sx: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, sy: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>)</code></h4>
+<h4 id='method.transform_coordinates' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.transform_coordinates' class='fnname'>transform_coordinates</a>(&amp;self, x: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, y: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>)</a></code></h4>
+<h4 id='method.compose' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compose' class='fnname'>compose</a>(&amp;mut self, other: &amp;<a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a>)</code></h4>
+<h4 id='method.invert' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.invert' class='fnname'>invert</a>(&amp;mut self)</code></h4>
+<h4 id='method.check_inverse' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.check_inverse' class='fnname'>check_inverse</a>(&amp;self, tol: <a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;<a class='struct' href='../allegro/ffi/transformations/struct.ALLEGRO_TRANSFORM.html' title='allegro::ffi::transformations::ALLEGRO_TRANSFORM'>ALLEGRO_TRANSFORM</a>&gt; for <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h3><div class='impl-methods'><h4 id='method.deref' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.deref' class='fnname'>deref</a>&lt;'l&gt;(&amp;'l self) -&gt; &amp;'l <a class='struct' href='../allegro/ffi/transformations/struct.ALLEGRO_TRANSFORM.html' title='allegro::ffi::transformations::ALLEGRO_TRANSFORM'>ALLEGRO_TRANSFORM</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html' title='core::ops::DerefMut'>DerefMut</a>&lt;<a class='struct' href='../allegro/ffi/transformations/struct.ALLEGRO_TRANSFORM.html' title='allegro::ffi::transformations::ALLEGRO_TRANSFORM'>ALLEGRO_TRANSFORM</a>&gt; for <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h3><div class='impl-methods'><h4 id='method.deref_mut' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.deref_mut' class='fnname'>deref_mut</a>&lt;'l&gt;(&amp;'l mut self) -&gt; &amp;'l mut <a class='struct' href='../allegro/ffi/transformations/struct.ALLEGRO_TRANSFORM.html' title='allegro::ffi::transformations::ALLEGRO_TRANSFORM'>ALLEGRO_TRANSFORM</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "allegro";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

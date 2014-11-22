@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `events` mod in crate `allegro`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, events">
+
+    <title>allegro::ffi::events - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>allegro</a>::<wbr><a href='../index.html'>ffi</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='../altime/index.html'>altime</a><a class='mod ' href='../base/index.html'>base</a><a class='mod ' href='../bitmap/index.html'>bitmap</a><a class='mod ' href='../bitmap_draw/index.html'>bitmap_draw</a><a class='mod ' href='../bitmap_io/index.html'>bitmap_io</a><a class='mod ' href='../color/index.html'>color</a><a class='mod ' href='../display/index.html'>display</a><a class='mod ' href='../drawing/index.html'>drawing</a><a class='mod current' href='../events/index.html'>events</a><a class='mod ' href='../joystick/index.html'>joystick</a><a class='mod ' href='../keyboard/index.html'>keyboard</a><a class='mod ' href='../keycodes/index.html'>keycodes</a><a class='mod ' href='../monitor/index.html'>monitor</a><a class='mod ' href='../mouse/index.html'>mouse</a><a class='mod ' href='../path/index.html'>path</a><a class='mod ' href='../system/index.html'>system</a><a class='mod ' href='../timer/index.html'>timer</a><a class='mod ' href='../transformations/index.html'>transformations</a><a class='mod ' href='../utf8/index.html'>utf8</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>allegro</a>::<wbr><a href='../index.html'>ffi</a>::<wbr><a class='mod' href=''>events</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-2066' href='../../../src/allegro/home/travis/build/SiegeLord/RustAllegro/allegro/src/ffi/events.rs.html#5-215'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_ANY_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_ANY_EVENT'>ALLEGRO_ANY_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_DISPLAY_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_DISPLAY_EVENT'>ALLEGRO_DISPLAY_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_EVENT'>ALLEGRO_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_EVENT_SOURCE.html'
+                               title='allegro::ffi::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_JOYSTICK_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_KEYBOARD_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_KEYBOARD_EVENT'>ALLEGRO_KEYBOARD_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_MOUSE_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_TIMER_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_TIMER_EVENT'>ALLEGRO_TIMER_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ALLEGRO_USER_EVENT.html'
+                               title='allegro::ffi::events::ALLEGRO_USER_EVENT'>ALLEGRO_USER_EVENT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.ALLEGRO_EVENT_QUEUE.html'
+                               title='allegro::ffi::events::ALLEGRO_EVENT_QUEUE'>ALLEGRO_EVENT_QUEUE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_CLOSE: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>42</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_EXPOSE: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>40</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_FOUND: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>44</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_LOST: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>43</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_ORIENTATION: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>47</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_RESIZE: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>41</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_SWITCH_IN: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>45</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_DISPLAY_SWITCH_OUT: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>46</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_JOYSTICK_AXIS: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>1</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>2</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_JOYSTICK_BUTTON_UP: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>3</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_JOYSTICK_CONFIGURATION: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>4</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_KEY_CHAR: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>11</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_KEY_DOWN: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>10</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_KEY_UP: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>12</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_AXES: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>20</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_BUTTON_DOWN: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>21</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_BUTTON_UP: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>22</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>23</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>24</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_MOUSE_WARPED: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>25</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><code>pub const ALLEGRO_EVENT_TIMER: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code><code> = </code><code>30</code></td>
+                        <td class='docblock'>&nbsp;</td>
+                    </tr>
+                </table><h2 id='ffi-fns' class='section-header'><a href="#ffi-fns">Foreign Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_create_event_queue.html'
+                               title='allegro::ffi::events::al_create_event_queue'>al_create_event_queue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_destroy_event_queue.html'
+                               title='allegro::ffi::events::al_destroy_event_queue'>al_destroy_event_queue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_destroy_user_event_source.html'
+                               title='allegro::ffi::events::al_destroy_user_event_source'>al_destroy_user_event_source</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_drop_next_event.html'
+                               title='allegro::ffi::events::al_drop_next_event'>al_drop_next_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_emit_user_event.html'
+                               title='allegro::ffi::events::al_emit_user_event'>al_emit_user_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_flush_event_queue.html'
+                               title='allegro::ffi::events::al_flush_event_queue'>al_flush_event_queue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_event_source_data.html'
+                               title='allegro::ffi::events::al_get_event_source_data'>al_get_event_source_data</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_get_next_event.html'
+                               title='allegro::ffi::events::al_get_next_event'>al_get_next_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_init_user_event_source.html'
+                               title='allegro::ffi::events::al_init_user_event_source'>al_init_user_event_source</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_is_event_queue_empty.html'
+                               title='allegro::ffi::events::al_is_event_queue_empty'>al_is_event_queue_empty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_peek_next_event.html'
+                               title='allegro::ffi::events::al_peek_next_event'>al_peek_next_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_register_event_source.html'
+                               title='allegro::ffi::events::al_register_event_source'>al_register_event_source</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_set_event_source_data.html'
+                               title='allegro::ffi::events::al_set_event_source_data'>al_set_event_source_data</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_unref_user_event.html'
+                               title='allegro::ffi::events::al_unref_user_event'>al_unref_user_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_unregister_event_source.html'
+                               title='allegro::ffi::events::al_unregister_event_source'>al_unregister_event_source</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_wait_for_event.html'
+                               title='allegro::ffi::events::al_wait_for_event'>al_wait_for_event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_wait_for_event_timed.html'
+                               title='allegro::ffi::events::al_wait_for_event_timed'>al_wait_for_event_timed</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='ffi' href='ffi.al_wait_for_event_until.html'
+                               title='allegro::ffi::events::al_wait_for_event_until'>al_wait_for_event_until</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.ALLEGRO_EVENT_TYPE.html'
+                               title='allegro::ffi::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "allegro";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>
