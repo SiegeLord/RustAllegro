@@ -11,7 +11,6 @@
 #![feature(macro_rules)]
 #![feature(unsafe_destructor)]
 
-extern crate native;
 extern crate sync;
 extern crate libc;
 

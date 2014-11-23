@@ -7,8 +7,7 @@ use std::option::Some as RealSome;
 use std::mem;
 use std::string;
 use std::kinds::marker::NoSend;
-use std::task::TaskBuilder;
-use native::NativeTaskBuilder;
+use std::task::spawn;
 
 use sync::{Arc, Mutex};
 
@@ -111,7 +110,7 @@ impl Core
 	pub fn spawn(&self, thread_proc: proc(Core):Send)
 	{
 		let mutex = self.get_core_mutex();
-		TaskBuilder::new().native().spawn(proc()
+		spawn(proc()
 		{
 			thread_proc(Core
 			{
