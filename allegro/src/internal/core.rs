@@ -5,7 +5,6 @@
 use libc::*;
 use std::option::Some as RealSome;
 use std::mem;
-use std::string;
 use std::kinds::marker::NoSend;
 use std::task::spawn;
 use std::sync::{Arc, Mutex};
@@ -224,7 +223,7 @@ impl Core
 		assert!(self.is_keyboard_installed());
 		unsafe
 		{
-			string::raw::from_buf(al_keycode_to_name(k as c_int) as *const _)
+			String::from_raw_buf(al_keycode_to_name(k as c_int) as *const _)
 		}
 	}
 

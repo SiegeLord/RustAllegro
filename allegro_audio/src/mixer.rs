@@ -248,14 +248,13 @@ pub trait MixerLike : HasMixer
 
 extern "C" fn mixer_callback(data: *mut c_void, num_samples: c_uint, cb: *mut c_void)
 {
-	use std::slice::raw::mut_buf_as_slice;
+	use std::slice::from_raw_mut_buf;
 	unsafe
 	{
 		let cbh: &mut CallbackHolder = mem::transmute(cb);
-		mut_buf_as_slice(data as *mut u8, num_samples as uint * cbh.sample_size, |buf|
-		{
-			cbh.cb.process(buf, num_samples as u32);
-		});
+		let buf = data as *mut u8;
+		let buf = from_raw_mut_buf(&buf, num_samples as uint * cbh.sample_size);
+		cbh.cb.process(buf, num_samples as u32);
 	}
 }
 
