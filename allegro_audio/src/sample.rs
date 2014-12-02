@@ -5,7 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
-use sync::Arc;
+use std::sync::Arc;
 use std::mem;
 use std::ptr;
 use std::option::Some as RealSome;

@@ -13,7 +13,6 @@
 
 extern crate allegro;
 extern crate libc;
-extern crate sync;
 
 pub use addon::*;
 pub use stream::*;

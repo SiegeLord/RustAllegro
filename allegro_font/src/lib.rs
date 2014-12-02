@@ -14,7 +14,6 @@
 
 extern crate allegro;
 extern crate libc;
-extern crate sync;
 
 pub use font::*;
 pub use addon::*;

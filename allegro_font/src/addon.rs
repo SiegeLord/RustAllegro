@@ -4,7 +4,7 @@
 
 use std::kinds::marker::NoSend;
 
-use sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex};
 
 use allegro::Core;
 use ffi::allegro_font::*;

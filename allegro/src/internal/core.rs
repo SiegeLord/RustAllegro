@@ -8,8 +8,7 @@ use std::mem;
 use std::string;
 use std::kinds::marker::NoSend;
 use std::task::spawn;
-
-use sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex};
 
 use ffi::*;
 
@@ -57,7 +56,7 @@ impl Core
 {
 	pub fn init() -> Result<Core, String>
 	{
-		use sync::one::{Once, ONCE_INIT};
+		use std::sync::{Once, ONCE_INIT};
 		static mut run_once: Once = ONCE_INIT;
 
 		let mut res = Err("Already initialized.".to_string());

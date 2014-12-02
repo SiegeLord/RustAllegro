@@ -14,12 +14,11 @@
 
 extern crate allegro;
 extern crate libc;
-extern crate sync;
 
 use std::kinds::marker::NoSend;
 use std::ptr;
 
-use sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex};
 
 use allegro::{Bitmap, BitmapLike, Core, Color};
 use ffi::*;
