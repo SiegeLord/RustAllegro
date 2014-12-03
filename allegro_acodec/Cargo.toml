@@ -2,7 +2,12 @@
 
 name = "allegro_acodec"
 version = "0.0.0"
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro/index.html"
+keywords = ["audio"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 acodec addon Rust wrapper"
 
 [lib]
 
@@ -12,7 +17,9 @@ path = "src/lib.rs"
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.0"
 
 [dependencies.allegro_audio]
 
 path = "../allegro_audio"
+version = "=0.0.0"

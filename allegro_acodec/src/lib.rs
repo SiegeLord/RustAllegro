@@ -4,8 +4,6 @@
 
 #![crate_name="allegro_acodec"]
 
-#![comment = "Allegro 5 Acodec addon Rust bindings"]
-#![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]

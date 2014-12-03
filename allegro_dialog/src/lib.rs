@@ -4,8 +4,6 @@
 
 #![crate_name="allegro_dialog"]
 
-#![comment = "Allegro 5 native dialog addon Rust bindings"]
-#![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]

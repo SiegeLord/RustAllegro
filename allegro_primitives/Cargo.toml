@@ -2,7 +2,12 @@
 
 name = "allegro_primitives"
 version = "0.0.0"
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_primitives/index.html"
+keywords = ["primitives", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 primitives addon Rust wrapper"
 
 [lib]
 
@@ -12,3 +17,4 @@ path = "src/lib.rs"
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.0"

@@ -4,8 +4,6 @@
 
 #![crate_name="allegro_primitives"]
 
-#![comment = "Allegro 5 primitives addon Rust bindings"]
-#![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]

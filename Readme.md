@@ -8,7 +8,7 @@ Currently it is targeting Allegro version 5.0.10.1.
 
 ## Documentation
 
-See [here](http://siegelord.github.io/RustAllegro/doc/allegro5/index.html). Note that it is very incomplete.
+See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note that it is very incomplete.
 
 ## Building
 

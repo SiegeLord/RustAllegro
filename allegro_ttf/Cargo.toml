@@ -2,7 +2,12 @@
 
 name = "allegro_ttf"
 version = "0.0.0"
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_ttf/index.html"
+keywords = ["text", "graphics", "ttf", "font"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 ttf addon Rust wrapper"
 
 [lib]
 
@@ -12,7 +17,9 @@ path = "src/lib.rs"
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.0"
 
 [dependencies.allegro_font]
 
 path = "../allegro_font"
+version = "=0.0.0"

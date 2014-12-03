@@ -2,7 +2,11 @@
 
 name = "allegro_examples"
 version = "0.0.0"
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+keywords = ["examples"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 wrapper examples"
 
 [[bin]]
 
@@ -22,27 +26,34 @@ path = "multiple_windows.rs"
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.0"
 
 [dependencies.allegro_font]
 
 path = "../allegro_font"
+version = "=0.0.0"
 
 [dependencies.allegro_ttf]
 
 path = "../allegro_ttf"
+version = "=0.0.0"
 
 [dependencies.allegro_image]
 
 path = "../allegro_image"
+version = "=0.0.0"
 
 [dependencies.allegro_acodec]
 
 path = "../allegro_acodec"
+version = "=0.0.0"
 
 [dependencies.allegro_audio]
 
 path = "../allegro_audio"
+version = "=0.0.0"
 
 [dependencies.allegro_primitives]
 
 path = "../allegro_primitives"
+version = "=0.0.0"

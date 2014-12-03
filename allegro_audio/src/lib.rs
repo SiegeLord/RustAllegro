@@ -4,8 +4,6 @@
 
 #![crate_name="allegro_audio"]
 
-#![comment = "Allegro 5 audio addon Rust bindings"]
-#![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]

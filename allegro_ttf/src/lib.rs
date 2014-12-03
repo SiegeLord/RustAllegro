@@ -4,8 +4,6 @@
 
 #![crate_name="allegro_ttf"]
 
-#![comment = "Allegro 5 TTF addon Rust bindings"]
-#![license = "zlib"]
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
