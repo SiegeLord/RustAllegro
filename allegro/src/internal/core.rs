@@ -12,7 +12,7 @@ use std::sync::{Arc, Mutex};
 use ffi::*;
 
 use internal::events::{EventSource, new_event_source_ref};
-use internal::keycodes::{key, KeyModifier};
+use internal::keycodes::{KeyCode, KeyModifier};
 use internal::display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
 use internal::color::{Color, PixelFormat};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
@@ -218,7 +218,7 @@ impl Core
 		}
 	}
 
-	pub fn keycode_to_name(&self, k: key::KeyCode) -> String
+	pub fn keycode_to_name(&self, k: KeyCode) -> String
 	{
 		assert!(self.is_keyboard_installed());
 		unsafe

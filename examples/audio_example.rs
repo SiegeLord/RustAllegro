@@ -109,11 +109,11 @@ allegro_main!
 			{
 				break 'exit;
 			},
-			KeyDown{keycode: k, ..} if k == key::Escape =>
+			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
 			{
 				break 'exit;
 			},
-			KeyDown{keycode: k, ..} if k == key::Space =>
+			KeyDown{keycode: k, ..} if k == KeyCode::Space =>
 			{
 				_sample_instance = sink.play_sample(&sample, 1.0, Some(0.0), 1.0, Playmode::Once).ok();
 				println!("Welcome to Allegro!");

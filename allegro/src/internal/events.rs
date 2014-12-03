@@ -6,7 +6,7 @@ use libc::*;
 use std::mem;
 use std::kinds::marker::NoSend;
 
-use internal::keycodes::{key, KeyModifier};
+use internal::keycodes::{KeyCode, KeyModifier};
 use internal::core::Core;
 use ffi::*;
 
@@ -207,21 +207,21 @@ pub enum Event
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		keycode: key::KeyCode,
+		keycode: KeyCode,
 		display: *mut ALLEGRO_DISPLAY
 	},
 	KeyUp
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		keycode: key::KeyCode,
+		keycode: KeyCode,
 		display: *mut ALLEGRO_DISPLAY
 	},
 	KeyChar
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		keycode: key::KeyCode,
+		keycode: KeyCode,
 		display: *mut ALLEGRO_DISPLAY,
 		unichar: char,
 		repeat: bool,
@@ -341,17 +341,17 @@ impl Event
 				ALLEGRO_EVENT_KEY_DOWN =>
 				{
 					let k = *e.keyboard();
-					KeyDown{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display}
+					KeyDown{source: src, timestamp: ts, keycode: KeyCode::from_allegro_key(k.keycode), display: k.display}
 				},
 				ALLEGRO_EVENT_KEY_UP =>
 				{
 					let k = *e.keyboard();
-					KeyUp{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display}
+					KeyUp{source: src, timestamp: ts, keycode: KeyCode::from_allegro_key(k.keycode), display: k.display}
 				},
 				ALLEGRO_EVENT_KEY_CHAR =>
 				{
 					let k = *e.keyboard();
-					KeyChar{source: src, timestamp: ts, keycode: key::KeyCode::from_allegro_key(k.keycode), display: k.display,
+					KeyChar{source: src, timestamp: ts, keycode: KeyCode::from_allegro_key(k.keycode), display: k.display,
 					        unichar: mem::transmute(k.unichar), repeat: k.repeat != 0, modifiers: mem::transmute(k.modifiers)}
 				},
 				ALLEGRO_EVENT_MOUSE_AXES =>

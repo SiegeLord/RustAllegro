@@ -100,7 +100,7 @@ allegro_main!
 				println!("Display close event...")
 				break 'exit;
 			},
-			KeyDown{keycode: k, ..} if k == key::Escape =>
+			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
 			{
 				println!("Pressed Escape!");
 				break 'exit;

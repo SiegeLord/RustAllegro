@@ -55,7 +55,7 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 			{
 				break 'exit;
 			},
-			KeyDown{keycode: k, ..} if k == key::Escape =>
+			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
 			{
 				break 'exit;
 			},
@@ -143,7 +143,7 @@ allegro_main!
 			{
 				break 'exit;
 			},
-			KeyDown{keycode: k, ..} if k == key::Escape =>
+			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
 			{
 				break 'exit;
 			},
