@@ -32,7 +32,6 @@ mod link_name
 }
 
 #[macro_escape]
-#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 pub mod rust_util;

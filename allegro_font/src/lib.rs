@@ -28,5 +28,4 @@ pub mod addon;
 pub mod font;
 
 #[macro_escape]
-#[path = "../../src/common_macros.rs"]
 pub mod macros;

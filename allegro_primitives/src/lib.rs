@@ -27,7 +27,6 @@ static mut initialized: bool = false;
 static mut spawned_on_this_thread: bool = false;
 
 #[macro_escape]
-#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 #[cfg(not(manual_link))]

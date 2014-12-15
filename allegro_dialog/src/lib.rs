@@ -18,7 +18,6 @@ use ffi::allegro_dialog::*;
 use std::kinds::marker::NoSend;
 
 #[macro_escape]
-#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 #[cfg(not(manual_link))]

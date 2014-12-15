@@ -42,7 +42,6 @@ pub mod ffi
 }
 
 #[macro_escape]
-#[path = "../../src/common_macros.rs"]
 pub mod macros;
 
 static mut initialized: bool = false;
