@@ -69,6 +69,7 @@ pub mod ffi
 		pub const ALLEGRO_PRIM_SHORT_2: c_uint = 2;
 
 		#[repr(C)]
+		#[deriving(Copy)]
 		pub struct ALLEGRO_VERTEX_ELEMENT
 		{
 			pub attribute: c_int,
@@ -81,6 +82,7 @@ pub mod ffi
 		opaque!(ALLEGRO_VERTEX_DECL)
 
 		#[repr(C)]
+		#[deriving(Copy)]
 		pub struct ALLEGRO_VERTEX
 		{
 			pub x: c_float,
@@ -131,6 +133,7 @@ pub mod ffi
 }
 
 #[repr(u32)]
+#[deriving(Copy)]
 pub enum PrimType
 {
 	LineList = ALLEGRO_PRIM_LINE_LIST,
@@ -359,7 +362,7 @@ impl PrimitivesAddon
 }
 
 #[repr(C)]
-#[deriving(Clone)]
+#[deriving(Copy, Clone)]
 pub struct Vertex
 {
 	pub x: f32,

@@ -11,6 +11,7 @@ use addon::FontAddon;
 use libc::*;
 use std::mem;
 
+#[deriving(Copy)]
 pub enum FontAlign
 {
 	Left,

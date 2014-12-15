@@ -10,6 +10,7 @@ use ffi::events::ALLEGRO_EVENT_SOURCE;
 opaque!(ALLEGRO_JOYSTICK)
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_JOYSTICK_STATE
 {
 	pub stick: [Stick, ..8u],
@@ -17,6 +18,7 @@ pub struct ALLEGRO_JOYSTICK_STATE
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct Stick
 {
 	pub axis: [c_float, ..3u],

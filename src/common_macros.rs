@@ -18,6 +18,7 @@ macro_rules! opaque
 	($f: ident) =>
 	{
 		/* Mimicking c_void */
+		#[allow(missing_copy_implementations)]
 		pub enum $f
 		{
 		}
@@ -28,6 +29,7 @@ macro_rules! flag_type
 (
 	($f: ident { $($n: ident = $v: expr),*}) =>
 	{
+		#[deriving(Copy)]
 		pub struct $f
 		{
 			bits: u32

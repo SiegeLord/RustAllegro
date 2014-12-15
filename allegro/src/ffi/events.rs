@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(non_snake_case)]
+#![allow(non_snake_case, raw_pointer_deriving)]
 
 use libc::*;
 use std::mem;
@@ -17,6 +17,7 @@ use ffi::joystick::ALLEGRO_JOYSTICK;
 use ffi::timer::ALLEGRO_TIMER;
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_EVENT_SOURCE
 {
 	pub __pad: [c_int, ..32]
@@ -48,6 +49,7 @@ pub const ALLEGRO_EVENT_DISPLAY_SWITCH_OUT: u32 = 46;
 pub const ALLEGRO_EVENT_DISPLAY_ORIENTATION: u32 = 47;
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_ANY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -56,6 +58,7 @@ pub struct ALLEGRO_ANY_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_DISPLAY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -69,6 +72,7 @@ pub struct ALLEGRO_DISPLAY_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_JOYSTICK_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -82,6 +86,7 @@ pub struct ALLEGRO_JOYSTICK_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_KEYBOARD_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -95,6 +100,7 @@ pub struct ALLEGRO_KEYBOARD_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_MOUSE_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -114,6 +120,7 @@ pub struct ALLEGRO_MOUSE_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_TIMER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -124,6 +131,7 @@ pub struct ALLEGRO_TIMER_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_USER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -137,6 +145,7 @@ pub struct ALLEGRO_USER_EVENT
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_EVENT
 {
 	pub data: [c_bool, ..72u],

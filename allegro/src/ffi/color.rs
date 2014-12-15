@@ -5,7 +5,7 @@
 use libc::*;
 
 #[repr(C)]
-#[deriving(Clone)]
+#[deriving(Copy, Clone)]
 pub struct ALLEGRO_COLOR
 {
 	pub r: f32,

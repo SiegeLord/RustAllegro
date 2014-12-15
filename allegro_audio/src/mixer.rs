@@ -5,7 +5,6 @@
 use allegro::c_bool;
 
 use libc::*;
-use std::option::Some as RealSome;
 use std::mem;
 use std::ptr;
 
@@ -216,18 +215,18 @@ pub trait MixerLike : HasMixer
 
 		match cb
 		{
-			RealSome(cb) =>
+			Some(cb) =>
 			{
 				let mut cbh = box CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() };
 				let ret = unsafe
 				{
-					al_set_mixer_postprocess_callback(allegro_mixer, RealSome(mixer_callback), &mut *cbh as *mut _ as *mut _)
+					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback), &mut *cbh as *mut _ as *mut _)
 				};
 				if ret == 0
 				{
 					return Err(())
 				}
-				self.get_mixer_mut().callback = RealSome(cbh);
+				self.get_mixer_mut().callback = Some(cbh);
 			},
 			None =>
 			{
@@ -278,7 +277,7 @@ impl AttachToMixerImpl for Mixer
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_mixer) }, Mixer::detach);
-			self.parent = RealSome(c1);
+			self.parent = Some(c1);
 			Ok(c2)
 		}
 	}

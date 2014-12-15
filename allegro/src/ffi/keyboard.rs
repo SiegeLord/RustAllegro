@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(non_snake_case)]
+#![allow(non_snake_case, raw_pointer_deriving)]
 
 use libc::*;
 
@@ -13,6 +13,7 @@ use rust_util::c_bool;
 opaque!(ALLEGRO_KEYBOARD)
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_KEYBOARD_STATE
 {
 	pub display: *mut ALLEGRO_DISPLAY,

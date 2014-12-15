@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::option::Some as RealSome;
 use std::mem;
 use std::kinds::marker::NoSend;
 use std::task::spawn;
@@ -195,7 +194,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.keyboard_event_source = RealSome(new_event_source_ref(al_get_keyboard_event_source()));
+				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
 			}
 		}
 
@@ -256,7 +255,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.mouse_event_source = RealSome(new_event_source_ref(al_get_mouse_event_source()));
+				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
 			}
 		}
 
@@ -292,7 +291,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.joystick_event_source = RealSome(new_event_source_ref(al_get_joystick_event_source()));
+				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
 			}
 		}
 

@@ -7,7 +7,8 @@ use std::ops::Deref;
 
 use ffi::*;
 
-#[deriving(Clone)]
+#[deriving(Copy, Clone)]
+#[repr(u32)]
 pub struct Color(pub ALLEGRO_COLOR);
 
 impl Color
@@ -63,6 +64,7 @@ impl Deref<ALLEGRO_COLOR> for Color
 }
 
 #[repr(u32)]
+#[deriving(Copy)]
 pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,

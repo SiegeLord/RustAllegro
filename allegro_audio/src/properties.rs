@@ -5,6 +5,7 @@
 use ffi::*;
 
 #[deriving(PartialEq)]
+#[deriving(Copy)]
 pub enum AudioDepth
 {
 	I8,
@@ -61,6 +62,7 @@ impl AudioDepth
 	}
 }
 
+#[deriving(Copy)]
 pub enum ChannelConf
 {
 	Conf1,
@@ -117,6 +119,7 @@ impl ChannelConf
 	}
 }
 
+#[deriving(Copy)]
 pub enum Playmode
 {
 	Once,
@@ -148,6 +151,7 @@ impl Playmode
 	}
 }
 
+#[deriving(Copy)]
 pub enum MixerQuality
 {
 	Point,

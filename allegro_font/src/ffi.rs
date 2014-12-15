@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(non_camel_case_types)]
+#![allow(non_camel_case_types, raw_pointer_deriving)]
 
 pub use self::allegro_font::*;
 
@@ -13,6 +13,7 @@ pub mod allegro_font
     use allegro::ffi::{ALLEGRO_USTR, ALLEGRO_COLOR, ALLEGRO_BITMAP};
 
 	#[repr(C)]
+	#[deriving(Copy)]
 	pub struct ALLEGRO_FONT
 	{
 		pub data: *mut c_void,
@@ -21,6 +22,7 @@ pub mod allegro_font
 	}
 
 	#[repr(C)]
+	#[deriving(Copy)]
 	pub struct ALLEGRO_FONT_VTABLE
 	{
 		pub font_height: Option<extern "C" fn(arg1: *const ALLEGRO_FONT) -> c_int>,

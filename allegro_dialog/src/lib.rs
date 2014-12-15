@@ -15,7 +15,6 @@ extern crate libc;
 use allegro::{Core, Flag, Display};
 use ffi::allegro_dialog::*;
 
-use std::option::Some;
 use std::kinds::marker::NoSend;
 
 #[macro_escape]
@@ -91,6 +90,7 @@ flag_type!(
 	}
 )
 
+#[deriving(Copy)]
 pub enum MessageBoxResult
 {
 	NoButton,

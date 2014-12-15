@@ -6,7 +6,6 @@ use allegro::c_bool;
 
 use libc::*;
 use std::mem;
-use std::option::Some as RealSome;
 use std::io::BufWriter;
 
 use addon::AudioAddon;
@@ -137,7 +136,7 @@ impl AudioStream
 		set_impl!(self, al_set_audio_stream_pan,
 		match pan
 		{
-			RealSome(p) => p as c_float,
+			Some(p) => p as c_float,
 			None => ALLEGRO_AUDIO_PAN_NONE
 		})
 	}
@@ -325,7 +324,7 @@ impl AttachToMixerImpl for AudioStream
 		else
 		{
 			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_audio_stream) }, AudioStream::detach);
-			self.parent = RealSome(c1);
+			self.parent = Some(c1);
 			Ok(c2)
 		}
 	}

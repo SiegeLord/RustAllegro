@@ -2,6 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(raw_pointer_deriving)]
+
 use libc::*;
 use ffi::display::ALLEGRO_DISPLAY;
 use ffi::events::ALLEGRO_EVENT_SOURCE;
@@ -12,6 +14,7 @@ opaque!(ALLEGRO_MOUSE)
 pub const ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct ALLEGRO_MOUSE_STATE
 {
     pub x: c_int,

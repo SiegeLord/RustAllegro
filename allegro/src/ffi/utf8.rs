@@ -2,6 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(raw_pointer_deriving)]
+
 use libc::*;
 use rust_util::c_bool;
 
@@ -9,6 +11,7 @@ pub type ALLEGRO_USTR = __al_tagbstring;
 pub type ALLEGRO_USTR_INFO = __al_tagbstring;
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct __al_tagbstring
 {
     pub mlen: c_int,

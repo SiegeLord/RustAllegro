@@ -7,7 +7,7 @@ use rust_util::Flag;
 use libc::*;
 use std::mem;
 
-#[deriving(PartialEq)]
+#[deriving(Copy, PartialEq)]
 #[repr(u32)]
 pub enum KeyCode
 {
