@@ -5,6 +5,7 @@
 use libc::*;
 use std::mem;
 use std::rt::start;
+use std::thunk::Thunk;
 
 use ffi::*;
 
@@ -22,7 +23,7 @@ pub fn run(argc: int, argv: *const *const u8, main_func: extern "Rust" fn()) -> 
 extern "C"
 fn allegro_main(argc: int, argv: *const *const u8) -> c_int
 {
-	start(argc, argv, rust_main) as c_int
+	start(argc, argv, Thunk::new(|| rust_main())) as c_int
 }
 
 fn rust_main()

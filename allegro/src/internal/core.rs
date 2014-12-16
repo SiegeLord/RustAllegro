@@ -104,10 +104,10 @@ impl Core
 		res
 	}
 
-	pub fn spawn(&self, thread_proc: proc(Core):Send)
+	pub fn spawn<F: FnOnce<(Core,), ()> + Send>(&self, thread_proc: F)
 	{
 		let mutex = self.get_core_mutex();
-		spawn(proc()
+		spawn(move ||
 		{
 			thread_proc(Core
 			{

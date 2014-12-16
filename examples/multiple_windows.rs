@@ -100,7 +100,7 @@ allegro_main!
 
 	let (sender, receiver) = comm::sync_channel(0);
 
-	core.spawn(proc(core)
+	core.spawn(move |core|
 	{
 		other_window(core, sender, init_only);
 	});
