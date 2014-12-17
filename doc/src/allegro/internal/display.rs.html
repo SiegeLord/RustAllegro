@@ -394,6 +394,9 @@
 <span id='352'>352</span>
 <span id='353'>353</span>
 <span id='354'>354</span>
+<span id='355'>355</span>
+<span id='356'>356</span>
+<span id='357'>357</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -432,6 +435,7 @@
 )
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOption</span>
 {
 	<span class='ident'>RedSize</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_RED_SIZE</span>,
@@ -468,6 +472,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOptionImportance</span>
 {
 	<span class='ident'>DontCare</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DONTCARE</span>,
@@ -476,6 +481,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOrientation</span>
 {
 	<span class='ident'>DisplayOrientation0Degrees</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES</span>,

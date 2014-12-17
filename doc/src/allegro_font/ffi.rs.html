@@ -106,12 +106,14 @@
 <span id='64'>64</span>
 <span id='65'>65</span>
 <span id='66'>66</span>
+<span id='67'>67</span>
+<span id='68'>68</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>, <span class='ident'>raw_pointer_deriving</span>)]</span>
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>allegro_font</span>::<span class='op'>*</span>;
 
@@ -122,6 +124,7 @@
     <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>ffi</span>::{<span class='ident'>ALLEGRO_USTR</span>, <span class='ident'>ALLEGRO_COLOR</span>, <span class='ident'>ALLEGRO_BITMAP</span>};
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_FONT</span>
 	{
 		<span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>,
@@ -130,6 +133,7 @@
 	}
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_FONT_VTABLE</span>
 	{
 		<span class='kw'>pub</span> <span class='ident'>font_height</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>arg1</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span><span class='op'>&gt;</span>,

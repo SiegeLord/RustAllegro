@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/src/common_macros.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_audio/src/macros.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
-    <title>common_macros.rs.html -- source</title>
+    <title>macros.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
     
@@ -156,6 +156,8 @@
 <span id='114'>114</span>
 <span id='115'>115</span>
 <span id='116'>116</span>
+<span id='117'>117</span>
+<span id='118'>118</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -177,6 +179,7 @@
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
 	{
 		<span class='comment'>/* Mimicking c_void */</span>
+		<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
 		}
@@ -187,6 +190,7 @@
 (
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span> { $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>n</span>: <span class='ident'>ident</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>: <span class='ident'>expr</span>),<span class='op'>*</span>}) <span class='op'>=&gt;</span>
 	{
+		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
 			<span class='ident'>bits</span>: <span class='ident'>u32</span>
@@ -211,7 +215,7 @@
 
 		<span class='kw'>impl</span> <span class='ident'>BitOr</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
-			<span class='kw'>fn</span> <span class='ident'>bitor</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>e</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
+			<span class='kw'>fn</span> <span class='ident'>bitor</span>(<span class='self'>self</span>, <span class='ident'>e</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 			{
 				<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>{<span class='ident'>bits</span>: <span class='self'>self</span>.<span class='ident'>bits</span> <span class='op'>|</span> <span class='ident'>e</span>.<span class='ident'>bits</span>}
 			}
@@ -219,7 +223,7 @@
 
 		<span class='kw'>impl</span> <span class='ident'>BitAnd</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='ident'>bool</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
-			<span class='kw'>fn</span> <span class='ident'>bitand</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>e</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+			<span class='kw'>fn</span> <span class='ident'>bitand</span>(<span class='self'>self</span>, <span class='ident'>e</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
 			{
 				<span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>e</span>.<span class='ident'>bits</span> <span class='op'>!=</span> <span class='number'>0</span>
 			}
@@ -313,13 +317,13 @@
     
 
     <script>
-        window.rootPath = "../../../../../";
-        window.currentCrate = "allegro_dialog";
+        window.rootPath = "../../";
+        window.currentCrate = "allegro_audio";
         window.playgroundUrl = "";
     </script>
-    <script src="../../../../../jquery.js"></script>
-    <script src="../../../../../main.js"></script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
     
-    <script async src="../../../../../search-index.js"></script>
+    <script async src="../../search-index.js"></script>
 </body>
 </html>

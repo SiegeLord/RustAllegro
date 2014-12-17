@@ -817,14 +817,12 @@
 <span id='775'>775</span>
 <span id='776'>776</span>
 <span id='777'>777</span>
-<span id='778'>778</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>::<span class='prelude-val'>Some</span> <span class='kw'>as</span> <span class='ident'>RealSome</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>task</span>::<span class='ident'>spawn</span>;
@@ -926,10 +924,10 @@
 		<span class='ident'>res</span>
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>spawn</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>thread_proc</span>: <span class='kw'>proc</span>(<span class='ident'>Core</span>):<span class='ident'>Send</span>)
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>spawn</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>FnOnce</span><span class='op'>&lt;</span>(<span class='ident'>Core</span>,), ()<span class='op'>&gt;</span> <span class='op'>+</span> <span class='ident'>Send</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>thread_proc</span>: <span class='ident'>F</span>)
 	{
 		<span class='kw'>let</span> <span class='ident'>mutex</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_core_mutex</span>();
-		<span class='ident'>spawn</span>(<span class='kw'>proc</span>()
+		<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span>
 		{
 			<span class='ident'>thread_proc</span>(<span class='ident'>Core</span>
 			{
@@ -1016,7 +1014,7 @@
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='self'>self</span>.<span class='ident'>keyboard_event_source</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_keyboard_event_source</span>()));
+				<span class='self'>self</span>.<span class='ident'>keyboard_event_source</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_keyboard_event_source</span>()));
 			}
 		}
 
@@ -1077,7 +1075,7 @@
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='self'>self</span>.<span class='ident'>mouse_event_source</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_mouse_event_source</span>()));
+				<span class='self'>self</span>.<span class='ident'>mouse_event_source</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_mouse_event_source</span>()));
 			}
 		}
 
@@ -1113,7 +1111,7 @@
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='self'>self</span>.<span class='ident'>joystick_event_source</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_joystick_event_source</span>()));
+				<span class='self'>self</span>.<span class='ident'>joystick_event_source</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_joystick_event_source</span>()));
 			}
 		}
 

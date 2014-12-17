@@ -124,10 +124,15 @@
 <span id='82'>82</span>
 <span id='83'>83</span>
 <span id='84'>84</span>
+<span id='85'>85</span>
+<span id='86'>86</span>
+<span id='87'>87</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_deriving</span>)]</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
@@ -136,6 +141,7 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>__al_tagbstring</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>__al_tagbstring</span>
 {
     <span class='kw'>pub</span> <span class='ident'>mlen</span>: <span class='ident'>c_int</span>,

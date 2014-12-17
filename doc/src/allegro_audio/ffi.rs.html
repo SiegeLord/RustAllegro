@@ -252,6 +252,11 @@
 <span id='210'>210</span>
 <span id='211'>211</span>
 <span id='212'>212</span>
+<span id='213'>213</span>
+<span id='214'>214</span>
+<span id='215'>215</span>
+<span id='216'>216</span>
+<span id='217'>217</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -276,6 +281,7 @@
 	<span class='comment'>// These are enums instead of consts because functions expect these an arguments.</span>
 	<span class='comment'>// An API bug that cannot really be fixed.</span>
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ALLEGRO_AUDIO_DEPTH</span>
 	{
 		<span class='ident'>ALLEGRO_AUDIO_DEPTH_INT8</span> <span class='op'>=</span> <span class='number'>0</span>,
@@ -291,6 +297,7 @@
 	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_AUDIO_DEPTH_UINT8</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>8</span>;
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ALLEGRO_CHANNEL_CONF</span>
 	{
 		<span class='ident'>ALLEGRO_CHANNEL_CONF_1</span> <span class='op'>=</span> <span class='number'>16</span>,
@@ -303,6 +310,7 @@
 	}
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ALLEGRO_PLAYMODE</span>
 	{
 		<span class='ident'>ALLEGRO_PLAYMODE_ONCE</span> <span class='op'>=</span> <span class='number'>256</span>,
@@ -313,6 +321,7 @@
 	}
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ALLEGRO_MIXER_QUALITY</span>
 	{
 		<span class='ident'>ALLEGRO_MIXER_QUALITY_POINT</span> <span class='op'>=</span> <span class='number'>272</span>,
@@ -323,6 +332,7 @@
 	<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_SAMPLE</span>)
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_SAMPLE_ID</span>
 	{
 		<span class='kw'>pub</span> <span class='ident'>_index</span>: <span class='ident'>c_int</span>,

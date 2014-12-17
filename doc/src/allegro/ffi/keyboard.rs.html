@@ -72,12 +72,13 @@
 <span id='30'>30</span>
 <span id='31'>31</span>
 <span id='32'>32</span>
+<span id='33'>33</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>, <span class='ident'>raw_pointer_deriving</span>)]</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
@@ -88,6 +89,7 @@
 <span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_KEYBOARD</span>)
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_KEYBOARD_STATE</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,

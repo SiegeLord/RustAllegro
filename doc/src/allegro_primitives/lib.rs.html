@@ -430,6 +430,8 @@
 <span id='388'>388</span>
 <span id='389'>389</span>
 <span id='390'>390</span>
+<span id='391'>391</span>
+<span id='392'>392</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -460,7 +462,6 @@
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
 
 <span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
-<span class='attribute'>#[<span class='ident'>path</span> <span class='op'>=</span> <span class='string'>&quot;../../src/common_macros.rs&quot;</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>macros</span>;
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>manual_link</span>))]</span>
@@ -502,6 +503,7 @@
 		<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_PRIM_SHORT_2</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>2</span>;
 
 		<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_VERTEX_ELEMENT</span>
 		{
 			<span class='kw'>pub</span> <span class='ident'>attribute</span>: <span class='ident'>c_int</span>,
@@ -514,6 +516,7 @@
 		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_VERTEX_DECL</span>)
 
 		<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_VERTEX</span>
 		{
 			<span class='kw'>pub</span> <span class='ident'>x</span>: <span class='ident'>c_float</span>,
@@ -564,6 +567,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PrimType</span>
 {
 	<span class='ident'>LineList</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_PRIM_LINE_LIST</span>,
@@ -792,7 +796,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Vertex</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>x</span>: <span class='ident'>f32</span>,

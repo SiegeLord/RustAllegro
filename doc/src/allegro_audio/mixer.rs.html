@@ -347,7 +347,6 @@
 <span id='305'>305</span>
 <span id='306'>306</span>
 <span id='307'>307</span>
-<span id='308'>308</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -356,7 +355,6 @@
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>c_bool</span>;
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>::<span class='prelude-val'>Some</span> <span class='kw'>as</span> <span class='ident'>RealSome</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
@@ -567,18 +565,18 @@
 
 		<span class='kw'>match</span> <span class='ident'>cb</span>
 		{
-			<span class='ident'>RealSome</span>(<span class='ident'>cb</span>) <span class='op'>=&gt;</span>
+			<span class='prelude-val'>Some</span>(<span class='ident'>cb</span>) <span class='op'>=&gt;</span>
 			{
 				<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>cbh</span> <span class='op'>=</span> <span class='kw'>box</span> <span class='ident'>CallbackHolder</span>{ <span class='ident'>cb</span>: <span class='ident'>cb</span>, <span class='ident'>sample_size</span>: <span class='self'>self</span>.<span class='ident'>get_channels</span>().<span class='ident'>get_num_channels</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>get_depth</span>().<span class='ident'>get_byte_size</span>() };
 				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
 				{
-					<span class='ident'>al_set_mixer_postprocess_callback</span>(<span class='ident'>allegro_mixer</span>, <span class='ident'>RealSome</span>(<span class='ident'>mixer_callback</span>), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='op'>*</span><span class='ident'>cbh</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _ <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _)
+					<span class='ident'>al_set_mixer_postprocess_callback</span>(<span class='ident'>allegro_mixer</span>, <span class='prelude-val'>Some</span>(<span class='ident'>mixer_callback</span>), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='op'>*</span><span class='ident'>cbh</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _ <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _)
 				};
 				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>==</span> <span class='number'>0</span>
 				{
 					<span class='kw'>return</span> <span class='prelude-val'>Err</span>(())
 				}
-				<span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>().<span class='ident'>callback</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>cbh</span>);
+				<span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>().<span class='ident'>callback</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>cbh</span>);
 			},
 			<span class='prelude-val'>None</span> <span class='op'>=&gt;</span>
 			{
@@ -629,7 +627,7 @@
 		<span class='kw'>else</span>
 		{
 			<span class='kw'>let</span> (<span class='ident'>c1</span>, <span class='ident'>c2</span>) <span class='op'>=</span> <span class='ident'>Connection</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span>{ <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>allegro_mixer</span>) }, <span class='ident'>Mixer</span>::<span class='ident'>detach</span>);
-			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>c1</span>);
+			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>c1</span>);
 			<span class='prelude-val'>Ok</span>(<span class='ident'>c2</span>)
 		}
 	}

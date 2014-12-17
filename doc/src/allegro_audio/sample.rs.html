@@ -483,7 +483,6 @@
 <span id='441'>441</span>
 <span id='442'>442</span>
 <span id='443'>443</span>
-<span id='444'>444</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -495,7 +494,6 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Arc</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>::<span class='prelude-val'>Some</span> <span class='kw'>as</span> <span class='ident'>RealSome</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>AtomicBool</span>, <span class='ident'>SeqCst</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>raw</span>::<span class='ident'>Slice</span>;
 
@@ -812,7 +810,7 @@
 		<span class='macro'>set_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_set_sample_instance_pan</span>,
 		<span class='kw'>match</span> <span class='ident'>pan</span>
 		{
-			<span class='ident'>RealSome</span>(<span class='ident'>p</span>) <span class='op'>=&gt;</span> <span class='ident'>p</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
+			<span class='prelude-val'>Some</span>(<span class='ident'>p</span>) <span class='op'>=&gt;</span> <span class='ident'>p</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
 			<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_AUDIO_PAN_NONE</span>
 		})
 	}
@@ -916,7 +914,7 @@
 		<span class='kw'>else</span>
 		{
 			<span class='kw'>let</span> (<span class='ident'>c1</span>, <span class='ident'>c2</span>) <span class='op'>=</span> <span class='ident'>Connection</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span>{ <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample_instance</span>) }, <span class='ident'>SampleInstance</span>::<span class='ident'>detach</span>);
-			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='ident'>RealSome</span>(<span class='ident'>c1</span>);
+			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>c1</span>);
 			<span class='prelude-val'>Ok</span>(<span class='ident'>c2</span>)
 		}
 	}

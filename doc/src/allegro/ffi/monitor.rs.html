@@ -63,6 +63,7 @@
 <span id='21'>21</span>
 <span id='22'>22</span>
 <span id='23'>23</span>
+<span id='24'>24</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -72,6 +73,7 @@
 <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>x1</span>: <span class='ident'>c_int</span>,

@@ -154,6 +154,8 @@
 <span id='112'>112</span>
 <span id='113'>113</span>
 <span id='114'>114</span>
+<span id='115'>115</span>
+<span id='116'>116</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -164,7 +166,8 @@
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
 
-<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Color</span>(<span class='kw'>pub</span> <span class='ident'>ALLEGRO_COLOR</span>);
 
 <span class='kw'>impl</span> <span class='ident'>Color</span>
@@ -220,6 +223,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PixelFormat</span>
 {
 	<span class='ident'>PixelFormatAny</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_PIXEL_FORMAT_ANY</span>,
