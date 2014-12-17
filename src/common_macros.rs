@@ -54,7 +54,7 @@ macro_rules! flag_type
 
 		impl BitOr<$f, $f> for $f
 		{
-			fn bitor(&self, e: &$f) -> $f
+			fn bitor(self, e: $f) -> $f
 			{
 				$f{bits: self.bits | e.bits}
 			}
@@ -62,7 +62,7 @@ macro_rules! flag_type
 
 		impl BitAnd<$f, bool> for $f
 		{
-			fn bitand(&self, e: &$f) -> bool
+			fn bitand(self, e: $f) -> bool
 			{
 				self.bits & e.bits != 0
 			}
