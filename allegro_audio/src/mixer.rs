@@ -144,12 +144,12 @@ pub trait MixerLike : HasMixer
 		inst.and_then(|mut inst|
 		{
 			let m = self.get_mixer_mut();
-			if_ok!(inst.attach(m))
-			if_ok!(inst.set_gain(gain))
-			if_ok!(inst.set_pan(pan))
-			if_ok!(inst.set_speed(speed))
-			if_ok!(inst.set_playmode(playmode))
-			if_ok!(inst.set_playing(true))
+			if_ok!(inst.attach(m));
+			if_ok!(inst.set_gain(gain));
+			if_ok!(inst.set_pan(pan));
+			if_ok!(inst.set_speed(speed));
+			if_ok!(inst.set_playmode(playmode));
+			if_ok!(inst.set_playing(true));
 			Ok(inst)
 		})
 	}
@@ -220,7 +220,7 @@ pub trait MixerLike : HasMixer
 				let mut cbh = box CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() };
 				let ret = unsafe
 				{
-					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback), &mut *cbh as *mut _ as *mut _)
+					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)), &mut *cbh as *mut _ as *mut _)
 				};
 				if ret == 0
 				{

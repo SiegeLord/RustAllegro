@@ -69,7 +69,7 @@ pub mod allegro_audio
 		ALLEGRO_MIXER_QUALITY_CUBIC = 274,
 	}
 
-	opaque!(ALLEGRO_SAMPLE)
+	opaque!(ALLEGRO_SAMPLE);
 
 	#[repr(C)]
 	#[deriving(Copy)]
@@ -79,10 +79,10 @@ pub mod allegro_audio
 		pub _id: c_int,
 	}
 
-	opaque!(ALLEGRO_SAMPLE_INSTANCE)
-	opaque!(ALLEGRO_AUDIO_STREAM)
-	opaque!(ALLEGRO_MIXER)
-	opaque!(ALLEGRO_VOICE)
+	opaque!(ALLEGRO_SAMPLE_INSTANCE);
+	opaque!(ALLEGRO_AUDIO_STREAM);
+	opaque!(ALLEGRO_MIXER);
+	opaque!(ALLEGRO_VOICE);
 
 	extern "C"
 	{

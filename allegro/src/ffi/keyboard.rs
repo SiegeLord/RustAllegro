@@ -10,7 +10,7 @@ use ffi::events::ALLEGRO_EVENT_SOURCE;
 use ffi::display::ALLEGRO_DISPLAY;
 use rust_util::c_bool;
 
-opaque!(ALLEGRO_KEYBOARD)
+opaque!(ALLEGRO_KEYBOARD);
 
 #[repr(C)]
 #[deriving(Copy)]

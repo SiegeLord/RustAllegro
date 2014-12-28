@@ -38,8 +38,8 @@ pub mod ffi
 		use allegro::c_bool;
 		use allegro::ffi::{ALLEGRO_DISPLAY, ALLEGRO_EVENT_SOURCE};
 
-		opaque!(ALLEGRO_FILECHOOSER)
-		opaque!(ALLEGRO_TEXTLOG)
+		opaque!(ALLEGRO_FILECHOOSER);
+		opaque!(ALLEGRO_TEXTLOG);
 
 		pub const ALLEGRO_FILECHOOSER_FILE_MUST_EXIST: u32 = 1;
 		pub const ALLEGRO_FILECHOOSER_SAVE: u32 = 2;
@@ -78,7 +78,7 @@ pub mod ffi
 	}
 }
 
-flag_type!(
+flag_type!{
 	MessageBoxFlags
 	{
 		MESSAGEBOX_WARN =      ALLEGRO_MESSAGEBOX_WARN,
@@ -87,7 +87,7 @@ flag_type!(
 		MESSAGEBOX_YES_NO =    ALLEGRO_MESSAGEBOX_YES_NO,
 		MESSAGEBOX_QUESTION =  ALLEGRO_MESSAGEBOX_QUESTION
 	}
-)
+}
 
 #[deriving(Copy)]
 pub enum MessageBoxResult
@@ -101,6 +101,7 @@ static mut initialized: bool = false;
 #[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
+#[allow(missing_copy_implementations)]
 pub struct DialogAddon
 {
 	no_send_marker: NoSend

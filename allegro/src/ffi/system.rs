@@ -7,7 +7,7 @@ use libc::*;
 use ffi::path::*;
 use rust_util::c_bool;
 
-opaque!(ALLEGRO_SYSTEM)
+opaque!(ALLEGRO_SYSTEM);
 
 extern "C"
 {

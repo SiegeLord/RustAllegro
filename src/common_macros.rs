@@ -14,7 +14,7 @@ macro_rules! if_ok
 }
 
 macro_rules! opaque
-(
+{
 	($f: ident) =>
 	{
 		/* Mimicking c_void */
@@ -23,10 +23,10 @@ macro_rules! opaque
 		{
 		}
 	}
-)
+}
 
 macro_rules! flag_type
-(
+{
 	($f: ident { $($n: ident = $v: expr),*}) =>
 	{
 		#[deriving(Copy)]
@@ -72,10 +72,10 @@ macro_rules! flag_type
 			pub const $n: $f = $f{bits: $v};
 		)+
 	}
-)
+}
 
 macro_rules! cast_to_c
-(
+{
 	($p:ident, f32) =>
 	{
 		$p as c_float
@@ -84,10 +84,10 @@ macro_rules! cast_to_c
 	{
 		*$p
 	}
-)
+}
 
 macro_rules! wrap_bitmap_drawing
-(
+{
 	($cf:ident -> $rf:ident ( $( $p:ident : $t:ident ),* )) =>
 	{
 		fn $rf<T: BitmapLike>(dummy:dummy, bitmap: &T, $( $p : $t ),* , flags: BitmapDrawingFlags)
@@ -103,7 +103,7 @@ macro_rules! wrap_bitmap_drawing
 			}
 		}
 	}
-)
+}
 
 //~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32))
 //~ wrap_bitmap_drawing!(al_draw_bitmap_region -> draw_bitmap_region(sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32))

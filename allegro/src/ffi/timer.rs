@@ -7,7 +7,7 @@ use rust_util::c_bool;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 
-opaque!(ALLEGRO_TIMER)
+opaque!(ALLEGRO_TIMER);
 
 extern "C"
 {

@@ -60,15 +60,16 @@ static mut initialized: bool = false;
 //#[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
-flag_type!(
+flag_type!{
 	TtfFlags
 	{
 		TTF_NO_KERNING = ALLEGRO_TTF_NO_KERNING,
 		TTF_MONOCHROME = ALLEGRO_TTF_MONOCHROME,
 		TTF_NO_AUTOHINT = ALLEGRO_TTF_NO_AUTOHINT
 	}
-)
+}
 
+#[allow(missing_copy_implementations)]
 pub struct TtfAddon
 {
 	no_send_marker: NoSend

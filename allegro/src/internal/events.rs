@@ -154,6 +154,7 @@ impl Drop for EventQueue
 	}
 }
 
+#[allow(missing_copy_implementations)]
 pub struct EventSource
 {
 	allegro_source: *mut ALLEGRO_EVENT_SOURCE,

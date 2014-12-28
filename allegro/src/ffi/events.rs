@@ -199,7 +199,7 @@ impl ALLEGRO_EVENT
 	}
 }
 
-opaque!(ALLEGRO_EVENT_QUEUE)
+opaque!(ALLEGRO_EVENT_QUEUE);
 
 extern "C"
 {

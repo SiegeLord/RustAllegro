@@ -10,7 +10,7 @@ use rust_util::Flag;
 
 use ffi::*;
 
-flag_type!(
+flag_type!{
 	BitmapFlags
 	{
 		MEMORY_BITMAP = ALLEGRO_MEMORY_BITMAP,
@@ -24,7 +24,7 @@ flag_type!(
 		NO_PREMULTIPLIED_ALPHA = ALLEGRO_NO_PREMULTIPLIED_ALPHA,
 		VIDEO_BITMAP = ALLEGRO_VIDEO_BITMAP
 	}
-)
+}
 
 pub trait BitmapLike
 {

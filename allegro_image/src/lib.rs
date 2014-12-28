@@ -48,6 +48,7 @@ static mut initialized: bool = false;
 //#[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
+#[allow(missing_copy_implementations)]
 pub struct ImageAddon
 {
 	no_send_marker: NoSend

@@ -16,7 +16,7 @@ pub const ALLEGRO_NATIVE_PATH_SEP: char = '/';
 #[cfg(not(windows))]
 pub const ALLEGRO_NATIVE_DRIVE_SEP: char = '\x00';
 
-opaque!(ALLEGRO_PATH)
+opaque!(ALLEGRO_PATH);
 
 extern "C"
 {

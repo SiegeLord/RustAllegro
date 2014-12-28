@@ -5,7 +5,7 @@
 use libc::*;
 use std::mem;
 use std::kinds::marker::NoSend;
-use std::task::spawn;
+use std::thread::Thread;
 use std::sync::{Arc, Mutex};
 
 use ffi::*;
@@ -18,14 +18,14 @@ use internal::bitmap_like::{BitmapLike, BitmapFlags};
 use internal::transformations::{Transform, new_transform_wrap};
 use rust_util::Flag;
 
-flag_type!(
+flag_type!{
 	BitmapDrawingFlags
 	{
 		FLIP_NONE = 0x1,
 		FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
 		FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
 	}
-)
+}
 
 pub mod external
 {
@@ -104,10 +104,10 @@ impl Core
 		res
 	}
 
-	pub fn spawn<F: FnOnce<(Core,), ()> + Send>(&self, thread_proc: F)
+	pub fn spawn<F: FnOnce(Core) + Send>(&self, thread_proc: F)
 	{
 		let mutex = self.get_core_mutex();
-		spawn(move ||
+		Thread::spawn(move ||
 		{
 			thread_proc(Core
 			{
@@ -117,7 +117,7 @@ impl Core
 				mutex: mutex,
 				no_send_marker: NoSend,
 			});
-		});
+		}).detach();
 	}
 
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
@@ -325,7 +325,7 @@ impl Core
 
 	pub fn get_mouse_num_buttons(&self) -> u32
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			al_get_mouse_num_buttons() as u32
@@ -334,7 +334,7 @@ impl Core
 
 	pub fn get_mouse_num_axes(&self) -> u32
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			al_get_mouse_num_axes() as u32
@@ -343,7 +343,7 @@ impl Core
 
 	pub fn set_mouse_xy(&self, display: &Display, x: i32, y: i32) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_set_mouse_xy(display.get_allegro_display(), x as c_int, y as c_int) != 0
@@ -359,7 +359,7 @@ impl Core
 
 	pub fn set_mouse_z(&self, z: i32) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_set_mouse_z(z as c_int) != 0
@@ -375,7 +375,7 @@ impl Core
 
 	pub fn set_mouse_w(&self, w: i32) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_set_mouse_w(w as c_int) != 0
@@ -391,7 +391,7 @@ impl Core
 
 	pub fn set_mouse_axis(&self, axis: i32, value: i32) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_set_mouse_axis(axis as c_int, value as c_int) != 0
@@ -407,7 +407,7 @@ impl Core
 
 	pub fn grab_mouse(&self, display: &Display) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_grab_mouse(display.get_allegro_display()) != 0
@@ -423,7 +423,7 @@ impl Core
 
 	pub fn ungrab_mouse(&self) -> Result<(), ()>
 	{
-		assert!(self.is_mouse_installed())
+		assert!(self.is_mouse_installed());
 		unsafe
 		{
 			if al_ungrab_mouse() != 0

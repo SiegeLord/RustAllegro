@@ -17,7 +17,7 @@ use ffi::*;
 
 pub use rust_util::c_bool;
 
-flag_type!(
+flag_type!{
 	DisplayFlags
 	{
 		WINDOWED                  = ALLEGRO_WINDOWED,
@@ -32,7 +32,7 @@ flag_type!(
 		FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
 		MINIMIZED                 = ALLEGRO_MINIMIZED
 	}
-)
+}
 
 #[repr(u32)]
 #[deriving(Copy)]

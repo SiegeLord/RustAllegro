@@ -7,7 +7,7 @@ use rust_util::c_bool;
 
 use ffi::events::ALLEGRO_EVENT_SOURCE;
 
-opaque!(ALLEGRO_JOYSTICK)
+opaque!(ALLEGRO_JOYSTICK);
 
 #[repr(C)]
 #[deriving(Copy)]

@@ -10,14 +10,15 @@ use ffi::*;
 use rust_util::Flag;
 use internal::core::Core;
 
-flag_type!(
+flag_type!{
 	StickFlags
 	{
 		DIGITAL = ALLEGRO_JOYFLAG_DIGITAL,
 		ANALOGUE = ALLEGRO_JOYFLAG_ANALOGUE
 	}
-)
+}
 
+#[allow(missing_copy_implementations)]
 pub struct Joystick
 {
 	allegro_joystick: *mut ALLEGRO_JOYSTICK,

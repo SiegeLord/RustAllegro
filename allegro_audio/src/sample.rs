@@ -36,11 +36,11 @@ macro_rules! data_sample_impl
 	}
 }
 
-data_sample_impl!(i8, AudioDepth::I8)
-data_sample_impl!(i16, AudioDepth::I16)
-data_sample_impl!(u8, AudioDepth::U8)
-data_sample_impl!(u16, AudioDepth::U16)
-data_sample_impl!(f32, AudioDepth::F32)
+data_sample_impl!(i8, AudioDepth::I8);
+data_sample_impl!(i16, AudioDepth::I16);
+data_sample_impl!(u8, AudioDepth::U8);
+data_sample_impl!(u16, AudioDepth::U16);
+data_sample_impl!(f32, AudioDepth::F32);
 
 // TODO: ALLEGRO_SAMPLE and ALLEGRO_SAMPLE_INSTANCE can probably race on each other...
 // consider adding mutexes (maybe Allegro's mutexes prevent everything bad already)
@@ -82,7 +82,7 @@ impl Sample
 		let inst = SampleInstance::new_raw();
 		inst.and_then(|mut inst|
 		{
-			if_ok!(inst.set_sample(self))
+			if_ok!(inst.set_sample(self));
 			Ok(inst)
 		})
 	}

@@ -78,7 +78,7 @@ pub mod ffi
 
 		pub type Struct_ALLEGRO_VERTEX_DECL = c_void;
 
-		opaque!(ALLEGRO_VERTEX_DECL)
+		opaque!(ALLEGRO_VERTEX_DECL);
 
 		#[repr(C)]
 		#[deriving(Copy)]

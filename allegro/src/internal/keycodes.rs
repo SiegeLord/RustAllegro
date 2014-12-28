@@ -141,7 +141,7 @@ impl KeyCode
 	}
 }
 
-flag_type!(
+flag_type!{
 	KeyModifier
 	{
 		SHIFT = ALLEGRO_KEYMOD_SHIFT,
@@ -161,4 +161,4 @@ flag_type!(
 		ACCENT3 = ALLEGRO_KEYMOD_ACCENT3,
 		ACCENT4 = ALLEGRO_KEYMOD_ACCENT4
 	}
-)
+}

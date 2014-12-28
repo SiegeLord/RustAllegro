@@ -96,8 +96,8 @@ allegro_main!
 		{
 			DisplayClose{source: src, ..} =>
 			{
-				assert!(disp.get_event_source().get_event_source() == src)
-				println!("Display close event...")
+				assert!(disp.get_event_source().get_event_source() == src);
+				println!("Display close event...");
 				break 'exit;
 			},
 			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
