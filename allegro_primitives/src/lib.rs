@@ -23,7 +23,7 @@ use ffi::*;
 use libc::*;
 
 static mut initialized: bool = false;
-//#[thread_local]
+#[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
 #[macro_escape]
