@@ -194,6 +194,7 @@
 <span id='152'>152</span>
 <span id='153'>153</span>
 <span id='154'>154</span>
+<span id='155'>155</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -207,14 +208,15 @@
 <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>Flag</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>Core</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>(
+<span class='macro'>flag_type</span><span class='macro'>!</span>{
 	<span class='ident'>StickFlags</span>
 	{
 		<span class='ident'>DIGITAL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_JOYFLAG_DIGITAL</span>,
 		<span class='ident'>ANALOGUE</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_JOYFLAG_ANALOGUE</span>
 	}
-)
+}
 
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Joystick</span>
 {
 	<span class='ident'>allegro_joystick</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,

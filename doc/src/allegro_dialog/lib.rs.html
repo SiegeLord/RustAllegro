@@ -229,6 +229,7 @@
 <span id='187'>187</span>
 <span id='188'>188</span>
 <span id='189'>189</span>
+<span id='190'>190</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -270,8 +271,8 @@
 		<span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>c_bool</span>;
 		<span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>ffi</span>::{<span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>ALLEGRO_EVENT_SOURCE</span>};
 
-		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_FILECHOOSER</span>)
-		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_TEXTLOG</span>)
+		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_FILECHOOSER</span>);
+		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_TEXTLOG</span>);
 
 		<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_FILE_MUST_EXIST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
 		<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_SAVE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
@@ -310,7 +311,7 @@
 	}
 }
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>(
+<span class='macro'>flag_type</span><span class='macro'>!</span>{
 	<span class='ident'>MessageBoxFlags</span>
 	{
 		<span class='ident'>MESSAGEBOX_WARN</span> <span class='op'>=</span>      <span class='ident'>ALLEGRO_MESSAGEBOX_WARN</span>,
@@ -319,7 +320,7 @@
 		<span class='ident'>MESSAGEBOX_YES_NO</span> <span class='op'>=</span>    <span class='ident'>ALLEGRO_MESSAGEBOX_YES_NO</span>,
 		<span class='ident'>MESSAGEBOX_QUESTION</span> <span class='op'>=</span>  <span class='ident'>ALLEGRO_MESSAGEBOX_QUESTION</span>
 	}
-)
+}
 
 <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>MessageBoxResult</span>
@@ -333,6 +334,7 @@
 <span class='attribute'>#[<span class='ident'>thread_local</span>]</span>
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
 
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DialogAddon</span>
 {
 	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>

@@ -417,7 +417,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>(
+<span class='macro'>flag_type</span><span class='macro'>!</span>{
 	<span class='ident'>DisplayFlags</span>
 	{
 		<span class='ident'>WINDOWED</span>                  <span class='op'>=</span> <span class='ident'>ALLEGRO_WINDOWED</span>,
@@ -432,7 +432,7 @@
 		<span class='ident'>FULLSCREEN_WINDOW</span>         <span class='op'>=</span> <span class='ident'>ALLEGRO_FULLSCREEN_WINDOW</span>,
 		<span class='ident'>MINIMIZED</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_MINIMIZED</span>
 	}
-)
+}
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>

@@ -133,7 +133,7 @@
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>(
+<span class='macro'>flag_type</span><span class='macro'>!</span>{
 	<span class='ident'>BitmapFlags</span>
 	{
 		<span class='ident'>MEMORY_BITMAP</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MEMORY_BITMAP</span>,
@@ -147,7 +147,7 @@
 		<span class='ident'>NO_PREMULTIPLIED_ALPHA</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_NO_PREMULTIPLIED_ALPHA</span>,
 		<span class='ident'>VIDEO_BITMAP</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_VIDEO_BITMAP</span>
 	}
-)
+}
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitmapLike</span>
 {

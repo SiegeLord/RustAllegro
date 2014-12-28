@@ -458,7 +458,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-<span class='comment'>//#[thread_local]</span>
+<span class='attribute'>#[<span class='ident'>thread_local</span>]</span>
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
 
 <span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
@@ -513,7 +513,7 @@
 
 		<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Struct_ALLEGRO_VERTEX_DECL</span> <span class='op'>=</span> <span class='ident'>c_void</span>;
 
-		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_VERTEX_DECL</span>)
+		<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_VERTEX_DECL</span>);
 
 		<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
