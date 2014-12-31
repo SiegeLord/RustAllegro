@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_acodec"
-version = "0.0.0"
+version = "0.0.1" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro/index.html"
@@ -17,9 +17,9 @@ path = "src/lib.rs"
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.0"
+version = "=0.0.1" #auto
 
 [dependencies.allegro_audio]
 
 path = "../allegro_audio"
-version = "=0.0.0"
+version = "=0.0.1" #auto
