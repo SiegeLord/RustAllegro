@@ -15,7 +15,7 @@ use rust_util::Flag;
 
 use ffi::*;
 
-pub use rust_util::c_bool;
+use rust_util::c_bool;
 
 flag_type!{
 	DisplayFlags
