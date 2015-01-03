@@ -10,7 +10,7 @@ use std::io::BufWriter;
 
 use addon::AudioAddon;
 use mixer::AttachToMixer;
-use ffi::*;
+use allegro_audio_sys::*;
 use internal::{Connection, AttachToMixerImpl};
 use properties::*;
 

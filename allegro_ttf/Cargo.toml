@@ -14,6 +14,12 @@ description = "Allegro 5 ttf addon Rust wrapper"
 name = "allegro_ttf"
 path = "src/lib.rs"
 
+[features]
+
+link_none = ["allegro_ttf-sys/link_none"]
+link_debug = ["allegro_ttf-sys/link_debug"]
+link_static = ["allegro_ttf-sys/link_static"]
+
 [dependencies.allegro]
 
 path = "../allegro"
@@ -22,4 +28,9 @@ version = "=0.0.1" #auto
 [dependencies.allegro_font]
 
 path = "../allegro_font"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_ttf-sys]
+
+path = "../allegro_ttf-sys"
 version = "=0.0.1" #auto

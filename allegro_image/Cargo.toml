@@ -14,7 +14,18 @@ description = "Allegro 5 image addon Rust wrapper"
 name = "allegro_image"
 path = "src/lib.rs"
 
+[features]
+
+link_none = ["allegro_image-sys/link_none"]
+link_debug = ["allegro_image-sys/link_debug"]
+link_static = ["allegro_image-sys/link_static"]
+
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_image-sys]
+
+path = "../allegro_image-sys"
 version = "=0.0.1" #auto

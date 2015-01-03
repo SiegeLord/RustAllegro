@@ -1,0 +1,28 @@
+[package]
+
+name = "allegro_dialog-sys"
+version = "0.0.1" #auto
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_dialog-sys/index.html"
+keywords = ["dialogs"]
+authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 dialog addon Rust binding"
+build = "build.rs"
+links = "allegro_dialog"
+
+[lib]
+
+name = "allegro_dialog-sys"
+path = "src/lib.rs"
+
+[features]
+
+link_none = []
+link_debug = []
+link_static = []
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.1" #auto

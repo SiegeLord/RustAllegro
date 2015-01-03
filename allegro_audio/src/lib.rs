@@ -10,6 +10,7 @@
 #![feature(thread_local)]
 
 extern crate allegro;
+extern crate "allegro_audio-sys" as allegro_audio_sys;
 extern crate libc;
 
 pub use addon::*;
@@ -19,22 +20,14 @@ pub use sink::*;
 pub use mixer::*;
 pub use sample::*;
 
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_audio")]
-	extern "C" {}
-}
-
 #[macro_escape]
-pub mod macros;
+mod macros;
 
-pub mod ffi;
-pub mod addon;
-pub mod stream;
-pub mod properties;
-pub mod sink;
-pub mod mixer;
-pub mod sample;
+mod addon;
+mod stream;
+mod properties;
+mod sink;
+mod mixer;
+mod sample;
 
 mod internal;

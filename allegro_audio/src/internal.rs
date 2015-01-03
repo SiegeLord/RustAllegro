@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use ffi::ALLEGRO_MIXER;
+use allegro_audio_sys::ALLEGRO_MIXER;
 use mixer::Mixer;
 
 use std::sync::Arc;

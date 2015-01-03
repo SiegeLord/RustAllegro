@@ -1,0 +1,28 @@
+[package]
+
+name = "allegro_primitives-sys"
+version = "0.0.1" #auto
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_primitives-sys/index.html"
+keywords = ["primitives", "graphics"]
+authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 primitives addon Rust binding"
+build = "build.rs"
+links = "allegro_primitives"
+
+[lib]
+
+name = "allegro_primitives-sys"
+path = "src/lib.rs"
+
+[features]
+
+link_none = []
+link_debug = []
+link_static = []
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.1" #auto

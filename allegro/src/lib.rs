@@ -10,6 +10,7 @@
 #![feature(unsafe_destructor)]
 
 extern crate libc;
+extern crate "allegro-sys" as ffi;
 
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
@@ -24,18 +25,9 @@ pub use internal::timer::*;
 pub use internal::transformations::external::*;
 pub use rust_util::*;
 
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro")]
-	extern "C" {}
-}
-
 #[macro_escape]
-pub mod macros;
-
-pub mod rust_util;
-pub mod ffi;
+mod macros;
+mod rust_util;
 
 mod internal
 {

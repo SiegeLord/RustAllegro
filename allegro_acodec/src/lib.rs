@@ -11,38 +11,12 @@
 
 extern crate allegro;
 extern crate allegro_audio;
-extern crate libc;
+extern crate "allegro_acodec-sys" as allegro_acodec_sys;
 
 use allegro_audio::AudioAddon;
-use ffi::allegro_acodec::*;
+use allegro_acodec_sys::*;
 
 use std::kinds::marker::NoSend;
-
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_acodec")]
-	extern "C" {}
-}
-
-pub mod ffi
-{
-	pub use self::allegro_acodec::*;
-	pub mod allegro_acodec
-	{
-		use libc::*;
-		use allegro::c_bool;
-
-		extern "C"
-		{
-			pub fn al_init_acodec_addon() -> c_bool;
-			pub fn al_get_allegro_acodec_version() -> uint32_t;
-		}
-	}
-}
-
-#[macro_escape]
-pub mod macros;
 
 static mut initialized: bool = false;
 #[thread_local]

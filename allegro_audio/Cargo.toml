@@ -14,7 +14,18 @@ description = "Allegro 5 audio addon Rust wrapper"
 name = "allegro_audio"
 path = "src/lib.rs"
 
+[features]
+
+link_none = ["allegro_audio-sys/link_none"]
+link_debug = ["allegro_audio-sys/link_debug"]
+link_static = ["allegro_audio-sys/link_static"]
+
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_audio-sys]
+
+path = "../allegro_audio-sys"
 version = "=0.0.1" #auto

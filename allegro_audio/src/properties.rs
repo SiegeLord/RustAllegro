@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use ffi::*;
+use allegro_audio_sys::*;
 
 #[deriving(PartialEq)]
 #[deriving(Copy)]

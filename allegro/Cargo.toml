@@ -13,3 +13,15 @@ description = "Allegro 5 core library Rust wrapper"
 
 name = "allegro"
 path = "src/lib.rs"
+
+[features]
+
+link_none = ["allegro-sys/link_none"]
+link_monolith = ["allegro-sys/link_monolith"]
+link_debug = ["allegro-sys/link_debug"]
+link_static = ["allegro-sys/link_static"]
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.1" #auto

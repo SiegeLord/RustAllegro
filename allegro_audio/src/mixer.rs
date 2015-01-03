@@ -8,7 +8,7 @@ use libc::*;
 use std::mem;
 use std::ptr;
 
-use ffi::*;
+use allegro_audio_sys::*;
 use addon::AudioAddon;
 use internal::Connection;
 use internal::HasMixer;

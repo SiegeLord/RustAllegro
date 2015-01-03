@@ -14,7 +14,18 @@ description = "Allegro 5 dialog addon Rust wrapper"
 name = "allegro_dialog"
 path = "src/lib.rs"
 
+[features]
+
+link_none = ["allegro_dialog-sys/link_none"]
+link_debug = ["allegro_dialog-sys/link_debug"]
+link_static = ["allegro_dialog-sys/link_static"]
+
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_dialog-sys]
+
+path = "../allegro_dialog-sys"
 version = "=0.0.1" #auto

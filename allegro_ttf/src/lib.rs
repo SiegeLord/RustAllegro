@@ -11,56 +11,25 @@
 
 extern crate allegro;
 extern crate allegro_font;
+extern crate "allegro_ttf-sys" as allegro_ttf_sys;
 extern crate libc;
 
 use allegro::Flag;
 use allegro_font::{FontAddon, Font};
-use ffi::allegro_ttf::*;
+use allegro_ttf_sys::*;
 use libc::*;
 
 use std::kinds::marker::NoSend;
 
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_ttf")]
-	extern "C" {}
-}
-
-pub mod ffi
-{
-	pub use self::allegro_ttf::*;
-	pub mod allegro_ttf
-	{
-		use libc::*;
-		use allegro::c_bool;
-		use allegro_font::ffi::ALLEGRO_FONT;
-
-		pub const ALLEGRO_TTF_NO_KERNING: u32  = 1;
-		pub const ALLEGRO_TTF_MONOCHROME: u32  = 2;
-		pub const ALLEGRO_TTF_NO_AUTOHINT: u32 = 4;
-
-		extern "C"
-		{
-			pub fn al_load_ttf_font(filename: *const c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			//~ pub fn al_load_ttf_font_f(file: *mut ALLEGRO_FILE, filename: *const c_char, size: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			pub fn al_load_ttf_font_stretch(filename: *const c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			//~ pub fn al_load_ttf_font_stretch_f(file: *mut ALLEGRO_FILE, filename: *const c_char, w: c_int, h: c_int, flags: c_int) -> *mut ALLEGRO_FONT;
-			pub fn al_init_ttf_addon() -> c_bool;
-			pub fn al_shutdown_ttf_addon();
-			pub fn al_get_allegro_ttf_version() -> uint32_t;
-		}
-	}
-}
-
 #[macro_escape]
-pub mod macros;
+mod macros;
 
 static mut initialized: bool = false;
 #[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
-flag_type!{
+flag_type!
+{
 	TtfFlags
 	{
 		TTF_NO_KERNING = ALLEGRO_TTF_NO_KERNING,

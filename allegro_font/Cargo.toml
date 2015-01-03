@@ -14,7 +14,18 @@ description = "Allegro 5 font addon Rust wrapper"
 name = "allegro_font"
 path = "src/lib.rs"
 
+[features]
+
+link_none = ["allegro_font-sys/link_none"]
+link_debug = ["allegro_font-sys/link_debug"]
+link_static = ["allegro_font-sys/link_static"]
+
 [dependencies.allegro]
 
 path = "../allegro"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_font-sys]
+
+path = "../allegro_font-sys"
 version = "=0.0.1" #auto

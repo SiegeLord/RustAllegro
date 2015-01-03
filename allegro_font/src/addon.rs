@@ -7,7 +7,7 @@ use std::kinds::marker::NoSend;
 use std::sync::{Arc, Mutex};
 
 use allegro::Core;
-use ffi::allegro_font::*;
+use allegro_font_sys::*;
 
 static mut initialized: bool = false;
 #[thread_local]

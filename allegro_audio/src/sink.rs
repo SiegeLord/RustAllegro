@@ -5,7 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
-use ffi::*;
+use allegro_audio_sys::*;
 use addon::AudioAddon;
 use properties::*;
 use mixer::{MixerLike, Mixer};

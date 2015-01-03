@@ -42,7 +42,7 @@ pub mod ffi
 }
 
 #[macro_escape]
-pub mod macros;
+mod macros;
 
 static mut initialized: bool = false;
 #[thread_local]

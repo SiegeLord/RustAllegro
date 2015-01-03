@@ -2,8 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use ffi::*;
-use allegro::ffi::*;
+use allegro_font_sys::*;
+use allegro_sys::*;
 use allegro::{Core, Color, Bitmap, BitmapLike};
 use std::kinds::marker::NoSend;
 use addon::FontAddon;

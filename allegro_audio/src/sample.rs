@@ -12,7 +12,7 @@ use std::sync::atomic::{AtomicBool, SeqCst};
 use std::raw::Slice;
 
 use mixer::AttachToMixer;
-use ffi::*;
+use allegro_audio_sys::*;
 use addon::AudioAddon;
 use internal::{Connection, AttachToMixerImpl};
 use properties::*;

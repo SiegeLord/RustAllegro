@@ -11,21 +11,15 @@
 #![feature(unsafe_destructor)]
 
 extern crate allegro;
+extern crate "allegro-sys" as allegro_sys;
+extern crate "allegro_font-sys" as allegro_font_sys;
 extern crate libc;
 
 pub use font::*;
 pub use addon::*;
 
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_font")]
-	extern "C" {}
-}
-
-pub mod ffi;
-pub mod addon;
-pub mod font;
+mod addon;
+mod font;
 
 #[macro_escape]
-pub mod macros;
+mod macros;
