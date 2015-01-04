@@ -3,6 +3,7 @@
 import argparse
 import fileinput
 import re
+from shutil import copy
 from subprocess import Popen
 
 crate_list="""
@@ -30,6 +31,7 @@ parser.add_argument('--version', metavar='VERSION', default='', help='set the ve
 parser.add_argument('--publish', action='store_true', help='publish the crates')
 parser.add_argument('--build', action='store_true', help='build the crates')
 parser.add_argument('--clean', action='store_true', help='clean the crates')
+parser.add_argument('--doc', action='store_true', help='build the documentation')
 
 args = parser.parse_args()
 
@@ -56,6 +58,23 @@ if args.build:
 		Popen(['cargo', 'build'], cwd=crate).communicate()
 
 if args.clean:
-	for crate in crate_list:
+	crates_and_doc = ['doc']
+	crates_and_doc.extend(crate_list)
+	for crate in crates_and_doc:
 		print 'Cleaning', crate
 		Popen(['cargo', 'clean'], cwd=crate).communicate()
+
+if args.doc:
+	print 'Building docs'
+	Popen(['cargo', 'doc'], cwd='doc').communicate()
+	print 'Fixing up the search index'
+	found = False
+	for line in fileinput.input('doc/target/doc/search-index.js', inplace=1):
+		new_line = re.sub(r"searchIndex\['delete_me'\].*", '', line)
+		if new_line != line:
+			found = True
+		print new_line,
+	if not found:
+		raise Exception("Couldn't find the line in search-index.js!")
+	print 'Copying new CSS'
+	copy('doc/main.css', 'doc/target/doc/main.css')
