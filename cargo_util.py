@@ -4,7 +4,7 @@ import argparse
 import fileinput
 import re
 from shutil import copy
-from subprocess import Popen
+from subprocess import check_call
 
 crate_list="""
 allegro-sys
@@ -50,23 +50,22 @@ if len(args.version) > 0:
 if args.publish:
 	for crate in crate_list:
 		print 'Publishing', crate
-		Popen(['cargo', 'publish'], cwd=crate).communicate()
+		check_call(['cargo', 'publish'], cwd=crate)
 
 if args.build:
-	for crate in crate_list:
-		print 'Building', crate
-		Popen(['cargo', 'build'], cwd=crate).communicate()
+	check_call(['cargo', 'build'], cwd='doc')
+	check_call(['cargo', 'build'], cwd='examples')
 
 if args.clean:
 	crates_and_doc = ['doc']
 	crates_and_doc.extend(crate_list)
 	for crate in crates_and_doc:
 		print 'Cleaning', crate
-		Popen(['cargo', 'clean'], cwd=crate).communicate()
+		check_call(['cargo', 'clean'], cwd=crate)
 
 if args.doc:
 	print 'Building docs'
-	Popen(['cargo', 'doc'], cwd='doc').communicate()
+	check_call(['cargo', 'doc'], cwd='doc')
 	print 'Fixing up the search index'
 	found = False
 	for line in fileinput.input('doc/target/doc/search-index.js', inplace=1):

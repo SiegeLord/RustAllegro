@@ -12,17 +12,12 @@ before_install:
 install:
   - sudo apt-get install liballegro5-dev
 script:
-  - cd examples
-  - cargo build
-  - cd ..
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make -j
-  - make doc
+  - ./cargo_util.py --build
+  - ./cargo_util.py --doc
   - cd examples
   - ./example --init-only
-after_success:
   - cd ..
+after_success:
+  - cd doc/target
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
-  - ../doc/gh_pages_upload.sh
+  - ../gh_pages_upload.sh
