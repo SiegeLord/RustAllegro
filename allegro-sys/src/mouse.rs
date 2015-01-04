@@ -14,14 +14,14 @@ opaque!(ALLEGRO_MOUSE);
 pub const ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_MOUSE_STATE
 {
     pub x: c_int,
     pub y: c_int,
     pub z: c_int,
     pub w: c_int,
-    pub more_axes: [c_int, ..ALLEGRO_MOUSE_MAX_EXTRA_AXES as uint],
+    pub more_axes: [c_int; ALLEGRO_MOUSE_MAX_EXTRA_AXES as uint],
     pub buttons: c_int,
     pub pressure: c_float,
     pub display: *mut ALLEGRO_DISPLAY,

@@ -10,18 +10,18 @@ use events::ALLEGRO_EVENT_SOURCE;
 opaque!(ALLEGRO_JOYSTICK);
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_JOYSTICK_STATE
 {
-	pub stick: [Stick, ..8u],
-	pub button: [c_int, ..32u],
+	pub stick: [Stick; 8u],
+	pub button: [c_int; 32u],
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct Stick
 {
-	pub axis: [c_float, ..3u],
+	pub axis: [c_float; 3u],
 }
 
 pub const ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;

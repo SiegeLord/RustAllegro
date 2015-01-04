@@ -13,11 +13,11 @@ use rust_util::c_bool;
 opaque!(ALLEGRO_KEYBOARD);
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_KEYBOARD_STATE
 {
 	pub display: *mut ALLEGRO_DISPLAY,
-	pub __key_down__internal__: [c_uint, ..8u],
+	pub __key_down__internal__: [c_uint; 8u],
 }
 
 extern "C"

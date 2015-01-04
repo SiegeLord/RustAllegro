@@ -169,7 +169,7 @@ impl EventSource
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub enum Event
 {
 	NoEvent,

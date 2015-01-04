@@ -19,6 +19,7 @@ use allegro_font::{FontAddon, Font};
 use allegro_ttf_sys::*;
 use libc::*;
 
+use std::c_str::ToCStr;
 use std::kinds::marker::NoSend;
 
 #[macro_escape]

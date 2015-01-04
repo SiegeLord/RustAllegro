@@ -35,7 +35,7 @@ pub mod allegro_audio
 	// These are enums instead of consts because functions expect these an arguments.
 	// An API bug that cannot really be fixed.
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub enum ALLEGRO_AUDIO_DEPTH
 	{
 		ALLEGRO_AUDIO_DEPTH_INT8 = 0,
@@ -51,7 +51,7 @@ pub mod allegro_audio
 	pub const ALLEGRO_AUDIO_DEPTH_UINT8: u32 = 8;
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub enum ALLEGRO_CHANNEL_CONF
 	{
 		ALLEGRO_CHANNEL_CONF_1 = 16,
@@ -64,7 +64,7 @@ pub mod allegro_audio
 	}
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub enum ALLEGRO_PLAYMODE
 	{
 		ALLEGRO_PLAYMODE_ONCE = 256,
@@ -75,7 +75,7 @@ pub mod allegro_audio
 	}
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub enum ALLEGRO_MIXER_QUALITY
 	{
 		ALLEGRO_MIXER_QUALITY_POINT = 272,
@@ -86,7 +86,7 @@ pub mod allegro_audio
 	opaque!(ALLEGRO_SAMPLE);
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub struct ALLEGRO_SAMPLE_ID
 	{
 		pub _index: c_int,

@@ -29,7 +29,7 @@ macro_rules! flag_type
 {
 	($f: ident { $($n: ident = $v: expr),*}) =>
 	{
-		#[deriving(Copy)]
+		#[derive(Copy)]
 		pub struct $f
 		{
 			bits: u32
@@ -52,7 +52,7 @@ macro_rules! flag_type
 			}
 		}
 
-		impl BitOr<$f, $f> for $f
+		impl ::std::ops::BitOr<$f, $f> for $f
 		{
 			fn bitor(self, e: $f) -> $f
 			{
@@ -60,7 +60,7 @@ macro_rules! flag_type
 			}
 		}
 
-		impl BitAnd<$f, bool> for $f
+		impl ::std::ops::BitAnd<$f, bool> for $f
 		{
 			fn bitand(self, e: $f) -> bool
 			{

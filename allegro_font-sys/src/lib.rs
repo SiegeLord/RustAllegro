@@ -27,7 +27,7 @@ pub mod allegro_font
     use allegro::{ALLEGRO_USTR, ALLEGRO_COLOR, ALLEGRO_BITMAP};
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub struct ALLEGRO_FONT
 	{
 		pub data: *mut c_void,
@@ -36,7 +36,7 @@ pub mod allegro_font
 	}
 
 	#[repr(C)]
-	#[deriving(Copy)]
+	#[derive(Copy)]
 	pub struct ALLEGRO_FONT_VTABLE
 	{
 		pub font_height: Option<extern "C" fn(arg1: *const ALLEGRO_FONT) -> c_int>,

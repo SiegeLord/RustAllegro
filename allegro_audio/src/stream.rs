@@ -5,6 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
+use std::c_str::ToCStr;
 use std::mem;
 use std::io::BufWriter;
 

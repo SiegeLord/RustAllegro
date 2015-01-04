@@ -3,11 +3,10 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::ops::Deref;
 
 use ffi::*;
 
-#[deriving(Copy, Clone)]
+#[derive(Copy, Clone)]
 #[repr(u32)]
 pub struct Color(pub ALLEGRO_COLOR);
 
@@ -20,7 +19,7 @@ impl Color
 			let mut r = 0u8;
 			let mut g = 0u8;
 			let mut b = 0u8;
-			al_unmap_rgb(**self, &mut r, &mut g, &mut b);
+			al_unmap_rgb(self.0, &mut r, &mut g, &mut b);
 			(r, g, b)
 		}
 	}
@@ -33,38 +32,29 @@ impl Color
 			let mut g = 0u8;
 			let mut b = 0u8;
 			let mut a = 0u8;
-			al_unmap_rgba(**self, &mut r, &mut g, &mut b, &mut a);
+			al_unmap_rgba(self.0, &mut r, &mut g, &mut b, &mut a);
 			(r, g, b, a)
 		}
 	}
 
 	pub fn unmap_rgb_f(&self) -> (f32, f32, f32)
 	{
-		(self.r, self.g, self.b)
+		(self.0.r, self.0.g, self.0.b)
 	}
 
 	pub fn unmap_rgba_f(&self) -> (f32, f32, f32, f32)
 	{
-		(self.r, self.g, self.b, self.a)
+		(self.0.r, self.0.g, self.0.b, self.0.a)
 	}
 
 	pub fn get_color(&self) -> ALLEGRO_COLOR
 	{
-		**self
-	}
-}
-
-impl Deref<ALLEGRO_COLOR> for Color
-{
-	fn deref<'l>(&'l self) -> &'l ALLEGRO_COLOR
-	{
-		let Color(ref c) = *self;
-		c
+		self.0
 	}
 }
 
 #[repr(u32)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,

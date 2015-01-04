@@ -74,7 +74,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			al_convert_mask_to_alpha(self.get_allegro_bitmap(), *mask_color);
+			al_convert_mask_to_alpha(self.get_allegro_bitmap(), mask_color.0);
 		}
 	}
 }

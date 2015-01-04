@@ -27,7 +27,7 @@ static mut initialized: bool = false;
 static mut spawned_on_this_thread: bool = false;
 
 #[repr(u32)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub enum PrimType
 {
 	LineList = ALLEGRO_PRIM_LINE_LIST,
@@ -116,7 +116,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_line(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color, thickness as c_float)
+			al_draw_line(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, color.0, thickness as c_float)
 		}
 	}
 
@@ -124,7 +124,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, *color, thickness as c_float);
+			al_draw_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -132,7 +132,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color, thickness as c_float);
+			al_draw_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -140,7 +140,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, *color, thickness as c_float);
+			al_draw_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -148,7 +148,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_circle(cx as c_float, cy as c_float, r as c_float, *color, thickness as c_float);
+			al_draw_circle(cx as c_float, cy as c_float, r as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -156,7 +156,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, *color, thickness as c_float);
+			al_draw_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -164,7 +164,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_arc(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+			al_draw_arc(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -172,7 +172,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_elliptical_arc(cx as c_float, cy as c_float, rx as c_float, ry as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+			al_draw_elliptical_arc(cx as c_float, cy as c_float, rx as c_float, ry as c_float, start_theta as c_float, delta_theta as c_float, color.0, thickness as c_float);
 		}
 	}
 
@@ -180,13 +180,13 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color, thickness as c_float);
+			al_draw_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, color.0, thickness as c_float);
 		}
 	}
 
 	pub fn draw_spline<T: Iterator<(f32, f32)>>(&self, mut points: T, color: Color, thickness: f32) -> Result<(), ()>
 	{
-		let mut c_points: [c_float, ..8] = [0.0, ..8];
+		let mut c_points: [c_float; 8] = [0.0; 8];
 		let mut idx = 0;
 		for (x, y) in points
 		{
@@ -201,7 +201,7 @@ impl PrimitivesAddon
 
 		unsafe
 		{
-			al_draw_spline(c_points, *color, thickness as c_float);
+			al_draw_spline(c_points, color.0, thickness as c_float);
 		}
 		Ok(())
 	}
@@ -210,7 +210,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, *color);
+			al_draw_filled_triangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, x3 as c_float, y3 as c_float, color.0);
 		}
 	}
 
@@ -218,7 +218,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, *color);
+			al_draw_filled_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, color.0);
 		}
 	}
 
@@ -226,7 +226,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, *color);
+			al_draw_filled_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, color.0);
 		}
 	}
 
@@ -234,7 +234,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_circle(cx as c_float, cy as c_float, r as c_float, *color);
+			al_draw_filled_circle(cx as c_float, cy as c_float, r as c_float, color.0);
 		}
 	}
 
@@ -242,7 +242,7 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, *color);
+			al_draw_filled_pieslice(cx as c_float, cy as c_float, r as c_float, start_theta as c_float, delta_theta as c_float, color.0);
 		}
 	}
 
@@ -250,13 +250,13 @@ impl PrimitivesAddon
 	{
 		unsafe
 		{
-			al_draw_filled_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, *color);
+			al_draw_filled_rounded_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, rx as c_float, ry as c_float, color.0);
 		}
 	}
 }
 
 #[repr(C)]
-#[deriving(Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct Vertex
 {
 	pub x: f32,

@@ -17,10 +17,10 @@ use joystick::ALLEGRO_JOYSTICK;
 use timer::ALLEGRO_TIMER;
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_EVENT_SOURCE
 {
-	pub __pad: [c_int, ..32]
+	pub __pad: [c_int; 32]
 }
 
 pub type ALLEGRO_EVENT_TYPE = c_uint;
@@ -49,7 +49,7 @@ pub const ALLEGRO_EVENT_DISPLAY_SWITCH_OUT: u32 = 46;
 pub const ALLEGRO_EVENT_DISPLAY_ORIENTATION: u32 = 47;
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_ANY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -58,7 +58,7 @@ pub struct ALLEGRO_ANY_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_DISPLAY_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -72,7 +72,7 @@ pub struct ALLEGRO_DISPLAY_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_JOYSTICK_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -86,7 +86,7 @@ pub struct ALLEGRO_JOYSTICK_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_KEYBOARD_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -100,7 +100,7 @@ pub struct ALLEGRO_KEYBOARD_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_MOUSE_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -120,7 +120,7 @@ pub struct ALLEGRO_MOUSE_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_TIMER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -131,7 +131,7 @@ pub struct ALLEGRO_TIMER_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_USER_EVENT
 {
 	pub _type: ALLEGRO_EVENT_TYPE,
@@ -145,17 +145,17 @@ pub struct ALLEGRO_USER_EVENT
 }
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_EVENT
 {
-	pub data: [c_bool, ..72u],
+	pub data: [u8; 72u],
 }
 
 impl ALLEGRO_EVENT
 {
 	pub fn new() -> ALLEGRO_EVENT
 	{
-		ALLEGRO_EVENT{ data: [0, ..72] }
+		ALLEGRO_EVENT{ data: [0; 72] }
 	}
 
 	pub fn _type(&mut self) -> *mut ALLEGRO_EVENT_TYPE

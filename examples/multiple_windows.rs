@@ -8,13 +8,13 @@ extern crate allegro_font;
 extern crate getopts;
 
 use getopts::*;
-use std::comm;
+use std::sync::mpsc;
 use std::os;
 use std::c_str::*;
 use allegro::*;
 use allegro_font::*;
 
-fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
+fn other_window(mut core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 {
 	let font_addon = FontAddon::init(&core).unwrap();
 
@@ -78,7 +78,7 @@ fn other_window(mut core: Core, sender: comm::SyncSender<()>, init_only: bool)
 		}
 	}
 
-	sender.send(());
+	sender.send(()).ok();
 }
 
 allegro_main!
@@ -98,7 +98,7 @@ allegro_main!
 	let font_addon = FontAddon::init(&core).unwrap();
 	core.install_keyboard().unwrap();
 
-	let (sender, receiver) = comm::sync_channel(0);
+	let (sender, receiver) = mpsc::sync_channel(0);
 
 	core.spawn(move |core|
 	{
@@ -151,7 +151,7 @@ allegro_main!
 			{
 				match receiver.try_recv()
 				{
-					Err(comm::Disconnected) | Ok(..) => text = "You closed my buddy!",
+					Err(mpsc::TryRecvError::Disconnected) | Ok(..) => text = "You closed my buddy!",
 					_ => ()
 				}
 

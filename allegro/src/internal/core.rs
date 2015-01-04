@@ -60,7 +60,7 @@ impl Core
 		let mut res = Err("Already initialized.".to_string());
 		unsafe
 		{
-			run_once.doit(||
+			run_once.call_once(||
 			{
 				res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 				{
@@ -507,7 +507,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_clear_to_color(*color);
+			al_clear_to_color(color.0);
 		}
 	}
 
@@ -515,7 +515,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_pixel(x as c_float, y as c_float, *color);
+			al_draw_pixel(x as c_float, y as c_float, color.0);
 		}
 	}
 
@@ -523,7 +523,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_put_pixel(x as c_int, y as c_int, *color);
+			al_put_pixel(x as c_int, y as c_int, color.0);
 		}
 	}
 
@@ -531,7 +531,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_put_blended_pixel(x as c_int, y as c_int, *color);
+			al_put_blended_pixel(x as c_int, y as c_int, color.0);
 		}
 	}
 
@@ -579,7 +579,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(), *tint, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(), tint.0, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -587,7 +587,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(), tint.0, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -595,7 +595,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(), *tint, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(), tint.0, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -603,7 +603,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -611,7 +611,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -619,7 +619,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, *tint, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -771,7 +771,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_use_transform(&**trans);
+			al_use_transform(&trans.0);
 		}
 	}
 }

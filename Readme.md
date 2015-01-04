@@ -16,66 +16,28 @@ See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note 
 
 The included packages are:
 
-Main crates:
+Wrappers:
 
-```
-[dependencies.allegro]
+* [allegro](https://crates.io/crates/allegro]
+* [allegro_acodec](https://crates.io/crates/allegro_acodec]
+* [allegro_audio](https://crates.io/crates/allegro_audio]
+* [allegro_dialog](https://crates.io/crates/allegro_dialog]
+* [allegro_font](https://crates.io/crates/allegro_font]
+* [allegro_image](https://crates.io/crates/allegro_image]
+* [allegro_primitives](https://crates.io/crates/allegro_primitives]
+* [allegro_ttf](https://crates.io/crates/allegro_ttf]
 
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
+Bindings:
 
-```
-[dependencies.allegro_acodec]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_audio]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_dialog]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_font]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_image]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_primitives]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
-
-```
-[dependencies.allegro_ttf]
-
-git = "https://github.com/SiegeLord/RustAllegro.git"
-```
+* [allegro-sys](https://crates.io/crates/allegro-sys]
+* [allegro_acodec-sys](https://crates.io/crates/allegro_acodec-sys]
+* [allegro_audio-sys](https://crates.io/crates/allegro_audio-sys]
+* [allegro_dialog-sys](https://crates.io/crates/allegro_dialog-sys]
+* [allegro_font-sys](https://crates.io/crates/allegro_font-sys]
+* [allegro_image-sys](https://crates.io/crates/allegro_image-sys]
+* [allegro_primitives-sys](https://crates.io/crates/allegro_primitives-sys]
+* [allegro_ttf-sys](https://crates.io/crates/allegro_ttf-sys]
 
 Examples:
 
-* allegro_examples
-
-### Via CMake 2.8:
-
-~~~
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=<your_prefix>
-make -j
-make install
-~~~
+* [allegro_examples](https://crates.io/crates/allegro_examples]

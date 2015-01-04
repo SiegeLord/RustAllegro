@@ -7,8 +7,8 @@ use std::mem;
 
 use ffi::*;
 
-#[deriving(Copy)]
-pub struct Transform(ALLEGRO_TRANSFORM);
+#[derive(Copy)]
+pub struct Transform(pub ALLEGRO_TRANSFORM);
 
 pub mod external
 {
@@ -41,7 +41,7 @@ impl Transform
 	{
 		unsafe
 		{
-			al_translate_transform(&mut **self, x as c_float, y as c_float);
+			al_translate_transform(&mut self.0, x as c_float, y as c_float);
 		}
 	}
 
@@ -49,7 +49,7 @@ impl Transform
 	{
 		unsafe
 		{
-			al_rotate_transform(&mut **self, theta as c_float);
+			al_rotate_transform(&mut self.0, theta as c_float);
 		}
 	}
 
@@ -57,7 +57,7 @@ impl Transform
 	{
 		unsafe
 		{
-			al_scale_transform(&mut **self, sx as c_float, sy as c_float);
+			al_scale_transform(&mut self.0, sx as c_float, sy as c_float);
 		}
 	}
 
@@ -67,7 +67,7 @@ impl Transform
 		let mut y = y as c_float;
 		unsafe
 		{
-			al_transform_coordinates(&**self, &mut x, &mut y);
+			al_transform_coordinates(&self.0, &mut x, &mut y);
 		}
 		(x as f32, y as f32)
 	}
@@ -76,7 +76,7 @@ impl Transform
 	{
 		unsafe
 		{
-			al_compose_transform(&mut **self, &**other);
+			al_compose_transform(&mut self.0, &other.0);
 		}
 	}
 
@@ -84,7 +84,7 @@ impl Transform
 	{
 		unsafe
 		{
-			al_invert_transform(&mut **self);
+			al_invert_transform(&mut self.0);
 		}
 	}
 
@@ -92,27 +92,8 @@ impl Transform
 	{
 		unsafe
 		{
-			al_check_inverse(&**self, tol as c_float) != 0
+			al_check_inverse(&self.0, tol as c_float) != 0
 		}
-	}
-}
-
-impl Deref<ALLEGRO_TRANSFORM> for Transform
-{
-	fn deref<'l>(&'l self) -> &'l ALLEGRO_TRANSFORM
-	{
-		let Transform(ref t) = *self;
-		t
-	}
-}
-
-
-impl DerefMut<ALLEGRO_TRANSFORM> for Transform
-{
-	fn deref_mut<'l>(&'l mut self) -> &'l mut ALLEGRO_TRANSFORM
-	{
-		let Transform(ref mut t) = *self;
-		t
 	}
 }
 

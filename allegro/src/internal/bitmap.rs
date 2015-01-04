@@ -2,9 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::mem;
 use libc::*;
+use std::c_str::ToCStr;
 use std::kinds::marker::NoSend;
+use std::mem;
 
 use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};
 use internal::core::Core;

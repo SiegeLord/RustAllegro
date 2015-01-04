@@ -5,7 +5,7 @@
 use libc::*;
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ALLEGRO_TIMEOUT
 {
 	pub __pad1__: uint64_t,
