@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_font/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -65,12 +65,6 @@
 <span id='23'>23</span>
 <span id='24'>24</span>
 <span id='25'>25</span>
-<span id='26'>26</span>
-<span id='27'>27</span>
-<span id='28'>28</span>
-<span id='29'>29</span>
-<span id='30'>30</span>
-<span id='31'>31</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -85,24 +79,18 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>unsafe_destructor</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;allegro-sys&quot;</span> <span class='kw'>as</span> <span class='ident'>allegro_sys</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;allegro_font-sys&quot;</span> <span class='kw'>as</span> <span class='ident'>allegro_font_sys</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>font</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>addon</span>::<span class='op'>*</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>manual_link</span>))]</span>
-<span class='kw'>mod</span> <span class='ident'>link_name</span>
-{
-	<span class='attribute'>#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro_font&quot;</span>)]</span>
-	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {}
-}
-
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ffi</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>addon</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>font</span>;
+<span class='kw'>mod</span> <span class='ident'>addon</span>;
+<span class='kw'>mod</span> <span class='ident'>font</span>;
 
 <span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>macros</span>;
+<span class='kw'>mod</span> <span class='ident'>macros</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

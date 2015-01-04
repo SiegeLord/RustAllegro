@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro/src/internal/core.rs`.">
+    <meta name="description" content="Source to the Rust file `src/internal/core.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>core.rs.html -- source</title>
@@ -880,7 +880,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;Already initialized.&quot;</span>.<span class='ident'>to_string</span>());
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>run_once</span>.<span class='ident'>doit</span>(<span class='op'>||</span>
+			<span class='ident'>run_once</span>.<span class='ident'>call_once</span>(<span class='op'>||</span>
 			{
 				<span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>al_install_system</span>(<span class='ident'>ALLEGRO_VERSION_INT</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='prelude-val'>None</span>) <span class='op'>!=</span> <span class='number'>0</span>
 				{
@@ -1327,7 +1327,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_clear_to_color</span>(<span class='op'>*</span><span class='ident'>color</span>);
+			<span class='ident'>al_clear_to_color</span>(<span class='ident'>color</span>.<span class='number'>0</span>);
 		}
 	}
 
@@ -1335,7 +1335,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='op'>*</span><span class='ident'>color</span>);
+			<span class='ident'>al_draw_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
 		}
 	}
 
@@ -1343,7 +1343,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_put_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='op'>*</span><span class='ident'>color</span>);
+			<span class='ident'>al_put_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
 		}
 	}
 
@@ -1351,7 +1351,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_put_blended_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='op'>*</span><span class='ident'>color</span>);
+			<span class='ident'>al_put_blended_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
 		}
 	}
 
@@ -1399,7 +1399,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1407,7 +1407,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1415,7 +1415,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_scaled_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_scaled_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1423,7 +1423,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1431,7 +1431,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1439,7 +1439,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='op'>*</span><span class='ident'>tint</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>tint</span>.<span class='number'>0</span>, <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 
@@ -1591,7 +1591,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_use_transform</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>trans</span>);
+			<span class='ident'>al_use_transform</span>(<span class='kw-2'>&amp;</span><span class='ident'>trans</span>.<span class='number'>0</span>);
 		}
 	}
 }

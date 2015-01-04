@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_dialog/src/macros.rs`.">
+    <meta name="description" content="Source to the Rust file `src/macros.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>macros.rs.html -- source</title>
@@ -190,7 +190,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span> { $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>n</span>: <span class='ident'>ident</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>: <span class='ident'>expr</span>),<span class='op'>*</span>}) <span class='op'>=&gt;</span>
 	{
-		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
+		<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
 			<span class='ident'>bits</span>: <span class='ident'>u32</span>
@@ -213,7 +213,7 @@
 			}
 		}
 
-		<span class='kw'>impl</span> <span class='ident'>BitOr</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
+		<span class='kw'>impl</span> ::<span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='ident'>BitOr</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
 			<span class='kw'>fn</span> <span class='ident'>bitor</span>(<span class='self'>self</span>, <span class='ident'>e</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 			{
@@ -221,7 +221,7 @@
 			}
 		}
 
-		<span class='kw'>impl</span> <span class='ident'>BitAnd</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='ident'>bool</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
+		<span class='kw'>impl</span> ::<span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='ident'>BitAnd</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>, <span class='ident'>bool</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
 		{
 			<span class='kw'>fn</span> <span class='ident'>bitand</span>(<span class='self'>self</span>, <span class='ident'>e</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
 			{

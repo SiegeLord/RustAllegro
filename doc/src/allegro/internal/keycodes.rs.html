@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro/src/internal/keycodes.rs`.">
+    <meta name="description" content="Source to the Rust file `src/internal/keycodes.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>keycodes.rs.html -- source</title>
@@ -214,7 +214,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
-<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>)]</span>
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>KeyCode</span>
 {

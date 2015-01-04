@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -86,14 +86,6 @@
 <span id='44'>44</span>
 <span id='45'>45</span>
 <span id='46'>46</span>
-<span id='47'>47</span>
-<span id='48'>48</span>
-<span id='49'>49</span>
-<span id='50'>50</span>
-<span id='51'>51</span>
-<span id='52'>52</span>
-<span id='53'>53</span>
-<span id='54'>54</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -107,6 +99,7 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>unsafe_destructor</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;allegro-sys&quot;</span> <span class='kw'>as</span> <span class='ident'>ffi</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap</span>::<span class='ident'>external</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::<span class='op'>*</span>;
@@ -121,18 +114,9 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>transformations</span>::<span class='ident'>external</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='op'>*</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>manual_link</span>))]</span>
-<span class='kw'>mod</span> <span class='ident'>link_name</span>
-{
-	<span class='attribute'>#[<span class='ident'>link</span>(<span class='ident'>name</span> <span class='op'>=</span> <span class='string'>&quot;allegro&quot;</span>)]</span>
-	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {}
-}
-
 <span class='attribute'>#[<span class='ident'>macro_escape</span>]</span>
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>macros</span>;
-
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rust_util</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ffi</span>;
+<span class='kw'>mod</span> <span class='ident'>macros</span>;
+<span class='kw'>mod</span> <span class='ident'>rust_util</span>;
 
 <span class='kw'>mod</span> <span class='ident'>internal</span>
 {

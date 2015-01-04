@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro/src/internal/bitmap.rs`.">
+    <meta name="description" content="Source to the Rust file `src/internal/bitmap.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>bitmap.rs.html -- source</title>
@@ -298,14 +298,16 @@
 <span id='256'>256</span>
 <span id='257'>257</span>
 <span id='258'>258</span>
+<span id='259'>259</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>c_str</span>::<span class='ident'>ToCStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::{<span class='ident'>BitmapLike</span>, <span class='ident'>MEMORY_BITMAP</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>Core</span>;

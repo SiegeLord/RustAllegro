@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_font/src/font.rs`.">
+    <meta name="description" content="Source to the Rust file `src/font.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>font.rs.html -- source</title>
@@ -227,21 +227,23 @@
 <span id='185'>185</span>
 <span id='186'>186</span>
 <span id='187'>187</span>
+<span id='188'>188</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>ffi</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_font_sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_sys</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>allegro</span>::{<span class='ident'>Core</span>, <span class='ident'>Color</span>, <span class='ident'>Bitmap</span>, <span class='ident'>BitmapLike</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>kinds</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 <span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>FontAddon</span>;
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>c_str</span>::<span class='ident'>ToCStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
-<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>FontAlign</span>
 {
 	<span class='ident'>Left</span>,
@@ -281,7 +283,7 @@
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
 			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
 
-			<span class='ident'>al_draw_justified_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()), <span class='op'>*</span><span class='ident'>color</span>, <span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
+			<span class='ident'>al_draw_justified_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()), <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
 			                       <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>diff</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>align</span>.<span class='ident'>get_allegro_flags</span>(), <span class='ident'>ustr</span>);
 		}
 	}
@@ -297,7 +299,7 @@
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
 			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
 
-			<span class='ident'>al_draw_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()), <span class='op'>*</span><span class='ident'>color</span>, <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>align</span>.<span class='ident'>get_allegro_flags</span>(), <span class='ident'>ustr</span>);
+			<span class='ident'>al_draw_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()), <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>align</span>.<span class='ident'>get_allegro_flags</span>(), <span class='ident'>ustr</span>);
 		}
 	}
 }
