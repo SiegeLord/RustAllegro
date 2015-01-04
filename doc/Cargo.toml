@@ -1,0 +1,49 @@
+[package]
+
+name = "doc"
+version = "0.0.1" #auto
+authors = [ "SiegeLord <slabode@aim.com>" ]
+
+[lib]
+name = "delete_me"
+path = "dummy.rs"
+
+[dependencies.allegro]
+
+path = "../allegro"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_font]
+
+path = "../allegro_font"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_ttf]
+
+path = "../allegro_ttf"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_image]
+
+path = "../allegro_image"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_acodec]
+
+path = "../allegro_acodec"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_audio]
+
+path = "../allegro_audio"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_primitives]
+
+path = "../allegro_primitives"
+version = "=0.0.1" #auto
+
+[dependencies.allegro_dialog]
+
+path = "../allegro_dialog"
+version = "=0.0.1" #auto
