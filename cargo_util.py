@@ -40,7 +40,10 @@ crate_list = crate_list.split('\n')
 crate_list = filter(lambda crate: len(crate) > 0, crate_list)
 
 if len(args.version) > 0:
-	for crate in crate_list:
+	crates_and_doc = ['doc']
+	crates_and_doc.extend(crate_list)
+
+	for crate in crates_and_doc:
 		cargo_toml = crate + '/Cargo.toml'
 		print 'Processing', cargo_toml
 
