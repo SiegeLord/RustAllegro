@@ -13,6 +13,7 @@ install:
   - sudo apt-get install liballegro5-dev
 script:
   - ./cargo_util.py --build
+  - ./cargo_util.py --test
   - ./cargo_util.py --doc
   - cd examples
   - ./target/example --init-only

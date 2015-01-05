@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser(description='Perform an operation on all crates
 parser.add_argument('--version', metavar='VERSION', default='', help='set the version to VERSION')
 parser.add_argument('--publish', action='store_true', help='publish the crates')
 parser.add_argument('--build', action='store_true', help='build the crates')
+parser.add_argument('--test', action='store_true', help='test the crates')
 parser.add_argument('--clean', action='store_true', help='clean the crates')
 parser.add_argument('--doc', action='store_true', help='build the documentation')
 
@@ -58,6 +59,11 @@ if args.publish:
 if args.build:
 	check_call(['cargo', 'build'], cwd='doc')
 	check_call(['cargo', 'build'], cwd='examples')
+
+if args.test:
+	crates_no_examples = filter(lambda crate: crate != 'examples', crate_list)
+	for crate in crates_no_examples:
+		check_call(['cargo', 'test', '-p', crate], cwd='doc')
 
 if args.clean:
 	crates_and_doc = ['doc']
