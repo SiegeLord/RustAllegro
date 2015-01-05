@@ -52,16 +52,18 @@ macro_rules! flag_type
 			}
 		}
 
-		impl ::std::ops::BitOr<$f, $f> for $f
+		impl ::std::ops::BitOr for $f
 		{
+			type Output = $f;
 			fn bitor(self, e: $f) -> $f
 			{
 				$f{bits: self.bits | e.bits}
 			}
 		}
 
-		impl ::std::ops::BitAnd<$f, bool> for $f
+		impl ::std::ops::BitAnd for $f
 		{
+			type Output = bool;
 			fn bitand(self, e: $f) -> bool
 			{
 				self.bits & e.bits != 0

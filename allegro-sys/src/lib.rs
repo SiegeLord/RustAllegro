@@ -7,6 +7,8 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
+#![feature(default_type_params)]
+#![feature(associated_types)]
 #![allow(non_camel_case_types)]
 
 extern crate libc;

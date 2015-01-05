@@ -129,8 +129,9 @@ impl EventQueue
 	}
 }
 
-impl Iterator<Event> for EventQueue
+impl Iterator for EventQueue
 {
+	type Item = Event;
 	fn next(&mut self) -> Option<Event>
 	{
 		match self.get_next_event()

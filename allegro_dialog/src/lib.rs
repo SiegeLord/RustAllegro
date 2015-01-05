@@ -7,6 +7,8 @@
 #![crate_type = "lib"]
 #![feature(globs)]
 #![feature(macro_rules)]
+#![feature(default_type_params)]
+#![feature(associated_types)]
 #![feature(thread_local)]
 
 extern crate "allegro_dialog-sys" as allegro_dialog_sys;

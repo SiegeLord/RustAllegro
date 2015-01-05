@@ -184,7 +184,7 @@ impl PrimitivesAddon
 		}
 	}
 
-	pub fn draw_spline<T: Iterator<(f32, f32)>>(&self, mut points: T, color: Color, thickness: f32) -> Result<(), ()>
+	pub fn draw_spline<T: Iterator<Item = (f32, f32)>>(&self, mut points: T, color: Color, thickness: f32) -> Result<(), ()>
 	{
 		let mut c_points: [c_float; 8] = [0.0; 8];
 		let mut idx = 0;

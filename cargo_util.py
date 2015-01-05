@@ -62,7 +62,6 @@ if args.build:
 
 if args.test:
 	check_call(['cargo', 'test'], cwd='doc')
-	check_call(['cargo', 'test'], cwd='examples')
 
 if args.clean:
 	crates_and_doc = ['doc']
