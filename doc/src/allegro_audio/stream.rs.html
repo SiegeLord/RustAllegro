@@ -650,7 +650,7 @@
 		<span class='macro'>get_bool_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_audio_stream_attached</span>)
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>write_fragment</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>write_cb</span>: <span class='op'>|</span><span class='ident'>writer</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>BufWriter</span><span class='op'>|</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>bool</span>, ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>write_fragment</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>write_cb</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>FnMut</span>(<span class='comment'>/*writer: */</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>BufWriter</span>)) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>bool</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_mut_buf</span>;
 		<span class='kw'>let</span> <span class='ident'>fragment</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
