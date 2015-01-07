@@ -9,7 +9,8 @@ use std::c_str::ToCStr;
 use std::sync::Arc;
 use std::mem;
 use std::ptr;
-use std::sync::atomic::{AtomicBool, SeqCst};
+use std::sync::atomic::AtomicBool;
+use std::sync::atomic::Ordering::SeqCst;
 use std::raw::Slice;
 
 use mixer::AttachToMixer;

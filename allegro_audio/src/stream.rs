@@ -267,7 +267,7 @@ impl AudioStream
 		get_bool_impl!(self, al_get_audio_stream_attached)
 	}
 
-	pub fn write_fragment(&self, write_cb: |writer: &mut BufWriter|) -> Result<bool, ()>
+	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */&mut BufWriter)) -> Result<bool, ()>
 	{
 		use std::slice::from_raw_mut_buf;
 		let fragment = unsafe
