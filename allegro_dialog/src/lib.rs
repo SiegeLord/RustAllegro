@@ -5,10 +5,6 @@
 #![crate_name="allegro_dialog"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(thread_local)]
 
 extern crate "allegro_dialog-sys" as allegro_dialog_sys;
@@ -18,10 +14,10 @@ extern crate libc;
 use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::kinds::marker::NoSend;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 
 flag_type!{
@@ -104,29 +100,26 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 	use libc::c_int;
 
 	let d = display.map_or(ptr::null_mut(), |d| d.get_allegro_display());
-	let ret = title.with_c_str(|title|
+	let title = CString::from_slice(title.as_bytes());
+	let heading = CString::from_slice(heading.as_bytes());
+	let text = CString::from_slice(text.as_bytes());
+
+	let ret = unsafe
 	{
-		heading.with_c_str(|heading|
+		match buttons
 		{
-			text.with_c_str(|text|
+			Some(buttons) =>
 			{
-				unsafe
-				{
-					match buttons
-					{
-						Some(buttons) => buttons.with_c_str(|buttons|
-						{
-							al_show_native_message_box(d, title, heading, text, buttons, flags.get() as c_int)
-						}),
-						None =>
-						{
-							al_show_native_message_box(d, title, heading, text, ptr::null(), flags.get() as c_int)
-						}
-					}
-				}
-			})
-		})
-	});
+				let buttons = CString::from_slice(buttons.as_bytes());
+				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), buttons.as_ptr(), flags.get() as c_int)
+			},
+			None =>
+			{
+				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), ptr::null(), flags.get() as c_int)
+			}
+		}
+	};
+
 	match ret
 	{
 		1 => MessageBoxResult::Affirmative,

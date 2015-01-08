@@ -5,10 +5,6 @@
 #![crate_name="allegro_ttf-sys"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(thread_local)]
 
 extern crate "allegro_font-sys" as allegro_font_sys;
@@ -16,7 +12,7 @@ extern crate libc;
 
 pub use self::allegro_ttf::*;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 mod rust_util;
 

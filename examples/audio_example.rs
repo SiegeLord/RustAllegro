@@ -1,8 +1,7 @@
 // This file is released into Public Domain.
-#![feature(globs)]
 #![feature(phase)]
 
-#[phase(plugin, link)]
+#[macro_use]
 extern crate allegro;
 extern crate allegro_font;
 extern crate allegro_audio;
@@ -11,7 +10,6 @@ extern crate getopts;
 
 use getopts::*;
 use std::os;
-use std::c_str::*;
 use std::os::getenv;
 use allegro::*;
 use allegro_font::*;
@@ -68,7 +66,7 @@ allegro_main!
 	}
 
 	let disp = Display::new(&core, 800, 600).unwrap();
-	disp.set_window_title(&"Audio example".to_c_str());
+	disp.set_window_title("Audio example");
 
 	core.install_keyboard().unwrap();
 

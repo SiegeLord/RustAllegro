@@ -1,8 +1,7 @@
 // This file is released into Public Domain.
-#![feature(globs)]
 #![feature(phase)]
 
-#[phase(plugin, link)]
+#[macro_use]
 extern crate allegro;
 extern crate allegro_font;
 extern crate getopts;
@@ -10,7 +9,6 @@ extern crate getopts;
 use getopts::*;
 use std::sync::mpsc;
 use std::os;
-use std::c_str::*;
 use allegro::*;
 use allegro_font::*;
 
@@ -24,7 +22,7 @@ fn other_window(mut core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 	}
 
 	let disp = Display::new(&core, 800, 600).unwrap();
-	disp.set_window_title(&"Secondary Window".to_c_str());
+	disp.set_window_title("Secondary Window");
 
 	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
@@ -111,7 +109,7 @@ allegro_main!
 	}
 
 	let disp = Display::new(&core, 800, 600).unwrap();
-	disp.set_window_title(&"Main Window".to_c_str());
+	disp.set_window_title("Main Window");
 
 	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 

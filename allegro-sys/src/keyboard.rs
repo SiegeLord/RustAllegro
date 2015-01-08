@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(non_snake_case, raw_pointer_deriving)]
+#![allow(non_snake_case, raw_pointer_derive)]
 
 use libc::*;
 

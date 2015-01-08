@@ -16,7 +16,7 @@ use internal::display::{Display, DisplayOption, DisplayOptionImportance, Display
 use internal::color::{Color, PixelFormat};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
 use internal::transformations::{Transform, new_transform_wrap};
-use rust_util::Flag;
+use rust_util::{Flag, from_c_str};
 
 flag_type!{
 	BitmapDrawingFlags
@@ -222,7 +222,7 @@ impl Core
 		assert!(self.is_keyboard_installed());
 		unsafe
 		{
-			String::from_raw_buf(al_keycode_to_name(k as c_int) as *const _)
+			from_c_str(al_keycode_to_name(k as c_int))
 		}
 	}
 

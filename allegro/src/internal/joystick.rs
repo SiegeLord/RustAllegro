@@ -7,7 +7,7 @@ use std::mem;
 use std::kinds::marker::NoSend;
 
 use ffi::*;
-use rust_util::Flag;
+use rust_util::{Flag, from_c_str};
 use internal::core::Core;
 
 flag_type!{
@@ -59,7 +59,7 @@ impl Joystick
 			let ptr = al_get_joystick_name(self.allegro_joystick);
 			if !ptr.is_null()
 			{
-				Ok(String::from_raw_buf(ptr as *const _))
+				Ok(from_c_str(ptr))
 			}
 			else
 			{
@@ -91,7 +91,7 @@ impl Joystick
 			let ptr = al_get_joystick_stick_name(self.allegro_joystick, stick as c_int);
 			if !ptr.is_null()
 			{
-				Ok(String::from_raw_buf(ptr as *const _))
+				Ok(from_c_str(ptr))
 			}
 			else
 			{
@@ -115,7 +115,7 @@ impl Joystick
 			let ptr = al_get_joystick_axis_name(self.allegro_joystick, stick as c_int, axis as c_int);
 			if !ptr.is_null()
 			{
-				Ok(String::from_raw_buf(ptr as *const _))
+				Ok(from_c_str(ptr))
 			}
 			else
 			{
@@ -139,7 +139,7 @@ impl Joystick
 			let ptr = al_get_joystick_button_name(self.allegro_joystick, button as c_int);
 			if !ptr.is_null()
 			{
-				Ok(String::from_raw_buf(ptr as *const _))
+				Ok(from_c_str(ptr))
 			}
 			else
 			{

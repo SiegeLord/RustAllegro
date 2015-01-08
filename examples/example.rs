@@ -1,8 +1,7 @@
 // This file is released into Public Domain.
-#![feature(globs)]
 #![feature(phase)]
 
-#[phase(plugin, link)]
+#[macro_use]
 extern crate allegro;
 extern crate allegro_image;
 extern crate allegro_font;
@@ -12,7 +11,6 @@ extern crate getopts;
 
 use getopts::*;
 use std::os;
-use std::c_str::*;
 use allegro::*;
 use allegro_image::*;
 use allegro_font::*;
@@ -43,7 +41,7 @@ allegro_main!
 	}
 
 	let disp = Display::new(&core, 800, 600).unwrap();
-	disp.set_window_title(&"Rust example".to_c_str());
+	disp.set_window_title("Rust example");
 
 	core.install_keyboard().unwrap();
 	core.install_mouse().unwrap();

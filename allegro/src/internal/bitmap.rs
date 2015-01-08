@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::kinds::marker::NoSend;
 use std::mem;
 
@@ -30,7 +30,7 @@ impl Bitmap
 	{
 		unsafe
 		{
-			let b =	al_create_bitmap(w as c_int, h as c_int);
+			let b = al_create_bitmap(w as c_int, h as c_int);
 			if b.is_null()
 			{
 				Err(())
@@ -44,13 +44,11 @@ impl Bitmap
 
 	pub fn load(_: &Core, filename: &str) -> Result<Bitmap, ()>
 	{
-		let b = filename.with_c_str(|s|
+		let b = unsafe
 		{
-			unsafe
-			{
-				al_load_bitmap(s)
-			}
-		});
+			let filename = CString::from_slice(filename.as_bytes());
+			al_load_bitmap(filename.as_ptr())
+		};
 		if b.is_null()
 		{
 			Err(())

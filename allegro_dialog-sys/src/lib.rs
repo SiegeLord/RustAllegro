@@ -5,17 +5,13 @@
 #![crate_name="allegro_dialog-sys"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 
 extern crate "allegro-sys" as allegro_sys;
 extern crate libc;
 
 pub use allegro_dialog::*;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 mod rust_util;
 

@@ -5,7 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::sync::Arc;
 use std::mem;
 use std::ptr;
@@ -58,13 +58,11 @@ impl Sample
 {
 	pub fn load(_: &AudioAddon, filename: &str) -> Result<Sample, ()>
 	{
-		let samp = filename.with_c_str(|s|
+		let filename = CString::from_slice(filename.as_bytes());
+		let samp = unsafe
 		{
-			unsafe
-			{
-				al_load_sample(s)
-			}
-		});
+			al_load_sample(filename.as_ptr())
+		};
 		if samp.is_null()
 		{
 			Err(())

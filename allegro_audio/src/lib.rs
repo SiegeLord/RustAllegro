@@ -5,10 +5,6 @@
 #![crate_name="allegro_audio"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(thread_local)]
 
 extern crate allegro;
@@ -22,7 +18,7 @@ pub use sink::*;
 pub use mixer::*;
 pub use sample::*;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 
 mod addon;

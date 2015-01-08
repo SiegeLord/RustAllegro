@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::mem;
-use std::c_str::CString;
+use std::ffi::CString;
 
 use internal::bitmap::{Bitmap, new_bitmap_ref, clone_bitmap};
 use internal::bitmap_like::BitmapLike;
@@ -251,8 +251,9 @@ impl Display
 		}
 	}
 
-	pub fn set_window_title(&self, title: &CString)
+	pub fn set_window_title(&self, title: &str)
 	{
+		let title = CString::from_slice(title.as_bytes());
 		unsafe
 		{
 			al_set_window_title(self.allegro_display, title.as_ptr());

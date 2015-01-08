@@ -5,7 +5,7 @@
 use allegro::c_bool;
 
 use libc::*;
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::mem;
 use std::io::BufWriter;
 
@@ -64,13 +64,11 @@ impl AudioStream
 
 	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
 	{
-		let stream = filename.with_c_str(|s|
+		let filename = CString::from_slice(filename.as_bytes());
+		let stream = unsafe
 		{
-			unsafe
-			{
-				al_load_audio_stream(s, buffer_count as size_t, samples as c_uint)
-			}
-		});
+			al_load_audio_stream(filename.as_ptr(), buffer_count as size_t, samples as c_uint)
+		};
 		if stream.is_null()
 		{
 			Err(())

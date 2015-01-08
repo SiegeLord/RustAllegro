@@ -9,7 +9,7 @@ use std::kinds::marker::NoSend;
 use addon::FontAddon;
 
 use libc::*;
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::mem;
 
 #[derive(Copy)]
@@ -93,10 +93,8 @@ impl Font
 	{
 		unsafe
 		{
-			let font = filename.with_c_str(|s|
-			{
-				al_load_bitmap_font(s)
-			});
+			let filename = CString::from_slice(filename.as_bytes());
+			let font = al_load_bitmap_font(filename.as_ptr());
 			Font::wrap_allegro_font(font)
 		}
 	}

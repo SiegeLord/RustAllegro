@@ -5,10 +5,6 @@
 #![crate_name="allegro"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(unsafe_destructor)]
 
 extern crate libc;
@@ -27,7 +23,7 @@ pub use internal::timer::*;
 pub use internal::transformations::external::*;
 pub use rust_util::*;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 mod rust_util;
 

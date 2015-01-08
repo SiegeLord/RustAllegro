@@ -5,10 +5,6 @@
 #![crate_name="allegro_font"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(thread_local)]
 #![feature(unsafe_destructor)]
 
@@ -23,5 +19,5 @@ pub use addon::*;
 mod addon;
 mod font;
 
-#[macro_escape]
+#[macro_use]
 mod macros;

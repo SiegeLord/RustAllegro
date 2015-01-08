@@ -5,20 +5,16 @@
 #![crate_name="allegro_font-sys"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![allow(non_camel_case_types)]
 
-#![allow(non_camel_case_types, raw_pointer_deriving)]
+#![allow(non_camel_case_types, raw_pointer_derive)]
 
 extern crate libc;
 extern crate "allegro-sys" as allegro;
 
 pub use self::allegro_font::*;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 mod rust_util;
 

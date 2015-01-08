@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(raw_pointer_deriving)]
+#![allow(raw_pointer_derive)]
 
 use libc::*;
 use rust_util::c_bool;

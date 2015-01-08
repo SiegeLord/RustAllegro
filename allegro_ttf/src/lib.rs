@@ -5,10 +5,6 @@
 #![crate_name="allegro_ttf"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
-#![feature(macro_rules)]
-#![feature(default_type_params)]
-#![feature(associated_types)]
 #![feature(thread_local)]
 
 extern crate allegro;
@@ -21,10 +17,10 @@ use allegro_font::{FontAddon, Font};
 use allegro_ttf_sys::*;
 use libc::*;
 
-use std::c_str::ToCStr;
+use std::ffi::CString;
 use std::kinds::marker::NoSend;
 
-#[macro_escape]
+#[macro_use]
 mod macros;
 
 static mut initialized: bool = false;
@@ -93,13 +89,11 @@ impl TtfAddon
 
 	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Result<Font, ()>
 	{
-		filename.with_c_str(|s|
+		let filename = CString::from_slice(filename.as_bytes());
+		unsafe
 		{
-			unsafe
-			{
-				Font::wrap_allegro_font(al_load_ttf_font(s, size as c_int, flags.get() as c_int))
-			}
-		})
+			Font::wrap_allegro_font(al_load_ttf_font(filename.as_ptr(), size as c_int, flags.get() as c_int))
+		}
 	}
 
 	pub fn load_ttf_font_stretch(&self, filename: &str, width: i32, height: i32, flags: TtfFlags) -> Result<Font, String>
@@ -110,14 +104,12 @@ impl TtfAddon
 		}
 		else
 		{
-			filename.with_c_str(|s|
+			let filename = CString::from_slice(filename.as_bytes());
+			unsafe
 			{
-				unsafe
-				{
-					Font::wrap_allegro_font(al_load_ttf_font_stretch(s, width as c_int, height as c_int, flags.get() as c_int))
-						.map_err(|_| "Failed to load the ttf font.".to_string())
-				}
-			})
+				Font::wrap_allegro_font(al_load_ttf_font_stretch(filename.as_ptr(), width as c_int, height as c_int, flags.get() as c_int))
+					.map_err(|_| "Failed to load the ttf font.".to_string())
+			}
 		}
 	}
 }

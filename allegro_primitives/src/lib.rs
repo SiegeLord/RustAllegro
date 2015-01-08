@@ -5,9 +5,7 @@
 #![crate_name="allegro_primitives"]
 
 #![crate_type = "lib"]
-#![feature(globs)]
 #![feature(thread_local)]
-#![feature(default_type_params)]
 
 extern crate allegro;
 extern crate libc;
