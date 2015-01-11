@@ -106,15 +106,15 @@
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_JOYSTICK_STATE</span>
 {
-	<span class='kw'>pub</span> <span class='ident'>stick</span>: [<span class='ident'>Stick</span>; <span class='number'>8u</span>],
-	<span class='kw'>pub</span> <span class='ident'>button</span>: [<span class='ident'>c_int</span>; <span class='number'>32u</span>],
+	<span class='kw'>pub</span> <span class='ident'>stick</span>: [<span class='ident'>Stick</span>; <span class='number'>8us</span>],
+	<span class='kw'>pub</span> <span class='ident'>button</span>: [<span class='ident'>c_int</span>; <span class='number'>32us</span>],
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Stick</span>
 {
-	<span class='kw'>pub</span> <span class='ident'>axis</span>: [<span class='ident'>c_float</span>; <span class='number'>3u</span>],
+	<span class='kw'>pub</span> <span class='ident'>axis</span>: [<span class='ident'>c_float</span>; <span class='number'>3us</span>],
 }
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_JOYFLAG_DIGITAL</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>1</span>;

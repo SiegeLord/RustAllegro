@@ -573,23 +573,23 @@
 		})
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_sample_frequency</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>uint</span>
+			<span class='ident'>al_get_sample_frequency</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>usize</span>
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_length</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_length</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_get_sample_length</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>uint</span>
+			<span class='ident'>al_get_sample_length</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>usize</span>
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_byte_length</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_byte_length</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>get_length</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>get_channels</span>().<span class='ident'>get_num_channels</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>get_depth</span>().<span class='ident'>get_byte_size</span>()
 	}

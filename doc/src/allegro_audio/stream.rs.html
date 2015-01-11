@@ -432,7 +432,7 @@
 {
 	<span class='ident'>parent</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Connection</span><span class='op'>&gt;</span>,
 	<span class='ident'>allegro_audio_stream</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_AUDIO_STREAM</span>,
-	<span class='ident'>fragment_samples</span>: <span class='ident'>uint</span>,
+	<span class='ident'>fragment_samples</span>: <span class='ident'>usize</span>,
 	<span class='ident'>created_by_load</span>: <span class='ident'>bool</span>,
 }
 
@@ -443,7 +443,7 @@
 		<span class='ident'>AudioStream</span>::<span class='ident'>load_custom</span>(<span class='ident'>addon</span>, <span class='ident'>filename</span>, <span class='number'>4</span>, <span class='number'>2048</span>)
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_custom</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>buffer_count</span>: <span class='ident'>uint</span>, <span class='ident'>samples</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AudioStream</span>, ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_custom</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>buffer_count</span>: <span class='ident'>usize</span>, <span class='ident'>samples</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AudioStream</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>());
 		<span class='kw'>let</span> <span class='ident'>stream</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
@@ -460,13 +460,13 @@
 			{
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
 				<span class='ident'>allegro_audio_stream</span>: <span class='ident'>stream</span>,
-				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>uint</span>,
+				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>usize</span>,
 				<span class='ident'>created_by_load</span>: <span class='boolval'>true</span>,
 			})
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>buffer_count</span>: <span class='ident'>uint</span>, <span class='ident'>samples</span>: <span class='ident'>u32</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AudioStream</span>, ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>buffer_count</span>: <span class='ident'>usize</span>, <span class='ident'>samples</span>: <span class='ident'>u32</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AudioStream</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>stream</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
 		{
@@ -482,7 +482,7 @@
 			{
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
 				<span class='ident'>allegro_audio_stream</span>: <span class='ident'>stream</span>,
-				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>uint</span>,
+				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>usize</span>,
 				<span class='ident'>created_by_load</span>: <span class='boolval'>false</span>,
 			})
 		}

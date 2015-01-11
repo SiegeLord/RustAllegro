@@ -74,7 +74,7 @@
 	($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span>
 	{
 		<span class='attribute'>#[<span class='ident'>start</span>]</span>
-		<span class='kw'>fn</span> <span class='ident'>start</span>(<span class='ident'>argc</span>: <span class='ident'>int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>int</span>
+		<span class='kw'>fn</span> <span class='ident'>start</span>(<span class='ident'>argc</span>: <span class='ident'>isize</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>isize</span>
 		{
 			<span class='ident'>allegro</span>::<span class='ident'>run</span>(<span class='ident'>argc</span>, <span class='ident'>argv</span>, <span class='ident'>main</span>)
 		}

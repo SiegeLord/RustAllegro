@@ -97,17 +97,17 @@
 
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>global_main_func</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw'>extern</span> <span class='string'>&quot;Rust&quot;</span> <span class='kw'>fn</span>()<span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>run</span>(<span class='ident'>argc</span>: <span class='ident'>int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>main_func</span>: <span class='kw'>extern</span> <span class='string'>&quot;Rust&quot;</span> <span class='kw'>fn</span>()) <span class='op'>-&gt;</span> <span class='ident'>int</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>run</span>(<span class='ident'>argc</span>: <span class='ident'>isize</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>main_func</span>: <span class='kw'>extern</span> <span class='string'>&quot;Rust&quot;</span> <span class='kw'>fn</span>()) <span class='op'>-&gt;</span> <span class='ident'>isize</span>
 {
 	<span class='kw'>unsafe</span>
 	{
 		<span class='ident'>global_main_func</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>main_func</span>);
-		<span class='ident'>al_run_main</span>(<span class='ident'>argc</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>argv</span>), <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>allegro_main</span>)) <span class='kw'>as</span> <span class='ident'>int</span>
+		<span class='ident'>al_run_main</span>(<span class='ident'>argc</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>argv</span>), <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>allegro_main</span>)) <span class='kw'>as</span> <span class='ident'>isize</span>
 	}
 }
 
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
-<span class='kw'>fn</span> <span class='ident'>allegro_main</span>(<span class='ident'>argc</span>: <span class='ident'>int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
+<span class='kw'>fn</span> <span class='ident'>allegro_main</span>(<span class='ident'>argc</span>: <span class='ident'>isize</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
 {
 	<span class='kw'>unsafe</span>
 	{
