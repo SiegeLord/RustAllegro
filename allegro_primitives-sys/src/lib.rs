@@ -5,6 +5,7 @@
 #![crate_name="allegro_primitives-sys"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 
 extern crate "allegro-sys" as allegro_sys;
 extern crate libc;
@@ -92,8 +93,8 @@ pub mod allegro_primitives
 		pub fn al_draw_arc(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_draw_elliptical_arc(cx: c_float, cy: c_float, rx: c_float, ry: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_draw_pieslice(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
-		pub fn al_calculate_spline(dest: *mut c_float, stride: c_int, points: [c_float; 8u], thickness: c_float, num_segments: c_int);
-		pub fn al_draw_spline(points: [c_float; 8u], color: ALLEGRO_COLOR, thickness: c_float);
+		pub fn al_calculate_spline(dest: *mut c_float, stride: c_int, points: [c_float; 8us], thickness: c_float, num_segments: c_int);
+		pub fn al_draw_spline(points: [c_float; 8us], color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_calculate_ribbon(dest: *mut c_float, dest_stride: c_int, points: *const c_float, points_stride: c_int, thickness: c_float, num_segments: c_int);
 		pub fn al_draw_ribbon(points: *const c_float, points_stride: c_int, color: ALLEGRO_COLOR, thickness: c_float, num_segments: c_int);
 		pub fn al_draw_filled_triangle(x1: c_float, y1: c_float, x2: c_float, y2: c_float, x3: c_float, y3: c_float, color: ALLEGRO_COLOR);

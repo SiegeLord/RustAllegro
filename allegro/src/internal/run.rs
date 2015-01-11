@@ -11,17 +11,17 @@ use ffi::*;
 
 static mut global_main_func: Option<extern "Rust" fn()> = None;
 
-pub fn run(argc: int, argv: *const *const u8, main_func: extern "Rust" fn()) -> int
+pub fn run(argc: isize, argv: *const *const u8, main_func: extern "Rust" fn()) -> isize
 {
 	unsafe
 	{
 		global_main_func = Some(main_func);
-		al_run_main(argc as c_int, mem::transmute(argv), mem::transmute(allegro_main)) as int
+		al_run_main(argc as c_int, mem::transmute(argv), mem::transmute(allegro_main)) as isize
 	}
 }
 
 extern "C"
-fn allegro_main(argc: int, argv: *const *const u8) -> c_int
+fn allegro_main(argc: isize, argv: *const *const u8) -> c_int
 {
 	unsafe
 	{

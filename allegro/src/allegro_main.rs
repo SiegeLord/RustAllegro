@@ -9,7 +9,7 @@ macro_rules! allegro_main
 	($($x:tt)*) =>
 	{
 		#[start]
-		fn start(argc: int, argv: *const *const u8) -> int
+		fn start(argc: isize, argv: *const *const u8) -> isize
 		{
 			allegro::run(argc, argv, main)
 		}

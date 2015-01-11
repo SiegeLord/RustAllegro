@@ -5,6 +5,7 @@
 #![crate_name="allegro_image-sys"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 
 extern crate libc;
 

@@ -47,7 +47,7 @@ impl AudioDepth
 		}
 	}
 
-	pub fn get_byte_size(&self) -> uint
+	pub fn get_byte_size(&self) -> usize
 	{
 		match *self
 		{
@@ -104,7 +104,7 @@ impl ChannelConf
 		}
 	}
 
-	pub fn get_num_channels(&self) -> uint
+	pub fn get_num_channels(&self) -> usize
 	{
 		match *self
 		{

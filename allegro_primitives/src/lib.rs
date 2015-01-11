@@ -5,13 +5,14 @@
 #![crate_name="allegro_primitives"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate allegro;
 extern crate libc;
 extern crate "allegro_primitives-sys" as allegro_primitives_sys;
 
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 use std::ptr;
 
 use std::sync::{Arc, Mutex};

@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::mem;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 use ffi::*;
 use rust_util::{Flag, from_c_str};

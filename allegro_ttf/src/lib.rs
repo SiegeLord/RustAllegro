@@ -5,6 +5,7 @@
 #![crate_name="allegro_ttf"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate allegro;
@@ -18,7 +19,7 @@ use allegro_ttf_sys::*;
 use libc::*;
 
 use std::ffi::CString;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 #[macro_use]
 mod macros;

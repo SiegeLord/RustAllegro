@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 use std::sync::{Arc, Mutex};
 

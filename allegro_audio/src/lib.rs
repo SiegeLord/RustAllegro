@@ -5,6 +5,7 @@
 #![crate_name="allegro_audio"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate allegro;

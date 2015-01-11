@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::mem;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 use std::thread::Thread;
 use std::sync::{Arc, Mutex};
 
@@ -117,7 +117,7 @@ impl Core
 				mutex: mutex,
 				no_send_marker: NoSend,
 			});
-		}).detach();
+		});
 	}
 
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>

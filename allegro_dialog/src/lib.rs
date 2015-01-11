@@ -5,6 +5,7 @@
 #![crate_name="allegro_dialog"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate "allegro_dialog-sys" as allegro_dialog_sys;
@@ -15,7 +16,7 @@ use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
 use std::ffi::CString;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 #[macro_use]
 mod macros;

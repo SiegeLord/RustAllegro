@@ -1,5 +1,5 @@
 // This file is released into Public Domain.
-#![feature(phase)]
+#![allow(unstable)]
 
 #[macro_use]
 extern crate allegro;
@@ -10,6 +10,7 @@ extern crate getopts;
 
 use getopts::*;
 use std::os;
+
 use std::os::getenv;
 use allegro::*;
 use allegro_font::*;
@@ -77,7 +78,7 @@ allegro_main!
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let callback = box AudioCallback{ silence: matches.opt_present("silence") } as Box<PostProcessCallback + Send>;
+	let callback = Box::new(AudioCallback{ silence: matches.opt_present("silence") }) as Box<PostProcessCallback + Send>;
 	let mut sink = Sink::new(&audio_addon).unwrap();
 	sink.set_postprocess_callback(Some(callback)).unwrap();
 	let font = Font::new_builtin(&font_addon).unwrap();

@@ -6,7 +6,7 @@
 
 use libc::*;
 use std::mem;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 use internal::keycodes::{KeyCode, KeyModifier};
 use internal::core::Core;

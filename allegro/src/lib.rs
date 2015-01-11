@@ -5,6 +5,7 @@
 #![crate_name="allegro"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(unsafe_destructor)]
 
 extern crate libc;

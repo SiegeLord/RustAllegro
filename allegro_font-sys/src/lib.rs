@@ -5,6 +5,7 @@
 #![crate_name="allegro_font-sys"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![allow(non_camel_case_types)]
 
 #![allow(non_camel_case_types, raw_pointer_derive)]

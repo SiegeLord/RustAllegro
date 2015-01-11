@@ -5,6 +5,7 @@
 #![crate_name="allegro_font"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 #![feature(unsafe_destructor)]
 

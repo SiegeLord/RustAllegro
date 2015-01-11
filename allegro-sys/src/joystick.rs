@@ -13,15 +13,15 @@ opaque!(ALLEGRO_JOYSTICK);
 #[derive(Copy)]
 pub struct ALLEGRO_JOYSTICK_STATE
 {
-	pub stick: [Stick; 8u],
-	pub button: [c_int; 32u],
+	pub stick: [Stick; 8us],
+	pub button: [c_int; 32us],
 }
 
 #[repr(C)]
 #[derive(Copy)]
 pub struct Stick
 {
-	pub axis: [c_float; 3u],
+	pub axis: [c_float; 3us],
 }
 
 pub const ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;

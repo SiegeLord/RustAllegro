@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::ffi::CString;
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 use std::mem;
 
 use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};

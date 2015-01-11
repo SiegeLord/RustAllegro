@@ -87,23 +87,23 @@ impl Sample
 		})
 	}
 
-	pub fn get_frequency(&self) -> uint
+	pub fn get_frequency(&self) -> usize
 	{
 		unsafe
 		{
-			al_get_sample_frequency(self.allegro_sample as *const _) as uint
+			al_get_sample_frequency(self.allegro_sample as *const _) as usize
 		}
 	}
 
-	pub fn get_length(&self) -> uint
+	pub fn get_length(&self) -> usize
 	{
 		unsafe
 		{
-			al_get_sample_length(self.allegro_sample as *const _) as uint
+			al_get_sample_length(self.allegro_sample as *const _) as usize
 		}
 	}
 
-	pub fn get_byte_length(&self) -> uint
+	pub fn get_byte_length(&self) -> usize
 	{
 		self.get_length() * self.get_channels().get_num_channels() * self.get_depth().get_byte_size()
 	}

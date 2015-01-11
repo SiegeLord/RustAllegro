@@ -5,6 +5,7 @@
 #![crate_name="allegro_ttf-sys"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate "allegro_font-sys" as allegro_font_sys;

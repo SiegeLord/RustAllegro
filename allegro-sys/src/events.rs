@@ -148,7 +148,7 @@ pub struct ALLEGRO_USER_EVENT
 #[derive(Copy)]
 pub struct ALLEGRO_EVENT
 {
-	pub data: [u8; 72u],
+	pub data: [u8; 72us],
 }
 
 impl ALLEGRO_EVENT

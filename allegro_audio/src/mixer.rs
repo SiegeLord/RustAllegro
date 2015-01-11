@@ -67,7 +67,7 @@ pub trait AttachToMixer : AttachToMixerImpl
 struct CallbackHolder
 {
 	cb: Box<PostProcessCallback + Send>,
-	sample_size: uint,
+	sample_size: usize,
 }
 
 pub struct Mixer
@@ -217,7 +217,7 @@ pub trait MixerLike : HasMixer
 		{
 			Some(cb) =>
 			{
-				let mut cbh = box CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() };
+				let mut cbh = Box::new(CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() });
 				let ret = unsafe
 				{
 					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)), &mut *cbh as *mut _ as *mut _)
@@ -252,7 +252,7 @@ extern "C" fn mixer_callback(data: *mut c_void, num_samples: c_uint, cb: *mut c_
 	{
 		let cbh: &mut CallbackHolder = mem::transmute(cb);
 		let buf = data as *mut u8;
-		let buf = from_raw_mut_buf(&buf, num_samples as uint * cbh.sample_size);
+		let buf = from_raw_mut_buf(&buf, num_samples as usize * cbh.sample_size);
 		cbh.cb.process(buf, num_samples as u32);
 	}
 }

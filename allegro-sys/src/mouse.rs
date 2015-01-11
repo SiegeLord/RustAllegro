@@ -21,7 +21,7 @@ pub struct ALLEGRO_MOUSE_STATE
     pub y: c_int,
     pub z: c_int,
     pub w: c_int,
-    pub more_axes: [c_int; ALLEGRO_MOUSE_MAX_EXTRA_AXES as uint],
+    pub more_axes: [c_int; ALLEGRO_MOUSE_MAX_EXTRA_AXES as usize],
     pub buttons: c_int,
     pub pressure: c_float,
     pub display: *mut ALLEGRO_DISPLAY,

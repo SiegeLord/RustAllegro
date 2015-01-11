@@ -5,12 +5,13 @@
 #![crate_name="allegro_image"]
 
 #![crate_type = "lib"]
+#![allow(unstable)]
 #![feature(thread_local)]
 
 extern crate allegro;
 extern crate libc;
 
-use std::kinds::marker::NoSend;
+use std::marker::NoSend;
 
 use allegro::Core;
 use ffi::allegro_image::*;

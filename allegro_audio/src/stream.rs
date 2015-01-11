@@ -51,7 +51,7 @@ pub struct AudioStream
 {
 	parent: Option<Connection>,
 	allegro_audio_stream: *mut ALLEGRO_AUDIO_STREAM,
-	fragment_samples: uint,
+	fragment_samples: usize,
 	created_by_load: bool,
 }
 
@@ -62,7 +62,7 @@ impl AudioStream
 		AudioStream::load_custom(addon, filename, 4, 2048)
 	}
 
-	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: uint, samples: u32) -> Result<AudioStream, ()>
+	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: usize, samples: u32) -> Result<AudioStream, ()>
 	{
 		let filename = CString::from_slice(filename.as_bytes());
 		let stream = unsafe
@@ -79,13 +79,13 @@ impl AudioStream
 			{
 				parent: None,
 				allegro_audio_stream: stream,
-				fragment_samples: samples as uint,
+				fragment_samples: samples as usize,
 				created_by_load: true,
 			})
 		}
 	}
 
-	pub fn new(_: &AudioAddon, buffer_count: uint, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
+	pub fn new(_: &AudioAddon, buffer_count: usize, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<AudioStream, ()>
 	{
 		let stream = unsafe
 		{
@@ -101,7 +101,7 @@ impl AudioStream
 			{
 				parent: None,
 				allegro_audio_stream: stream,
-				fragment_samples: samples as uint,
+				fragment_samples: samples as usize,
 				created_by_load: false,
 			})
 		}

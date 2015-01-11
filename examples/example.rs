@@ -1,5 +1,5 @@
 // This file is released into Public Domain.
-#![feature(phase)]
+#![allow(unstable)]
 
 #[macro_use]
 extern crate allegro;
