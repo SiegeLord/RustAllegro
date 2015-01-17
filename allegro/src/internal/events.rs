@@ -6,7 +6,6 @@
 
 use libc::*;
 use std::mem;
-use std::marker::NoSend;
 
 use internal::keycodes::{KeyCode, KeyModifier};
 use internal::core::Core;
@@ -23,8 +22,9 @@ pub mod external
 pub struct EventQueue
 {
 	allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
-	no_send_marker: NoSend,
 }
+
+impl !Send for EventQueue {}
 
 impl EventQueue
 {
@@ -39,7 +39,7 @@ impl EventQueue
 			}
 			else
 			{
-				Ok(EventQueue{ allegro_queue: q, no_send_marker: NoSend })
+				Ok(EventQueue{ allegro_queue: q })
 			}
 		}
 	}
@@ -159,8 +159,9 @@ impl Drop for EventQueue
 pub struct EventSource
 {
 	allegro_source: *mut ALLEGRO_EVENT_SOURCE,
-	no_send_marker: NoSend,
 }
+
+impl !Send for EventSource {}
 
 impl EventSource
 {
@@ -401,5 +402,5 @@ impl Event
 
 pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
 {
-	EventSource{ allegro_source: source, no_send_marker: NoSend }
+	EventSource{ allegro_source: source }
 }

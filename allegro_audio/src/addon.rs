@@ -2,12 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::marker::NoSend;
-
-use std::sync::{Arc, Mutex};
-
 use allegro::Core;
 use allegro_audio_sys::*;
+
+use std::sync::{Arc, Mutex};
 
 static mut initialized: bool = false;
 #[thread_local]
@@ -15,9 +13,10 @@ static mut spawned_on_this_thread: bool = false;
 
 pub struct AudioAddon
 {
-	no_send_marker: NoSend,
 	core_mutex: Arc<Mutex<()>>,
 }
+
+impl !Send for AudioAddon {}
 
 impl AudioAddon
 {
@@ -36,7 +35,7 @@ impl AudioAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -45,7 +44,7 @@ impl AudioAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(AudioAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
 				}
 				else
 				{

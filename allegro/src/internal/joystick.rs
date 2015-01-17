@@ -4,7 +4,6 @@
 
 use libc::*;
 use std::mem;
-use std::marker::NoSend;
 
 use ffi::*;
 use rust_util::{Flag, from_c_str};
@@ -22,8 +21,9 @@ flag_type!{
 pub struct Joystick
 {
 	allegro_joystick: *mut ALLEGRO_JOYSTICK,
-	no_send_marker: NoSend,
 }
+
+impl !Send for Joystick {}
 
 impl Joystick
 {
@@ -36,7 +36,7 @@ impl Joystick
 		};
 		if !ptr.is_null()
 		{
-			Ok(Joystick{ allegro_joystick: ptr, no_send_marker: NoSend })
+			Ok(Joystick{ allegro_joystick: ptr })
 		}
 		else
 		{

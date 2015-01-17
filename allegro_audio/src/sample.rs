@@ -54,6 +54,8 @@ pub struct Sample
 	sample_valid: Arc<AtomicBool>,
 }
 
+impl !Send for Sample {}
+
 impl Sample
 {
 	pub fn load(_: &AudioAddon, filename: &str) -> Result<Sample, ()>

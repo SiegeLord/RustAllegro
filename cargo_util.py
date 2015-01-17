@@ -3,6 +3,7 @@
 import argparse
 import fileinput
 import re
+import os
 from shutil import copy
 from subprocess import check_call
 
@@ -70,6 +71,9 @@ if args.clean:
 	crates_and_doc.extend(crate_list)
 	for crate in crates_and_doc:
 		print 'Cleaning', crate
+		lock = crate + '/Cargo.lock'
+		if os.path.exists(lock):
+			os.remove(lock)
 		check_call(['cargo', 'clean'], cwd=crate)
 
 if args.doc:

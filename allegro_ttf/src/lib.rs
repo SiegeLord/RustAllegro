@@ -7,6 +7,8 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
+
 
 extern crate allegro;
 extern crate allegro_font;
@@ -19,7 +21,6 @@ use allegro_ttf_sys::*;
 use libc::*;
 
 use std::ffi::CString;
-use std::marker::NoSend;
 
 #[macro_use]
 mod macros;
@@ -39,10 +40,9 @@ flag_type!
 }
 
 #[allow(missing_copy_implementations)]
-pub struct TtfAddon
-{
-	no_send_marker: NoSend
-}
+pub struct TtfAddon;
+
+impl !Send for TtfAddon {}
 
 impl TtfAddon
 {
@@ -61,7 +61,7 @@ impl TtfAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(TtfAddon{ no_send_marker: NoSend })
+					Ok(TtfAddon)
 				}
 			}
 			else
@@ -70,7 +70,7 @@ impl TtfAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(TtfAddon{ no_send_marker: NoSend })
+					Ok(TtfAddon)
 				}
 				else
 				{

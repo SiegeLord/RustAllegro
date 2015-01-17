@@ -7,6 +7,7 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
 
 extern crate "allegro_dialog-sys" as allegro_dialog_sys;
 extern crate allegro;
@@ -16,7 +17,6 @@ use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
 use std::ffi::CString;
-use std::marker::NoSend;
 
 #[macro_use]
 mod macros;
@@ -45,10 +45,9 @@ static mut initialized: bool = false;
 static mut spawned_on_this_thread: bool = false;
 
 #[allow(missing_copy_implementations)]
-pub struct DialogAddon
-{
-	no_send_marker: NoSend
-}
+pub struct DialogAddon;
+
+impl !Send for DialogAddon {}
 
 impl DialogAddon
 {
@@ -67,7 +66,7 @@ impl DialogAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(DialogAddon{ no_send_marker: NoSend })
+					Ok(DialogAddon)
 				}
 			}
 			else
@@ -76,7 +75,7 @@ impl DialogAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(DialogAddon{ no_send_marker: NoSend })
+					Ok(DialogAddon)
 				}
 				else
 				{

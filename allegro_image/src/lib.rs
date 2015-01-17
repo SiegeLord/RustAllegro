@@ -7,11 +7,10 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
 
 extern crate allegro;
 extern crate libc;
-
-use std::marker::NoSend;
 
 use allegro::Core;
 use ffi::allegro_image::*;
@@ -48,10 +47,9 @@ static mut initialized: bool = false;
 static mut spawned_on_this_thread: bool = false;
 
 #[allow(missing_copy_implementations)]
-pub struct ImageAddon
-{
-	no_send_marker: NoSend
-}
+pub struct ImageAddon;
+
+impl !Send for ImageAddon {}
 
 impl ImageAddon
 {
@@ -70,7 +68,7 @@ impl ImageAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(ImageAddon{ no_send_marker: NoSend })
+					Ok(ImageAddon)
 				}
 			}
 			else
@@ -79,7 +77,7 @@ impl ImageAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(ImageAddon{ no_send_marker: NoSend })
+					Ok(ImageAddon)
 				}
 				else
 				{

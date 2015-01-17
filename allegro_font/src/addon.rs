@@ -2,8 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::marker::NoSend;
-
 use std::sync::{Arc, Mutex};
 
 use allegro::Core;
@@ -15,9 +13,10 @@ static mut spawned_on_this_thread: bool = false;
 
 pub struct FontAddon
 {
-	no_send_marker: NoSend,
 	core_mutex: Arc<Mutex<()>>,
 }
+
+impl !Send for FontAddon {}
 
 impl FontAddon
 {
@@ -36,7 +35,7 @@ impl FontAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -44,7 +43,7 @@ impl FontAddon
 				al_init_font_addon();
 				initialized = true;
 				spawned_on_this_thread = true;
-				Ok(FontAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+				Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 			}
 		}
 	}

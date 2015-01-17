@@ -7,6 +7,7 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
 
 extern crate allegro;
 extern crate allegro_audio;
@@ -15,17 +16,14 @@ extern crate "allegro_acodec-sys" as allegro_acodec_sys;
 use allegro_audio::AudioAddon;
 use allegro_acodec_sys::*;
 
-use std::marker::NoSend;
-
 static mut initialized: bool = false;
 #[thread_local]
 static mut spawned_on_this_thread: bool = false;
 
 #[allow(missing_copy_implementations)]
-pub struct AcodecAddon
-{
-	no_send_marker: NoSend
-}
+pub struct AcodecAddon;
+
+impl !Send for AcodecAddon {}
 
 impl AcodecAddon
 {
@@ -44,7 +42,7 @@ impl AcodecAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(AcodecAddon{ no_send_marker: NoSend })
+					Ok(AcodecAddon)
 				}
 			}
 			else
@@ -53,7 +51,7 @@ impl AcodecAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(AcodecAddon{ no_send_marker: NoSend })
+					Ok(AcodecAddon)
 				}
 				else
 				{

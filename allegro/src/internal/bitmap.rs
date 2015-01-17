@@ -4,7 +4,6 @@
 
 use libc::*;
 use std::ffi::CString;
-use std::marker::NoSend;
 use std::mem;
 
 use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};
@@ -21,8 +20,9 @@ pub struct Bitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
 	is_ref: bool,
-	no_send_marker: NoSend
 }
+
+impl !Send for Bitmap {}
 
 impl Bitmap
 {
@@ -37,7 +37,7 @@ impl Bitmap
 			}
 			else
 			{
-				Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+				Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
 			}
 		}
 	}
@@ -55,7 +55,7 @@ impl Bitmap
 		}
 		else
 		{
-			Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+			Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
 		}
 	}
 
@@ -146,7 +146,7 @@ impl MemoryBitmap
 			// Don't run MemoryBitmap's destructor
 			mem::forget(self);
 		}
-		Bitmap{ allegro_bitmap: bmp, is_ref: false, no_send_marker: NoSend }
+		Bitmap{ allegro_bitmap: bmp, is_ref: false }
 	}
 }
 
@@ -237,7 +237,7 @@ unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: boo
 
 pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
 {
-	Bitmap{ allegro_bitmap: bmp, is_ref: true, no_send_marker: NoSend }
+	Bitmap{ allegro_bitmap: bmp, is_ref: true }
 }
 
 pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
@@ -251,7 +251,7 @@ pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
 		}
 		else
 		{
-			Ok(Bitmap{ allegro_bitmap: b, is_ref: false, no_send_marker: NoSend })
+			Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
 		}
 	}
 }

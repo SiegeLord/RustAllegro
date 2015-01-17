@@ -7,12 +7,12 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
 
 extern crate allegro;
 extern crate libc;
 extern crate "allegro_primitives-sys" as allegro_primitives_sys;
 
-use std::marker::NoSend;
 use std::ptr;
 
 use std::sync::{Arc, Mutex};
@@ -40,9 +40,10 @@ pub enum PrimType
 
 pub struct PrimitivesAddon
 {
-	no_send_marker: NoSend,
 	core_mutex: Arc<Mutex<()>>,
 }
+
+impl !Send for PrimitivesAddon {}
 
 impl PrimitivesAddon
 {
@@ -61,7 +62,7 @@ impl PrimitivesAddon
 				else
 				{
 					spawned_on_this_thread = true;
-					Ok(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
 			else
@@ -70,7 +71,7 @@ impl PrimitivesAddon
 				{
 					initialized = true;
 					spawned_on_this_thread = true;
-					Ok(PrimitivesAddon{ no_send_marker: NoSend, core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}
 				else
 				{

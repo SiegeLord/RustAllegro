@@ -7,6 +7,7 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(thread_local)]
+#![feature(optin_builtin_traits)]
 
 extern crate allegro;
 extern crate "allegro_audio-sys" as allegro_audio_sys;

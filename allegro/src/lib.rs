@@ -7,6 +7,7 @@
 #![crate_type = "lib"]
 #![allow(unstable)]
 #![feature(unsafe_destructor)]
+#![feature(optin_builtin_traits)]
 
 extern crate libc;
 extern crate "allegro-sys" as ffi;

@@ -8,6 +8,7 @@
 #![allow(unstable)]
 #![feature(thread_local)]
 #![feature(unsafe_destructor)]
+#![feature(optin_builtin_traits)]
 
 extern crate allegro;
 extern crate "allegro-sys" as allegro_sys;

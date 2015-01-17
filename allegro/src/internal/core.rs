@@ -4,7 +4,6 @@
 
 use libc::*;
 use std::mem;
-use std::marker::NoSend;
 use std::thread::Thread;
 use std::sync::{Arc, Mutex};
 
@@ -47,8 +46,9 @@ pub struct Core
 	mouse_event_source: Option<EventSource>,
 	joystick_event_source: Option<EventSource>,
 	mutex: Arc<Mutex<()>>,
-	no_send_marker: NoSend,
 }
+
+impl !Send for Core {}
 
 impl Core
 {
@@ -82,7 +82,6 @@ impl Core
 								mouse_event_source: None,
 								joystick_event_source: None,
 								mutex: Arc::new(Mutex::new(())),
-								no_send_marker: NoSend,
 							}
 						)
 					}
@@ -115,7 +114,6 @@ impl Core
 				mouse_event_source: None,
 				joystick_event_source: None,
 				mutex: mutex,
-				no_send_marker: NoSend,
 			});
 		});
 	}

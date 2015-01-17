@@ -5,7 +5,6 @@
 use allegro_font_sys::*;
 use allegro_sys::*;
 use allegro::{Core, Color, Bitmap, BitmapLike};
-use std::marker::NoSend;
 use addon::FontAddon;
 
 use libc::*;
@@ -76,8 +75,9 @@ impl FontDrawing for Core
 pub struct Font
 {
 	allegro_font: *mut ALLEGRO_FONT,
-	no_send_marker: NoSend,
 }
+
+impl !Send for Font {}
 
 impl Font
 {
@@ -116,7 +116,7 @@ impl Font
 		}
 		else
 		{
-			Ok(Font{ allegro_font: font, no_send_marker: NoSend })
+			Ok(Font{ allegro_font: font })
 		}
 	}
 
