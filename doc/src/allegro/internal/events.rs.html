@@ -445,6 +445,7 @@
 <span id="403">403</span>
 <span id="404">404</span>
 <span id="405">405</span>
+<span id="406">406</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -454,7 +455,6 @@
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>keycodes</span>::{<span class='ident'>KeyCode</span>, <span class='ident'>KeyModifier</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>Core</span>;
@@ -471,8 +471,9 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EventQueue</span>
 {
 	<span class='ident'>allegro_queue</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_QUEUE</span>,
-	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>,
 }
+
+<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>EventQueue</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>EventQueue</span>
 {
@@ -487,7 +488,7 @@
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>EventQueue</span>{ <span class='ident'>allegro_queue</span>: <span class='ident'>q</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+				<span class='prelude-val'>Ok</span>(<span class='ident'>EventQueue</span>{ <span class='ident'>allegro_queue</span>: <span class='ident'>q</span> })
 			}
 		}
 	}
@@ -607,8 +608,9 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EventSource</span>
 {
 	<span class='ident'>allegro_source</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>,
 }
+
+<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>EventSource</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>EventSource</span>
 {
@@ -849,7 +851,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_event_source_ref</span>(<span class='ident'>source</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>) <span class='op'>-&gt;</span> <span class='ident'>EventSource</span>
 {
-	<span class='ident'>EventSource</span>{ <span class='ident'>allegro_source</span>: <span class='ident'>source</span>, <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> }
+	<span class='ident'>EventSource</span>{ <span class='ident'>allegro_source</span>: <span class='ident'>source</span> }
 }
 </pre>
 </section>

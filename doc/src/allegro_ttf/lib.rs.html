@@ -166,6 +166,8 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>unstable</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>thread_local</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>optin_builtin_traits</span>)]</span>
+
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_font</span>;
@@ -178,7 +180,6 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>mod</span> <span class='ident'>macros</span>;
@@ -198,10 +199,9 @@
 }
 
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TtfAddon</span>
-{
-	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>
-}
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TtfAddon</span>;
+
+<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>TtfAddon</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>TtfAddon</span>
 {
@@ -220,7 +220,7 @@
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>)
 				}
 			}
 			<span class='kw'>else</span>
@@ -229,7 +229,7 @@
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>)
 				}
 				<span class='kw'>else</span>
 				{

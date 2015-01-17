@@ -483,6 +483,8 @@
 <span id="441">441</span>
 <span id="442">442</span>
 <span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -539,6 +541,8 @@
 	<span class='comment'>// This will inform sample instances that this sample got dropped</span>
 	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
 }
+
+<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>Sample</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>Sample</span>
 {

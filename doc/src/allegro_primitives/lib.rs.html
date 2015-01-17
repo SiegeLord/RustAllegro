@@ -326,6 +326,7 @@
 <span id="284">284</span>
 <span id="285">285</span>
 <span id="286">286</span>
+<span id="287">287</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -336,12 +337,12 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>unstable</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>thread_local</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>optin_builtin_traits</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;allegro_primitives-sys&quot;</span> <span class='kw'>as</span> <span class='ident'>allegro_primitives_sys</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>NoSend</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
@@ -369,9 +370,10 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PrimitivesAddon</span>
 {
-	<span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>,
 	<span class='ident'>core_mutex</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>,
 }
+
+<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>PrimitivesAddon</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>PrimitivesAddon</span>
 {
@@ -390,7 +392,7 @@
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Ok</span>(<span class='ident'>PrimitivesAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>PrimitivesAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 				}
 			}
 			<span class='kw'>else</span>
@@ -399,7 +401,7 @@
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
 					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='prelude-val'>Ok</span>(<span class='ident'>PrimitivesAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>NoSend</span>, <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>PrimitivesAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 				}
 				<span class='kw'>else</span>
 				{
