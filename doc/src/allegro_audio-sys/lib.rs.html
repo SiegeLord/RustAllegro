@@ -270,15 +270,17 @@
 <span id="228">228</span>
 <span id="229">229</span>
 <span id="230">230</span>
+<span id="231">231</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>libc</span>)]</span>
+
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;allegro_audio-sys&quot;</span>]</span>
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>unstable</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;allegro-sys&quot;</span> <span class='kw'>as</span> <span class='ident'>allegro_sys</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
