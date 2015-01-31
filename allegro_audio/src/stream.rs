@@ -7,7 +7,7 @@ use allegro::c_bool;
 use libc::*;
 use std::ffi::CString;
 use std::mem;
-use std::io::BufWriter;
+use std::old_io::BufWriter;
 
 use addon::AudioAddon;
 use mixer::AttachToMixer;

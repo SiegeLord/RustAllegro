@@ -5,7 +5,6 @@
 #![crate_name="allegro_primitives"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 

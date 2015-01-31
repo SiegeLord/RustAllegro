@@ -2,10 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![feature(libc)]
+
 #![crate_name="allegro_audio-sys"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
 
 extern crate "allegro-sys" as allegro_sys;
 extern crate libc;

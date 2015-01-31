@@ -5,7 +5,6 @@
 #![crate_name="allegro-sys"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
 #![allow(non_camel_case_types)]
 
 extern crate libc;

@@ -5,9 +5,9 @@
 #![crate_name="allegro_image"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
+#![feature(libc)]
 
 extern crate allegro;
 extern crate libc;

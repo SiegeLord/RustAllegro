@@ -5,7 +5,6 @@
 #![crate_name="allegro"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
 #![feature(unsafe_destructor)]
 #![feature(optin_builtin_traits)]
 

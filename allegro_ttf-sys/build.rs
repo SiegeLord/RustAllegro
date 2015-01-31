@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(unstable)]
+#![feature(os)]
 
 use std::os::getenv;
 

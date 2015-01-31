@@ -5,7 +5,8 @@
 #![crate_name="allegro_primitives-sys"]
 
 #![crate_type = "lib"]
-#![allow(unstable)]
+
+#![feature(libc)]
 
 extern crate "allegro-sys" as allegro_sys;
 extern crate libc;
