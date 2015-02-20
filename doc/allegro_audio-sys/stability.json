@@ -1,1 +1,1 @@
-{"name":"allegro_audio-sys","counts":{"unstable":0,"stable":5,"unmarked":148},"submodules":[{"name":"allegro_audio","counts":{"unstable":0,"stable":5,"unmarked":147},"submodules":[]}]}
+{"name":"allegro_audio-sys","counts":{"deprecated":0,"unstable":0,"stable":5,"unmarked":148},"submodules":[{"name":"allegro_audio","counts":{"deprecated":0,"unstable":0,"stable":5,"unmarked":147},"submodules":[]}]}
