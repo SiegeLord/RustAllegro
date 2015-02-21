@@ -445,7 +445,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>load_custom</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>buffer_count</span>: <span class='ident'>usize</span>, <span class='ident'>samples</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AudioStream</span>, ()<span class='op'>&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>());
+		<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 		<span class='kw'>let</span> <span class='ident'>stream</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_load_audio_stream</span>(<span class='ident'>filename</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>buffer_count</span> <span class='kw'>as</span> <span class='ident'>size_t</span>, <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>c_uint</span>)

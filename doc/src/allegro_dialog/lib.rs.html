@@ -270,9 +270,9 @@
 	<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>c_int</span>;
 
 	<span class='kw'>let</span> <span class='ident'>d</span> <span class='op'>=</span> <span class='ident'>display</span>.<span class='ident'>map_or</span>(<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(), <span class='op'>|</span><span class='ident'>d</span><span class='op'>|</span> <span class='ident'>d</span>.<span class='ident'>get_allegro_display</span>());
-	<span class='kw'>let</span> <span class='ident'>title</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>title</span>.<span class='ident'>as_bytes</span>());
-	<span class='kw'>let</span> <span class='ident'>heading</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>heading</span>.<span class='ident'>as_bytes</span>());
-	<span class='kw'>let</span> <span class='ident'>text</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>text</span>.<span class='ident'>as_bytes</span>());
+	<span class='kw'>let</span> <span class='ident'>title</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>title</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
+	<span class='kw'>let</span> <span class='ident'>heading</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>heading</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
+	<span class='kw'>let</span> <span class='ident'>text</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>text</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 
 	<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
 	{
@@ -280,7 +280,7 @@
 		{
 			<span class='prelude-val'>Some</span>(<span class='ident'>buttons</span>) <span class='op'>=&gt;</span>
 			{
-				<span class='kw'>let</span> <span class='ident'>buttons</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>buttons</span>.<span class='ident'>as_bytes</span>());
+				<span class='kw'>let</span> <span class='ident'>buttons</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>buttons</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 				<span class='ident'>al_show_native_message_box</span>(<span class='ident'>d</span>, <span class='ident'>title</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>heading</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>text</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>buttons</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>)
 			},
 			<span class='prelude-val'>None</span> <span class='op'>=&gt;</span>

@@ -322,7 +322,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>from_slice</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>());
+			<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 			<span class='kw'>let</span> <span class='ident'>font</span> <span class='op'>=</span> <span class='ident'>al_load_bitmap_font</span>(<span class='ident'>filename</span>.<span class='ident'>as_ptr</span>());
 			<span class='ident'>Font</span>::<span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>)
 		}
