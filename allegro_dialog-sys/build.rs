@@ -4,25 +4,25 @@
 
 #![feature(os)]
 
-use std::os::getenv;
+use std::env::var;
 
 fn main()
 {
-	if getenv("CARGO_FEATURE_LINK_NONE").is_some()
+	if var("CARGO_FEATURE_LINK_NONE").is_ok()
 	{
 		return;
 	}
 
-	let debug = match getenv("CARGO_FEATURE_LINK_DEBUG")
+	let debug = match var("CARGO_FEATURE_LINK_DEBUG")
 	{
-		None => "",
-		Some(_) => "-debug"
+		Err(_) => "",
+		Ok(_) => "-debug"
 	};
 
-	let static_ = match getenv("CARGO_FEATURE_LINK_STATIC")
+	let static_ = match var("CARGO_FEATURE_LINK_STATIC")
 	{
-		None => "",
-		Some(_) => "-static"
+		Err(_) => "",
+		Ok(_) => "-static"
 	};
 
 	println!("cargo:rustc-flags=-l allegro_dialog{}{}", static_, debug);

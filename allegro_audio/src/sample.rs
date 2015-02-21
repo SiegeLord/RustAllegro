@@ -60,7 +60,7 @@ impl Sample
 {
 	pub fn load(_: &AudioAddon, filename: &str) -> Result<Sample, ()>
 	{
-		let filename = CString::from_slice(filename.as_bytes());
+		let filename = CString::new(filename.as_bytes()).unwrap();
 		let samp = unsafe
 		{
 			al_load_sample(filename.as_ptr())

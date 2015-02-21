@@ -1,5 +1,8 @@
 // This file is released into Public Domain.
-#![allow(unstable)]
+#![feature(rustc_private)]
+#![feature(collections)]
+#![feature(core)]
+#![feature(env)]
 
 #[macro_use]
 extern crate allegro;
@@ -9,9 +12,8 @@ extern crate allegro_acodec;
 extern crate getopts;
 
 use getopts::*;
-use std::os;
+use std::env;
 
-use std::os::getenv;
 use allegro::*;
 use allegro_font::*;
 use allegro_audio::*;
@@ -38,7 +40,7 @@ impl PostProcessCallback for AudioCallback
 
 allegro_main!
 {
-	let args = os::args();
+	let args = env::args().collect::<Vec<_>>();
 
 	let opts = vec![
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else"),
@@ -48,7 +50,7 @@ allegro_main!
 	let matches = getopts(args.tail(), opts.as_slice()).unwrap();
 
 	let init_only = matches.opt_present("i");
-	let on_travis = getenv("TRAVIS").is_some();
+	let on_travis = env::var("TRAVIS").is_ok();
 
 	if init_only && on_travis
 	{

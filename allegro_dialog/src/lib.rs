@@ -99,9 +99,9 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 	use libc::c_int;
 
 	let d = display.map_or(ptr::null_mut(), |d| d.get_allegro_display());
-	let title = CString::from_slice(title.as_bytes());
-	let heading = CString::from_slice(heading.as_bytes());
-	let text = CString::from_slice(text.as_bytes());
+	let title = CString::new(title.as_bytes()).unwrap();
+	let heading = CString::new(heading.as_bytes()).unwrap();
+	let text = CString::new(text.as_bytes()).unwrap();
 
 	let ret = unsafe
 	{
@@ -109,7 +109,7 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 		{
 			Some(buttons) =>
 			{
-				let buttons = CString::from_slice(buttons.as_bytes());
+				let buttons = CString::new(buttons.as_bytes()).unwrap();
 				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), buttons.as_ptr(), flags.get() as c_int)
 			},
 			None =>

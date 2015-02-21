@@ -93,7 +93,7 @@ impl Font
 	{
 		unsafe
 		{
-			let filename = CString::from_slice(filename.as_bytes());
+			let filename = CString::new(filename.as_bytes()).unwrap();
 			let font = al_load_bitmap_font(filename.as_ptr());
 			Font::wrap_allegro_font(font)
 		}

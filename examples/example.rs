@@ -1,5 +1,8 @@
 // This file is released into Public Domain.
-#![allow(unstable)]
+#![feature(rustc_private)]
+#![feature(collections)]
+#![feature(core)]
+#![feature(env)]
 
 #[macro_use]
 extern crate allegro;
@@ -10,7 +13,8 @@ extern crate allegro_primitives;
 extern crate getopts;
 
 use getopts::*;
-use std::os;
+use std::env;
+
 use allegro::*;
 use allegro_image::*;
 use allegro_font::*;
@@ -19,7 +23,7 @@ use allegro_primitives::*;
 
 allegro_main!
 {
-	let args = os::args();
+	let args = env::args().collect::<Vec<_>>();
 
 	let opts = vec![
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else")

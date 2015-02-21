@@ -253,7 +253,7 @@ impl Display
 
 	pub fn set_window_title(&self, title: &str)
 	{
-		let title = CString::from_slice(title.as_bytes());
+		let title = CString::new(title.as_bytes()).unwrap();
 		unsafe
 		{
 			al_set_window_title(self.allegro_display, title.as_ptr());

@@ -89,7 +89,7 @@ impl TtfAddon
 
 	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Result<Font, ()>
 	{
-		let filename = CString::from_slice(filename.as_bytes());
+		let filename = CString::new(filename.as_bytes()).unwrap();
 		unsafe
 		{
 			Font::wrap_allegro_font(al_load_ttf_font(filename.as_ptr(), size as c_int, flags.get() as c_int))
@@ -104,7 +104,7 @@ impl TtfAddon
 		}
 		else
 		{
-			let filename = CString::from_slice(filename.as_bytes());
+			let filename = CString::new(filename.as_bytes()).unwrap();
 			unsafe
 			{
 				Font::wrap_allegro_font(al_load_ttf_font_stretch(filename.as_ptr(), width as c_int, height as c_int, flags.get() as c_int))

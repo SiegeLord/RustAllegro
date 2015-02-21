@@ -8,7 +8,7 @@ use libc::*;
 #[derive(Copy)]
 pub struct ALLEGRO_TRANSFORM
 {
-	pub m: [[c_float; 4us]; 4us],
+	pub m: [[c_float; 4]; 4us],
 }
 
 extern "C"

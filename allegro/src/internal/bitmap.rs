@@ -46,7 +46,7 @@ impl Bitmap
 	{
 		let b = unsafe
 		{
-			let filename = CString::from_slice(filename.as_bytes());
+			let filename = CString::new(filename.as_bytes()).unwrap();
 			al_load_bitmap(filename.as_ptr())
 		};
 		if b.is_null()

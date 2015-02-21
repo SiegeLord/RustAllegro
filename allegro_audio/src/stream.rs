@@ -64,7 +64,7 @@ impl AudioStream
 
 	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: usize, samples: u32) -> Result<AudioStream, ()>
 	{
-		let filename = CString::from_slice(filename.as_bytes());
+		let filename = CString::new(filename.as_bytes()).unwrap();
 		let stream = unsafe
 		{
 			al_load_audio_stream(filename.as_ptr(), buffer_count as size_t, samples as c_uint)
