@@ -3,6 +3,7 @@
 #![feature(collections)]
 #![feature(core)]
 #![feature(env)]
+#![feature(start)]
 
 #[macro_use]
 extern crate allegro;
