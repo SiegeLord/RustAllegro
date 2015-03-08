@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["al_clear_to_color",""],["al_draw_pixel",""]]});
