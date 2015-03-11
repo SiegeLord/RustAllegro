@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro_image-sys"]
-
 #![crate_type = "lib"]
 
 #![feature(libc)]

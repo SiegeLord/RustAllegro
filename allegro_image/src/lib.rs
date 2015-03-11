@@ -3,8 +3,8 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro_image"]
-
 #![crate_type = "lib"]
+
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]

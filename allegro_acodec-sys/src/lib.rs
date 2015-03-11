@@ -2,11 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![feature(libc)]
-
 #![crate_name="allegro_acodec-sys"]
-
 #![crate_type = "lib"]
+
+#![feature(libc)]
 
 extern crate libc;
 

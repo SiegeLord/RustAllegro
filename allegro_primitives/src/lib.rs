@@ -3,10 +3,11 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro_primitives"]
-
 #![crate_type = "lib"]
+
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
+#![feature(libc)]
 
 extern crate allegro;
 extern crate libc;
@@ -183,7 +184,7 @@ impl PrimitivesAddon
 		}
 	}
 
-	pub fn draw_spline<T: Iterator<Item = (f32, f32)>>(&self, mut points: T, color: Color, thickness: f32) -> Result<(), ()>
+	pub fn draw_spline<T: Iterator<Item = (f32, f32)>>(&self, points: T, color: Color, thickness: f32) -> Result<(), ()>
 	{
 		let mut c_points: [c_float; 8] = [0.0; 8];
 		let mut idx = 0;

@@ -2,7 +2,6 @@
 #![feature(rustc_private)]
 #![feature(collections)]
 #![feature(core)]
-#![feature(env)]
 #![feature(start)]
 
 #[macro_use]

@@ -267,7 +267,7 @@ impl AudioStream
 
 	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */&mut BufWriter)) -> Result<bool, ()>
 	{
-		use std::slice::from_raw_mut_buf;
+		use std::slice::from_raw_parts_mut;
 		let fragment = unsafe
 		{
 			al_get_audio_stream_fragment(self.allegro_audio_stream as *const _)
@@ -280,8 +280,7 @@ impl AudioStream
 		let frag_size = self.get_channels().get_num_channels() * self.get_depth().get_byte_size() * self.fragment_samples;
 		unsafe
 		{
-			let buf = fragment as *mut u8;
-			let buf = from_raw_mut_buf(&buf, frag_size);
+			let buf = from_raw_parts_mut(fragment as *mut u8, frag_size);
 
 			let mut writer = BufWriter::new(buf);
 			write_cb(&mut writer);

@@ -4,7 +4,7 @@
 
 use libc::*;
 use std::mem;
-use std::thread::Thread;
+use std::thread::spawn;
 use std::sync::{Arc, Mutex};
 
 use ffi::*;
@@ -106,7 +106,7 @@ impl Core
 	pub fn spawn<F: FnOnce(Core) + Send + 'static>(&self, thread_proc: F)
 	{
 		let mutex = self.get_core_mutex();
-		Thread::spawn(move ||
+		spawn(move ||
 		{
 			thread_proc(Core
 			{

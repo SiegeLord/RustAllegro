@@ -2,13 +2,12 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![crate_name="allegro_font-sys"]
+#![crate_type = "lib"]
+
 #![feature(libc)]
 
-#![crate_name="allegro_font-sys"]
-
-#![crate_type = "lib"]
 #![allow(non_camel_case_types)]
-
 #![allow(non_camel_case_types, raw_pointer_derive)]
 
 extern crate libc;

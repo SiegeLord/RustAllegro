@@ -3,11 +3,12 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro_font"]
-
 #![crate_type = "lib"]
+
 #![feature(thread_local)]
 #![feature(unsafe_destructor)]
 #![feature(optin_builtin_traits)]
+#![feature(libc)]
 
 extern crate allegro;
 extern crate "allegro-sys" as allegro_sys;

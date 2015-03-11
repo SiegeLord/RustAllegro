@@ -3,10 +3,13 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro_audio"]
-
 #![crate_type = "lib"]
+
+#![feature(libc)]
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
+#![feature(old_io)]
+#![feature(core)]
 
 extern crate allegro;
 extern crate "allegro_audio-sys" as allegro_audio_sys;

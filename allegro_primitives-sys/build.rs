@@ -2,8 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![feature(os)]
-
 use std::env::var;
 
 fn main()

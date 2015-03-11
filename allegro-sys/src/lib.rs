@@ -3,8 +3,10 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 #![crate_name="allegro-sys"]
-
 #![crate_type = "lib"]
+
+#![feature(libc)]
+
 #![allow(non_camel_case_types)]
 
 extern crate libc;
