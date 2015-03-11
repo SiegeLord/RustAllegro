@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["al_get_time",""],["al_init_timeout",""],["al_rest",""]],"struct":[["ALLEGRO_TIMEOUT",""]]});
+initSidebarItems({"struct":[["ALLEGRO_TIMEOUT",""]],"fn":[["al_get_time",""],["al_init_timeout",""],["al_rest",""]]});

@@ -822,7 +822,7 @@
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>Thread</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
@@ -924,7 +924,7 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>spawn</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='ident'>Core</span>) <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>thread_proc</span>: <span class='ident'>F</span>)
 	{
 		<span class='kw'>let</span> <span class='ident'>mutex</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_core_mutex</span>();
-		<span class='ident'>Thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span>
+		<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span>
 		{
 			<span class='ident'>thread_proc</span>(<span class='ident'>Core</span>
 			{
