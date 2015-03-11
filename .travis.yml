@@ -16,7 +16,7 @@ script:
   - ./cargo_util.py --test
   - ./cargo_util.py --doc
   - cd examples
-  - ./target/example --init-only
+  - ./target/debug/example --init-only
   - cd ..
 after_success:
   - cd doc/target
