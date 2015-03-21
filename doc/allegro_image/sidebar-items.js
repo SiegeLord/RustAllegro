@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ImageAddon",""]],"mod":[["ffi",""]]});
+initSidebarItems({"mod":[["ffi",""]],"struct":[["ImageAddon",""]]});
