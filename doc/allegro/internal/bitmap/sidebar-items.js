@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["external",""]],"struct":[["Bitmap",""],["MemoryBitmap",""],["SubBitmap",""]]});
+initSidebarItems({"struct":[["Bitmap",""],["MemoryBitmap",""],["SubBitmap",""]],"mod":[["external",""]]});
