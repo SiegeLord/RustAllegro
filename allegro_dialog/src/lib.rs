@@ -65,7 +65,8 @@ impl DialogAddon
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(DialogAddon)
 				}
 			}
@@ -74,7 +75,8 @@ impl DialogAddon
 				if al_init_native_dialog_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(DialogAddon)
 				}
 				else

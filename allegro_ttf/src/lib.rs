@@ -60,7 +60,8 @@ impl TtfAddon
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(TtfAddon)
 				}
 			}
@@ -69,7 +70,8 @@ impl TtfAddon
 				if al_init_ttf_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(TtfAddon)
 				}
 				else

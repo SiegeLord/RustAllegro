@@ -9,35 +9,12 @@
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 
-extern crate allegro;
 extern crate libc;
+extern crate allegro;
+extern crate "allegro_image-sys" as ffi;
 
 use allegro::Core;
 use ffi::allegro_image::*;
-
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_image")]
-	extern "C" {}
-}
-
-pub mod ffi
-{
-	pub use self::allegro_image::*;
-	pub mod allegro_image
-	{
-		use libc::*;
-		use allegro::c_bool;
-
-		extern "C"
-		{
-			pub fn al_init_image_addon() -> c_bool;
-			pub fn al_shutdown_image_addon();
-			pub fn al_get_allegro_image_version() -> uint32_t;
-		}
-	}
-}
 
 #[macro_use]
 mod macros;
@@ -67,7 +44,8 @@ impl ImageAddon
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(ImageAddon)
 				}
 			}
@@ -76,7 +54,8 @@ impl ImageAddon
 				if al_init_image_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(ImageAddon)
 				}
 				else

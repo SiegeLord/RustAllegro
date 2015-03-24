@@ -34,7 +34,8 @@ impl AudioAddon
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
@@ -43,7 +44,8 @@ impl AudioAddon
 				if al_install_audio() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+				    // TODO: re-enable when this works on windows
+					// spawned_on_this_thread = true;
 					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
 				}
 				else
