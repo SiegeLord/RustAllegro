@@ -44,7 +44,7 @@ impl ImageAddon
 				}
 				else
 				{
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(ImageAddon)
 				}
@@ -54,7 +54,7 @@ impl ImageAddon
 				if al_init_image_addon() != 0
 				{
 					initialized = true;
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(ImageAddon)
 				}

@@ -34,7 +34,7 @@ impl FontAddon
 				}
 				else
 				{
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 				}
@@ -43,7 +43,7 @@ impl FontAddon
 			{
 				al_init_font_addon();
 				initialized = true;
-                // TODO: re-enable when this works on windows
+				// TODO: re-enable when this works on windows
 				// spawned_on_this_thread = true;
 				Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 			}

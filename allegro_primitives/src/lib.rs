@@ -61,7 +61,7 @@ impl PrimitivesAddon
 				}
 				else
 				{
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}
@@ -71,7 +71,7 @@ impl PrimitivesAddon
 				if al_init_primitives_addon() != 0
 				{
 					initialized = true;
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}

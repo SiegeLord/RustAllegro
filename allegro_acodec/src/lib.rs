@@ -40,7 +40,7 @@ impl AcodecAddon
 				}
 				else
 				{
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(AcodecAddon)
 				}
@@ -50,7 +50,7 @@ impl AcodecAddon
 				if al_init_acodec_addon() != 0
 				{
 					initialized = true;
-				    // TODO: re-enable when this works on windows
+					// TODO: re-enable when this works on windows
 					// spawned_on_this_thread = true;
 					Ok(AcodecAddon)
 				}
