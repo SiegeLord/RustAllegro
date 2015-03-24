@@ -28,7 +28,7 @@ fn main()
         // Windows needs a little extra help.
         let home = var("ALLEGRO_HOME").ok().expect("ALLEGRO_HOME must be set to the root of your Allegro 5 installation.");
 	    let version = var("ALLEGRO_VERSION").ok().expect("ALLEGRO_VERSION must be set to the version of Allegro 5 you have installed.");
-	    println!("cargo:rustc-link-search={}\\bin", home);
+	    println!("cargo:rustc-link-search={}\\lib", home);
 	    println!("cargo:rustc-link-lib=allegro_font-{}{}{}{}", version, static_, "-mt", debug);
     }
     else
