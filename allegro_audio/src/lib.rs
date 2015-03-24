@@ -8,7 +8,6 @@
 #![feature(libc)]
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
-#![feature(old_io)]
 #![feature(core)]
 
 extern crate allegro;

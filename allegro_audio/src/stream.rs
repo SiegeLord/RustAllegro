@@ -7,7 +7,7 @@ use allegro::c_bool;
 use libc::*;
 use std::ffi::CString;
 use std::mem;
-use std::old_io::BufWriter;
+use std::io::Write;
 
 use addon::AudioAddon;
 use mixer::AttachToMixer;
@@ -265,7 +265,7 @@ impl AudioStream
 		get_bool_impl!(self, al_get_audio_stream_attached)
 	}
 
-	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */&mut BufWriter)) -> Result<bool, ()>
+	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */&mut Write)) -> Result<bool, ()>
 	{
 		use std::slice::from_raw_parts_mut;
 		let fragment = unsafe
@@ -280,12 +280,12 @@ impl AudioStream
 		let frag_size = self.get_channels().get_num_channels() * self.get_depth().get_byte_size() * self.fragment_samples;
 		unsafe
 		{
-			let buf = from_raw_parts_mut(fragment as *mut u8, frag_size);
-
-			let mut writer = BufWriter::new(buf);
-			write_cb(&mut writer);
+			let mut buf = from_raw_parts_mut(fragment as *mut u8, frag_size);
+			{
+				write_cb(&mut buf);
+			}
 			// Fill the rest with silence
-			while writer.write_u8(0).is_ok() {}
+			while buf.write(&[0]).is_ok() {}
 
 			if al_set_audio_stream_fragment(self.allegro_audio_stream, fragment) != 0
 			{
