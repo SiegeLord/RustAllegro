@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["al_get_monitor_info",""],["al_get_num_video_adapters",""]],"constant":[["ALLEGRO_DEFAULT_DISPLAY_ADAPTER",""]],"struct":[["ALLEGRO_MONITOR_INFO",""]]});
+initSidebarItems({"struct":[["ALLEGRO_MONITOR_INFO",""]],"constant":[["ALLEGRO_DEFAULT_DISPLAY_ADAPTER",""]],"fn":[["al_get_monitor_info",""],["al_get_num_video_adapters",""]]});
