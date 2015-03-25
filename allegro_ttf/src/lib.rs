@@ -4,11 +4,11 @@
 
 #![crate_name="allegro_ttf"]
 #![crate_type = "lib"]
+#![allow(non_upper_case_globals)]
 
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
-
 
 extern crate allegro;
 extern crate allegro_font;
@@ -20,14 +20,14 @@ use allegro_font::{FontAddon, Font};
 use allegro_ttf_sys::*;
 use libc::*;
 
+use std::cell::RefCell;
 use std::ffi::CString;
 
 #[macro_use]
 mod macros;
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 flag_type!
 {
@@ -54,14 +54,13 @@ impl TtfAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The ttf addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					// TODO: re-enable when this works on windows
-					// spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(TtfAddon)
 				}
 			}
@@ -70,8 +69,7 @@ impl TtfAddon
 				if al_init_ttf_addon() != 0
 				{
 					initialized = true;
-					// TODO: re-enable when this works on windows
-					// spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(TtfAddon)
 				}
 				else
