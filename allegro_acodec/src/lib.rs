@@ -7,17 +7,18 @@
 
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
+#![allow(non_upper_case_globals)]
 
 extern crate allegro;
 extern crate allegro_audio;
 extern crate allegro_acodec_sys;
 
+use std::cell::RefCell;
 use allegro_audio::AudioAddon;
 use allegro_acodec_sys::*;
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 #[allow(missing_copy_implementations)]
 pub struct AcodecAddon;
@@ -34,13 +35,13 @@ impl AcodecAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The acodec addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(AcodecAddon)
 				}
 			}
@@ -49,7 +50,7 @@ impl AcodecAddon
 				if al_init_acodec_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(AcodecAddon)
 				}
 				else

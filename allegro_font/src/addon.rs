@@ -2,14 +2,16 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(non_upper_case_globals)]
+
+use std::cell::RefCell;
 use std::sync::{Arc, Mutex};
 
 use allegro::Core;
 use allegro_font_sys::*;
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 pub struct FontAddon
 {
@@ -28,13 +30,13 @@ impl FontAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The font addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
@@ -42,7 +44,7 @@ impl FontAddon
 			{
 				al_init_font_addon();
 				initialized = true;
-				spawned_on_this_thread = true;
+				spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 				Ok(FontAddon{ core_mutex: core.get_core_mutex() })
 			}
 		}

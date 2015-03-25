@@ -8,6 +8,7 @@
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
+#![allow(non_upper_case_globals)]
 
 extern crate allegro_dialog_sys;
 extern crate allegro;
@@ -18,6 +19,7 @@ extern crate libc;
 use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
+use std::cell::RefCell;
 use std::ffi::CString;
 
 flag_type!{
@@ -40,8 +42,7 @@ pub enum MessageBoxResult
 }
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 #[allow(missing_copy_implementations)]
 pub struct DialogAddon;
@@ -58,13 +59,13 @@ impl DialogAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The dialog addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(DialogAddon)
 				}
 			}
@@ -73,7 +74,7 @@ impl DialogAddon
 				if al_init_native_dialog_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(DialogAddon)
 				}
 				else
