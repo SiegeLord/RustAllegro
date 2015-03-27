@@ -13,7 +13,7 @@ links = "allegro_image"
 
 [lib]
 
-name = "allegro_image-sys"
+name = "allegro_image_sys"
 path = "src/lib.rs"
 
 [features]

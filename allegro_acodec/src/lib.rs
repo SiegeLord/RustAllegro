@@ -10,7 +10,7 @@
 
 extern crate allegro;
 extern crate allegro_audio;
-extern crate "allegro_acodec-sys" as allegro_acodec_sys;
+extern crate "allegro_acodec_sys" as allegro_acodec_sys;
 
 use allegro_audio::AudioAddon;
 use allegro_acodec_sys::*;

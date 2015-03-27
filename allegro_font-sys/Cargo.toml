@@ -13,7 +13,7 @@ links = "allegro_font"
 
 [lib]
 
-name = "allegro_font-sys"
+name = "allegro_font_sys"
 path = "src/lib.rs"
 
 [features]

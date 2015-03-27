@@ -13,7 +13,7 @@ links = "allegro_ttf"
 
 [lib]
 
-name = "allegro_ttf-sys"
+name = "allegro_ttf_sys"
 path = "src/lib.rs"
 
 [features]

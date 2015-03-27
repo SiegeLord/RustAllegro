@@ -9,7 +9,7 @@
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 
-extern crate "allegro_dialog-sys" as allegro_dialog_sys;
+extern crate "allegro_dialog_sys" as allegro_dialog_sys;
 extern crate allegro;
 extern crate libc;
 

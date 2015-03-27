@@ -13,7 +13,7 @@ links = "allegro_acodec"
 
 [lib]
 
-name = "allegro_acodec-sys"
+name = "allegro_acodec_sys"
 path = "src/lib.rs"
 
 [features]

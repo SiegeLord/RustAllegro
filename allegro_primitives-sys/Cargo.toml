@@ -13,7 +13,7 @@ links = "allegro_primitives"
 
 [lib]
 
-name = "allegro_primitives-sys"
+name = "allegro_primitives_sys"
 path = "src/lib.rs"
 
 [features]

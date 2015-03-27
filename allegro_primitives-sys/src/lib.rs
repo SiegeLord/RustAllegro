@@ -2,12 +2,12 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_primitives-sys"]
+#![crate_name="allegro_primitives_sys"]
 #![crate_type = "lib"]
 
 #![feature(libc)]
 
-extern crate "allegro-sys" as allegro_sys;
+extern crate "allegro_sys" as allegro_sys;
 extern crate libc;
 
 pub use allegro_primitives::*;

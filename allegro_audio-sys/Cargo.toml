@@ -13,7 +13,7 @@ links = "allegro_audio"
 
 [lib]
 
-name = "allegro_audio-sys"
+name = "allegro_audio_sys"
 path = "src/lib.rs"
 
 [features]

@@ -11,7 +11,7 @@
 
 extern crate allegro;
 extern crate libc;
-extern crate "allegro_primitives-sys" as allegro_primitives_sys;
+extern crate "allegro_primitives_sys" as allegro_primitives_sys;
 
 use std::ptr;
 

@@ -1,7 +1,6 @@
 // This file is released into Public Domain.
 #![feature(rustc_private)]
 #![feature(collections)]
-#![feature(core)]
 #![feature(start)]
 
 #[macro_use]
@@ -47,7 +46,7 @@ allegro_main!
 		optflag("s", "silence", "use the post-process callback to silence the audio")
 	];
 
-	let matches = getopts(args.tail(), opts.as_slice()).unwrap();
+	let matches = getopts(args.tail(), &opts[..]).unwrap();
 
 	let init_only = matches.opt_present("i");
 	let on_travis = env::var("TRAVIS").is_ok();
@@ -80,7 +79,7 @@ allegro_main!
 	q.register_event_source(core.get_keyboard_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let callback = Box::new(AudioCallback{ silence: matches.opt_present("silence") }) as Box<PostProcessCallback + Send>;
+	let callback = Box::new(AudioCallback{ silence: matches.opt_present("silence") });
 	let mut sink = Sink::new(&audio_addon).unwrap();
 	sink.set_postprocess_callback(Some(callback)).unwrap();
 	let font = Font::new_builtin(&font_addon).unwrap();

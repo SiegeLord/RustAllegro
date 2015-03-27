@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_font-sys"]
+#![crate_name="allegro_font_sys"]
 #![crate_type = "lib"]
 
 #![feature(libc)]
@@ -11,7 +11,7 @@
 #![allow(non_camel_case_types, raw_pointer_derive)]
 
 extern crate libc;
-extern crate "allegro-sys" as allegro;
+extern crate "allegro_sys" as allegro;
 
 pub use self::allegro_font::*;
 

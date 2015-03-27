@@ -13,7 +13,7 @@ links = "allegro_dialog"
 
 [lib]
 
-name = "allegro_dialog-sys"
+name = "allegro_dialog_sys"
 path = "src/lib.rs"
 
 [features]
