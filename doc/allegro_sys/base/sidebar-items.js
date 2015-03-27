@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALLEGRO_DATE",""],["ALLEGRO_DATE_STR",""],["ALLEGRO_PI",""],["ALLEGRO_RELEASE_NUMBER",""],["ALLEGRO_SUB_VERSION",""],["ALLEGRO_VERSION",""],["ALLEGRO_VERSION_INT",""],["ALLEGRO_VERSION_STR",""],["ALLEGRO_WIP_VERSION",""]],"fn":[["AL_ID",""],["al_get_allegro_version",""],["al_run_main",""]]});

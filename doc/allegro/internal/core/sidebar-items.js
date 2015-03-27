@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["external",""]],"constant":[["FLIP_HORIZONTAL",""],["FLIP_NONE",""],["FLIP_VERTICAL",""]],"struct":[["BitmapDrawingFlags",""],["Core",""]]});
+initSidebarItems({"mod":[["external",""]],"struct":[["BitmapDrawingFlags",""],["Core",""]],"constant":[["FLIP_HORIZONTAL",""],["FLIP_NONE",""],["FLIP_VERTICAL",""]]});

@@ -1,1 +1,0 @@
-initSidebarItems({"type":[["ALLEGRO_IIO_LOADER_FUNCTION",""],["ALLEGRO_IIO_SAVER_FUNCTION",""]],"fn":[["al_load_bitmap",""],["al_register_bitmap_loader",""],["al_register_bitmap_saver",""],["al_save_bitmap",""]]});
