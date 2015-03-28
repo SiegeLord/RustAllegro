@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["from_c_str",""]],"trait":[["Flag",""]],"type":[["c_bool",""]]});
+initSidebarItems({"type":[["c_bool",""]],"trait":[["Flag",""]],"fn":[["from_c_str",""]]});
