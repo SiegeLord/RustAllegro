@@ -12,7 +12,7 @@
 
 extern crate allegro;
 extern crate allegro_font;
-extern crate "allegro_ttf_sys" as allegro_ttf_sys;
+extern crate allegro_ttf_sys;
 extern crate libc;
 
 use allegro::Flag;

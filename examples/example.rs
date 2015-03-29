@@ -1,7 +1,6 @@
 // This file is released into Public Domain.
 #![feature(rustc_private)]
 #![feature(collections)]
-#![feature(core)]
 #![feature(start)]
 
 #[macro_use]
@@ -29,7 +28,7 @@ allegro_main!
 		optflag("i", "init-only", "only initialize Allegro, don't do anything else")
 	];
 
-	let matches = getopts(args.tail(), opts.as_slice()).unwrap();
+	let matches = getopts(args.tail(), &opts[..]).unwrap();
 
 	let init_only = matches.opt_present("i");
 

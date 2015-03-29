@@ -11,7 +11,7 @@
 #![feature(core)]
 
 extern crate allegro;
-extern crate "allegro_audio_sys" as allegro_audio_sys;
+extern crate allegro_audio_sys;
 extern crate libc;
 
 pub use addon::*;

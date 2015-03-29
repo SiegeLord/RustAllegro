@@ -8,7 +8,7 @@
 #![feature(libc)]
 #![feature(thread_local)]
 
-extern crate "allegro_font_sys" as allegro_font_sys;
+extern crate allegro_font_sys;
 extern crate libc;
 
 pub use self::allegro_ttf::*;

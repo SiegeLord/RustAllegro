@@ -10,8 +10,8 @@
 #![feature(libc)]
 
 extern crate allegro;
+extern crate allegro_primitives_sys;
 extern crate libc;
-extern crate "allegro_primitives_sys" as allegro_primitives_sys;
 
 use std::ptr;
 

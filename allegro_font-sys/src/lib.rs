@@ -11,7 +11,7 @@
 #![allow(non_camel_case_types, raw_pointer_derive)]
 
 extern crate libc;
-extern crate "allegro_sys" as allegro;
+extern crate allegro_sys as allegro;
 
 pub use self::allegro_font::*;
 

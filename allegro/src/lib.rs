@@ -11,7 +11,7 @@
 #![feature(std_misc)]
 
 extern crate libc;
-extern crate "allegro_sys" as ffi;
+extern crate allegro_sys as ffi;
 
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;

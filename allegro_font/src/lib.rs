@@ -11,8 +11,8 @@
 #![feature(libc)]
 
 extern crate allegro;
-extern crate "allegro_sys" as allegro_sys;
-extern crate "allegro_font_sys" as allegro_font_sys;
+extern crate allegro_sys;
+extern crate allegro_font_sys;
 extern crate libc;
 
 pub use font::*;

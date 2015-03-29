@@ -7,7 +7,7 @@
 
 #![feature(libc)]
 
-extern crate "allegro_sys" as allegro_sys;
+extern crate allegro_sys;
 extern crate libc;
 
 pub use allegro_primitives::*;
