@@ -1,1 +1,1 @@
-../../src/rust_util.rs
+include!("../../src/rust_util.rs");

@@ -1,1 +1,1 @@
-../../src/common_macros.rs
+include!("../../src/common_macros.rs");

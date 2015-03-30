@@ -4,47 +4,26 @@
 
 #![crate_name="allegro_image"]
 #![crate_type = "lib"]
+#![allow(non_upper_case_globals)]
 
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 
-extern crate allegro;
 extern crate libc;
+extern crate allegro;
+extern crate "allegro_image-sys" as ffi;
+
+use std::cell::RefCell;
 
 use allegro::Core;
 use ffi::allegro_image::*;
-
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_image")]
-	extern "C" {}
-}
-
-pub mod ffi
-{
-	pub use self::allegro_image::*;
-	pub mod allegro_image
-	{
-		use libc::*;
-		use allegro::c_bool;
-
-		extern "C"
-		{
-			pub fn al_init_image_addon() -> c_bool;
-			pub fn al_shutdown_image_addon();
-			pub fn al_get_allegro_image_version() -> uint32_t;
-		}
-	}
-}
 
 #[macro_use]
 mod macros;
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 #[allow(missing_copy_implementations)]
 pub struct ImageAddon;
@@ -61,13 +40,13 @@ impl ImageAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The image addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(ImageAddon)
 				}
 			}
@@ -76,7 +55,7 @@ impl ImageAddon
 				if al_init_image_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(ImageAddon)
 				}
 				else

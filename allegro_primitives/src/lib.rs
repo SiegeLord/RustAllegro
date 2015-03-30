@@ -4,6 +4,7 @@
 
 #![crate_name="allegro_primitives"]
 #![crate_type = "lib"]
+#![allow(non_upper_case_globals)]
 
 #![feature(thread_local)]
 #![feature(optin_builtin_traits)]
@@ -13,8 +14,8 @@ extern crate allegro;
 extern crate allegro_primitives_sys;
 extern crate libc;
 
+use std::cell::RefCell;
 use std::ptr;
-
 use std::sync::{Arc, Mutex};
 
 use allegro::{Bitmap, BitmapLike, Core, Color};
@@ -22,8 +23,7 @@ use allegro_primitives_sys::*;
 use libc::*;
 
 static mut initialized: bool = false;
-#[thread_local]
-static mut spawned_on_this_thread: bool = false;
+thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 #[repr(u32)]
 #[derive(Copy)]
@@ -55,13 +55,13 @@ impl PrimitivesAddon
 		{
 			if initialized
 			{
-				if spawned_on_this_thread
+				if spawned_on_this_thread.with(|x| *x.borrow())
 				{
 					Err("The primitives addon has already been created in this task.".to_string())
 				}
 				else
 				{
-					spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}
 			}
@@ -70,7 +70,7 @@ impl PrimitivesAddon
 				if al_init_primitives_addon() != 0
 				{
 					initialized = true;
-					spawned_on_this_thread = true;
+                    spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
 				}
 				else
