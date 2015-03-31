@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Transform",""]],"mod":[["external",""]]});
+initSidebarItems({"mod":[["external",""]],"struct":[["Transform",""]]});

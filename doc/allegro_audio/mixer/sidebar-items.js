@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Mixer",""]],"trait":[["AttachToMixer",""],["MixerLike",""],["PostProcessCallback",""]]});
+initSidebarItems({"trait":[["AttachToMixer",""],["MixerLike",""],["PostProcessCallback",""]],"struct":[["Mixer",""]]});
