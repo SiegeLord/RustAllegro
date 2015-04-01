@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["PixelFormat",""]],"struct":[["Color",""]]});
+initSidebarItems({"struct":[["Color",""]],"enum":[["PixelFormat",""]]});
