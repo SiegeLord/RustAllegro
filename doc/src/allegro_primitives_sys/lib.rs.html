@@ -145,8 +145,6 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
-<span id="106">106</span>
-<span id="107">107</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -158,20 +156,18 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>libc</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_sys</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_util</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>allegro_primitives</span>::<span class='op'>*</span>;
-
-<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
-<span class='kw'>mod</span> <span class='ident'>macros</span>;
-<span class='kw'>mod</span> <span class='ident'>rust_util</span>;
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>allegro_primitives</span>
 {
 	<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>)]</span>
 
 	<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-	<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+	<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 	<span class='kw'>use</span> <span class='ident'>allegro_sys</span>::{<span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>ALLEGRO_COLOR</span>};
 
 	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_PRIM_LINE_LIST</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>0</span>;
@@ -194,7 +190,7 @@
 	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_PRIM_SHORT_2</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>2</span>;
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-	<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_VERTEX_ELEMENT</span>
 	{
 		<span class='kw'>pub</span> <span class='ident'>attribute</span>: <span class='ident'>c_int</span>,
@@ -207,7 +203,7 @@
 	<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_VERTEX_DECL</span>);
 
 	<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-	<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+	<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 	<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_VERTEX</span>
 	{
 		<span class='kw'>pub</span> <span class='ident'>x</span>: <span class='ident'>c_float</span>,

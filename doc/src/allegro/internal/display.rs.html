@@ -412,11 +412,11 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::<span class='ident'>PixelFormat</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::{<span class='ident'>Core</span>, <span class='ident'>dummy_target</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>events</span>::{<span class='ident'>EventSource</span>, <span class='ident'>new_event_source_ref</span>};
-<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>Flag</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>Flag</span>;
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
 
-<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='macro'>flag_type</span><span class='macro'>!</span>{
 	<span class='ident'>DisplayFlags</span>
@@ -436,7 +436,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOption</span>
 {
 	<span class='ident'>RedSize</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_RED_SIZE</span>,
@@ -473,7 +473,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOptionImportance</span>
 {
 	<span class='ident'>DontCare</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DONTCARE</span>,
@@ -482,7 +482,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DisplayOrientation</span>
 {
 	<span class='ident'>DisplayOrientation0Degrees</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES</span>,

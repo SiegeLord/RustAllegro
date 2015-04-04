@@ -109,19 +109,23 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_upper_case_globals</span>)]</span>
+
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>Core</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
 
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::<span class='ident'>RefCell</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
 
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-<span class='attribute'>#[<span class='ident'>thread_local</span>]</span>
-<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+<span class='macro'>thread_local</span><span class='macro'>!</span>(<span class='kw'>static</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>RefCell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>));
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AudioAddon</span>
 {
@@ -140,13 +144,13 @@
 		{
 			<span class='kw'>if</span> <span class='ident'>initialized</span>
 			{
-				<span class='kw'>if</span> <span class='ident'>spawned_on_this_thread</span>
+				<span class='kw'>if</span> <span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow</span>())
 				{
 					<span class='prelude-val'>Err</span>(<span class='string'>&quot;The audio addon has already been created in this task.&quot;</span>.<span class='ident'>to_string</span>())
 				}
 				<span class='kw'>else</span>
 				{
-					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
 					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 				}
 			}
@@ -155,7 +159,7 @@
 				<span class='kw'>if</span> <span class='ident'>al_install_audio</span>() <span class='op'>!=</span> <span class='number'>0</span>
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='ident'>spawned_on_this_thread</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
 					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>() })
 				}
 				<span class='kw'>else</span>

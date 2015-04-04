@@ -135,13 +135,13 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ALLEGRO_USTR</span> <span class='op'>=</span> <span class='ident'>__al_tagbstring</span>;
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>__al_tagbstring</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>__al_tagbstring</span>
 {
     <span class='kw'>pub</span> <span class='ident'>mlen</span>: <span class='ident'>c_int</span>,

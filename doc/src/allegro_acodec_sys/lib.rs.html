@@ -77,15 +77,15 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>libc</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_util</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>allegro_acodec</span>::<span class='op'>*</span>;
-
-<span class='kw'>mod</span> <span class='ident'>rust_util</span>;
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>allegro_acodec</span>
 {
 	<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-	<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+	<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 	{

@@ -77,9 +77,6 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -89,21 +86,18 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>libc</span>)]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>thread_local</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_font_sys</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_util</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>allegro_ttf</span>::<span class='op'>*</span>;
 
-<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
-<span class='kw'>mod</span> <span class='ident'>macros</span>;
-<span class='kw'>mod</span> <span class='ident'>rust_util</span>;
-
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>allegro_ttf</span>
 {
 	<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-	<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+	<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 	<span class='kw'>use</span> <span class='ident'>allegro_font_sys</span>::<span class='ident'>ALLEGRO_FONT</span>;
 
 	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_TTF_NO_KERNING</span>: <span class='ident'>u32</span>  <span class='op'>=</span> <span class='number'>1</span>;

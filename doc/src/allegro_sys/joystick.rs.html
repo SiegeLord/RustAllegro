@@ -96,14 +96,14 @@
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
 
 <span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_JOYSTICK</span>);
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_JOYSTICK_STATE</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>stick</span>: [<span class='ident'>Stick</span>; <span class='number'>8</span>],
@@ -111,7 +111,7 @@
 }
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Stick</span>
 {
 	<span class='kw'>pub</span> <span class='ident'>axis</span>: [<span class='ident'>c_float</span>; <span class='number'>3</span>],

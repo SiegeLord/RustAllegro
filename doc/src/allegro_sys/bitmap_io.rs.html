@@ -72,7 +72,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>bitmap</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rust_util</span>::<span class='ident'>c_bool</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ALLEGRO_IIO_LOADER_FUNCTION</span> <span class='op'>=</span>  <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>arg1</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
 <span class='comment'>//~ pub type ALLEGRO_IIO_FS_LOADER_FUNCTION = extern &quot;C&quot; fn(arg1: *mut ALLEGRO_FILE) -&gt; *mut ALLEGRO_BITMAP;</span>
