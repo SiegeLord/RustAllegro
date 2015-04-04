@@ -5,7 +5,7 @@
 use allegro_audio_sys::*;
 
 #[derive(PartialEq)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum AudioDepth
 {
 	I8,
@@ -62,7 +62,7 @@ impl AudioDepth
 	}
 }
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum ChannelConf
 {
 	Conf1,
@@ -119,7 +119,7 @@ impl ChannelConf
 	}
 }
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum Playmode
 {
 	Once,
@@ -151,7 +151,7 @@ impl Playmode
 	}
 }
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum MixerQuality
 {
 	Point,

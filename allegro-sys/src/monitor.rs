@@ -6,7 +6,7 @@ use libc::*;
 use rust_util::c_bool;
 
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct ALLEGRO_MONITOR_INFO
 {
 	pub x1: c_int,

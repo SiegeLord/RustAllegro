@@ -44,7 +44,7 @@ pub mod allegro_primitives
 	pub const ALLEGRO_PRIM_SHORT_2: c_uint = 2;
 
 	#[repr(C)]
-	#[derive(Copy)]
+	#[derive(Copy, Clone)]
 	pub struct ALLEGRO_VERTEX_ELEMENT
 	{
 		pub attribute: c_int,
@@ -57,7 +57,7 @@ pub mod allegro_primitives
 	opaque!(ALLEGRO_VERTEX_DECL);
 
 	#[repr(C)]
-	#[derive(Copy)]
+	#[derive(Copy, Clone)]
 	pub struct ALLEGRO_VERTEX
 	{
 		pub x: c_float,

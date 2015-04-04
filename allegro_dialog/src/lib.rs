@@ -32,7 +32,7 @@ flag_type!{
 	}
 }
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum MessageBoxResult
 {
 	NoButton,

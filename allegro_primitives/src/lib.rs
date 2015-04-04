@@ -26,7 +26,7 @@ static mut initialized: bool = false;
 static mut spawned_on_this_thread: bool = false;
 
 #[repr(u32)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum PrimType
 {
 	LineList = ALLEGRO_PRIM_LINE_LIST,

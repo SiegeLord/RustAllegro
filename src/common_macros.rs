@@ -25,11 +25,26 @@ macro_rules! opaque
 	}
 }
 
+macro_rules! derive_copy_clone
+{
+	($t: ty) =>
+	{
+		impl Copy for $t {}
+		impl Clone for $t
+		{
+			fn clone(&self) -> Self
+			{
+				*self
+			}
+		}
+	}
+}
+
 macro_rules! flag_type
 {
 	($f: ident { $($n: ident = $v: expr),*}) =>
 	{
-		#[derive(Copy)]
+		#[derive(Copy, Clone)]
 		pub struct $f
 		{
 			bits: u32

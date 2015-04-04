@@ -54,7 +54,7 @@ impl Color
 }
 
 #[repr(u32)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,

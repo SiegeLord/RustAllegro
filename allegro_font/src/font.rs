@@ -11,7 +11,7 @@ use libc::*;
 use std::ffi::CString;
 use std::mem;
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub enum FontAlign
 {
 	Left,

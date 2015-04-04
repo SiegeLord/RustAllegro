@@ -7,7 +7,7 @@ use std::mem;
 
 use ffi::*;
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Transform(pub ALLEGRO_TRANSFORM);
 
 pub mod external

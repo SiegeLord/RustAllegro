@@ -10,7 +10,7 @@ use events::ALLEGRO_EVENT_SOURCE;
 opaque!(ALLEGRO_JOYSTICK);
 
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct ALLEGRO_JOYSTICK_STATE
 {
 	pub stick: [Stick; 8],
@@ -18,7 +18,7 @@ pub struct ALLEGRO_JOYSTICK_STATE
 }
 
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Stick
 {
 	pub axis: [c_float; 3],
