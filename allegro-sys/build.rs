@@ -23,11 +23,5 @@ fn main()
 		Ok(_) => "-static"
 	};
 
-	let monolith = match var("CARGO_FEATURE_LINK_MONOLITH")
-	{
-		Err(_) => "",
-		Ok(_) => "-monolith"
-	};
-
-	println!("cargo:rustc-flags=-l allegro{}{}{}", monolith, static_, debug);
+	println!("cargo:rustc-flags=-l allegro{}{}", static_, debug);
 }

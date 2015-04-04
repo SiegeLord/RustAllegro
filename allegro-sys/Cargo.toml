@@ -19,6 +19,5 @@ path = "src/lib.rs"
 [features]
 
 link_none = []
-link_monolith = []
 link_debug = []
 link_static = []
