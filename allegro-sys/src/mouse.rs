@@ -7,7 +7,7 @@
 use libc::*;
 use display::ALLEGRO_DISPLAY;
 use events::ALLEGRO_EVENT_SOURCE;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 opaque!(ALLEGRO_MOUSE);
 

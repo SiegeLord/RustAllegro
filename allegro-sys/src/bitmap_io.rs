@@ -5,7 +5,7 @@
 use libc::*;
 
 use bitmap::*;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 pub type ALLEGRO_IIO_LOADER_FUNCTION =  extern "C" fn(arg1: *const c_char) -> *mut ALLEGRO_BITMAP;
 //~ pub type ALLEGRO_IIO_FS_LOADER_FUNCTION = extern "C" fn(arg1: *mut ALLEGRO_FILE) -> *mut ALLEGRO_BITMAP;

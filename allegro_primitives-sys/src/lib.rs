@@ -8,20 +8,18 @@
 #![feature(libc)]
 
 extern crate allegro_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use allegro_primitives::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
 
 pub mod allegro_primitives
 {
 	#![allow(non_camel_case_types)]
 
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 	use allegro_sys::{ALLEGRO_BITMAP, ALLEGRO_COLOR};
 
 	pub const ALLEGRO_PRIM_LINE_LIST: c_uint = 0;

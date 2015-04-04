@@ -11,15 +11,14 @@
 
 extern crate allegro_dialog_sys;
 extern crate allegro;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
 use std::ffi::CString;
-
-#[macro_use]
-mod macros;
 
 flag_type!{
 	MessageBoxFlags

@@ -8,15 +8,15 @@
 #![feature(libc)]
 
 extern crate libc;
+#[macro_use]
+extern crate allegro_util;
 
 pub use self::allegro_acodec::*;
-
-mod rust_util;
 
 pub mod allegro_acodec
 {
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 
 	extern "C"
 	{

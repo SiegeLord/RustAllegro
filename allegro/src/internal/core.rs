@@ -15,7 +15,7 @@ use internal::display::{Display, DisplayOption, DisplayOptionImportance, Display
 use internal::color::{Color, PixelFormat};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
 use internal::transformations::{Transform, new_transform_wrap};
-use rust_util::{Flag, from_c_str};
+use allegro_util::{Flag, from_c_str};
 
 flag_type!{
 	BitmapDrawingFlags

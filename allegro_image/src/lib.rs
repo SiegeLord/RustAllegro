@@ -10,6 +10,8 @@
 #![feature(libc)]
 
 extern crate allegro;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 use allegro::Core;
@@ -38,9 +40,6 @@ pub mod ffi
 		}
 	}
 }
-
-#[macro_use]
-mod macros;
 
 static mut initialized: bool = false;
 #[thread_local]

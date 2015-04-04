@@ -13,6 +13,8 @@
 extern crate allegro;
 extern crate allegro_sys;
 extern crate allegro_font_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use font::*;
@@ -20,6 +22,3 @@ pub use addon::*;
 
 mod addon;
 mod font;
-
-#[macro_use]
-mod macros;

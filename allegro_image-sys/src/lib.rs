@@ -8,15 +8,15 @@
 #![feature(libc)]
 
 extern crate libc;
+#[macro_use]
+extern crate allegro_util;
 
 pub use allegro_image::*;
-
-mod rust_util;
 
 pub mod allegro_image
 {
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 
 	extern "C"
 	{

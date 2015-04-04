@@ -11,11 +11,11 @@ use internal::bitmap_like::BitmapLike;
 use internal::color::PixelFormat;
 use internal::core::{Core, dummy_target};
 use internal::events::{EventSource, new_event_source_ref};
-use rust_util::Flag;
+use allegro_util::Flag;
 
 use ffi::*;
 
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 flag_type!{
 	DisplayFlags

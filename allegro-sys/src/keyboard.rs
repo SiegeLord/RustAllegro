@@ -8,7 +8,7 @@ use libc::*;
 
 use events::ALLEGRO_EVENT_SOURCE;
 use display::ALLEGRO_DISPLAY;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 opaque!(ALLEGRO_KEYBOARD);
 

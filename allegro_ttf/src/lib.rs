@@ -9,10 +9,11 @@
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 
-
 extern crate allegro;
 extern crate allegro_font;
 extern crate allegro_ttf_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 use allegro::Flag;
@@ -21,9 +22,6 @@ use allegro_ttf_sys::*;
 use libc::*;
 
 use std::ffi::CString;
-
-#[macro_use]
-mod macros;
 
 static mut initialized: bool = false;
 #[thread_local]

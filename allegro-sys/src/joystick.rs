@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 use events::ALLEGRO_EVENT_SOURCE;
 

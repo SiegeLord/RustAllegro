@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use ffi::*;
-use rust_util::Flag;
+use allegro_util::Flag;
 use libc::*;
 use std::mem;
 

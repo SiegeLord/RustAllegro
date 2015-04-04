@@ -6,7 +6,7 @@ use libc::*;
 use std::mem;
 
 use ffi::*;
-use rust_util::{Flag, from_c_str};
+use allegro_util::{Flag, from_c_str};
 use internal::core::Core;
 
 flag_type!{

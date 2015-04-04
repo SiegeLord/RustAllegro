@@ -8,20 +8,18 @@
 #![feature(libc)]
 
 extern crate allegro_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use allegro_dialog::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
 
 pub mod allegro_dialog
 {
 	#![allow(non_camel_case_types)]
 
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 	use allegro_sys::{ALLEGRO_DISPLAY, ALLEGRO_EVENT_SOURCE};
 
 	opaque!(ALLEGRO_FILECHOOSER);

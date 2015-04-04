@@ -21,3 +21,8 @@ path = "src/lib.rs"
 link_none = []
 link_debug = []
 link_static = []
+
+[dependencies.allegro_util]
+
+path = "../allegro_util"
+version = "=0.0.13" #auto

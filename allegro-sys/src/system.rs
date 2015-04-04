@@ -5,7 +5,7 @@
 use libc::*;
 
 use path::*;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 opaque!(ALLEGRO_SYSTEM);
 

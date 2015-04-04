@@ -5,7 +5,7 @@
 use libc::*;
 
 use color::ALLEGRO_COLOR;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 opaque!(ALLEGRO_BITMAP);
 

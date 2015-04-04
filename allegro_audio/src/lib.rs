@@ -12,6 +12,8 @@
 
 extern crate allegro;
 extern crate allegro_audio_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use addon::*;
@@ -20,9 +22,6 @@ pub use properties::*;
 pub use sink::*;
 pub use mixer::*;
 pub use sample::*;
-
-#[macro_use]
-mod macros;
 
 mod addon;
 mod stream;

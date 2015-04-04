@@ -12,17 +12,15 @@
 
 extern crate libc;
 extern crate allegro_sys as allegro;
+#[macro_use]
+extern crate allegro_util;
 
 pub use self::allegro_font::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
 
 pub mod allegro_font
 {
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
     use allegro::{ALLEGRO_USTR, ALLEGRO_COLOR, ALLEGRO_BITMAP};
 
 	#[repr(C)]

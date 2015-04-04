@@ -8,6 +8,7 @@ from shutil import copy
 from subprocess import check_call
 
 crate_list="""
+allegro_util
 allegro-sys
 allegro_image-sys
 allegro_audio-sys

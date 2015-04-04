@@ -12,6 +12,8 @@
 
 extern crate libc;
 extern crate allegro_sys as ffi;
+#[macro_use]
+extern crate allegro_util;
 
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
@@ -24,11 +26,7 @@ pub use internal::keycodes::*;
 pub use internal::run::*;
 pub use internal::timer::*;
 pub use internal::transformations::external::*;
-pub use rust_util::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
+pub use allegro_util::*;
 
 mod internal
 {

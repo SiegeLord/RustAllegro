@@ -4,7 +4,7 @@
 
 use libc::*;
 
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 #[cfg(windows)]
 pub const ALLEGRO_NATIVE_PATH_SEP: char = '\\';

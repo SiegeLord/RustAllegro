@@ -9,18 +9,16 @@
 #![feature(thread_local)]
 
 extern crate allegro_font_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use self::allegro_ttf::*;
 
-#[macro_use]
-mod macros;
-mod rust_util;
-
 pub mod allegro_ttf
 {
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 	use allegro_font_sys::ALLEGRO_FONT;
 
 	pub const ALLEGRO_TTF_NO_KERNING: u32  = 1;

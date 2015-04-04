@@ -10,6 +10,8 @@
 #![allow(non_camel_case_types)]
 
 extern crate libc;
+#[macro_use]
+extern crate allegro_util;
 
 pub use altime::*;
 pub use base::*;
@@ -29,10 +31,6 @@ pub use utf8::*;
 pub use system::*;
 pub use timer::*;
 pub use transformations::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
 
 pub mod altime;
 pub mod base;

@@ -1,0 +1,15 @@
+[package]
+
+name = "allegro_util"
+version = "0.0.14" #auto
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_util/index.html"
+keywords = []
+authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Rust Allegro 5 wrapper utilities"
+
+[lib]
+
+name = "allegro_util"
+path = "src/lib.rs"

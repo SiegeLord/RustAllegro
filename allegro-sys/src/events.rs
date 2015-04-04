@@ -7,7 +7,7 @@
 use libc::*;
 use std::mem;
 
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 use altime::ALLEGRO_TIMEOUT;
 use display::ALLEGRO_DISPLAY;

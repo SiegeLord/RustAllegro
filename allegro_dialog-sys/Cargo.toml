@@ -26,3 +26,8 @@ link_static = []
 
 path = "../allegro-sys"
 version = "=0.0.13" #auto
+
+[dependencies.allegro_util]
+
+path = "../allegro_util"
+version = "=0.0.13" #auto

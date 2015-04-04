@@ -5,7 +5,7 @@
 #![allow(raw_pointer_derive)]
 
 use libc::*;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 pub type ALLEGRO_USTR = __al_tagbstring;
 pub type ALLEGRO_USTR_INFO = __al_tagbstring;

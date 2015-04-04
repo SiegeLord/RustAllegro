@@ -8,20 +8,18 @@
 #![feature(libc)]
 
 extern crate allegro_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
 pub use allegro_audio::*;
-
-#[macro_use]
-mod macros;
-mod rust_util;
 
 pub mod allegro_audio
 {
 	#![allow(non_camel_case_types)]
 
 	use libc::*;
-	use rust_util::c_bool;
+	use allegro_util::c_bool;
 	use allegro_sys::*;
 
 	pub use self::ALLEGRO_AUDIO_DEPTH::*;

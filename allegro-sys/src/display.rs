@@ -6,7 +6,7 @@ use libc::*;
 
 use events::ALLEGRO_EVENT_SOURCE;
 use bitmap::ALLEGRO_BITMAP;
-use rust_util::c_bool;
+use allegro_util::c_bool;
 
 pub const ALLEGRO_WINDOWED: u32                  = 1 << 0;
 pub const ALLEGRO_FULLSCREEN: u32                = 1 << 1;
