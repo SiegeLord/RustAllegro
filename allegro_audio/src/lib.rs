@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 
 #![feature(libc)]
-#![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(core)]
 

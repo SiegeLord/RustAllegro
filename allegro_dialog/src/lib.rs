@@ -5,7 +5,6 @@
 #![crate_name="allegro_dialog"]
 #![crate_type = "lib"]
 
-#![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 #![allow(non_upper_case_globals)]

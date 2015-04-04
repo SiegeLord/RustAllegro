@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 
 #![feature(libc)]
-#![feature(thread_local)]
 
 extern crate allegro_font_sys;
 #[macro_use]

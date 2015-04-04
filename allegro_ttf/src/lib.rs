@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![feature(libc)]
 

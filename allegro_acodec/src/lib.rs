@@ -5,7 +5,6 @@
 #![crate_name="allegro_acodec"]
 #![crate_type = "lib"]
 
-#![feature(thread_local)]
 #![feature(optin_builtin_traits)]
 #![allow(non_upper_case_globals)]
 
