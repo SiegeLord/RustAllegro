@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Font",""],["FontAddon",""]],"trait":[["FontDrawing",""]],"enum":[["FontAlign",""]]});
+initSidebarItems({"trait":[["FontDrawing",""]],"enum":[["FontAlign",""]],"struct":[["Font",""],["FontAddon",""]]});

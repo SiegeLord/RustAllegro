@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["VertexVector",""]],"enum":[["PrimType",""]],"struct":[["PrimitivesAddon",""],["Vertex",""]]});
+initSidebarItems({"trait":[["VertexVector",""]],"struct":[["PrimitivesAddon",""],["Vertex",""]],"enum":[["PrimType",""]]});
