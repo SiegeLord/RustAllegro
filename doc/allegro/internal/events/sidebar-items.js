@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["external",""]],"struct":[["EventQueue",""],["EventSource",""]],"enum":[["Event",""]]});
+initSidebarItems({"enum":[["Event",""]],"struct":[["EventQueue",""],["EventSource",""]],"mod":[["external",""]]});
