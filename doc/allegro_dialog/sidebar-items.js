@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["DialogAddon",""],["MessageBoxFlags",""]],"fn":[["show_native_message_box",""]],"enum":[["MessageBoxResult",""]],"constant":[["MESSAGEBOX_ERROR",""],["MESSAGEBOX_OK_CANCEL",""],["MESSAGEBOX_QUESTION",""],["MESSAGEBOX_WARN",""],["MESSAGEBOX_YES_NO",""]]});
+initSidebarItems({"fn":[["show_native_message_box",""]],"constant":[["MESSAGEBOX_ERROR",""],["MESSAGEBOX_OK_CANCEL",""],["MESSAGEBOX_QUESTION",""],["MESSAGEBOX_WARN",""],["MESSAGEBOX_YES_NO",""]],"struct":[["DialogAddon",""],["MessageBoxFlags",""]],"enum":[["MessageBoxResult",""]]});

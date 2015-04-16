@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["from_c_str",""]],"macro":[["cast_to_c!",""],["derive_copy_clone!",""],["flag_type!",""],["if_ok!",""],["opaque!",""]],"type":[["c_bool",""]],"trait":[["Flag",""]]});
+initSidebarItems({"type":[["c_bool",""]],"trait":[["Flag",""]],"macro":[["cast_to_c!",""],["derive_copy_clone!",""],["flag_type!",""],["if_ok!",""],["opaque!",""]],"fn":[["from_c_str",""]]});

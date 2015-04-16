@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["DataSample",""]],"struct":[["Sample",""],["SampleInstance",""]]});
+initSidebarItems({"struct":[["Sample",""],["SampleInstance",""]],"trait":[["DataSample",""]]});
