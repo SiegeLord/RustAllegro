@@ -340,7 +340,6 @@ impl Display
 }
 
 // Not Send just because of the marker in the event source
-#[unsafe_destructor]
 impl Drop for Display
 {
 	fn drop(&mut self)

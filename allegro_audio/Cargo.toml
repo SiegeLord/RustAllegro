@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_audio"
-version = "0.0.14" #auto
+version = "0.0.15" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_audio/index.html"
@@ -23,14 +23,14 @@ link_static = ["allegro_audio-sys/link_static"]
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.14" #auto
+version = "=0.0.15" #auto
 
 [dependencies.allegro_audio-sys]
 
 path = "../allegro_audio-sys"
-version = "=0.0.14" #auto
+version = "=0.0.15" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.14" #auto
+version = "=0.0.15" #auto

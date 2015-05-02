@@ -143,7 +143,6 @@ impl Iterator for EventQueue
 }
 
 // Not Send just because of the marker
-#[unsafe_destructor]
 impl Drop for EventQueue
 {
 	fn drop(&mut self)

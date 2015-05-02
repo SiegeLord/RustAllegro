@@ -173,7 +173,6 @@ impl Font
 }
 
 // Not Send just because of the marker
-#[unsafe_destructor]
 impl Drop for Font
 {
 	fn drop(&mut self)

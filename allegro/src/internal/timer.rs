@@ -104,7 +104,6 @@ impl Timer
 }
 
 // Not Send just because of the marker in the event source
-#[unsafe_destructor]
 impl Drop for Timer
 {
 	fn drop(&mut self)

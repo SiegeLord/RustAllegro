@@ -116,7 +116,6 @@ impl Clone for Bitmap
 }
 
 // Not Send just because of the marker
-#[unsafe_destructor]
 impl Drop for Bitmap
 {
 	fn drop(&mut self)
@@ -205,7 +204,6 @@ impl<'m> BitmapLike for SubBitmap<'m>
 }
 
 /* Should be safe, as the parent doesn't reference the child */
-#[unsafe_destructor]
 impl<'l> Drop for SubBitmap<'l>
 {
 	fn drop(&mut self)
