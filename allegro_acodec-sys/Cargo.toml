@@ -22,6 +22,10 @@ link_none = []
 link_debug = []
 link_static = []
 
+[dependencies]
+
+libc = "0.1"
+
 [dependencies.allegro_util]
 
 path = "../allegro_util"

@@ -5,8 +5,6 @@
 #![crate_name="allegro_image_sys"]
 #![crate_type = "lib"]
 
-#![feature(libc)]
-
 extern crate libc;
 #[macro_use]
 extern crate allegro_util;

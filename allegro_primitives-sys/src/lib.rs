@@ -5,8 +5,6 @@
 #![crate_name="allegro_primitives_sys"]
 #![crate_type = "lib"]
 
-#![feature(libc)]
-
 extern crate allegro_sys;
 #[macro_use]
 extern crate allegro_util;

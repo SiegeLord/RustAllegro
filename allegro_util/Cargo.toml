@@ -13,3 +13,7 @@ description = "Rust Allegro 5 wrapper utilities"
 
 name = "allegro_util"
 path = "src/lib.rs"
+
+[dependencies]
+
+libc = "0.1"
