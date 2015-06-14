@@ -20,6 +20,10 @@ link_none = ["allegro_font-sys/link_none"]
 link_debug = ["allegro_font-sys/link_debug"]
 link_static = ["allegro_font-sys/link_static"]
 
+[dependencies]
+
+libc = "0.1"
+
 [dependencies.allegro]
 
 path = "../allegro"

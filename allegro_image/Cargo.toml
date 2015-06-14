@@ -20,6 +20,10 @@ link_none = ["allegro_image-sys/link_none"]
 link_debug = ["allegro_image-sys/link_debug"]
 link_static = ["allegro_image-sys/link_static"]
 
+[dependencies]
+
+libc = "0.1"
+
 [dependencies.allegro]
 
 path = "../allegro"

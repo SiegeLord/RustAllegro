@@ -6,8 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(libc)]
-
 extern crate allegro;
 extern crate allegro_primitives_sys;
 extern crate libc;

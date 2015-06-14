@@ -5,7 +5,6 @@
 #![crate_name="allegro_audio"]
 #![crate_type = "lib"]
 
-#![feature(libc)]
 #![feature(core)]
 
 extern crate allegro;

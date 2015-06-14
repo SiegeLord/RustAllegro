@@ -6,8 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(libc)]
-
 extern crate allegro;
 #[macro_use]
 extern crate allegro_util;

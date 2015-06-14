@@ -5,7 +5,6 @@
 #![crate_name="allegro_dialog"]
 #![crate_type = "lib"]
 
-#![feature(libc)]
 #![allow(non_upper_case_globals)]
 
 extern crate allegro_dialog_sys;
