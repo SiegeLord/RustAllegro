@@ -22,8 +22,6 @@ pub struct Bitmap
 	is_ref: bool,
 }
 
-impl !Send for Bitmap {}
-
 impl Bitmap
 {
 	pub fn new(_: &Core, w: i32, h: i32) -> Result<Bitmap, ()>
@@ -85,11 +83,8 @@ impl Bitmap
 		if self.get_flags() & MEMORY_BITMAP && !self.is_ref
 		{
 			let bmp = self.allegro_bitmap;
-			unsafe
-			{
-				// Don't run Bitmap's destructor
-				mem::forget(self);
-			}
+			// Don't run Bitmap's destructor
+			mem::forget(self);
 			Ok(MemoryBitmap{ allegro_bitmap: bmp })
 		}
 		else
@@ -135,16 +130,15 @@ pub struct MemoryBitmap
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
 }
 
+unsafe impl Send for MemoryBitmap {}
+
 impl MemoryBitmap
 {
 	pub fn into_bitmap(self) -> Bitmap
 	{
 		let bmp = self.allegro_bitmap;
-		unsafe
-		{
-			// Don't run MemoryBitmap's destructor
-			mem::forget(self);
-		}
+		// Don't run MemoryBitmap's destructor
+		mem::forget(self);
 		Bitmap{ allegro_bitmap: bmp, is_ref: false }
 	}
 }

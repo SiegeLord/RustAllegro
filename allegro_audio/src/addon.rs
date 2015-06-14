@@ -8,6 +8,7 @@ use allegro::Core;
 use allegro_audio_sys::*;
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
 
 static mut initialized: bool = false;
@@ -16,9 +17,8 @@ thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false)
 pub struct AudioAddon
 {
 	core_mutex: Arc<Mutex<()>>,
+	no_send_marker: PhantomData<*mut u8>,
 }
-
-impl !Send for AudioAddon {}
 
 impl AudioAddon
 {
@@ -37,7 +37,7 @@ impl AudioAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -46,7 +46,7 @@ impl AudioAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AudioAddon{ core_mutex: core.get_core_mutex() })
+					Ok(AudioAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 				}
 				else
 				{

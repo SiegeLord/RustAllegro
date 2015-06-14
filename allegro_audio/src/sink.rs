@@ -49,8 +49,6 @@ pub struct Sink
 	mixer: Mixer
 }
 
-impl !Send for Sink {}
-
 impl Sink
 {
 	pub fn new(addon: &AudioAddon) -> Result<Sink, String>

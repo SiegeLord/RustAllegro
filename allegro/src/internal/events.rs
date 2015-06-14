@@ -24,8 +24,6 @@ pub struct EventQueue
 	allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
 }
 
-impl !Send for EventQueue {}
-
 impl EventQueue
 {
 	pub fn new(_: &Core) -> Result<EventQueue, ()>
@@ -159,8 +157,6 @@ pub struct EventSource
 {
 	allegro_source: *mut ALLEGRO_EVENT_SOURCE,
 }
-
-impl !Send for EventSource {}
 
 impl EventSource
 {

@@ -5,7 +5,6 @@
 #![crate_name="allegro_dialog"]
 #![crate_type = "lib"]
 
-#![feature(optin_builtin_traits)]
 #![feature(libc)]
 #![allow(non_upper_case_globals)]
 
@@ -19,6 +18,7 @@ use allegro::{Core, Flag, Display};
 use allegro_dialog_sys::*;
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 use std::ffi::CString;
 
 flag_type!{
@@ -43,10 +43,10 @@ pub enum MessageBoxResult
 static mut initialized: bool = false;
 thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
-#[allow(missing_copy_implementations)]
-pub struct DialogAddon;
-
-impl !Send for DialogAddon {}
+pub struct DialogAddon
+{
+	no_send_marker: PhantomData<*mut u8>
+}
 
 impl DialogAddon
 {
@@ -65,7 +65,7 @@ impl DialogAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(DialogAddon)
+					Ok(DialogAddon{ no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -74,7 +74,7 @@ impl DialogAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(DialogAddon)
+					Ok(DialogAddon{ no_send_marker: PhantomData })
 				}
 				else
 				{

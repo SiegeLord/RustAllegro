@@ -5,7 +5,6 @@
 #![crate_name="allegro_font"]
 #![crate_type = "lib"]
 
-#![feature(optin_builtin_traits)]
 #![feature(libc)]
 
 extern crate allegro;

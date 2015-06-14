@@ -78,8 +78,6 @@ pub struct Mixer
 	callback: Option<Box<CallbackHolder>>,
 }
 
-impl !Send for Mixer {}
-
 impl Mixer
 {
 	pub fn new(addon: &AudioAddon) -> Result<Mixer, ()>

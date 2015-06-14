@@ -5,6 +5,7 @@
 #![allow(non_upper_case_globals)]
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
 
 use allegro::Core;
@@ -16,9 +17,8 @@ thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false)
 pub struct FontAddon
 {
 	core_mutex: Arc<Mutex<()>>,
+	no_send_marker: PhantomData<*mut u8>,
 }
-
-impl !Send for FontAddon {}
 
 impl FontAddon
 {
@@ -37,7 +37,7 @@ impl FontAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(FontAddon{ core_mutex: core.get_core_mutex() })
+					Ok(FontAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -45,7 +45,7 @@ impl FontAddon
 				al_init_font_addon();
 				initialized = true;
 				spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-				Ok(FontAddon{ core_mutex: core.get_core_mutex() })
+				Ok(FontAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 			}
 		}
 	}

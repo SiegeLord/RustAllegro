@@ -7,7 +7,6 @@ use libc::*;
 use ffi::*;
 
 #[derive(Copy, Clone)]
-#[repr(u32)]
 pub struct Color(pub ALLEGRO_COLOR);
 
 impl Color

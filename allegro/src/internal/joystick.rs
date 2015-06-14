@@ -23,8 +23,6 @@ pub struct Joystick
 	allegro_joystick: *mut ALLEGRO_JOYSTICK,
 }
 
-impl !Send for Joystick {}
-
 impl Joystick
 {
 	pub fn new(core: &Core, idx: i32) -> Result<Joystick, ()>

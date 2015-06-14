@@ -48,8 +48,6 @@ pub struct Core
 	mutex: Arc<Mutex<()>>,
 }
 
-impl !Send for Core {}
-
 impl Core
 {
 	pub fn init() -> Result<Core, String>

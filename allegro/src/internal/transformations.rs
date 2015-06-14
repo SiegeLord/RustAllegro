@@ -10,6 +10,8 @@ use ffi::*;
 #[derive(Copy, Clone)]
 pub struct Transform(pub ALLEGRO_TRANSFORM);
 
+unsafe impl Send for Transform {}
+
 pub mod external
 {
 	pub use super::Transform;

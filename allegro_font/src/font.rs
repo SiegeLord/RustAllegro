@@ -77,8 +77,6 @@ pub struct Font
 	allegro_font: *mut ALLEGRO_FONT,
 }
 
-impl !Send for Font {}
-
 impl Font
 {
 	pub fn new_builtin(_: &FontAddon) -> Result<Font, ()>

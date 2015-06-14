@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(optin_builtin_traits)]
 #![feature(libc)]
 
 extern crate allegro;
@@ -14,6 +13,7 @@ extern crate allegro_primitives_sys;
 extern crate libc;
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 use std::ptr;
 use std::sync::{Arc, Mutex};
 
@@ -40,9 +40,8 @@ pub enum PrimType
 pub struct PrimitivesAddon
 {
 	core_mutex: Arc<Mutex<()>>,
+	no_send_marker: PhantomData<*mut u8>,
 }
-
-impl !Send for PrimitivesAddon {}
 
 impl PrimitivesAddon
 {
@@ -61,7 +60,7 @@ impl PrimitivesAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -70,7 +69,7 @@ impl PrimitivesAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex() })
+					Ok(PrimitivesAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
 				}
 				else
 				{

@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(optin_builtin_traits)]
 #![feature(libc)]
 
 extern crate allegro;
@@ -22,6 +21,7 @@ use allegro_ttf_sys::*;
 use libc::*;
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 use std::ffi::CString;
 
 static mut initialized: bool = false;
@@ -37,10 +37,10 @@ flag_type!
 	}
 }
 
-#[allow(missing_copy_implementations)]
-pub struct TtfAddon;
-
-impl !Send for TtfAddon {}
+pub struct TtfAddon
+{
+	no_send_marker: PhantomData<*mut u8>
+}
 
 impl TtfAddon
 {
@@ -59,7 +59,7 @@ impl TtfAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon)
+					Ok(TtfAddon{ no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -68,7 +68,7 @@ impl TtfAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon)
+					Ok(TtfAddon{ no_send_marker: PhantomData })
 				}
 				else
 				{

@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 
 #![feature(libc)]
-#![feature(optin_builtin_traits)]
 #![feature(core)]
 
 extern crate allegro;

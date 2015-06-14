@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 #![allow(non_upper_case_globals)]
 
-#![feature(optin_builtin_traits)]
 #![feature(libc)]
 
 extern crate allegro;
@@ -15,6 +14,7 @@ extern crate allegro_util;
 extern crate libc;
 
 use std::cell::RefCell;
+use std::marker::PhantomData;
 
 use allegro::Core;
 use ffi::allegro_image::*;
@@ -46,10 +46,10 @@ pub mod ffi
 static mut initialized: bool = false;
 thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
-#[allow(missing_copy_implementations)]
-pub struct ImageAddon;
-
-impl !Send for ImageAddon {}
+pub struct ImageAddon
+{
+	no_send_marker: PhantomData<*mut u8>
+}
 
 impl ImageAddon
 {
@@ -68,7 +68,7 @@ impl ImageAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon)
+					Ok(ImageAddon{ no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -77,7 +77,7 @@ impl ImageAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon)
+					Ok(ImageAddon{ no_send_marker: PhantomData })
 				}
 				else
 				{
