@@ -11,7 +11,7 @@ use std::mem;
 use std::ptr;
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering::SeqCst;
-use std::raw::Slice;
+use std::slice::{from_raw_parts, from_raw_parts_mut};
 
 use mixer::AttachToMixer;
 use allegro_audio_sys::*;
@@ -129,7 +129,7 @@ impl Sample
 		let len = self.get_byte_length();
 		unsafe
 		{
-			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const _) as *const u8, len: len })
+			from_raw_parts(al_get_sample_data(self.allegro_sample as *const _) as *const _, len )
 		}
 	}
 
@@ -140,7 +140,7 @@ impl Sample
 			let len = self.get_byte_length() / mem::size_of::<T>();
 			Ok(unsafe
 			{
-				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const _) as *const u8, len: len })
+				from_raw_parts(al_get_sample_data(self.allegro_sample as *const _) as *const _, len)
 			})
 		}
 		else
@@ -156,7 +156,7 @@ impl Sample
 			let len = self.get_byte_length() / mem::size_of::<T>();
 			Ok(unsafe
 			{
-				mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const _) as *const u8, len: len })
+				from_raw_parts_mut(al_get_sample_data(self.allegro_sample as *const _) as *mut _, len)
 			})
 		}
 		else
@@ -170,7 +170,7 @@ impl Sample
 		let len = self.get_byte_length();
 		unsafe
 		{
-			mem::transmute(Slice{ data: al_get_sample_data(self.allegro_sample as *const _) as *const u8, len: len })
+			from_raw_parts_mut(al_get_sample_data(self.allegro_sample as *const _) as *mut _, len)
 		}
 	}
 
