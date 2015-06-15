@@ -14,6 +14,12 @@ description = "Allegro 5 core library Rust wrapper"
 name = "allegro"
 path = "src/lib.rs"
 
+[[test]]
+
+name = "init_test"
+path = "src/init_test.rs"
+harness = false
+
 [features]
 
 link_none = ["allegro-sys/link_none"]

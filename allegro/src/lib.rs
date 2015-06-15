@@ -5,6 +5,7 @@
 #![crate_name="allegro"]
 #![crate_type = "lib"]
 
+#![feature(exit_status)]
 #![feature(std_misc)]
 
 extern crate libc;
