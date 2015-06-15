@@ -52,6 +52,6 @@ version is used:
 
 * wip_version - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
 
-Note that the `al_init` function call will attempt to verify that the binding
+Note that the `Core::init()` will attempt to verify that the binding
 corresponds to the version of the library you're linking to, so it is essential
 to specify `ALLEGRO_INCLUDE_DIR` more often than not.
