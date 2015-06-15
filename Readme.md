@@ -48,8 +48,9 @@ inside it. The build script for that crate will define the following two
 metadata entries that the crates that depend on it can use to determine which
 version is used:
 
-sub_version - The sub version of Allegro (e.g. for 5.1.10 the sub version is 1)
-wip_version - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
+* sub_version - The sub version of Allegro (e.g. for 5.1.10 the sub version is 1)
+
+* wip_version - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
 
 Note that the `al_init` function call will attempt to verify that the binding
 corresponds to the version of the library you're linking to, so it is essential
