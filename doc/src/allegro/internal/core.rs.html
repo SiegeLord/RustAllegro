@@ -813,6 +813,7 @@
 <span id="771">771</span>
 <span id="772">772</span>
 <span id="773">773</span>
+<span id="774">774</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -866,6 +867,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>Core</span>
 {
+	<span class='doccomment'>/// This must be called on the main thread.</span>
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>init</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Core</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Once</span>, <span class='ident'>ONCE_INIT</span>};
