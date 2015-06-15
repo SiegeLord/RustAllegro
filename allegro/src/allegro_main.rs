@@ -8,13 +8,12 @@ macro_rules! allegro_main
 	(^tt_expander $e:expr) => {$e};
 	($($x:tt)*) =>
 	{
-		#[start]
-		fn start(argc: isize, argv: *const *const u8) -> isize
+		fn main()
 		{
-			allegro::run(argc, argv, main)
+			allegro::run(user_main)
 		}
 
-		fn main()
+		fn user_main()
 		{
 			allegro_main!(^tt_expander { $($x)* })
 		}

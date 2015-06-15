@@ -1,7 +1,6 @@
 // This file is released into Public Domain.
 #![feature(rustc_private)]
 #![feature(collections)]
-#![feature(start)]
 
 #[macro_use]
 extern crate allegro;
