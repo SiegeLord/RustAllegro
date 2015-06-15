@@ -4,14 +4,8 @@
 
 use libc::*;
 
-pub const ALLEGRO_VERSION: u32          = 5;
-pub const ALLEGRO_SUB_VERSION: u32      = 0;
-pub const ALLEGRO_WIP_VERSION: u32      = 10;
-pub const ALLEGRO_RELEASE_NUMBER: u32   = 1;
+include!(concat!(env!("OUT_DIR"), "/versions.rs"));
 
-pub const ALLEGRO_VERSION_STR: &'static str = "5.0.10";
-pub const ALLEGRO_DATE_STR: &'static str    = "2013";
-pub const ALLEGRO_DATE: u32                 = 20130616;
 pub const ALLEGRO_VERSION_INT: u32          = ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) | (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER);
 
 extern "C"

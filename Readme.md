@@ -4,8 +4,6 @@
 
 A very much WIP binding of [Allegro 5](http://liballeg.org/) to the [Rust](http://www.rust-lang.org/) programming language.
 
-Currently it is targeting Allegro version 5.0.10.1.
-
 ## Documentation
 
 See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note that it is very incomplete.
@@ -41,3 +39,18 @@ Bindings:
 Examples:
 
 * [allegro_examples](https://crates.io/crates/allegro_examples)
+
+The `allegro-sys` package (and, transitively, the rest of the packages) can be
+built to support different Allegro versions by specifying the
+`ALLEGRO_INCLUDE_DIR` environment variable when invoking `cargo build`. This
+directory should contain the `allegro5` directory with all of the headers
+inside it. The build script for that crate will define the following two
+metadata entries that the crates that depend on it can use to determine which
+version is used:
+
+sub_version - The sub version of Allegro (e.g. for 5.1.10 the sub version is 1)
+wip_version - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
+
+Note that the `al_init` function call will attempt to verify that the binding
+corresponds to the version of the library you're linking to, so it is essential
+to specify `ALLEGRO_INCLUDE_DIR` more often than not.
