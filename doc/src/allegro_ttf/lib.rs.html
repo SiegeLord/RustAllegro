@@ -152,8 +152,6 @@
 <span id="110">110</span>
 <span id="111">111</span>
 <span id="112">112</span>
-<span id="113">113</span>
-<span id="114">114</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -162,9 +160,6 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;allegro_ttf&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_upper_case_globals</span>)]</span>
-
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>optin_builtin_traits</span>)]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>libc</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_font</span>;
@@ -179,6 +174,7 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::<span class='ident'>RefCell</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
 
 <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
@@ -194,10 +190,10 @@
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TtfAddon</span>;
-
-<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>TtfAddon</span> {}
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TtfAddon</span>
+{
+	<span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span><span class='op'>&gt;</span>
+}
 
 <span class='kw'>impl</span> <span class='ident'>TtfAddon</span>
 {
@@ -216,7 +212,7 @@
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
-					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>)
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
 				}
 			}
 			<span class='kw'>else</span>
@@ -225,7 +221,7 @@
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
 					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
-					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>)
+					<span class='prelude-val'>Ok</span>(<span class='ident'>TtfAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
 				}
 				<span class='kw'>else</span>
 				{

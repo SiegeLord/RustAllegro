@@ -441,10 +441,6 @@
 <span id="399">399</span>
 <span id="400">400</span>
 <span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -471,8 +467,6 @@
 {
 	<span class='ident'>allegro_queue</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_QUEUE</span>,
 }
-
-<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>EventQueue</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>EventQueue</span>
 {
@@ -607,8 +601,6 @@
 {
 	<span class='ident'>allegro_source</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
 }
-
-<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>EventSource</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>EventSource</span>
 {

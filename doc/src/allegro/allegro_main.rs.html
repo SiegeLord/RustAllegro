@@ -61,7 +61,6 @@
 <span id="19">19</span>
 <span id="20">20</span>
 <span id="21">21</span>
-<span id="22">22</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -73,13 +72,12 @@
 	(<span class='op'>^</span><span class='ident'>tt_expander</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>};
 	($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='attribute'>#[<span class='ident'>start</span>]</span>
-		<span class='kw'>fn</span> <span class='ident'>start</span>(<span class='ident'>argc</span>: <span class='ident'>isize</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>isize</span>
+		<span class='kw'>fn</span> <span class='ident'>main</span>()
 		{
-			<span class='ident'>allegro</span>::<span class='ident'>run</span>(<span class='ident'>argc</span>, <span class='ident'>argv</span>, <span class='ident'>main</span>)
+			<span class='ident'>allegro</span>::<span class='ident'>run</span>(<span class='ident'>user_main</span>)
 		}
 
-		<span class='kw'>fn</span> <span class='ident'>main</span>()
+		<span class='kw'>fn</span> <span class='ident'>user_main</span>()
 		{
 			<span class='macro'>allegro_main</span><span class='macro'>!</span>(<span class='op'>^</span><span class='ident'>tt_expander</span> { $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>)<span class='op'>*</span> })
 		}

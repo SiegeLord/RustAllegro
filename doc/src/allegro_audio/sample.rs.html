@@ -483,8 +483,6 @@
 <span id="441">441</span>
 <span id="442">442</span>
 <span id="443">443</span>
-<span id="444">444</span>
-<span id="445">445</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -499,7 +497,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>AtomicBool</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>Ordering</span>::<span class='ident'>SeqCst</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>raw</span>::<span class='ident'>Slice</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::{<span class='ident'>from_raw_parts</span>, <span class='ident'>from_raw_parts_mut</span>};
 
 <span class='kw'>use</span> <span class='ident'>mixer</span>::<span class='ident'>AttachToMixer</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
@@ -541,8 +539,6 @@
 	<span class='comment'>// This will inform sample instances that this sample got dropped</span>
 	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
 }
-
-<span class='kw'>impl</span> <span class='op'>!</span><span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>Sample</span> {}
 
 <span class='kw'>impl</span> <span class='ident'>Sample</span>
 {
@@ -619,7 +615,7 @@
 		<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>();
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+			<span class='ident'>from_raw_parts</span>(<span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _, <span class='ident'>len</span> )
 		}
 	}
 
@@ -630,7 +626,7 @@
 			<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>() <span class='op'>/</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>();
 			<span class='prelude-val'>Ok</span>(<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+				<span class='ident'>from_raw_parts</span>(<span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _, <span class='ident'>len</span>)
 			})
 		}
 		<span class='kw'>else</span>
@@ -646,7 +642,7 @@
 			<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>() <span class='op'>/</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>();
 			<span class='prelude-val'>Ok</span>(<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+				<span class='ident'>from_raw_parts_mut</span>(<span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _, <span class='ident'>len</span>)
 			})
 		}
 		<span class='kw'>else</span>
@@ -660,7 +656,7 @@
 		<span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_byte_length</span>();
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>Slice</span>{ <span class='ident'>data</span>: <span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>len</span>: <span class='ident'>len</span> })
+			<span class='ident'>from_raw_parts_mut</span>(<span class='ident'>al_get_sample_data</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _, <span class='ident'>len</span>)
 		}
 	}
 
