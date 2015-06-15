@@ -50,6 +50,7 @@ pub struct Core
 
 impl Core
 {
+	/// This must be called on the main thread.
 	pub fn init() -> Result<Core, String>
 	{
 		use std::sync::{Once, ONCE_INIT};
