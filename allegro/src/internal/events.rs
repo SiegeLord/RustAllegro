@@ -175,6 +175,15 @@ pub enum Event
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64
 	},
+	DisplayResize
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		x: i32,
+		y: i32,
+		width: i32,
+		height: i32,
+		timestamp: f64
+	},
 	JoystickAxes
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
@@ -318,6 +327,11 @@ impl Event
 				ALLEGRO_EVENT_DISPLAY_CLOSE =>
 				{
 					DisplayClose{source: src, timestamp: ts}
+				},
+				ALLEGRO_EVENT_DISPLAY_RESIZE =>
+				{
+					let a = *e.display();
+					DisplayResize{source: src, x: a.x as i32, y: a.y as i32, width: a.width as i32, height: a.height as i32, timestamp: ts}
 				},
 				ALLEGRO_EVENT_JOYSTICK_AXIS =>
 				{
