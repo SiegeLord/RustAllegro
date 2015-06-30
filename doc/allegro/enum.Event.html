@@ -45,11 +45,19 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5483' class='srclink' href='../src/allegro/internal/events.rs.html#170-306' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-5483' class='srclink' href='../src/allegro/internal/events.rs.html#170-315' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum Event {
     NoEvent,
     DisplayClose {
         source: <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_sys/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro_sys::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a></a>,
+        timestamp: <a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
+    },
+    DisplayResize {
+        source: <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_sys/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro_sys::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a></a>,
+        x: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
+        y: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
+        width: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
+        height: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
         timestamp: <a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
     },
     JoystickAxes {
@@ -169,7 +177,9 @@
 }</pre><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.NoEvent'><code>NoEvent</code></td><td></td></tr><tr><td id='variant.DisplayClose'><code>DisplayClose</code></td><td><h3 class='fields'>Fields</h3>
 
-                                              <table><tr><td id='variant.DisplayClose.field.source'><code>source</code></td><td></td></tr><tr><td id='variant.DisplayClose.field.timestamp'><code>timestamp</code></td><td></td></tr></table></td></tr><tr><td id='variant.JoystickAxes'><code>JoystickAxes</code></td><td><h3 class='fields'>Fields</h3>
+                                              <table><tr><td id='variant.DisplayClose.field.source'><code>source</code></td><td></td></tr><tr><td id='variant.DisplayClose.field.timestamp'><code>timestamp</code></td><td></td></tr></table></td></tr><tr><td id='variant.DisplayResize'><code>DisplayResize</code></td><td><h3 class='fields'>Fields</h3>
+
+                                              <table><tr><td id='variant.DisplayResize.field.source'><code>source</code></td><td></td></tr><tr><td id='variant.DisplayResize.field.x'><code>x</code></td><td></td></tr><tr><td id='variant.DisplayResize.field.y'><code>y</code></td><td></td></tr><tr><td id='variant.DisplayResize.field.width'><code>width</code></td><td></td></tr><tr><td id='variant.DisplayResize.field.height'><code>height</code></td><td></td></tr><tr><td id='variant.DisplayResize.field.timestamp'><code>timestamp</code></td><td></td></tr></table></td></tr><tr><td id='variant.JoystickAxes'><code>JoystickAxes</code></td><td><h3 class='fields'>Fields</h3>
 
                                               <table><tr><td id='variant.JoystickAxes.field.source'><code>source</code></td><td></td></tr><tr><td id='variant.JoystickAxes.field.timestamp'><code>timestamp</code></td><td></td></tr><tr><td id='variant.JoystickAxes.field.id'><code>id</code></td><td></td></tr><tr><td id='variant.JoystickAxes.field.stick'><code>stick</code></td><td></td></tr><tr><td id='variant.JoystickAxes.field.axis'><code>axis</code></td><td></td></tr><tr><td id='variant.JoystickAxes.field.pos'><code>pos</code></td><td></td></tr></table></td></tr><tr><td id='variant.JoystickButtonDown'><code>JoystickButtonDown</code></td><td><h3 class='fields'>Fields</h3>
 
