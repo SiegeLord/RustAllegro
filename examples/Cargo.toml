@@ -23,6 +23,10 @@ path = "audio_example.rs"
 name = "multiple_windows"
 path = "multiple_windows.rs"
 
+[dependencies]
+
+getopts = "=0.2.11"
+
 [dependencies.allegro]
 
 path = "../allegro"
