@@ -1,5 +1,5 @@
 language: rust
-rust: nightly
+rust: stable
 notifications:
   email:
     on_success: never
