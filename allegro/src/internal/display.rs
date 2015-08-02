@@ -101,33 +101,26 @@ pub struct Display
 
 impl Display
 {
-	pub fn new(_: &Core, w: i32, h: i32) -> Result<Display, String>
+	pub fn new(_: &Core, w: i32, h: i32) -> Result<Display, ()>
 	{
 		unsafe
 		{
-			if !al_get_current_display().is_null()
+			let d = al_create_display(w as c_int, h as c_int);
+			if d.is_null()
 			{
-				Err("Only one display is allowed per thread.".to_string())
+				Err(())
 			}
 			else
 			{
-				let d = al_create_display(w as c_int, h as c_int);
-				if d.is_null()
-				{
-					Err("Could not create the display".to_string())
-				}
-				else
-				{
-					Ok
-					(
-						Display
-						{
-							allegro_display: d,
-							backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
-							event_source: new_event_source_ref(al_get_display_event_source(d)),
-						}
-					)
-				}
+				Ok
+				(
+					Display
+					{
+						allegro_display: d,
+						backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+						event_source: new_event_source_ref(al_get_display_event_source(d)),
+					}
+				)
 			}
 		}
 	}
@@ -299,14 +292,6 @@ impl Display
 		}
 	}
 
-	pub fn is_compatible_bitmap<T: BitmapLike>(&self, bitmap: &T) -> bool
-	{
-		unsafe
-		{
-			al_is_compatible_bitmap(bitmap.get_allegro_bitmap()) != 0
-		}
-	}
-
 	pub fn wait_for_vsync(&self) -> Result<(), ()>
 	{
 		unsafe
@@ -346,12 +331,11 @@ impl Drop for Display
 	{
 		unsafe
 		{
-			/* If it's a video bitmap, it's about to be reset, so we fall back to the dummy target */
-			if al_get_bitmap_flags(al_get_target_bitmap()) & (ALLEGRO_VIDEO_BITMAP as i32) != 0
+			al_destroy_display(self.allegro_display);
+			if al_get_target_bitmap().is_null()
 			{
 				al_set_target_bitmap(dummy_target);
 			}
-			al_destroy_display(self.allegro_display);
 		}
 	}
 }

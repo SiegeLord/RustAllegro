@@ -77,4 +77,12 @@ pub trait BitmapLike
 			al_convert_mask_to_alpha(self.get_allegro_bitmap(), mask_color.0);
 		}
 	}
+
+	fn is_compatible_bitmap(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_compatible_bitmap(self.get_allegro_bitmap()) != 0
+		}
+	}
 }
