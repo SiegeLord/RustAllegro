@@ -36,16 +36,28 @@ fn get_define_value<'l>(line: &'l str, key: &'l str) -> Option<&'l str>
 
 fn main()
 {
-	let header_contents;
+	let mut header_contents = "".to_string();
+	let mut include_dirs = vec!["/usr/local/include".to_string(), "/usr/include".to_string(), "include".to_string()];
 	if let Ok(include_dir) = var("ALLEGRO_INCLUDE_DIR")
 	{
-		let mut header_file = File::open(include_dir + "/allegro5/base.h").unwrap();
-		let mut s = String::new();
-		header_file.read_to_string(&mut s).ok();
-		header_contents = s;
+		include_dirs.insert(0, include_dir);
 	}
-	else
+	for include_dir in &include_dirs
 	{
+		let include_path = include_dir.clone() + "/allegro5/base.h";
+		if let Ok(mut header_file) = File::open(&include_path)
+		{
+			let mut s = String::new();
+			header_file.read_to_string(&mut s).unwrap();
+			header_contents = s;
+			println!("Found Allegro header at {}", include_path);
+			break;
+		}
+	}
+
+	if header_contents.is_empty()
+	{
+		println!("WARNING: Could not find the Allegro headers, falling back to targeting Allegro 5.0.10.");
 		header_contents = r#"
 #define ALLEGRO_VERSION          5
 #define ALLEGRO_SUB_VERSION      0
