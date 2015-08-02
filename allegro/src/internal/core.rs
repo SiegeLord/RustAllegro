@@ -15,7 +15,7 @@ use internal::display::{Display, DisplayOption, DisplayOptionImportance, Display
 use internal::color::{Color, PixelFormat};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
 use internal::transformations::{Transform, new_transform_wrap};
-use allegro_util::{Flag, from_c_str};
+use allegro_util::{Flag, from_c_str, c_bool};
 
 flag_type!{
 	BitmapDrawingFlags
@@ -769,6 +769,53 @@ impl Core
 		unsafe
 		{
 			al_use_transform(&trans.0);
+		}
+	}
+
+	pub fn flip_display(&self)
+	{
+		unsafe
+		{
+			al_flip_display();
+		}
+	}
+
+	pub fn update_display_region(&self, x: i32, y: i32, width: i32, height: i32)
+	{
+		unsafe
+		{
+			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
+		}
+	}
+
+	pub fn wait_for_vsync(&self) -> Result<(), ()>
+	{
+		unsafe
+		{
+			if al_wait_for_vsync() != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
+	pub fn hold_bitmap_drawing(&self, hold: bool)
+	{
+		unsafe
+		{
+			al_hold_bitmap_drawing(hold as c_bool);
+		}
+	}
+
+	pub fn is_bitmap_drawing_held(&self) -> bool
+	{
+		unsafe
+		{
+			al_is_bitmap_drawing_held() != 0
 		}
 	}
 }

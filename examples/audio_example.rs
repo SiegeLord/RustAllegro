@@ -93,7 +93,7 @@ allegro_main!
 		{
 			core.clear_to_color(black);
 			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, FontAlign::Centre, "Press SPACE to be welcomed!");
-			disp.flip();
+			core.flip_display();
 			redraw = false;
 		}
 

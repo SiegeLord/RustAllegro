@@ -42,7 +42,7 @@ fn other_window(mut core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 		{
 			core.clear_to_color(core.map_rgb_f(0.0, 0.0, c));
 			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, "Whee... multiple windows!");
-			disp.flip();
+			core.flip_display();
 			redraw = false;
 		}
 
@@ -128,7 +128,7 @@ allegro_main!
 		{
 			core.clear_to_color(core.map_rgb_f(c, 0.0, 0.0));
 			core.draw_text(&font, core.map_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, text);
-			disp.flip();
+			core.flip_display();
 			redraw = false;
 		}
 

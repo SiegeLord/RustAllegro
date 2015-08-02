@@ -15,8 +15,6 @@ use allegro_util::Flag;
 
 use ffi::*;
 
-use allegro_util::c_bool;
-
 flag_type!{
 	DisplayFlags
 	{
@@ -274,53 +272,6 @@ impl Display
 	pub fn get_allegro_display(&self) -> *mut ALLEGRO_DISPLAY
 	{
 		self.allegro_display
-	}
-
-	pub fn flip(&self)
-	{
-		unsafe
-		{
-			al_flip_display();
-		}
-	}
-
-	pub fn update_region(&self, x: i32, y: i32, width: i32, height: i32)
-	{
-		unsafe
-		{
-			al_update_display_region(x as c_int, y as c_int, width as c_int, height as c_int);
-		}
-	}
-
-	pub fn wait_for_vsync(&self) -> Result<(), ()>
-	{
-		unsafe
-		{
-			if al_wait_for_vsync() != 0
-			{
-				Ok(())
-			}
-			else
-			{
-				Err(())
-			}
-		}
-	}
-
-	pub fn hold_bitmap_drawing(&self, hold: bool)
-	{
-		unsafe
-		{
-			al_hold_bitmap_drawing(hold as c_bool);
-		}
-	}
-
-	pub fn is_bitmap_drawing_held(&self) -> bool
-	{
-		unsafe
-		{
-			al_is_bitmap_drawing_held() != 0
-		}
 	}
 }
 

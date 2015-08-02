@@ -83,7 +83,7 @@ allegro_main!
 			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, FontAlign::Centre, "Welcome to RustAllegro!");
 			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, FontAlign::Centre, "TTF text!");
 			prim.draw_line(100.0, 200.0, 300.0, 200.0, white, 10.0);
-			disp.flip();
+			core.flip_display();
 			redraw = false;
 		}
 
