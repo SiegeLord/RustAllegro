@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1416' class='srclink' href='../src/allegro/internal/core.rs.html#43-49' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1432' class='srclink' href='../src/allegro/internal/core.rs.html#43-49' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Core {
     // some fields omitted
 }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a></code></h3><div class='impl-items'><h4 id='method.init' class='method'><code>fn <a href='#method.init' class='fnname'>init</a>() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
@@ -117,6 +117,11 @@
 <h4 id='method.get_new_display_option' class='method'><code>fn <a href='#method.get_new_display_option' class='fnname'>get_new_display_option</a>(&amp;self, option: <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='enum' href='../allegro/enum.DisplayOptionImportance.html' title='allegro::DisplayOptionImportance'>DisplayOptionImportance</a>)</a></code></h4>
 <h4 id='method.get_current_transform' class='method'><code>fn <a href='#method.get_current_transform' class='fnname'>get_current_transform</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a></code></h4>
 <h4 id='method.use_transform' class='method'><code>fn <a href='#method.use_transform' class='fnname'>use_transform</a>(&amp;self, trans: &amp;<a class='struct' href='../allegro/struct.Transform.html' title='allegro::Transform'>Transform</a>)</code></h4>
+<h4 id='method.flip_display' class='method'><code>fn <a href='#method.flip_display' class='fnname'>flip_display</a>(&amp;self)</code></h4>
+<h4 id='method.update_display_region' class='method'><code>fn <a href='#method.update_display_region' class='fnname'>update_display_region</a>(&amp;self, x: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, width: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+<h4 id='method.wait_for_vsync' class='method'><code>fn <a href='#method.wait_for_vsync' class='fnname'>wait_for_vsync</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.hold_bitmap_drawing' class='method'><code>fn <a href='#method.hold_bitmap_drawing' class='fnname'>hold_bitmap_drawing</a>(&amp;self, hold: <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>)</code></h4>
+<h4 id='method.is_bitmap_drawing_held' class='method'><code>fn <a href='#method.is_bitmap_drawing_held' class='fnname'>is_bitmap_drawing_held</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 

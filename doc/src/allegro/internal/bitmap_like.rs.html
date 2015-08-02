@@ -120,6 +120,14 @@
 <span id="78">78</span>
 <span id="79">79</span>
 <span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -198,6 +206,14 @@
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>mask_color</span>.<span class='number'>0</span>);
+		}
+	}
+
+	<span class='kw'>fn</span> <span class='ident'>is_compatible_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	{
+		<span class='kw'>unsafe</span>
+		{
+			<span class='ident'>al_is_compatible_bitmap</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='op'>!=</span> <span class='number'>0</span>
 		}
 	}
 }
