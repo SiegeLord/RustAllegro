@@ -1,16 +1,15 @@
 #RustAllegro
 
 [![Build Status](https://travis-ci.org/SiegeLord/RustAllegro.png)](https://travis-ci.org/SiegeLord/RustAllegro)
+[![](http://meritbadge.herokuapp.com/slr_config)](https://crates.io/crates/allegro)
 
-A very much WIP binding of [Allegro 5](http://liballeg.org/) to the [Rust](http://www.rust-lang.org/) programming language.
+A very much WIP binding of [Allegro 5](http://liballeg.org/) to the [Rust](http://www.rust-lang.org/) programming language. Both stable and unstable branches of Allegro are supported.
 
 ## Documentation
 
 See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note that it is very incomplete.
 
-## Building
-
-### Via Cargo:
+## Packages
 
 The included packages are:
 
