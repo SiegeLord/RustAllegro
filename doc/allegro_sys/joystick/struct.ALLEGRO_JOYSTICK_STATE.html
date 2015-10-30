@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>allegro_sys</a>::<wbr><a href='index.html'>joystick</a></p><script>window.sidebarCurrent = {name: 'ALLEGRO_JOYSTICK_STATE', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -47,22 +47,24 @@
             </a>
         </span><a id='src-2682' class='srclink' href='../../src/allegro_sys/joystick.rs.html#14-18' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ALLEGRO_JOYSTICK_STATE {
-    pub stick: <a href='http://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='struct' href='../../allegro_sys/joystick/struct.Stick.html' title='allegro_sys::joystick::Stick'>Stick</a>; 8]</a>,
-    pub button: <a href='http://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>; 32]</a>,
+    pub stick: <a href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='struct' href='../../allegro_sys/joystick/struct.Stick.html' title='allegro_sys::joystick::Stick'>Stick</a>; 8]</a>,
+    pub button: <a href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>; 32]</a>,
 }</pre><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
                                   <td id='structfield.stick'><code>stick</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.button'><code>button</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h3><div class='impl-items'></div></section>
+                                  <td id='structfield.button'><code>button</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/joystick/struct.ALLEGRO_JOYSTICK_STATE.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK_STATE'>ALLEGRO_JOYSTICK_STATE</a></code></h3><div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -79,7 +81,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -89,8 +91,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -99,7 +101,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>allegro_sys</a>::<wbr><a href='index.html'>events</a></p><script>window.sidebarCurrent = {name: 'al_wait_for_event_timed', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -46,15 +46,17 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-2646' class='srclink' href='../../src/allegro_sys/events.rs.html#222' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub unsafe extern fn al_wait_for_event_timed(arg1: <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../../allegro_sys/events/enum.ALLEGRO_EVENT_QUEUE.html' title='allegro_sys::events::ALLEGRO_EVENT_QUEUE'>ALLEGRO_EVENT_QUEUE</a></a>, ret_event: <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_EVENT.html' title='allegro_sys::events::ALLEGRO_EVENT'>ALLEGRO_EVENT</a></a>, secs: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a>) -&gt; <a class='type' href='../../allegro_util/type.c_bool.html' title='allegro_util::c_bool'>c_bool</a></pre></section>
+<pre class='rust fn'>pub unsafe extern fn al_wait_for_event_timed(arg1: <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../../allegro_sys/events/enum.ALLEGRO_EVENT_QUEUE.html' title='allegro_sys::events::ALLEGRO_EVENT_QUEUE'>ALLEGRO_EVENT_QUEUE</a></a>, ret_event: <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_EVENT.html' title='allegro_sys::events::ALLEGRO_EVENT'>ALLEGRO_EVENT</a></a>, secs: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a>) -&gt; <a class='type' href='../../allegro_util/type.c_bool.html' title='allegro_util::c_bool'>c_bool</a></pre></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -71,7 +73,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -81,8 +83,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -91,7 +93,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

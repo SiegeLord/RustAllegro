@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>allegro</a></p><script>window.sidebarCurrent = {name: 'Joystick', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -48,26 +48,28 @@
         </span><a id='src-6936' class='srclink' href='../src/allegro/internal/joystick.rs.html#21-24' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Joystick {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Joystick.html' title='allegro::Joystick'>Joystick</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(core: &amp;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, idx: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Joystick.html' title='allegro::Joystick'>Joystick</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.is_active' class='method'><code>fn <a href='#method.is_active' class='fnname'>is_active</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.get_name' class='method'><code>fn <a href='#method.get_name' class='fnname'>get_name</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.get_num_sticks' class='method'><code>fn <a href='#method.get_num_sticks' class='fnname'>get_num_sticks</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_stick_flags' class='method'><code>fn <a href='#method.get_stick_flags' class='fnname'>get_stick_flags</a>(&amp;self, stick: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.StickFlags.html' title='allegro::StickFlags'>StickFlags</a></code></h4>
-<h4 id='method.get_stick_name' class='method'><code>fn <a href='#method.get_stick_name' class='fnname'>get_stick_name</a>(&amp;self, stick: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.get_num_axes' class='method'><code>fn <a href='#method.get_num_axes' class='fnname'>get_num_axes</a>(&amp;self, stick: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_axis_name' class='method'><code>fn <a href='#method.get_axis_name' class='fnname'>get_axis_name</a>(&amp;self, stick: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, axis: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.get_num_buttons' class='method'><code>fn <a href='#method.get_num_buttons' class='fnname'>get_num_buttons</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_button_name' class='method'><code>fn <a href='#method.get_button_name' class='fnname'>get_button_name</a>(&amp;self, button: <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.get_allegro_joystick' class='method'><code>fn <a href='#method.get_allegro_joystick' class='fnname'>get_allegro_joystick</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_sys/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a></a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Joystick.html' title='allegro::Joystick'>Joystick</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(core: &amp;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, idx: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Joystick.html' title='allegro::Joystick'>Joystick</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.is_active' class='method'><code>fn <a href='#method.is_active' class='fnname'>is_active</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_name' class='method'><code>fn <a href='#method.get_name' class='fnname'>get_name</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_num_sticks' class='method'><code>fn <a href='#method.get_num_sticks' class='fnname'>get_num_sticks</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_stick_flags' class='method'><code>fn <a href='#method.get_stick_flags' class='fnname'>get_stick_flags</a>(&amp;self, stick: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.StickFlags.html' title='allegro::StickFlags'>StickFlags</a></code></h4>
+<h4 id='method.get_stick_name' class='method'><code>fn <a href='#method.get_stick_name' class='fnname'>get_stick_name</a>(&amp;self, stick: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_num_axes' class='method'><code>fn <a href='#method.get_num_axes' class='fnname'>get_num_axes</a>(&amp;self, stick: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_axis_name' class='method'><code>fn <a href='#method.get_axis_name' class='fnname'>get_axis_name</a>(&amp;self, stick: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, axis: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_num_buttons' class='method'><code>fn <a href='#method.get_num_buttons' class='fnname'>get_num_buttons</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_button_name' class='method'><code>fn <a href='#method.get_button_name' class='fnname'>get_button_name</a>(&amp;self, button: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_allegro_joystick' class='method'><code>fn <a href='#method.get_allegro_joystick' class='fnname'>get_allegro_joystick</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../ffi/joystick/enum.ALLEGRO_JOYSTICK.html' title='ffi::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a></a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -84,7 +86,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -94,8 +96,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -104,7 +106,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

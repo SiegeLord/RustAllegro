@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>allegro</a></p><script>window.sidebarCurrent = {name: 'DisplayOption', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -79,17 +79,19 @@
     CanDrawIntoBitmap,
     SupportSeparateAlpha,
 }</pre><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.RedSize'><code>RedSize</code></td><td></td></tr><tr><td id='variant.GreenSize'><code>GreenSize</code></td><td></td></tr><tr><td id='variant.BlueSize'><code>BlueSize</code></td><td></td></tr><tr><td id='variant.AlphaSize'><code>AlphaSize</code></td><td></td></tr><tr><td id='variant.RedShift'><code>RedShift</code></td><td></td></tr><tr><td id='variant.GreenShift'><code>GreenShift</code></td><td></td></tr><tr><td id='variant.BlueShift'><code>BlueShift</code></td><td></td></tr><tr><td id='variant.AlphaShift'><code>AlphaShift</code></td><td></td></tr><tr><td id='variant.AccRedSize'><code>AccRedSize</code></td><td></td></tr><tr><td id='variant.AccGreenSize'><code>AccGreenSize</code></td><td></td></tr><tr><td id='variant.AccBlueSize'><code>AccBlueSize</code></td><td></td></tr><tr><td id='variant.AccAlphaSize'><code>AccAlphaSize</code></td><td></td></tr><tr><td id='variant.Stereo'><code>Stereo</code></td><td></td></tr><tr><td id='variant.AuxBuffers'><code>AuxBuffers</code></td><td></td></tr><tr><td id='variant.ColorSize'><code>ColorSize</code></td><td></td></tr><tr><td id='variant.DepthSize'><code>DepthSize</code></td><td></td></tr><tr><td id='variant.StencilSize'><code>StencilSize</code></td><td></td></tr><tr><td id='variant.SampleBuffers'><code>SampleBuffers</code></td><td></td></tr><tr><td id='variant.Samples'><code>Samples</code></td><td></td></tr><tr><td id='variant.RenderMethod'><code>RenderMethod</code></td><td></td></tr><tr><td id='variant.FloatColor'><code>FloatColor</code></td><td></td></tr><tr><td id='variant.FloatDepth'><code>FloatDepth</code></td><td></td></tr><tr><td id='variant.SingleBuffer'><code>SingleBuffer</code></td><td></td></tr><tr><td id='variant.SwapMethod'><code>SwapMethod</code></td><td></td></tr><tr><td id='variant.CompatibleDisplay'><code>CompatibleDisplay</code></td><td></td></tr><tr><td id='variant.UpdateDisplayRegion'><code>UpdateDisplayRegion</code></td><td></td></tr><tr><td id='variant.Vsync'><code>Vsync</code></td><td></td></tr><tr><td id='variant.MaxBitmapSize'><code>MaxBitmapSize</code></td><td></td></tr><tr><td id='variant.SupportNpotBitmap'><code>SupportNpotBitmap</code></td><td></td></tr><tr><td id='variant.CanDrawIntoBitmap'><code>CanDrawIntoBitmap</code></td><td></td></tr><tr><td id='variant.SupportSeparateAlpha'><code>SupportSeparateAlpha</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h3><div class='impl-items'></div></section>
+<table><tr><td id='variant.RedSize'><code>RedSize</code></td><td></td></tr><tr><td id='variant.GreenSize'><code>GreenSize</code></td><td></td></tr><tr><td id='variant.BlueSize'><code>BlueSize</code></td><td></td></tr><tr><td id='variant.AlphaSize'><code>AlphaSize</code></td><td></td></tr><tr><td id='variant.RedShift'><code>RedShift</code></td><td></td></tr><tr><td id='variant.GreenShift'><code>GreenShift</code></td><td></td></tr><tr><td id='variant.BlueShift'><code>BlueShift</code></td><td></td></tr><tr><td id='variant.AlphaShift'><code>AlphaShift</code></td><td></td></tr><tr><td id='variant.AccRedSize'><code>AccRedSize</code></td><td></td></tr><tr><td id='variant.AccGreenSize'><code>AccGreenSize</code></td><td></td></tr><tr><td id='variant.AccBlueSize'><code>AccBlueSize</code></td><td></td></tr><tr><td id='variant.AccAlphaSize'><code>AccAlphaSize</code></td><td></td></tr><tr><td id='variant.Stereo'><code>Stereo</code></td><td></td></tr><tr><td id='variant.AuxBuffers'><code>AuxBuffers</code></td><td></td></tr><tr><td id='variant.ColorSize'><code>ColorSize</code></td><td></td></tr><tr><td id='variant.DepthSize'><code>DepthSize</code></td><td></td></tr><tr><td id='variant.StencilSize'><code>StencilSize</code></td><td></td></tr><tr><td id='variant.SampleBuffers'><code>SampleBuffers</code></td><td></td></tr><tr><td id='variant.Samples'><code>Samples</code></td><td></td></tr><tr><td id='variant.RenderMethod'><code>RenderMethod</code></td><td></td></tr><tr><td id='variant.FloatColor'><code>FloatColor</code></td><td></td></tr><tr><td id='variant.FloatDepth'><code>FloatDepth</code></td><td></td></tr><tr><td id='variant.SingleBuffer'><code>SingleBuffer</code></td><td></td></tr><tr><td id='variant.SwapMethod'><code>SwapMethod</code></td><td></td></tr><tr><td id='variant.CompatibleDisplay'><code>CompatibleDisplay</code></td><td></td></tr><tr><td id='variant.UpdateDisplayRegion'><code>UpdateDisplayRegion</code></td><td></td></tr><tr><td id='variant.Vsync'><code>Vsync</code></td><td></td></tr><tr><td id='variant.MaxBitmapSize'><code>MaxBitmapSize</code></td><td></td></tr><tr><td id='variant.SupportNpotBitmap'><code>SupportNpotBitmap</code></td><td></td></tr><tr><td id='variant.CanDrawIntoBitmap'><code>CanDrawIntoBitmap</code></td><td></td></tr><tr><td id='variant.SupportSeparateAlpha'><code>SupportSeparateAlpha</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../allegro/enum.DisplayOption.html' title='allegro::DisplayOption'>DisplayOption</a></code></h3><div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -106,7 +108,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -116,8 +118,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -126,7 +128,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

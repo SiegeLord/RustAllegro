@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>allegro</a></p><script>window.sidebarCurrent = {name: 'Timer', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -48,26 +48,28 @@
         </span><a id='src-9819' class='srclink' href='../src/allegro/internal/timer.rs.html#12-16' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Timer {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(_: &amp;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, speed_secs: <a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(_: &amp;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, speed_secs: <a href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <h4 id='method.start' class='method'><code>fn <a href='#method.start' class='fnname'>start</a>(&amp;self)</code></h4>
 <h4 id='method.stop' class='method'><code>fn <a href='#method.stop' class='fnname'>stop</a>(&amp;self)</code></h4>
-<h4 id='method.is_started' class='method'><code>fn <a href='#method.is_started' class='fnname'>is_started</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.get_speed' class='method'><code>fn <a href='#method.get_speed' class='fnname'>get_speed</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
-<h4 id='method.set_speed' class='method'><code>fn <a href='#method.set_speed' class='fnname'>set_speed</a>(&amp;self, speed_secs: <a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>)</code></h4>
-<h4 id='method.get_count' class='method'><code>fn <a href='#method.get_count' class='fnname'>get_count</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code></h4>
-<h4 id='method.set_count' class='method'><code>fn <a href='#method.set_count' class='fnname'>set_count</a>(&amp;self, count: <a href='http://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>)</code></h4>
-<h4 id='method.add_count' class='method'><code>fn <a href='#method.add_count' class='fnname'>add_count</a>(&amp;self, diff: <a href='http://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>)</code></h4>
+<h4 id='method.is_started' class='method'><code>fn <a href='#method.is_started' class='fnname'>is_started</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_speed' class='method'><code>fn <a href='#method.get_speed' class='fnname'>get_speed</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<h4 id='method.set_speed' class='method'><code>fn <a href='#method.set_speed' class='fnname'>set_speed</a>(&amp;self, speed_secs: <a href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>)</code></h4>
+<h4 id='method.get_count' class='method'><code>fn <a href='#method.get_count' class='fnname'>get_count</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code></h4>
+<h4 id='method.set_count' class='method'><code>fn <a href='#method.set_count' class='fnname'>set_count</a>(&amp;self, count: <a href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>)</code></h4>
+<h4 id='method.add_count' class='method'><code>fn <a href='#method.add_count' class='fnname'>add_count</a>(&amp;self, diff: <a href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>)</code></h4>
 <h4 id='method.get_event_source' class='method'><code>fn <a href='#method.get_event_source' class='fnname'>get_event_source</a>&lt;'l&gt;(&amp;'l self) -&gt; &amp;'l <a class='struct' href='../allegro/struct.EventSource.html' title='allegro::EventSource'>EventSource</a></code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Timer.html' title='allegro::Timer'>Timer</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -84,7 +86,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -94,8 +96,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -104,7 +106,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

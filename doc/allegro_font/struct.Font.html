@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>allegro_font</a></p><script>window.sidebarCurrent = {name: 'Font', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -48,26 +48,28 @@
         </span><a id='src-482' class='srclink' href='../src/allegro_font/font.rs.html#75-78' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Font {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a></code></h3><div class='impl-items'><h4 id='method.new_builtin' class='method'><code>fn <a href='#method.new_builtin' class='fnname'>new_builtin</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.load_bitmap_font' class='method'><code>fn <a href='#method.load_bitmap_font' class='fnname'>load_bitmap_font</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>, filename: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.grab_from_bitmap' class='method'><code>fn <a href='#method.grab_from_bitmap' class='fnname'>grab_from_bitmap</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>, bmp: &amp;<a class='struct' href='../allegro/internal/bitmap/struct.Bitmap.html' title='allegro::internal::bitmap::Bitmap'>Bitmap</a>, ranges: <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>, <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>)</a><a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.wrap_allegro_font' class='method'><code>unsafe fn <a href='#method.wrap_allegro_font' class='fnname'>wrap_allegro_font</a>(font: <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_font_sys/allegro_font/struct.ALLEGRO_FONT.html' title='allegro_font_sys::allegro_font::ALLEGRO_FONT'>ALLEGRO_FONT</a></a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
-<h4 id='method.get_font' class='method'><code>fn <a href='#method.get_font' class='fnname'>get_font</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_font_sys/allegro_font/struct.ALLEGRO_FONT.html' title='allegro_font_sys::allegro_font::ALLEGRO_FONT'>ALLEGRO_FONT</a></a></code></h4>
-<h4 id='method.get_text_width' class='method'><code>fn <a href='#method.get_text_width' class='fnname'>get_text_width</a>(&amp;self, text: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_line_height' class='method'><code>fn <a href='#method.get_line_height' class='fnname'>get_line_height</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_ascent' class='method'><code>fn <a href='#method.get_ascent' class='fnname'>get_ascent</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_descent' class='method'><code>fn <a href='#method.get_descent' class='fnname'>get_descent</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<h4 id='method.get_text_dimensions' class='method'><code>fn <a href='#method.get_text_dimensions' class='fnname'>get_text_dimensions</a>(&amp;self, text: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a></code></h3><div class='impl-items'><h4 id='method.new_builtin' class='method'><code>fn <a href='#method.new_builtin' class='fnname'>new_builtin</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.load_bitmap_font' class='method'><code>fn <a href='#method.load_bitmap_font' class='fnname'>load_bitmap_font</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>, filename: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.grab_from_bitmap' class='method'><code>fn <a href='#method.grab_from_bitmap' class='fnname'>grab_from_bitmap</a>(_: &amp;<a class='struct' href='../allegro_font/struct.FontAddon.html' title='allegro_font::FontAddon'>FontAddon</a>, bmp: &amp;<a class='struct' href='../allegro/internal/bitmap/struct.Bitmap.html' title='allegro::internal::bitmap::Bitmap'>Bitmap</a>, ranges: <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>, <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>)</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.wrap_allegro_font' class='method'><code>unsafe fn <a href='#method.wrap_allegro_font' class='fnname'>wrap_allegro_font</a>(font: <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_font_sys/allegro_font/struct.ALLEGRO_FONT.html' title='allegro_font_sys::allegro_font::ALLEGRO_FONT'>ALLEGRO_FONT</a></a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_font' class='method'><code>fn <a href='#method.get_font' class='fnname'>get_font</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../allegro_font_sys/allegro_font/struct.ALLEGRO_FONT.html' title='allegro_font_sys::allegro_font::ALLEGRO_FONT'>ALLEGRO_FONT</a></a></code></h4>
+<h4 id='method.get_text_width' class='method'><code>fn <a href='#method.get_text_width' class='fnname'>get_text_width</a>(&amp;self, text: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_line_height' class='method'><code>fn <a href='#method.get_line_height' class='fnname'>get_line_height</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_ascent' class='method'><code>fn <a href='#method.get_ascent' class='fnname'>get_ascent</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_descent' class='method'><code>fn <a href='#method.get_descent' class='fnname'>get_descent</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_text_dimensions' class='method'><code>fn <a href='#method.get_text_dimensions' class='fnname'>get_text_dimensions</a>(&amp;self, text: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro_font/struct.Font.html' title='allegro_font::Font'>Font</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -84,7 +86,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -94,8 +96,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -104,7 +106,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
