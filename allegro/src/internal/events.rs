@@ -2,8 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(raw_pointer_derive)]
-
 use libc::*;
 use std::mem;
 

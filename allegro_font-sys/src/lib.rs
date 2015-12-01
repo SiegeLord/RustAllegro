@@ -6,7 +6,7 @@
 #![crate_type = "lib"]
 
 #![allow(non_camel_case_types)]
-#![allow(non_camel_case_types, raw_pointer_derive)]
+#![allow(non_camel_case_types)]
 
 extern crate libc;
 extern crate allegro_sys as allegro;

@@ -19,7 +19,7 @@ use addon::AudioAddon;
 use internal::{Connection, AttachToMixerImpl};
 use properties::*;
 
-pub trait DataSample
+pub trait DataSample where Self: Sized
 {
 	fn get_depth(_: Option<Self>) -> AudioDepth;
 }
