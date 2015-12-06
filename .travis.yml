@@ -18,6 +18,7 @@ script:
   - ./cargo_util.py --doc
   - cd examples
   - ./target/debug/example --init-only
+  - ./target/debug/config_example Cargo.toml
   - cd ..
 after_success:
   - cd doc/target

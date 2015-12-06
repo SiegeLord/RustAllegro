@@ -15,6 +15,11 @@ path = "example.rs"
 
 [[bin]]
 
+name = "config_example"
+path = "config_example.rs"
+
+[[bin]]
+
 name = "audio_example"
 path = "audio_example.rs"
 

@@ -13,6 +13,7 @@ use internal::events::{EventSource, new_event_source_ref};
 use internal::keycodes::{KeyCode, KeyModifier};
 use internal::display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
 use internal::color::{Color, PixelFormat};
+use internal::config::{Config, new_config_ref};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
 use internal::transformations::{Transform, new_transform_wrap};
 use allegro_util::{Flag, from_c_str, c_bool};
@@ -100,6 +101,16 @@ impl Core
 			});
 		}
 		res
+	}
+
+	/// Returns the system config.
+	/// TODO: This isn't quite thread safe...
+	pub fn get_system_config() -> Config
+	{
+		unsafe
+		{
+			new_config_ref(al_get_system_config())
+		}
 	}
 
 	pub fn spawn<F: FnOnce(Core) + Send + 'static>(&self, thread_proc: F)

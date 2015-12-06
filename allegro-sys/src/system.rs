@@ -4,6 +4,7 @@
 
 use libc::*;
 
+use config::*;
 use path::*;
 use allegro_util::c_bool;
 
@@ -15,7 +16,7 @@ extern "C"
 	pub fn al_uninstall_system();
 	pub fn al_is_system_installed() -> c_bool;
 	pub fn al_get_system_driver() -> *mut ALLEGRO_SYSTEM;
-//~ 	pub fn al_get_system_config() -> *mut ALLEGRO_CONFIG;
+	pub fn al_get_system_config() -> *mut ALLEGRO_CONFIG;
 }
 
 pub const ALLEGRO_RESOURCES_PATH: i32 = 0;

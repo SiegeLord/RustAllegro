@@ -13,6 +13,7 @@ extern crate allegro_util;
 pub use internal::bitmap::external::*;
 pub use internal::bitmap_like::*;
 pub use internal::color::*;
+pub use internal::config::external::*;
 pub use internal::core::external::*;
 pub use internal::display::*;
 pub use internal::events::external::*;
@@ -28,6 +29,7 @@ mod internal
 	pub mod bitmap;
 	pub mod bitmap_like;
 	pub mod color;
+	pub mod config;
 	pub mod core;
 	pub mod display;
 	pub mod events;
