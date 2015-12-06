@@ -125,6 +125,7 @@ impl Drop for Bitmap
 	}
 }
 
+/// A memory bitmap, unlike a regular bitmap, can be transferred between threads.
 pub struct MemoryBitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,

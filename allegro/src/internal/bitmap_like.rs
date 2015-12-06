@@ -26,6 +26,9 @@ flag_type!{
 	}
 }
 
+/**
+A trait implemented by types that behave like bitmaps.
+*/
 pub trait BitmapLike
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP;
@@ -78,6 +81,13 @@ pub trait BitmapLike
 		}
 	}
 
+	/**
+	Returns if this bitmap is compatible with the current display. This comes
+	into play when you have multiple displays in a single thread, and have
+	created bitmaps for different displays. A bitmap created for one display
+	may or may not be compatible with the other display. If the bitmap is not
+	compatible, drawing it will be slow.
+	*/
 	fn is_compatible_bitmap(&self) -> bool
 	{
 		unsafe
