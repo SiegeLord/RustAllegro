@@ -1,4 +1,4 @@
-#RustAllegro
+# RustAllegro
 
 [![Build Status](https://travis-ci.org/SiegeLord/RustAllegro.png)](https://travis-ci.org/SiegeLord/RustAllegro)
 [![](http://meritbadge.herokuapp.com/allegro)](https://crates.io/crates/allegro)
@@ -39,6 +39,8 @@ Examples:
 
 * [allegro_examples](https://crates.io/crates/allegro_examples)
 
+## General usage notes
+
 The `allegro-sys` package (and, transitively, the rest of the packages) detects
 which version of Allegro to bind by parsing the C header. The build script will
 look for it in some common locations, but sometimes you will need to help it by
@@ -48,9 +50,53 @@ headers inside it. The build script will define the following two metadata
 entries that the crates that depend on it can use to determine which version is
 used:
 
-* sub_version - The sub version of Allegro (e.g. for 5.1.10 the sub version is 1)
+* `sub_version` - The sub version of Allegro (e.g. for 5.1.10 the sub version is 1)
 
-* wip_version - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
+* `wip_version` - The wip version of Allegro (e.g. for 5.1.10 the wip version is 10).
 
 Note that the `Core::init()` will attempt to verify that the binding
 corresponds to the version of the library you're linking to.
+
+There are a few features that might come in useful:
+
+* `link_none` - Do not try to link the standard Allegro libraries, in
+			    case you want to link the monolith library or have other
+			    needs.
+* `link_debug` - Link to the debug versions of the Allegro libraries. Can
+                 be combined with `link_static`.
+* `link_static` - Link to the static versions of the Allegro libraries.
+				  Note that you'll have to link the various dependency
+				  libraries yourself. Can be combined with `link_debug`.
+
+## Windows notes
+
+RustAllegro works well with the official pre-compiled binaries. First,
+download the official binaries from http://liballeg.org. You'll want to
+match the ABI of your Rust installation. GNU ABI on 32 bit can load
+Allegro 32 bit MSVC binaries, but otherwise you'll want to match the
+platform and ABI exactly. Let's say you extract the binaries to
+`C:/allegro`. That directory will contain the include, bin and lib
+directories. To compile and run the RustAllegro examples, do the
+following from the RustAllegro's `examples` directory:
+
+* If you're using MSYS:
+
+```
+export ALLEGRO_INCLUDE_DIR=C:/allegro/include
+export RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+cargo build
+```
+
+* If you're using cmd directly:
+
+```
+set ALLEGRO_INCLUDE_DIR=C:/allegro/include
+set RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+cargo build
+```
+
+Now you need to copy the Allegro DLLs next to the generated executables
+(which will probably be under target/debug directory). Now you should
+be able to run the examples (make sure to run them from RustAllegro's
+`examples` directory, so they can find the various data files they
+require).
