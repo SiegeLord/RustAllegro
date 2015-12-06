@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_audio-sys"
-version = "0.0.19" #auto
+version = "0.0.20" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_audio-sys/index.html"
@@ -29,9 +29,9 @@ libc = "0.1"
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.19" #auto
+version = "=0.0.20" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.19" #auto
+version = "=0.0.20" #auto
