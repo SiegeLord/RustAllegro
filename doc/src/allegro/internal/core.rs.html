@@ -861,6 +861,17 @@
 <span id="819">819</span>
 <span id="820">820</span>
 <span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -877,6 +888,7 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>keycodes</span>::{<span class='ident'>KeyCode</span>, <span class='ident'>KeyModifier</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>display</span>::{<span class='ident'>Display</span>, <span class='ident'>DisplayOption</span>, <span class='ident'>DisplayOptionImportance</span>, <span class='ident'>DisplayFlags</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::{<span class='ident'>Color</span>, <span class='ident'>PixelFormat</span>};
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>new_config_ref</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::{<span class='ident'>BitmapLike</span>, <span class='ident'>BitmapFlags</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>transformations</span>::{<span class='ident'>Transform</span>, <span class='ident'>new_transform_wrap</span>};
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::{<span class='ident'>Flag</span>, <span class='ident'>from_c_str</span>, <span class='ident'>c_bool</span>};
@@ -964,6 +976,16 @@
 			});
 		}
 		<span class='ident'>res</span>
+	}
+
+	<span class='doccomment'>/// Returns the system config.</span>
+	<span class='doccomment'>/// TODO: This isn&#39;t quite thread safe...</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_system_config</span>() <span class='op'>-&gt;</span> <span class='ident'>Config</span>
+	{
+		<span class='kw'>unsafe</span>
+		{
+			<span class='ident'>new_config_ref</span>(<span class='ident'>al_get_system_config</span>())
+		}
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>spawn</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='ident'>Core</span>) <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>thread_proc</span>: <span class='ident'>F</span>)

@@ -505,7 +505,7 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::{<span class='ident'>Connection</span>, <span class='ident'>AttachToMixerImpl</span>};
 <span class='kw'>use</span> <span class='ident'>properties</span>::<span class='op'>*</span>;
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>DataSample</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>DataSample</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>get_depth</span>(_: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>AudioDepth</span>;
 }

@@ -81,6 +81,7 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
+<span id="42">42</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -88,6 +89,7 @@
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 
+<span class='kw'>use</span> <span class='ident'>config</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>path</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
@@ -99,7 +101,7 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_uninstall_system</span>();
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_is_system_installed</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_driver</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SYSTEM</span>;
-<span class='comment'>//~ 	pub fn al_get_system_config() -&gt; *mut ALLEGRO_CONFIG;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_config</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>;
 }
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_RESOURCES_PATH</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>0</span>;
