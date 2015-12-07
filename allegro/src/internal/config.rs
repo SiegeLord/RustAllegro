@@ -164,7 +164,7 @@ impl Config
 			}
 			else
 			{
-				CStr::from_ptr(value).to_str().ok().map(|s| s.to_string())
+				Some(CStr::from_ptr(value).to_string_lossy().into_owned())
 			}
 		}
 	}
@@ -178,6 +178,8 @@ impl Config
 		}
 	}
 
+	/// Returns an iterator over all the sections in the config. The first
+	/// returned section will typically be the root section, even if it's empty.
 	pub fn sections<'l>(&'l self) -> ConfigSection<'l>
 	{
 		let mut config_section = ConfigSection
@@ -186,28 +188,18 @@ impl Config
 			config_section: ptr::null_mut(),
 			next_section: None,
 		};
-		let next_section = unsafe
+		unsafe
 		{
-			al_get_first_config_section(self.allegro_config, &mut config_section.config_section)
-		};
-		if !next_section.is_null()
-		{
-			let next_section = unsafe
+			let next_section = al_get_first_config_section(self.allegro_config, &mut config_section.config_section);
+			if !next_section.is_null()
 			{
-				CStr::from_ptr(next_section).to_str().ok().map(|s| s.to_string())
-			};
-			if next_section.is_some()
-			{
-				config_section.next_section = next_section;
-			}
-			else
-			{
-				config_section.next_section = get_next_section(&mut config_section.config_section as *mut _);
+				config_section.next_section = Some(CStr::from_ptr(next_section).to_string_lossy().into_owned());
 			}
 		}
 		config_section
 	}
 
+	/// Returns an iterator over all the entries in a particular section.
 	pub fn keys<'l>(&'l self, section: &str) -> ConfigEntry<'l>
 	{
 		let section = CString::new(section.as_bytes()).unwrap();
@@ -217,25 +209,14 @@ impl Config
 			config_entry: ptr::null_mut(),
 			next_key: None,
 		};
-		let next_key = unsafe
+		unsafe
 		{
-			al_get_first_config_entry(self.allegro_config, section.as_ptr(), &mut config_entry.config_entry)
+			let next_key = al_get_first_config_entry(self.allegro_config, section.as_ptr(), &mut config_entry.config_entry);
+			if !next_key.is_null()
+			{
+				config_entry.next_key = Some(CStr::from_ptr(next_key).to_string_lossy().into_owned());
+			}
 		};
-		if !next_key.is_null()
-		{
-			let next_key = unsafe
-			{
-				CStr::from_ptr(next_key).to_str().ok().map(|s| s.to_string())
-			};
-			if next_key.is_some()
-			{
-				config_entry.next_key = next_key;
-			}
-			else
-			{
-				config_entry.next_key = get_next_key(&mut config_entry.config_entry as *mut _);
-			}
-		}
 		config_entry
 	}
 }
@@ -275,33 +256,6 @@ pub struct ConfigSection<'l>
 	next_section: Option<String>
 }
 
-// Gets the next valid UTF8 section, if any.
-fn get_next_section(config_section: *mut *mut ALLEGRO_CONFIG_SECTION) -> Option<String>
-{
-	loop
-	{
-		let next_section = unsafe
-		{
-			al_get_next_config_section(config_section)
-		};
-		if !next_section.is_null()
-		{
-			let next_section = unsafe
-			{
-				CStr::from_ptr(next_section).to_str().ok().map(|s| s.to_string())
-			};
-			if next_section.is_some()
-			{
-				return next_section;
-			}
-		}
-		else
-		{
-			return None;
-		}
-	}
-}
-
 impl<'l> Iterator for ConfigSection<'l>
 {
 	type Item = String;
@@ -311,7 +265,18 @@ impl<'l> Iterator for ConfigSection<'l>
 		let ret = self.next_section.take();
 		if ret.is_some()
 		{
-			self.next_section = get_next_section(&mut self.config_section as *mut _);
+			self.next_section = unsafe
+			{
+				let next_section = al_get_next_config_section(&mut self.config_section as *mut _);
+				if !next_section.is_null()
+				{
+					Some(CStr::from_ptr(next_section).to_string_lossy().into_owned())
+				}
+				else
+				{
+					None
+				}
+			};
 		}
 		ret
 	}
@@ -327,33 +292,6 @@ pub struct ConfigEntry<'l>
 	next_key: Option<String>
 }
 
-// Gets the next valid UTF8 key, if any.
-fn get_next_key(config_key: *mut *mut ALLEGRO_CONFIG_ENTRY) -> Option<String>
-{
-	loop
-	{
-		let next_key = unsafe
-		{
-			al_get_next_config_entry(config_key)
-		};
-		if !next_key.is_null()
-		{
-			let next_key = unsafe
-			{
-				CStr::from_ptr(next_key).to_str().ok().map(|s| s.to_string())
-			};
-			if next_key.is_some()
-			{
-				return next_key;
-			}
-		}
-		else
-		{
-			return None;
-		}
-	}
-}
-
 impl<'l> Iterator for ConfigEntry<'l>
 {
 	type Item = String;
@@ -363,7 +301,18 @@ impl<'l> Iterator for ConfigEntry<'l>
 		let ret = self.next_key.take();
 		if ret.is_some()
 		{
-			self.next_key = get_next_key(&mut self.config_entry);
+			self.next_key = unsafe
+			{
+				let next_key = al_get_next_config_entry(&mut self.config_entry as *mut _);
+				if !next_key.is_null()
+				{
+					Some(CStr::from_ptr(next_key).to_string_lossy().into_owned())
+				}
+				else
+				{
+					None
+				}
+			};
 		}
 		ret
 	}
