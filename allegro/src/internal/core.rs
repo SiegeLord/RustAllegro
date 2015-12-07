@@ -6,6 +6,7 @@ use libc::*;
 use std::mem;
 use std::thread::spawn;
 use std::sync::{Arc, Mutex};
+use std::ptr;
 
 use ffi::*;
 
@@ -15,6 +16,8 @@ use internal::display::{Display, DisplayOption, DisplayOptionImportance, Display
 use internal::color::{Color, PixelFormat};
 use internal::config::{Config, new_config_ref};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
+#[cfg(allegro_5_1_0)]
+use internal::shader::Shader;
 use internal::transformations::{Transform, new_transform_wrap};
 use allegro_util::{Flag, from_c_str, c_bool};
 
@@ -146,7 +149,7 @@ impl Core
 		unsafe
 		{
 			let mut c_info = ALLEGRO_MONITOR_INFO{ x1: 0, y1: 0, x2: 0, y2: 0 };
-			if al_get_monitor_info(adapter as c_int, mem::transmute(&mut c_info)) != 0
+			if al_get_monitor_info(adapter as c_int, &mut c_info as *mut _) != 0
 			{
 				Ok((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
 			}
@@ -780,6 +783,26 @@ impl Core
 		unsafe
 		{
 			al_use_transform(&trans.0);
+		}
+	}
+
+	/// Set the shader as current for the current bitmap. Pass None to stop using this shader.
+	/// Returns an error if the shader isn't compatible with the bitmap.
+	#[cfg(allegro_5_1_6)]
+	pub fn use_shader(&self, shader: Option<Shader>) -> Result<(), ()>
+	{
+		let shader = shader.map_or(ptr::null_mut(), |s| s.get_allegro_shader());
+		let ret = unsafe
+		{
+			al_use_shader(shader)
+		};
+		if ret != 0
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
 		}
 	}
 

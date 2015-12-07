@@ -21,6 +21,20 @@ pub enum ShaderPlatform
 	HLSL = ALLEGRO_SHADER_HLSL,
 }
 
+impl ShaderPlatform
+{
+	pub fn from_allegro(platform: ALLEGRO_SHADER_PLATFORM) -> ShaderPlatform
+	{
+		match platform
+		{
+			ALLEGRO_SHADER_AUTO => ShaderPlatform::Auto,
+			ALLEGRO_SHADER_GLSL => ShaderPlatform::GLSL,
+			ALLEGRO_SHADER_HLSL => ShaderPlatform::HLSL,
+			_ => panic!("Malformed platform: {}", platform)
+		}
+	}
+}
+
 /// Shader type.
 #[cfg(allegro_5_1_0)]
 #[repr(u32)]
@@ -136,6 +150,26 @@ impl Shader
 		{
 			let log = al_get_shader_log(self.allegro_shader);
 			CStr::from_ptr(log).to_string_lossy().into_owned()
+		}
+	}
+
+	/// Returns the platform of this shader.
+	pub fn get_platform(&self) -> ShaderPlatform
+	{
+		unsafe
+		{
+			ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader))
+		}
+	}
+}
+
+impl Drop for Shader
+{
+	fn drop(&mut self)
+	{
+		unsafe
+		{
+			al_destroy_shader(self.allegro_shader);
 		}
 	}
 }
