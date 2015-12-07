@@ -35,11 +35,15 @@ parser.add_argument('--build', action='store_true', help='build the crates')
 parser.add_argument('--test', action='store_true', help='test the crates')
 parser.add_argument('--clean', action='store_true', help='clean the crates')
 parser.add_argument('--doc', action='store_true', help='build the documentation')
+parser.add_argument('--verbose', action='store_true', help='pass --verbose to cargo')
 
 args = parser.parse_args()
 
 crate_list = crate_list.split('\n')
 crate_list = filter(lambda crate: len(crate) > 0, crate_list)
+
+def cargo_cmd(command):
+	return ['cargo', command] + (['--verbose'] if args.verbose else [])
 
 if len(args.version) > 0:
 	crates_and_doc = ['doc']
@@ -56,16 +60,16 @@ if len(args.version) > 0:
 if args.publish:
 	for crate in crate_list:
 		print 'Publishing', crate
-		check_call(['cargo', 'publish'], cwd=crate)
+		check_call(cargo_cmd('publish'), cwd=crate)
 
 if args.build:
-	check_call(['cargo', 'build'], cwd='doc')
-	check_call(['cargo', 'build'], cwd='examples')
+	check_call(cargo_cmd('build'), cwd='doc')
+	check_call(cargo_cmd('build'), cwd='examples')
 
 if args.test:
 	crates_no_examples = filter(lambda crate: crate != 'examples', crate_list)
 	for crate in crates_no_examples:
-		check_call(['cargo', 'test', '-p', crate], cwd='doc')
+		check_call(cargo_cmd('test') + ['-p', crate], cwd='doc')
 
 if args.clean:
 	crates_and_doc = ['doc']
@@ -75,11 +79,11 @@ if args.clean:
 		lock = crate + '/Cargo.lock'
 		if os.path.exists(lock):
 			os.remove(lock)
-		check_call(['cargo', 'clean'], cwd=crate)
+		check_call(cargo_cmd('clean'), cwd=crate)
 
 if args.doc:
 	print 'Building docs'
-	check_call(['cargo', 'doc'], cwd='doc')
+	check_call(cargo_cmd('doc'), cwd='doc')
 	print 'Fixing up the search index'
 	found = False
 	for line in fileinput.input('doc/target/doc/search-index.js', inplace=1):

@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro/index.html"
 keywords = ["input", "windowing", "opengl", "direct3d"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 core library Rust wrapper"
+build = "build.rs"
 
 [lib]
 

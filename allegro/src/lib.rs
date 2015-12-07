@@ -20,6 +20,7 @@ pub use internal::events::external::*;
 pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
+pub use internal::shader::*;
 pub use internal::timer::*;
 pub use internal::transformations::external::*;
 pub use allegro_util::*;
@@ -36,6 +37,7 @@ mod internal
 	pub mod joystick;
 	pub mod keycodes;
 	pub mod run;
+	pub mod shader;
 	pub mod timer;
 	pub mod transformations;
 }
