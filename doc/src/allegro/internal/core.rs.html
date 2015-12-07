@@ -872,6 +872,29 @@
 <span id="830">830</span>
 <span id="831">831</span>
 <span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -881,6 +904,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
 
@@ -890,6 +914,8 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::{<span class='ident'>Color</span>, <span class='ident'>PixelFormat</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>new_config_ref</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::{<span class='ident'>BitmapLike</span>, <span class='ident'>BitmapFlags</span>};
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>shader</span>::<span class='ident'>Shader</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>transformations</span>::{<span class='ident'>Transform</span>, <span class='ident'>new_transform_wrap</span>};
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::{<span class='ident'>Flag</span>, <span class='ident'>from_c_str</span>, <span class='ident'>c_bool</span>};
 
@@ -1021,7 +1047,7 @@
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c_info</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>{ <span class='ident'>x1</span>: <span class='number'>0</span>, <span class='ident'>y1</span>: <span class='number'>0</span>, <span class='ident'>x2</span>: <span class='number'>0</span>, <span class='ident'>y2</span>: <span class='number'>0</span> };
-			<span class='kw'>if</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c_info</span>)) <span class='op'>!=</span> <span class='number'>0</span>
+			<span class='kw'>if</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c_info</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _) <span class='op'>!=</span> <span class='number'>0</span>
 			{
 				<span class='prelude-val'>Ok</span>((<span class='ident'>c_info</span>.<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>i32</span>))
 			}
@@ -1655,6 +1681,26 @@
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_use_transform</span>(<span class='kw-2'>&amp;</span><span class='ident'>trans</span>.<span class='number'>0</span>);
+		}
+	}
+
+	<span class='doccomment'>/// Set the shader as current for the current bitmap. Pass None to stop using this shader.</span>
+	<span class='doccomment'>/// Returns an error if the shader isn&#39;t compatible with the bitmap.</span>
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_6</span>)]</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>use_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Shader</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	{
+		<span class='kw'>let</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='ident'>shader</span>.<span class='ident'>map_or</span>(<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(), <span class='op'>|</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>.<span class='ident'>get_allegro_shader</span>());
+		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
+		{
+			<span class='ident'>al_use_shader</span>(<span class='ident'>shader</span>)
+		};
+		<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
+		{
+			<span class='prelude-val'>Ok</span>(())
+		}
+		<span class='kw'>else</span>
+		{
+			<span class='prelude-val'>Err</span>(())
 		}
 	}
 
