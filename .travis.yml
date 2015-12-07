@@ -13,7 +13,8 @@ before_install:
 install:
   - sudo apt-get install liballegro5-dev --force-yes
 script:
-  - ./cargo_util.py --build
+  - cat /usr/include/allegro5/base.h
+  - ./cargo_util.py --build --verbose
   - ./cargo_util.py --test
   - ./cargo_util.py --doc
   - cd examples

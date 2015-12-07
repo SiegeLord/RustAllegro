@@ -21,6 +21,7 @@ pub enum ShaderPlatform
 	HLSL = ALLEGRO_SHADER_HLSL,
 }
 
+#[cfg(allegro_5_1_0)]
 impl ShaderPlatform
 {
 	pub fn from_allegro(platform: ALLEGRO_SHADER_PLATFORM) -> ShaderPlatform
@@ -163,6 +164,7 @@ impl Shader
 	}
 }
 
+#[cfg(allegro_5_1_0)]
 impl Drop for Shader
 {
 	fn drop(&mut self)
