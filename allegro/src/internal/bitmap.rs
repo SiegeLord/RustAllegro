@@ -5,6 +5,7 @@
 use libc::*;
 use std::ffi::CString;
 use std::mem;
+use std::rc::{Rc, Weak};
 
 use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};
 use internal::core::Core;
@@ -13,7 +14,7 @@ use ffi::*;
 
 pub mod external
 {
-	pub use super::{Bitmap, SubBitmap, MemoryBitmap};
+	pub use super::{Bitmap, SubBitmap, MemoryBitmap, MakeSubBitmap};
 }
 
 pub struct Bitmap
@@ -54,22 +55,6 @@ impl Bitmap
 		else
 		{
 			Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
-		}
-	}
-
-	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap<'l>, ()>
-	{
-		unsafe
-		{
-			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
-			if b.is_null()
-			{
-				Err(())
-			}
-			else
-			{
-				Ok(SubBitmap{ allegro_bitmap: b, parent: self })
-			}
 		}
 	}
 
@@ -155,33 +140,17 @@ impl Drop for MemoryBitmap
 	}
 }
 
-pub struct SubBitmap<'m>
+pub struct SubBitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
-	parent: &'m Bitmap
+	parent: Weak<Bitmap>,
 }
 
-impl<'m> SubBitmap<'m>
+impl SubBitmap
 {
-	pub fn create_sub_bitmap<'l>(&'l self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap<'l>, ()>
+	pub fn get_parent(&self) -> Option<Rc<Bitmap>>
 	{
-		unsafe
-		{
-			let b = al_create_sub_bitmap(self.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int);
-			if b.is_null()
-			{
-				Err(())
-			}
-			else
-			{
-				Ok(SubBitmap{ allegro_bitmap: b, parent: self.parent })
-			}
-		}
-	}
-
-	pub fn get_parent<'l>(&'l self) -> &'l Bitmap
-	{
-		self.parent
+		self.parent.upgrade()
 	}
 
 	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
@@ -190,22 +159,84 @@ impl<'m> SubBitmap<'m>
 	}
 }
 
-impl<'m> BitmapLike for SubBitmap<'m>
+impl BitmapLike for SubBitmap
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
+		self.get_parent().expect("My parent is deaaaad!");
 		self.allegro_bitmap
 	}
 }
 
-/* Should be safe, as the parent doesn't reference the child */
-impl<'l> Drop for SubBitmap<'l>
+impl Drop for SubBitmap
 {
 	fn drop(&mut self)
 	{
 		unsafe
 		{
 			handle_bitmap_destruction(self.allegro_bitmap, true);
+		}
+	}
+}
+
+fn create_sub_bitmap(bitmap: &Rc<Bitmap>, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
+{
+	let b = unsafe
+	{
+		al_create_sub_bitmap(bitmap.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int)
+	};
+	if b.is_null()
+	{
+		Err(())
+	}
+	else
+	{
+		Ok(SubBitmap{ allegro_bitmap: b, parent: Rc::downgrade(&bitmap) })
+	}
+}
+
+/**
+Allows creating sub-bitmaps.
+*/
+pub trait MakeSubBitmap
+{
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>;
+}
+
+impl MakeSubBitmap for Weak<Bitmap>
+{
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
+	{
+		if let Some(bitmap) = self.upgrade()
+		{
+			create_sub_bitmap(&bitmap, x, y, w, h)
+		}
+		else
+		{
+			Err(())
+		}
+	}
+}
+
+impl MakeSubBitmap for Rc<Bitmap>
+{
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
+	{
+		create_sub_bitmap(self, x, y, w, h)
+	}
+}
+
+impl MakeSubBitmap for SubBitmap
+{
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
+	{
+		if let Some(bitmap) = self.parent.upgrade()
+		{
+			create_sub_bitmap(&bitmap, x, y, w, h)
+		}
+		else
+		{
+			Err(())
 		}
 	}
 }

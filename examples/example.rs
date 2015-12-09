@@ -9,6 +9,7 @@ extern crate getopts;
 
 use getopts::*;
 use std::env;
+use std::rc::Rc;
 
 use allegro::*;
 use allegro_image::*;
@@ -51,12 +52,12 @@ allegro_main!
 	q.register_event_source(core.get_mouse_event_source());
 	q.register_event_source(timer.get_event_source());
 
-	let bmp = Bitmap::new(&core, 256, 256).unwrap();
+	let bmp = Rc::new(Bitmap::new(&core, 256, 256).unwrap());
 
 	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
 	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
 
-	core.set_target_bitmap(&bmp);
+	core.set_target_bitmap(&*bmp);
 	core.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
@@ -79,7 +80,7 @@ allegro_main!
 		{
 			core.clear_to_color(black);
 			core.draw_bitmap(&bkg, 0.0, 0.0, Flag::zero());
-			core.draw_rotated_bitmap(&bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
+			core.draw_rotated_bitmap(&*bmp, 0.0, 0.0, (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, theta, Flag::zero());
 			core.draw_text(&font, white, (disp.get_width() / 2) as f32, 32.0, FontAlign::Centre, "Welcome to RustAllegro!");
 			core.draw_text(&ttf, white, (disp.get_width() / 2) as f32, 96.0, FontAlign::Centre, "TTF text!");
 			prim.draw_line(100.0, 200.0, 300.0, 200.0, white, 10.0);
