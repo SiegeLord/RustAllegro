@@ -5,8 +5,9 @@
 use libc::*;
 use std::mem;
 use std::ffi::CString;
+use std::rc::Rc;
 
-use internal::bitmap::{Bitmap, new_bitmap_ref, clone_bitmap};
+use internal::bitmap::{Bitmap, SubBitmap, CreateSubBitmap, new_bitmap_ref, clone_bitmap};
 use internal::bitmap_like::BitmapLike;
 use internal::color::PixelFormat;
 use internal::core::{Core, dummy_target};
@@ -93,7 +94,8 @@ pub enum DisplayOrientation
 pub struct Display
 {
 	allegro_display: *mut ALLEGRO_DISPLAY,
-	backbuffer: Bitmap,
+	_backbuffer: Rc<Bitmap>,
+	backbuffer_subbitmap: SubBitmap,
 	event_source: EventSource,
 }
 
@@ -110,12 +112,15 @@ impl Display
 			}
 			else
 			{
+				let backbuffer = Rc::new(new_bitmap_ref(al_get_backbuffer(d)));
+				let backbuffer_subbitmap = try!(backbuffer.create_sub_bitmap(0, 0, backbuffer.get_width(), backbuffer.get_height()));
 				Ok
 				(
 					Display
 					{
 						allegro_display: d,
-						backbuffer: new_bitmap_ref(al_get_backbuffer(d)),
+						_backbuffer: backbuffer,
+						backbuffer_subbitmap: backbuffer_subbitmap,
 						event_source: new_event_source_ref(al_get_display_event_source(d)),
 					}
 				)
@@ -171,9 +176,9 @@ impl Display
 		}
 	}
 
-	pub fn get_backbuffer<'l>(&'l self) -> &'l Bitmap
+	pub fn get_backbuffer(&self) -> &SubBitmap
 	{
-		&self.backbuffer
+		&self.backbuffer_subbitmap
 	}
 
 	pub fn acknowledge_resize(&self) -> Result<(), ()>

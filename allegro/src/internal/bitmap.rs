@@ -14,7 +14,7 @@ use ffi::*;
 
 pub mod external
 {
-	pub use super::{Bitmap, SubBitmap, MemoryBitmap, MakeSubBitmap};
+	pub use super::{Bitmap, SubBitmap, MemoryBitmap, CreateSubBitmap};
 }
 
 pub struct Bitmap
@@ -148,11 +148,6 @@ pub struct SubBitmap
 
 impl SubBitmap
 {
-	pub fn get_parent(&self) -> Option<Rc<Bitmap>>
-	{
-		self.parent.upgrade()
-	}
-
 	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
 	{
 		clone_bitmap(self.allegro_bitmap)
@@ -163,7 +158,7 @@ impl BitmapLike for SubBitmap
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
-		self.get_parent().expect("My parent is deaaaad!");
+		self.parent.upgrade().expect("My parent is deaaaad!");
 		self.allegro_bitmap
 	}
 }
@@ -198,12 +193,12 @@ fn create_sub_bitmap(bitmap: &Rc<Bitmap>, x: i32, y: i32, w: i32, h: i32) -> Res
 /**
 Allows creating sub-bitmaps.
 */
-pub trait MakeSubBitmap
+pub trait CreateSubBitmap
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>;
 }
 
-impl MakeSubBitmap for Weak<Bitmap>
+impl CreateSubBitmap for Weak<Bitmap>
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
@@ -218,7 +213,7 @@ impl MakeSubBitmap for Weak<Bitmap>
 	}
 }
 
-impl MakeSubBitmap for Rc<Bitmap>
+impl CreateSubBitmap for Rc<Bitmap>
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
@@ -226,7 +221,7 @@ impl MakeSubBitmap for Rc<Bitmap>
 	}
 }
 
-impl MakeSubBitmap for SubBitmap
+impl CreateSubBitmap for SubBitmap
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
