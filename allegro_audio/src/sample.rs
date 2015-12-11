@@ -9,8 +9,7 @@ use std::ffi::CString;
 use std::sync::Arc;
 use std::mem;
 use std::ptr;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::Ordering::SeqCst;
+use std::sync::Mutex;
 use std::slice::{from_raw_parts, from_raw_parts_mut};
 
 use mixer::AttachToMixer;
@@ -51,7 +50,7 @@ pub struct Sample
 {
 	allegro_sample: *mut ALLEGRO_SAMPLE,
 	// This will inform sample instances that this sample got dropped
-	sample_valid: Arc<AtomicBool>,
+	sample_valid: Arc<Mutex<bool>>,
 }
 
 impl Sample
@@ -72,7 +71,7 @@ impl Sample
 			Ok(Sample
 			{
 				allegro_sample: samp,
-				sample_valid: Arc::new(AtomicBool::new(true))
+				sample_valid: Arc::new(Mutex::new(true))
 			})
 		}
 	}
@@ -184,7 +183,8 @@ impl Drop for Sample
 {
 	fn drop(&mut self)
 	{
-		self.sample_valid.swap(false, SeqCst);
+		let mut valid = self.sample_valid.lock().unwrap();
+		*valid = false;
 		unsafe
 		{
 			al_destroy_sample(self.allegro_sample);
@@ -196,7 +196,7 @@ pub struct SampleInstance
 {
 	parent: Option<Connection>,
 	// I think when the sample is invalid, it is unsafe to resume it
-	sample_valid: Arc<AtomicBool>,
+	sample_valid: Arc<Mutex<bool>>,
 	allegro_sample_instance: *mut ALLEGRO_SAMPLE_INSTANCE,
 }
 
@@ -204,16 +204,19 @@ macro_rules! check_or_else
 {
 	($self_: ident, $valid: expr, $invalid: expr) =>
 	{
-		if $self_.sample_valid.load(SeqCst)
 		{
-			unsafe
+			let valid = $self_.sample_valid.lock().unwrap();
+			if *valid
 			{
-				$valid
+				unsafe
+				{
+					$valid
+				}
 			}
-		}
-		else
-		{
-			$invalid
+			else
+			{
+				$invalid
+			}
 		}
 	}
 }
@@ -269,7 +272,7 @@ impl SampleInstance
 			Ok(SampleInstance
 			{
 				parent: None,
-				sample_valid: Arc::new(AtomicBool::new(false)),
+				sample_valid: Arc::new(Mutex::new(false)),
 				allegro_sample_instance: inst
 			})
 		}
@@ -292,7 +295,7 @@ impl SampleInstance
 		}
 		else
 		{
-			self.sample_valid = Arc::new(AtomicBool::new(false));
+			self.sample_valid = Arc::new(Mutex::new(false));
 			// As per docs of al_set_sample
 			self.parent = None;
 			Err(())
