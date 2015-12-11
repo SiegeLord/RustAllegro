@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ShaderPlatform","Shader platform."],["ShaderType","Shader type."]],"struct":[["Shader","A shader program comprising of a pixel (fragment) and a vertex shader. Wraps ALLEGRO_SHADER."]]});
