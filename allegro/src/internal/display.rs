@@ -7,7 +7,7 @@ use std::mem;
 use std::ffi::CString;
 use std::rc::Rc;
 
-use internal::bitmap::{Bitmap, SubBitmap, CreateSubBitmap, new_bitmap_ref, clone_bitmap};
+use internal::bitmap::{Bitmap, SubBitmap, SharedBitmap, new_bitmap_ref, clone_bitmap};
 use internal::bitmap_like::BitmapLike;
 use internal::color::PixelFormat;
 use internal::core::{Core, dummy_target};

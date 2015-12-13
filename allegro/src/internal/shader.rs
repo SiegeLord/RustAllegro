@@ -2,9 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use libc::*;
+use std::borrow::Borrow;
+use std::collections::HashMap;
 use std::ffi::{CStr, CString};
 use std::ptr;
+use std::rc::Rc;
 
+use internal::bitmap::{Bitmap, SharedBitmap};
+use internal::bitmap_like::BitmapLike;
 use internal::core::Core;
 
 use ffi::*;
@@ -52,6 +58,7 @@ pub enum ShaderType
 pub struct Shader
 {
 	allegro_shader: *mut ALLEGRO_SHADER,
+	samplers: HashMap<String, Rc<Bitmap>>,
 }
 
 #[cfg(allegro_5_1_0)]
@@ -69,6 +76,7 @@ impl Shader
 			Ok(Shader
 			{
 				allegro_shader: shader,
+				samplers: HashMap::new(),
 			})
 		}
 		else
@@ -160,6 +168,34 @@ impl Shader
 		unsafe
 		{
 			ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader))
+		}
+	}
+
+	/// Sets a sampler for a particular uniform and unit. Different uniforms should be set to different units.
+	/// Pass None to bmp to clear the sampler.
+	pub fn set_sampler<T, U>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
+		where T: SharedBitmap + Borrow<U>, U: BitmapLike
+	{
+		if let Some(backing_bmp) = bmp.get_backing_bitmap()
+		{
+			let c_name = CString::new(name.as_bytes()).unwrap();
+			let ret = unsafe
+			{
+				al_set_shader_sampler(c_name.as_ptr(), bmp.borrow().get_allegro_bitmap(), unit as c_int) != 0
+			};
+			if ret
+			{
+				self.samplers.insert(name.to_string(), backing_bmp);
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+		else
+		{
+			Err(())
 		}
 	}
 }

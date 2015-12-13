@@ -14,7 +14,7 @@ use ffi::*;
 
 pub mod external
 {
-	pub use super::{Bitmap, SubBitmap, MemoryBitmap, CreateSubBitmap};
+	pub use super::{Bitmap, SubBitmap, MemoryBitmap, SharedBitmap};
 }
 
 pub struct Bitmap
@@ -191,14 +191,17 @@ fn create_sub_bitmap(bitmap: &Rc<Bitmap>, x: i32, y: i32, w: i32, h: i32) -> Res
 }
 
 /**
-Allows creating sub-bitmaps.
+Expresses something that shares access with a real bitmap.
 */
-pub trait CreateSubBitmap
+pub trait SharedBitmap
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>;
+
+	/// Returns the backing bitmap, if possible.
+	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>;
 }
 
-impl CreateSubBitmap for Weak<Bitmap>
+impl SharedBitmap for Weak<Bitmap>
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
@@ -211,28 +214,48 @@ impl CreateSubBitmap for Weak<Bitmap>
 			Err(())
 		}
 	}
+
+	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
+	{
+		self.upgrade().and_then(|bitmap|
+		{
+			if bitmap.is_ref
+			{
+				None
+			}
+			else
+			{
+				Some(bitmap)
+			}
+		})
+	}
 }
 
-impl CreateSubBitmap for Rc<Bitmap>
+impl SharedBitmap for Rc<Bitmap>
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
 		create_sub_bitmap(self, x, y, w, h)
 	}
+
+	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
+	{
+		// We shouldn't ever hand out Bitmaps that are refs.
+		assert!(!self.is_ref);
+		Some(self.clone())
+	}
 }
 
-impl CreateSubBitmap for SubBitmap
+impl SharedBitmap for SubBitmap
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
-		if let Some(bitmap) = self.parent.upgrade()
-		{
-			create_sub_bitmap(&bitmap, x, y, w, h)
-		}
-		else
-		{
-			Err(())
-		}
+		self.parent.create_sub_bitmap(x, y, w, h)
+	}
+
+	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
+	{
+		self.parent.get_backing_bitmap()
 	}
 }
 

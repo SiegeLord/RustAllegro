@@ -3,6 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
+use std::ffi::CStr;
 use std::mem;
 use std::thread::spawn;
 use std::sync::{Arc, Mutex};
@@ -17,7 +18,7 @@ use internal::color::{Color, PixelFormat};
 use internal::config::{Config, new_config_ref};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
 #[cfg(allegro_5_1_0)]
-use internal::shader::Shader;
+use internal::shader::{Shader, ShaderPlatform, ShaderType};
 use internal::transformations::{Transform, new_transform_wrap};
 use allegro_util::{Flag, from_c_str, c_bool};
 
@@ -803,6 +804,24 @@ impl Core
 		else
 		{
 			Err(())
+		}
+	}
+
+	/// Returns the source of the shader that Allegro uses by default.
+	#[cfg(allegro_5_1_6)]
+	pub fn get_default_shader_source(&self, platform: ShaderPlatform, shader_type: ShaderType) -> Option<String>
+	{
+		unsafe
+		{
+			let src = al_get_default_shader_source(platform as ALLEGRO_SHADER_PLATFORM, shader_type as ALLEGRO_SHADER_TYPE);
+			if src.is_null()
+			{
+				None
+			}
+			else
+			{
+				Some(CStr::from_ptr(src).to_string_lossy().into_owned())
+			}
 		}
 	}
 
