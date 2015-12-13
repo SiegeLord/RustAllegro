@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Bitmap",""],["MemoryBitmap","A memory bitmap, unlike a regular bitmap, can be transferred between threads."],["SubBitmap",""]]});
+initSidebarItems({"struct":[["Bitmap",""],["MemoryBitmap","A memory bitmap, unlike a regular bitmap, can be transferred between threads."],["SubBitmap",""]],"trait":[["SharedBitmap","Expresses something that shares access with a real bitmap."]]});

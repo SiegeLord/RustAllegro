@@ -217,14 +217,56 @@
 <span id="175">175</span>
 <span id="176">176</span>
 <span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Borrow</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
 
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap</span>::{<span class='ident'>Bitmap</span>, <span class='ident'>SharedBitmap</span>};
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::<span class='ident'>BitmapLike</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::<span class='ident'>Core</span>;
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
@@ -272,6 +314,7 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Shader</span>
 {
 	<span class='ident'>allegro_shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
+	<span class='ident'>samplers</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;&gt;</span>,
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
@@ -289,6 +332,7 @@
 			<span class='prelude-val'>Ok</span>(<span class='ident'>Shader</span>
 			{
 				<span class='ident'>allegro_shader</span>: <span class='ident'>shader</span>,
+				<span class='ident'>samplers</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
 			})
 		}
 		<span class='kw'>else</span>
@@ -380,6 +424,34 @@
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>ShaderPlatform</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_shader_platform</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>))
+		}
+	}
+
+	<span class='doccomment'>/// Sets a sampler for a particular uniform and unit. Different uniforms should be set to different units.</span>
+	<span class='doccomment'>/// Pass None to bmp to clear the sampler.</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_sampler</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>U</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>unit</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+		<span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>SharedBitmap</span> <span class='op'>+</span> <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>U</span><span class='op'>&gt;</span>, <span class='ident'>U</span>: <span class='ident'>BitmapLike</span>
+	{
+		<span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>backing_bmp</span>) <span class='op'>=</span> <span class='ident'>bmp</span>.<span class='ident'>get_backing_bitmap</span>()
+		{
+			<span class='kw'>let</span> <span class='ident'>c_name</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
+			<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
+			{
+				<span class='ident'>al_set_shader_sampler</span>(<span class='ident'>c_name</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>bmp</span>.<span class='ident'>borrow</span>().<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>unit</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
+			};
+			<span class='kw'>if</span> <span class='ident'>ret</span>
+			{
+				<span class='self'>self</span>.<span class='ident'>samplers</span>.<span class='ident'>insert</span>(<span class='ident'>name</span>.<span class='ident'>to_string</span>(), <span class='ident'>backing_bmp</span>);
+				<span class='prelude-val'>Ok</span>(())
+			}
+			<span class='kw'>else</span>
+			{
+				<span class='prelude-val'>Err</span>(())
+			}
+		}
+		<span class='kw'>else</span>
+		{
+			<span class='prelude-val'>Err</span>(())
 		}
 	}
 }

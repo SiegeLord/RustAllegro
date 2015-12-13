@@ -332,6 +332,11 @@
 <span id="290">290</span>
 <span id="291">291</span>
 <span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -340,8 +345,9 @@
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
 
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap</span>::{<span class='ident'>Bitmap</span>, <span class='ident'>new_bitmap_ref</span>, <span class='ident'>clone_bitmap</span>};
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap</span>::{<span class='ident'>Bitmap</span>, <span class='ident'>SubBitmap</span>, <span class='ident'>SharedBitmap</span>, <span class='ident'>new_bitmap_ref</span>, <span class='ident'>clone_bitmap</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::<span class='ident'>BitmapLike</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::<span class='ident'>PixelFormat</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::{<span class='ident'>Core</span>, <span class='ident'>dummy_target</span>};
@@ -428,7 +434,8 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Display</span>
 {
 	<span class='ident'>allegro_display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
-	<span class='ident'>backbuffer</span>: <span class='ident'>Bitmap</span>,
+	<span class='ident'>_backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>,
+	<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>SubBitmap</span>,
 	<span class='ident'>event_source</span>: <span class='ident'>EventSource</span>,
 }
 
@@ -445,12 +452,15 @@
 			}
 			<span class='kw'>else</span>
 			{
+				<span class='kw'>let</span> <span class='ident'>backbuffer</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='ident'>new_bitmap_ref</span>(<span class='ident'>al_get_backbuffer</span>(<span class='ident'>d</span>)));
+				<span class='kw'>let</span> <span class='ident'>backbuffer_subbitmap</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backbuffer</span>.<span class='ident'>create_sub_bitmap</span>(<span class='number'>0</span>, <span class='number'>0</span>, <span class='ident'>backbuffer</span>.<span class='ident'>get_width</span>(), <span class='ident'>backbuffer</span>.<span class='ident'>get_height</span>()));
 				<span class='prelude-val'>Ok</span>
 				(
 					<span class='ident'>Display</span>
 					{
 						<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
-						<span class='ident'>backbuffer</span>: <span class='ident'>new_bitmap_ref</span>(<span class='ident'>al_get_backbuffer</span>(<span class='ident'>d</span>)),
+						<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
+						<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
 						<span class='ident'>event_source</span>: <span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_display_event_source</span>(<span class='ident'>d</span>)),
 					}
 				)
@@ -506,9 +516,9 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_backbuffer</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Bitmap</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_backbuffer</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>SubBitmap</span>
 	{
-		<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>backbuffer</span>
+		<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>backbuffer_subbitmap</span>
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>acknowledge_resize</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>

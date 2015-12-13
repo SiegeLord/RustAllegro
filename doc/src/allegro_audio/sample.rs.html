@@ -483,6 +483,9 @@
 <span id="441">441</span>
 <span id="442">442</span>
 <span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -495,8 +498,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Arc</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>AtomicBool</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>Ordering</span>::<span class='ident'>SeqCst</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Mutex</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::{<span class='ident'>from_raw_parts</span>, <span class='ident'>from_raw_parts_mut</span>};
 
 <span class='kw'>use</span> <span class='ident'>mixer</span>::<span class='ident'>AttachToMixer</span>;
@@ -537,7 +539,7 @@
 {
 	<span class='ident'>allegro_sample</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SAMPLE</span>,
 	<span class='comment'>// This will inform sample instances that this sample got dropped</span>
-	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
+	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;&gt;</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Sample</span>
@@ -558,7 +560,7 @@
 			<span class='prelude-val'>Ok</span>(<span class='ident'>Sample</span>
 			{
 				<span class='ident'>allegro_sample</span>: <span class='ident'>samp</span>,
-				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='boolval'>true</span>))
+				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolval'>true</span>))
 			})
 		}
 	}
@@ -670,7 +672,8 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
 	{
-		<span class='self'>self</span>.<span class='ident'>sample_valid</span>.<span class='ident'>swap</span>(<span class='boolval'>false</span>, <span class='ident'>SeqCst</span>);
+		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>valid</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sample_valid</span>.<span class='ident'>lock</span>().<span class='ident'>unwrap</span>();
+		<span class='op'>*</span><span class='ident'>valid</span> <span class='op'>=</span> <span class='boolval'>false</span>;
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_destroy_sample</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span>);
@@ -682,7 +685,7 @@
 {
 	<span class='ident'>parent</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Connection</span><span class='op'>&gt;</span>,
 	<span class='comment'>// I think when the sample is invalid, it is unsafe to resume it</span>
-	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
+	<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;&gt;</span>,
 	<span class='ident'>allegro_sample_instance</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SAMPLE_INSTANCE</span>,
 }
 
@@ -690,16 +693,19 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>valid</span>: <span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>invalid</span>: <span class='ident'>expr</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='kw'>if</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>sample_valid</span>.<span class='ident'>load</span>(<span class='ident'>SeqCst</span>)
 		{
-			<span class='kw'>unsafe</span>
+			<span class='kw'>let</span> <span class='ident'>valid</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>sample_valid</span>.<span class='ident'>lock</span>().<span class='ident'>unwrap</span>();
+			<span class='kw'>if</span> <span class='op'>*</span><span class='ident'>valid</span>
 			{
-				<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>valid</span>
+				<span class='kw'>unsafe</span>
+				{
+					<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>valid</span>
+				}
 			}
-		}
-		<span class='kw'>else</span>
-		{
-			<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>invalid</span>
+			<span class='kw'>else</span>
+			{
+				<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>invalid</span>
+			}
 		}
 	}
 }
@@ -755,7 +761,7 @@
 			<span class='prelude-val'>Ok</span>(<span class='ident'>SampleInstance</span>
 			{
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
-				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>)),
+				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>)),
 				<span class='ident'>allegro_sample_instance</span>: <span class='ident'>inst</span>
 			})
 		}
@@ -778,7 +784,7 @@
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='self'>self</span>.<span class='ident'>sample_valid</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>));
+			<span class='self'>self</span>.<span class='ident'>sample_valid</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>));
 			<span class='comment'>// As per docs of al_set_sample</span>
 			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
 			<span class='prelude-val'>Err</span>(())

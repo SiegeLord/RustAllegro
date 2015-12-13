@@ -895,12 +895,32 @@
 <span id="853">853</span>
 <span id="854">854</span>
 <span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
@@ -915,7 +935,7 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>new_config_ref</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>bitmap_like</span>::{<span class='ident'>BitmapLike</span>, <span class='ident'>BitmapFlags</span>};
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>shader</span>::<span class='ident'>Shader</span>;
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>shader</span>::{<span class='ident'>Shader</span>, <span class='ident'>ShaderPlatform</span>, <span class='ident'>ShaderType</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>transformations</span>::{<span class='ident'>Transform</span>, <span class='ident'>new_transform_wrap</span>};
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::{<span class='ident'>Flag</span>, <span class='ident'>from_c_str</span>, <span class='ident'>c_bool</span>};
 
@@ -1701,6 +1721,24 @@
 		<span class='kw'>else</span>
 		{
 			<span class='prelude-val'>Err</span>(())
+		}
+	}
+
+	<span class='doccomment'>/// Returns the source of the shader that Allegro uses by default.</span>
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_6</span>)]</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_default_shader_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>platform</span>: <span class='ident'>ShaderPlatform</span>, <span class='ident'>shader_type</span>: <span class='ident'>ShaderType</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	{
+		<span class='kw'>unsafe</span>
+		{
+			<span class='kw'>let</span> <span class='ident'>src</span> <span class='op'>=</span> <span class='ident'>al_get_default_shader_source</span>(<span class='ident'>platform</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>, <span class='ident'>shader_type</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_TYPE</span>);
+			<span class='kw'>if</span> <span class='ident'>src</span>.<span class='ident'>is_null</span>()
+			{
+				<span class='prelude-val'>None</span>
+			}
+			<span class='kw'>else</span>
+			{
+				<span class='prelude-val'>Some</span>(<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>src</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>())
+			}
 		}
 	}
 
