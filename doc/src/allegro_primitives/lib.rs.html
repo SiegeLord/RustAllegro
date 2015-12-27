@@ -438,7 +438,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_line</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>)
+			<span class='ident'>al_draw_line</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>)
 		}
 	}
 
@@ -446,7 +446,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_triangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_triangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -454,7 +454,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -462,7 +462,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_rounded_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_rounded_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -470,7 +470,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_circle</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_circle</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -478,7 +478,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_ellipse</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_ellipse</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -486,7 +486,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_arc</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_arc</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -494,7 +494,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_elliptical_arc</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_elliptical_arc</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -502,7 +502,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_pieslice</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_pieslice</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 	}
 
@@ -523,7 +523,7 @@
 
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_spline</span>(<span class='ident'>c_points</span>, <span class='ident'>color</span>.<span class='number'>0</span>, <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+			<span class='ident'>al_draw_spline</span>(<span class='ident'>c_points</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(), <span class='ident'>thickness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 		}
 		<span class='prelude-val'>Ok</span>(())
 	}
@@ -532,7 +532,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_triangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_triangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y3</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
@@ -540,7 +540,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
@@ -548,7 +548,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_ellipse</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_ellipse</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
@@ -556,7 +556,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_circle</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_circle</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
@@ -564,7 +564,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_pieslice</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_pieslice</span>(<span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>start_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>delta_theta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
@@ -572,7 +572,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_draw_filled_rounded_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_draw_filled_rounded_rectangle</span>(<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>rx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>ry</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 }

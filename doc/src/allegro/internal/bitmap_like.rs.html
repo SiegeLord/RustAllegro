@@ -210,7 +210,7 @@ A trait implemented by types that behave like bitmaps.
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>Color</span>(<span class='ident'>al_get_pixel</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>))
+			<span class='ident'>Color</span>::<span class='ident'>from_allegro_color</span>(<span class='ident'>al_get_pixel</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>))
 		}
 	}
 
@@ -218,7 +218,7 @@ A trait implemented by types that behave like bitmaps.
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>mask_color</span>.<span class='number'>0</span>);
+			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>mask_color</span>.<span class='ident'>get_allegro_color</span>());
 		}
 	}
 
