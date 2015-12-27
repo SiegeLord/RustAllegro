@@ -82,8 +82,8 @@ allegro_main!
 	let mut stream = AudioStream::load(&audio_addon, "data/music.ogg").unwrap();
 	stream.attach(&mut sink).ok().expect("Could not attach to stream");
 	stream.set_playmode(Playmode::Loop).unwrap();
-	let white = core.map_rgb_f(1.0, 1.0, 1.0);
-	let black = core.map_rgb_f(0.0, 0.0, 0.0);
+	let white = Color::from_rgb_f(1.0, 1.0, 1.0);
+	let black = Color::from_rgb_f(0.0, 0.0, 0.0);
 
 	let mut redraw = true;
 	timer.start();

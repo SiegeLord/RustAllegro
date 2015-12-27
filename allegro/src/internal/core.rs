@@ -481,32 +481,6 @@ impl Core
 		}
 	}
 
-	pub fn map_rgb(&self, r: u8, g: u8, b: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgb(r as c_uchar, g as c_uchar, b as c_uchar))
-		}
-	}
-
-	pub fn map_rgba(&self, r: u8, g: u8, b: u8, a: u8) -> Color
-	{
-		unsafe
-		{
-			Color(al_map_rgba(r as c_uchar, g as c_uchar, b as c_uchar, a as c_uchar))
-		}
-	}
-
-	pub fn map_rgb_f(&self, r: f32, g: f32, b: f32) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: 1.0})
-	}
-
-	pub fn map_rgba_f(&self, r: f32, g: f32, b: f32, a: f32) -> Color
-	{
-		Color(ALLEGRO_COLOR{r: r, g: g, b: b, a: a})
-	}
-
 	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: &T)
 	{
 		unsafe
@@ -519,7 +493,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_clear_to_color(color.0);
+			al_clear_to_color(color.get_allegro_color());
 		}
 	}
 
@@ -527,7 +501,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_pixel(x as c_float, y as c_float, color.0);
+			al_draw_pixel(x as c_float, y as c_float, color.get_allegro_color());
 		}
 	}
 
@@ -535,7 +509,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_put_pixel(x as c_int, y as c_int, color.0);
+			al_put_pixel(x as c_int, y as c_int, color.get_allegro_color());
 		}
 	}
 
@@ -543,7 +517,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_put_blended_pixel(x as c_int, y as c_int, color.0);
+			al_put_blended_pixel(x as c_int, y as c_int, color.get_allegro_color());
 		}
 	}
 
@@ -591,7 +565,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(), tint.0, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(), tint.get_allegro_color(), dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -599,7 +573,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(), tint.0, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(), tint.get_allegro_color(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -607,7 +581,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(), tint.0, sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(), tint.get_allegro_color(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, dx as c_float, dy as c_float, dw as c_float, dh as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -615,7 +589,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.get_allegro_color(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -623,7 +597,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(), tint.get_allegro_color(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 
@@ -631,7 +605,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, tint.0, cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(), sx as c_float, sy as c_float, sw as c_float, sh as c_float, tint.get_allegro_color(), cx as c_float, cy as c_float, dx as c_float, dy as c_float, xscale as c_float, yscale as c_float, angle as c_float, (flags.get() >> 1) as c_int);
 		}
 	}
 

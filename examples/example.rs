@@ -58,18 +58,18 @@ allegro_main!
 	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
 
 	core.set_target_bitmap(&*bmp);
-	core.clear_to_color(core.map_rgb_f(0.0, 0.0, 1.0));
+	core.clear_to_color(Color::from_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
 	core.set_target_bitmap(&sub_bmp);
-	core.clear_to_color(core.map_rgb_f(0.0, 1.0, 1.0));
+	core.clear_to_color(Color::from_rgb_f(0.0, 1.0, 1.0));
 	core.set_target_bitmap(disp.get_backbuffer());
 
 	let bkg = Bitmap::load(&core, "data/mysha.pcx").unwrap();
 	let font = Font::new_builtin(&font_addon).unwrap();
 	let ttf = ttf_addon.load_ttf_font("data/DroidSans.ttf", -32, Flag::zero()).unwrap();
-	let white = core.map_rgb_f(1.0, 1.0, 1.0);
-	let black = core.map_rgb_f(0.0, 0.0, 0.0);
+	let white = Color::from_rgb_f(1.0, 1.0, 1.0);
+	let black = Color::from_rgb_f(0.0, 0.0, 0.0);
 
 	let mut theta = 0.0f32;
 	let mut redraw = true;

@@ -69,7 +69,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			Color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int))
+			Color::from_allegro_color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int))
 		}
 	}
 
@@ -77,7 +77,7 @@ pub trait BitmapLike
 	{
 		unsafe
 		{
-			al_convert_mask_to_alpha(self.get_allegro_bitmap(), mask_color.0);
+			al_convert_mask_to_alpha(self.get_allegro_bitmap(), mask_color.get_allegro_color());
 		}
 	}
 

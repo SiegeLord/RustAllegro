@@ -7,48 +7,58 @@ use libc::*;
 use ffi::*;
 
 #[derive(Copy, Clone)]
-pub struct Color(pub ALLEGRO_COLOR);
+pub struct Color(ALLEGRO_COLOR);
 
 impl Color
 {
-	pub fn unmap_rgb(&self) -> (u8, u8, u8)
+	pub fn from_rgb(r: u8, g: u8, b: u8) -> Color
 	{
-		unsafe
-		{
-			let mut r = 0u8;
-			let mut g = 0u8;
-			let mut b = 0u8;
-			al_unmap_rgb(self.0, &mut r, &mut g, &mut b);
-			(r, g, b)
-		}
+		Color::from_rgba(r, g, b, 0)
 	}
 
-	pub fn unmap_rgba(&self) -> (u8, u8, u8, u8)
+	pub fn from_rgba(r: u8, g: u8, b: u8, a: u8) -> Color
 	{
-		unsafe
-		{
-			let mut r = 0u8;
-			let mut g = 0u8;
-			let mut b = 0u8;
-			let mut a = 0u8;
-			al_unmap_rgba(self.0, &mut r, &mut g, &mut b, &mut a);
-			(r, g, b, a)
-		}
+		Color::from_rgba_f(r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0, a as f32 / 255.0)
 	}
 
-	pub fn unmap_rgb_f(&self) -> (f32, f32, f32)
+	pub fn from_rgb_f(r: f32, g: f32, b: f32) -> Color
+	{
+		Color::from_rgba_f(r, g, b, 0.0)
+	}
+
+	pub fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color
+	{
+		Color(ALLEGRO_COLOR{ r: r, g: g, b: b, a: a })
+	}
+
+	pub fn from_allegro_color(c: ALLEGRO_COLOR) -> Color
+	{
+		Color(c)
+	}
+
+	pub fn get_allegro_color(&self) -> ALLEGRO_COLOR
+	{
+		self.0
+	}
+
+	pub fn to_rgb(&self) -> (u8, u8, u8)
+	{
+		((self.0.r * 255.0) as u8, (self.0.g * 255.0) as u8, (self.0.b * 255.0) as u8)
+	}
+
+	pub fn to_rgba(&self) -> (u8, u8, u8, u8)
+	{
+		((self.0.r * 255.0) as u8, (self.0.g * 255.0) as u8, (self.0.b * 255.0) as u8, (self.0.a * 255.0) as u8)
+	}
+
+	pub fn to_rgb_f(&self) -> (f32, f32, f32)
 	{
 		(self.0.r, self.0.g, self.0.b)
 	}
 
-	pub fn unmap_rgba_f(&self) -> (f32, f32, f32, f32)
+	pub fn to_rgba_f(&self) -> (f32, f32, f32, f32)
 	{
 		(self.0.r, self.0.g, self.0.b, self.0.a)
-	}
-
-	pub fn get_color(&self) -> ALLEGRO_COLOR
-	{
-		self.0
 	}
 }
 
