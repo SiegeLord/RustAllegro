@@ -757,7 +757,7 @@ impl Core
 	{
 		unsafe
 		{
-			al_use_transform(&trans.0);
+			al_use_transform(&trans.get_allegro_transform());
 		}
 	}
 

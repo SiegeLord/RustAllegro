@@ -8,7 +8,7 @@ use std::mem;
 use ffi::*;
 
 #[derive(Copy, Clone)]
-pub struct Transform(pub ALLEGRO_TRANSFORM);
+pub struct Transform(ALLEGRO_TRANSFORM);
 
 unsafe impl Send for Transform {}
 
@@ -29,6 +29,11 @@ impl Transform
 		})
 	}
 
+	pub fn from_allegro_transform(t: ALLEGRO_TRANSFORM) -> Transform
+	{
+		Transform(t)
+	}
+
 	pub fn build(x: f32, y: f32, sx: f32, sy: f32, theta: f32) -> Transform
 	{
 		Transform(unsafe
@@ -37,6 +42,21 @@ impl Transform
 			al_build_transform(&mut t, x as c_float, y as c_float, sx as c_float, sy as c_float, theta as c_float);
 			t
 		})
+	}
+
+	pub fn get_allegro_transform(&self) -> ALLEGRO_TRANSFORM
+	{
+		self.0
+	}
+
+	pub fn get_matrix(&self) -> &[[f32; 4]; 4]
+	{
+		&self.0.m
+	}
+
+	pub fn get_matrix_mut(&mut self) -> &mut [[f32; 4]; 4]
+	{
+		&mut self.0.m
 	}
 
 	pub fn translate(&mut self, x: f32, y: f32)
