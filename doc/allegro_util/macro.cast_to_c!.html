@@ -9,6 +9,7 @@
 
     <title>allegro_util::cast_to_c! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -47,16 +48,9 @@
             </a>
         </span><a id='src-16' class='srclink' href='../src/allegro_util/lib.rs.html#117-127' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>cast_to_c</span>
-{
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span>:<span class='ident'>ident</span>, <span class='ident'>f32</span>) <span class='op'>=&gt;</span>
-	{
-		<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span> <span class='kw'>as</span> <span class='ident'>c_float</span>
-	};
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span>:<span class='ident'>ident</span>, <span class='ident'>Color</span>) <span class='op'>=&gt;</span>
-	{
-		<span class='op'>*</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span>
-	}
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>cast_to_c</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span>:<span class='ident'>ident</span>, <span class='ident'>f32</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>p</span>:<span class='ident'>ident</span>, <span class='ident'>Color</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -117,6 +111,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

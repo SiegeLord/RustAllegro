@@ -9,6 +9,7 @@
 
     <title>allegro::SharedBitmap - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -47,13 +48,13 @@
             </a>
         </span><a id='src-90' class='srclink' href='../src/allegro/internal/bitmap.rs.html#196-202' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait SharedBitmap {
-    fn <a href='#tymethod.create_sub_bitmap' class='fnname'>create_sub_bitmap</a>(&amp;self, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, w: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, h: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.SubBitmap.html' title='allegro::SubBitmap'>SubBitmap</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;;
+    fn <a href='#tymethod.create_sub_bitmap' class='fnname'>create_sub_bitmap</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, w: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, h: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.SubBitmap.html' title='allegro::SubBitmap'>SubBitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;;
     fn <a href='#tymethod.get_backing_bitmap' class='fnname'>get_backing_bitmap</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../allegro/struct.Bitmap.html' title='allegro::Bitmap'>Bitmap</a>&gt;&gt;;
 }</pre><div class='docblock'><p>Expresses something that shares access with a real bitmap.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.create_sub_bitmap' class='method stab '><code>fn <a href='#tymethod.create_sub_bitmap' class='fnname'>create_sub_bitmap</a>(&amp;self, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, w: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, h: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.SubBitmap.html' title='allegro::SubBitmap'>SubBitmap</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h3><h3 id='tymethod.get_backing_bitmap' class='method stab '><code>fn <a href='#tymethod.get_backing_bitmap' class='fnname'>get_backing_bitmap</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../allegro/struct.Bitmap.html' title='allegro::Bitmap'>Bitmap</a>&gt;&gt;</code></h3><div class='docblock'><p>Returns the backing bitmap, if possible.</p>
+        <h3 id='tymethod.create_sub_bitmap' class='method stab '><code>fn <a href='#tymethod.create_sub_bitmap' class='fnname'>create_sub_bitmap</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, w: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, h: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.SubBitmap.html' title='allegro::SubBitmap'>SubBitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h3><h3 id='tymethod.get_backing_bitmap' class='method stab '><code>fn <a href='#tymethod.get_backing_bitmap' class='fnname'>get_backing_bitmap</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../allegro/struct.Bitmap.html' title='allegro::Bitmap'>Bitmap</a>&gt;&gt;</code></h3><div class='docblock'><p>Returns the backing bitmap, if possible.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
@@ -121,6 +122,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

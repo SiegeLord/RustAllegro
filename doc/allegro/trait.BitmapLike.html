@@ -9,6 +9,7 @@
 
     <title>allegro::BitmapLike - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -47,27 +48,27 @@
             </a>
         </span><a id='src-180' class='srclink' href='../src/allegro/internal/bitmap_like.rs.html#32-98' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait BitmapLike {
-    fn <a href='#tymethod.get_allegro_bitmap' class='fnname'>get_allegro_bitmap</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../ffi/bitmap/enum.ALLEGRO_BITMAP.html' title='ffi::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a></a>;
+    fn <a href='#tymethod.get_allegro_bitmap' class='fnname'>get_allegro_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_sys/bitmap/enum.ALLEGRO_BITMAP.html' title='allegro_sys::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a></a>;
 
-    fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a> { ... }
-    fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a> { ... }
+    fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a> { ... }
+    fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a> { ... }
     fn <a href='#method.get_format' class='fnname'>get_format</a>(&amp;self) -&gt; <a class='enum' href='../allegro/enum.PixelFormat.html' title='allegro::PixelFormat'>PixelFormat</a> { ... }
     fn <a href='#method.get_flags' class='fnname'>get_flags</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a> { ... }
-    fn <a href='#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a> { ... }
+    fn <a href='#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a> { ... }
     fn <a href='#method.convert_mask_to_alpha' class='fnname'>convert_mask_to_alpha</a>(&amp;self, mask_color: <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a>) { ... }
-    fn <a href='#method.is_compatible_bitmap' class='fnname'>is_compatible_bitmap</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a> { ... }
+    fn <a href='#method.is_compatible_bitmap' class='fnname'>is_compatible_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a> { ... }
 }</pre><div class='docblock'><p>A trait implemented by types that behave like bitmaps.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.get_allegro_bitmap' class='method stab '><code>fn <a href='#tymethod.get_allegro_bitmap' class='fnname'>get_allegro_bitmap</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../ffi/bitmap/enum.ALLEGRO_BITMAP.html' title='ffi::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a></a></code></h3></div>
+        <h3 id='tymethod.get_allegro_bitmap' class='method stab '><code>fn <a href='#tymethod.get_allegro_bitmap' class='fnname'>get_allegro_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_sys/bitmap/enum.ALLEGRO_BITMAP.html' title='allegro_sys::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a></a></code></h3></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.get_width' class='method stab '><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h3><h3 id='method.get_height' class='method stab '><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h3><h3 id='method.get_format' class='method stab '><code>fn <a href='#method.get_format' class='fnname'>get_format</a>(&amp;self) -&gt; <a class='enum' href='../allegro/enum.PixelFormat.html' title='allegro::PixelFormat'>PixelFormat</a></code></h3><h3 id='method.get_flags' class='method stab '><code>fn <a href='#method.get_flags' class='fnname'>get_flags</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code></h3><h3 id='method.get_pixel' class='method stab '><code>fn <a href='#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a></code></h3><h3 id='method.convert_mask_to_alpha' class='method stab '><code>fn <a href='#method.convert_mask_to_alpha' class='fnname'>convert_mask_to_alpha</a>(&amp;self, mask_color: <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a>)</code></h3><h3 id='method.is_compatible_bitmap' class='method stab '><code>fn <a href='#method.is_compatible_bitmap' class='fnname'>is_compatible_bitmap</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns if this bitmap is compatible with the current display. This comes
-    into play when you have multiple displays in a single thread, and have
-    created bitmaps for different displays. A bitmap created for one display
-    may or may not be compatible with the other display. If the bitmap is not
-    compatible, drawing it will be slow.</p>
+        <h3 id='method.get_width' class='method stab '><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h3><h3 id='method.get_height' class='method stab '><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h3><h3 id='method.get_format' class='method stab '><code>fn <a href='#method.get_format' class='fnname'>get_format</a>(&amp;self) -&gt; <a class='enum' href='../allegro/enum.PixelFormat.html' title='allegro::PixelFormat'>PixelFormat</a></code></h3><h3 id='method.get_flags' class='method stab '><code>fn <a href='#method.get_flags' class='fnname'>get_flags</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.BitmapFlags.html' title='allegro::BitmapFlags'>BitmapFlags</a></code></h3><h3 id='method.get_pixel' class='method stab '><code>fn <a href='#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a></code></h3><h3 id='method.convert_mask_to_alpha' class='method stab '><code>fn <a href='#method.convert_mask_to_alpha' class='fnname'>convert_mask_to_alpha</a>(&amp;self, mask_color: <a class='struct' href='../allegro/struct.Color.html' title='allegro::Color'>Color</a>)</code></h3><h3 id='method.is_compatible_bitmap' class='method stab '><code>fn <a href='#method.is_compatible_bitmap' class='fnname'>is_compatible_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns if this bitmap is compatible with the current display. This comes
+into play when you have multiple displays in a single thread, and have
+created bitmaps for different displays. A bitmap created for one display
+may or may not be compatible with the other display. If the bitmap is not
+compatible, drawing it will be slow.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
@@ -134,6 +135,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

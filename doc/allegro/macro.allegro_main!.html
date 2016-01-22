@@ -9,6 +9,7 @@
 
     <title>allegro::allegro_main! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -45,23 +46,11 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1726' class='srclink' href='../src/allegro/allegro_main.rs.html#6-21' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1731' class='srclink' href='../src/allegro/allegro_main.rs.html#6-21' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>allegro_main</span>
-{
-	(<span class='op'>^</span><span class='ident'>tt_expander</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>};
-	($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span>
-	{
-		<span class='kw'>fn</span> <span class='ident'>main</span>()
-		{
-			<span class='ident'>allegro</span>::<span class='ident'>run</span>(<span class='ident'>user_main</span>)
-		}
-
-		<span class='kw'>fn</span> <span class='ident'>user_main</span>()
-		{
-			<span class='macro'>allegro_main</span><span class='macro'>!</span>(<span class='op'>^</span><span class='ident'>tt_expander</span> { $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>)<span class='op'>*</span> })
-		}
-	}
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>allegro_main</span> {
+    (<span class='op'>^</span><span class='ident'>tt_expander</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -122,6 +111,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

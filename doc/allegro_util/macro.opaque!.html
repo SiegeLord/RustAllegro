@@ -9,6 +9,7 @@
 
     <title>allegro_util::opaque! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -47,16 +48,8 @@
             </a>
         </span><a id='src-13' class='srclink' href='../src/allegro_util/lib.rs.html#36-46' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>opaque</span>
-{
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
-	{
-		<span class='comment'>/* Mimicking c_void */</span>
-		<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
-		<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>
-		{
-		}
-	}
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>opaque</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -117,6 +110,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>
