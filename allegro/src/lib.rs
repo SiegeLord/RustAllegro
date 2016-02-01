@@ -15,11 +15,12 @@ pub use internal::bitmap_like::*;
 pub use internal::color::*;
 pub use internal::config::external::*;
 pub use internal::core::external::*;
-pub use internal::display::*;
+pub use internal::display::external::*;
 pub use internal::events::external::*;
 pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
+#[cfg(allegro_5_1_0)]
 pub use internal::shader::*;
 pub use internal::timer::*;
 pub use internal::transformations::external::*;
@@ -37,6 +38,7 @@ mod internal
 	pub mod joystick;
 	pub mod keycodes;
 	pub mod run;
+	#[cfg(allegro_5_1_0)]
 	pub mod shader;
 	pub mod timer;
 	pub mod transformations;

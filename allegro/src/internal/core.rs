@@ -766,18 +766,38 @@ impl Core
 	#[cfg(allegro_5_1_6)]
 	pub fn use_shader(&self, shader: Option<Shader>) -> Result<(), ()>
 	{
-		let shader = shader.map_or(ptr::null_mut(), |s| s.get_allegro_shader());
-		let ret = unsafe
+		match shader
 		{
-			al_use_shader(shader)
-		};
-		if ret != 0
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
+			Some(shader) =>
+			{
+				if shader.is_valid()
+				{
+					let ret = unsafe
+					{
+						al_use_shader(shader.get_allegro_shader())
+					};
+					if ret != 0
+					{
+						Ok(())
+					}
+					else
+					{
+						Err(())
+					}
+				}
+				else
+				{
+					Err(())
+				}
+			},
+			None =>
+			{
+				unsafe
+				{
+					al_use_shader(ptr::null_mut());
+				}
+				Ok(())
+			}
 		}
 	}
 

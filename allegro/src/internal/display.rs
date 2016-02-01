@@ -3,6 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
+use std::cell::Cell;
 use std::mem;
 use std::ffi::CString;
 use std::rc::Rc;
@@ -12,24 +13,38 @@ use internal::bitmap_like::BitmapLike;
 use internal::color::PixelFormat;
 use internal::core::{Core, dummy_target};
 use internal::events::{EventSource, new_event_source_ref};
-use allegro_util::Flag;
 
 use ffi::*;
 
-flag_type!{
-	DisplayFlags
+pub mod external
+{
+	pub use super::{DisplayOption, DisplayOptionImportance, DisplayOrientation, Display};
+	pub use super::export_helper::*;
+}
+
+pub use self::export_helper::*;
+
+mod export_helper
+{
+	use allegro_util::Flag;
+	use ffi::*;
+
+	flag_type!
 	{
-		WINDOWED                  = ALLEGRO_WINDOWED,
-		FULLSCREEN                = ALLEGRO_FULLSCREEN,
-		OPENGL                    = ALLEGRO_OPENGL,
-		DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
-		RESIZABLE                 = ALLEGRO_RESIZABLE,
-		FRAMELESS                 = ALLEGRO_FRAMELESS,
-		GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
-		OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
-		OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
-		FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
-		MINIMIZED                 = ALLEGRO_MINIMIZED
+		DisplayFlags
+		{
+			WINDOWED                  = ALLEGRO_WINDOWED,
+			FULLSCREEN                = ALLEGRO_FULLSCREEN,
+			OPENGL                    = ALLEGRO_OPENGL,
+			DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
+			RESIZABLE                 = ALLEGRO_RESIZABLE,
+			FRAMELESS                 = ALLEGRO_FRAMELESS,
+			GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
+			OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
+			OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
+			FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
+			MINIMIZED                 = ALLEGRO_MINIMIZED
+		}
 	}
 }
 
@@ -97,6 +112,8 @@ pub struct Display
 	_backbuffer: Rc<Bitmap>,
 	backbuffer_subbitmap: SubBitmap,
 	event_source: EventSource,
+	#[cfg(allegro_5_1_0)]
+	shaders: Vec<(Rc<Cell<bool>>, *mut ALLEGRO_SHADER)>
 }
 
 impl Display
@@ -116,15 +133,34 @@ impl Display
 				let backbuffer_subbitmap = try!(backbuffer.create_sub_bitmap(0, 0, backbuffer.get_width(), backbuffer.get_height()));
 				Ok
 				(
-					Display
-					{
-						allegro_display: d,
-						_backbuffer: backbuffer,
-						backbuffer_subbitmap: backbuffer_subbitmap,
-						event_source: new_event_source_ref(al_get_display_event_source(d)),
-					}
+					Display::new_impl(d, backbuffer, backbuffer_subbitmap, new_event_source_ref(al_get_display_event_source(d)))
 				)
 			}
+		}
+	}
+
+	#[cfg(not(allegro_5_1_0))]
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
+	{
+		Display
+		{
+			allegro_display: d,
+			_backbuffer: backbuffer,
+			backbuffer_subbitmap: backbuffer_subbitmap,
+			event_source: event_source,
+		}
+	}
+
+	#[cfg(allegro_5_1_0)]
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
+	{
+		Display
+		{
+			allegro_display: d,
+			_backbuffer: backbuffer,
+			backbuffer_subbitmap: backbuffer_subbitmap,
+			event_source: event_source,
+			shaders: vec![]
 		}
 	}
 
@@ -278,13 +314,34 @@ impl Display
 	{
 		self.allegro_display
 	}
+
+	#[cfg(allegro_5_1_0)]
+	fn destroy_shaders(&mut self)
+	{
+		for &mut (ref mut valid, shader) in &mut self.shaders
+		{
+			if valid.get()
+			{
+				unsafe
+				{
+					al_destroy_shader(shader);
+				}
+				valid.set(false);
+			}
+		}
+	}
+
+	#[cfg(not(allegro_5_1_0))]
+	fn destroy_shaders(&mut self)
+	{
+	}
 }
 
-// Not Send just because of the marker in the event source
 impl Drop for Display
 {
 	fn drop(&mut self)
 	{
+		self.destroy_shaders();
 		unsafe
 		{
 			al_destroy_display(self.allegro_display);
@@ -294,4 +351,10 @@ impl Drop for Display
 			}
 		}
 	}
+}
+
+#[cfg(allegro_5_1_0)]
+pub fn register_shader(d: &mut Display, valid: Rc<Cell<bool>>, shader: *mut ALLEGRO_SHADER)
+{
+	d.shaders.push((valid, shader));
 }

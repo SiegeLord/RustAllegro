@@ -3,20 +3,17 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::borrow::Borrow;
-use std::collections::HashMap;
+use std::cell::Cell;
 use std::ffi::{CStr, CString};
 use std::ptr;
 use std::rc::Rc;
 
-use internal::bitmap::{Bitmap, SharedBitmap};
 use internal::bitmap_like::BitmapLike;
-use internal::core::Core;
+use internal::display::{Display, register_shader};
 
 use ffi::*;
 
 /// Shader platform.
-#[cfg(allegro_5_1_0)]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug)]
 pub enum ShaderPlatform
@@ -27,7 +24,6 @@ pub enum ShaderPlatform
 	HLSL = ALLEGRO_SHADER_HLSL,
 }
 
-#[cfg(allegro_5_1_0)]
 impl ShaderPlatform
 {
 	pub fn from_allegro(platform: ALLEGRO_SHADER_PLATFORM) -> ShaderPlatform
@@ -43,7 +39,6 @@ impl ShaderPlatform
 }
 
 /// Shader type.
-#[cfg(allegro_5_1_0)]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug)]
 pub enum ShaderType
@@ -54,29 +49,35 @@ pub enum ShaderType
 
 /// A shader program comprising of a pixel (fragment) and a vertex shader.
 /// Wraps ALLEGRO_SHADER.
-#[cfg(allegro_5_1_0)]
 pub struct Shader
 {
 	allegro_shader: *mut ALLEGRO_SHADER,
-	samplers: HashMap<String, Rc<Bitmap>>,
+	valid: Rc<Cell<bool>>,
 }
 
-#[cfg(allegro_5_1_0)]
 impl Shader
 {
 	/// Create a new shader for a particular platform.
-	pub fn new(_: &Core, platform: ShaderPlatform) -> Result<Shader, ()>
+	///
+	/// A shader gets invalidated when the display is destroyed.
+	pub fn new(display: &mut Display, platform: ShaderPlatform) -> Result<Shader, ()>
 	{
-		let shader = unsafe
+		let shader;
+		unsafe
 		{
-			al_create_shader(platform as ALLEGRO_SHADER_PLATFORM)
+			let old_target = al_get_target_bitmap();
+			al_set_target_bitmap(display.get_backbuffer().get_allegro_bitmap());
+			shader = al_create_shader(platform as ALLEGRO_SHADER_PLATFORM);
+			al_set_target_bitmap(old_target);
 		};
 		if !shader.is_null()
 		{
+			let valid = Rc::new(Cell::new(true));
+			register_shader(display, valid.clone(), shader);
 			Ok(Shader
 			{
 				allegro_shader: shader,
-				samplers: HashMap::new(),
+				valid: valid,
 			})
 		}
 		else
@@ -88,12 +89,23 @@ impl Shader
 	/// Returns the wrapped Allegro shader pointer.
 	pub fn get_allegro_shader(&self) -> *mut ALLEGRO_SHADER
 	{
-		self.allegro_shader
+		if self.is_valid()
+		{
+			self.allegro_shader
+		}
+		else
+		{
+			ptr::null_mut()
+		}
 	}
 
 	/// Attach a source to the shader. Passing None clears the source.
 	pub fn attach_shader_source(&mut self, shader_type: ShaderType, source: Option<&str>) -> Result<(), ()>
 	{
+		if !self.is_valid()
+		{
+			return Err(());
+		}
 		let shader_type = shader_type as ALLEGRO_SHADER_TYPE;
 		let ret = unsafe
 		{
@@ -120,6 +132,10 @@ impl Shader
 	/// Attach a source to the shader that is loaded from a file.
 	pub fn attach_shader_source_file(&mut self, shader_type: ShaderType, filename: &str) -> Result<(), ()>
 	{
+		if !self.is_valid()
+		{
+			return Err(())
+		}
 		let filename = CString::new(filename.as_bytes()).unwrap();
 		let ret = unsafe
 		{
@@ -138,6 +154,10 @@ impl Shader
 	/// Build the shader. Call this after attaching the sources.
 	pub fn build(&mut self) -> Result<(), ()>
 	{
+		if !self.is_valid()
+		{
+			return Err(());
+		}
 		let ret = unsafe
 		{
 			al_build_shader(self.allegro_shader)
@@ -155,6 +175,10 @@ impl Shader
 	/// Get the log from the shader. Call this function if any of the attach/build functions fail to determine what went wrong.
 	pub fn get_log(&self) -> String
 	{
+		if !self.is_valid()
+		{
+			return "".to_string();
+		}
 		unsafe
 		{
 			let log = al_get_shader_log(self.allegro_shader);
@@ -163,51 +187,60 @@ impl Shader
 	}
 
 	/// Returns the platform of this shader.
-	pub fn get_platform(&self) -> ShaderPlatform
+	pub fn get_platform(&self) -> Result<ShaderPlatform, ()>
 	{
-		unsafe
+		if self.is_valid()
 		{
-			ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader))
+			unsafe
+			{
+				Ok(ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader)))
+			}
+		}
+		else
+		{
+			return Err(())
 		}
 	}
 
 	/// Sets a sampler for a particular uniform and unit. Different uniforms should be set to different units.
 	/// Pass None to bmp to clear the sampler.
-	pub fn set_sampler<T, U>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
-		where T: SharedBitmap + Borrow<U>, U: BitmapLike
+	pub fn set_sampler<T: BitmapLike>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
 	{
-		if let Some(backing_bmp) = bmp.get_backing_bitmap()
+		if !self.is_valid()
 		{
-			let c_name = CString::new(name.as_bytes()).unwrap();
-			let ret = unsafe
-			{
-				al_set_shader_sampler(c_name.as_ptr(), bmp.borrow().get_allegro_bitmap(), unit as c_int) != 0
-			};
-			if ret
-			{
-				self.samplers.insert(name.to_string(), backing_bmp);
-				Ok(())
-			}
-			else
-			{
-				Err(())
-			}
+			return Err(())
+		}
+		let c_name = CString::new(name.as_bytes()).unwrap();
+		let ret = unsafe
+		{
+			al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0
+		};
+		if ret
+		{
+			Ok(())
 		}
 		else
 		{
 			Err(())
 		}
 	}
+
+	pub fn is_valid(&self) -> bool
+	{
+		self.valid.get()
+	}
 }
 
-#[cfg(allegro_5_1_0)]
 impl Drop for Shader
 {
 	fn drop(&mut self)
 	{
-		unsafe
+		if self.is_valid()
 		{
-			al_destroy_shader(self.allegro_shader);
+			unsafe
+			{
+				al_destroy_shader(self.allegro_shader);
+			}
 		}
 	}
 }
