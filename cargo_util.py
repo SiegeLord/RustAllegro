@@ -18,6 +18,7 @@ allegro_dialog-sys
 allegro_primitives-sys
 allegro_font-sys
 allegro_ttf-sys
+allegro_color-sys
 allegro
 allegro_image
 allegro_audio
@@ -26,6 +27,7 @@ allegro_dialog
 allegro_primitives
 allegro_font
 allegro_ttf
+allegro_color
 examples
 """
 
