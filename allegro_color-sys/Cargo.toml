@@ -1,0 +1,37 @@
+[package]
+
+name = "allegro_color-sys"
+version = "0.0.22" #auto
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_color-sys/index.html"
+keywords = ["color"]
+authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 color addon Rust binding"
+build = "build.rs"
+links = "allegro_color"
+
+[lib]
+
+name = "allegro_color_sys"
+path = "src/lib.rs"
+
+[features]
+
+link_none = []
+link_debug = []
+link_static = []
+
+[dependencies]
+
+libc = "0.1"
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.22" #auto
+
+[dependencies.allegro_util]
+
+path = "../allegro_util"
+version = "=0.0.22" #auto

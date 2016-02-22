@@ -20,7 +20,8 @@ use std::cell::RefCell;
 use std::marker::PhantomData;
 use std::ffi::CString;
 
-flag_type!{
+flag_type!
+{
 	MessageBoxFlags
 	{
 		MESSAGEBOX_WARN =      ALLEGRO_MESSAGEBOX_WARN,
