@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_color_addon_version",""]],"trait":[["ColorAddonExtensions",""]]});

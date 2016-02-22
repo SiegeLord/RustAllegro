@@ -338,12 +338,76 @@
 <span id="295">295</span>
 <span id="296">296</span>
 <span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::<span class='ident'>Cell</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
@@ -353,24 +417,38 @@
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>color</span>::<span class='ident'>PixelFormat</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>core</span>::{<span class='ident'>Core</span>, <span class='ident'>dummy_target</span>};
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>events</span>::{<span class='ident'>EventSource</span>, <span class='ident'>new_event_source_ref</span>};
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>Flag</span>;
 
 <span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>{
-	<span class='ident'>DisplayFlags</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>external</span>
+{
+	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>DisplayOption</span>, <span class='ident'>DisplayOptionImportance</span>, <span class='ident'>DisplayOrientation</span>, <span class='ident'>Display</span>};
+	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>export_helper</span>::<span class='op'>*</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>export_helper</span>::<span class='op'>*</span>;
+
+<span class='kw'>mod</span> <span class='ident'>export_helper</span>
+{
+	<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>Flag</span>;
+	<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
+
+	<span class='macro'>flag_type</span><span class='macro'>!</span>
 	{
-		<span class='ident'>WINDOWED</span>                  <span class='op'>=</span> <span class='ident'>ALLEGRO_WINDOWED</span>,
-		<span class='ident'>FULLSCREEN</span>                <span class='op'>=</span> <span class='ident'>ALLEGRO_FULLSCREEN</span>,
-		<span class='ident'>OPENGL</span>                    <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL</span>,
-		<span class='ident'>DIRECT3D</span>                  <span class='op'>=</span> <span class='ident'>ALLEGRO_DIRECT3D_INTERNAL</span>,
-		<span class='ident'>RESIZABLE</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_RESIZABLE</span>,
-		<span class='ident'>FRAMELESS</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_FRAMELESS</span>,
-		<span class='ident'>GENERATE_EXPOSE_EVENTS</span>    <span class='op'>=</span> <span class='ident'>ALLEGRO_GENERATE_EXPOSE_EVENTS</span>,
-		<span class='ident'>OPENGL_3_0</span>                <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL_3_0</span>,
-		<span class='ident'>OPENGL_FORWARD_COMPATIBLE</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL_FORWARD_COMPATIBLE</span>,
-		<span class='ident'>FULLSCREEN_WINDOW</span>         <span class='op'>=</span> <span class='ident'>ALLEGRO_FULLSCREEN_WINDOW</span>,
-		<span class='ident'>MINIMIZED</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_MINIMIZED</span>
+		<span class='ident'>DisplayFlags</span>
+		{
+			<span class='ident'>WINDOWED</span>                  <span class='op'>=</span> <span class='ident'>ALLEGRO_WINDOWED</span>,
+			<span class='ident'>FULLSCREEN</span>                <span class='op'>=</span> <span class='ident'>ALLEGRO_FULLSCREEN</span>,
+			<span class='ident'>OPENGL</span>                    <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL</span>,
+			<span class='ident'>DIRECT3D</span>                  <span class='op'>=</span> <span class='ident'>ALLEGRO_DIRECT3D_INTERNAL</span>,
+			<span class='ident'>RESIZABLE</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_RESIZABLE</span>,
+			<span class='ident'>FRAMELESS</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_FRAMELESS</span>,
+			<span class='ident'>GENERATE_EXPOSE_EVENTS</span>    <span class='op'>=</span> <span class='ident'>ALLEGRO_GENERATE_EXPOSE_EVENTS</span>,
+			<span class='ident'>OPENGL_3_0</span>                <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL_3_0</span>,
+			<span class='ident'>OPENGL_FORWARD_COMPATIBLE</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_OPENGL_FORWARD_COMPATIBLE</span>,
+			<span class='ident'>FULLSCREEN_WINDOW</span>         <span class='op'>=</span> <span class='ident'>ALLEGRO_FULLSCREEN_WINDOW</span>,
+			<span class='ident'>MINIMIZED</span>                 <span class='op'>=</span> <span class='ident'>ALLEGRO_MINIMIZED</span>
+		}
 	}
 }
 
@@ -438,6 +516,8 @@
 	<span class='ident'>_backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>,
 	<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>SubBitmap</span>,
 	<span class='ident'>event_source</span>: <span class='ident'>EventSource</span>,
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
+	<span class='ident'>shaders</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;&gt;</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>)<span class='op'>&gt;</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>Display</span>
@@ -457,15 +537,34 @@
 				<span class='kw'>let</span> <span class='ident'>backbuffer_subbitmap</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backbuffer</span>.<span class='ident'>create_sub_bitmap</span>(<span class='number'>0</span>, <span class='number'>0</span>, <span class='ident'>backbuffer</span>.<span class='ident'>get_width</span>(), <span class='ident'>backbuffer</span>.<span class='ident'>get_height</span>()));
 				<span class='prelude-val'>Ok</span>
 				(
-					<span class='ident'>Display</span>
-					{
-						<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
-						<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
-						<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
-						<span class='ident'>event_source</span>: <span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_display_event_source</span>(<span class='ident'>d</span>)),
-					}
+					<span class='ident'>Display</span>::<span class='ident'>new_impl</span>(<span class='ident'>d</span>, <span class='ident'>backbuffer</span>, <span class='ident'>backbuffer_subbitmap</span>, <span class='ident'>new_event_source_ref</span>(<span class='ident'>al_get_display_event_source</span>(<span class='ident'>d</span>)))
 				)
 			}
+		}
+	}
+
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>allegro_5_1_0</span>))]</span>
+	<span class='kw'>fn</span> <span class='ident'>new_impl</span>(<span class='ident'>d</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>, <span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>SubBitmap</span>, <span class='ident'>event_source</span>: <span class='ident'>EventSource</span>) <span class='op'>-&gt;</span> <span class='ident'>Display</span>
+	{
+		<span class='ident'>Display</span>
+		{
+			<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
+			<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
+			<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
+			<span class='ident'>event_source</span>: <span class='ident'>event_source</span>,
+		}
+	}
+
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
+	<span class='kw'>fn</span> <span class='ident'>new_impl</span>(<span class='ident'>d</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>, <span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>SubBitmap</span>, <span class='ident'>event_source</span>: <span class='ident'>EventSource</span>) <span class='op'>-&gt;</span> <span class='ident'>Display</span>
+	{
+		<span class='ident'>Display</span>
+		{
+			<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
+			<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
+			<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
+			<span class='ident'>event_source</span>: <span class='ident'>event_source</span>,
+			<span class='ident'>shaders</span>: <span class='macro'>vec</span><span class='macro'>!</span>[]
 		}
 	}
 
@@ -619,13 +718,34 @@
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_display</span>
 	}
+
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
+	<span class='kw'>fn</span> <span class='ident'>destroy_shaders</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	{
+		<span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> (<span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>valid</span>, <span class='ident'>shader</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>shaders</span>
+		{
+			<span class='kw'>if</span> <span class='ident'>valid</span>.<span class='ident'>get</span>()
+			{
+				<span class='kw'>unsafe</span>
+				{
+					<span class='ident'>al_destroy_shader</span>(<span class='ident'>shader</span>);
+				}
+				<span class='ident'>valid</span>.<span class='ident'>set</span>(<span class='boolval'>false</span>);
+			}
+		}
+	}
+
+	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>allegro_5_1_0</span>))]</span>
+	<span class='kw'>fn</span> <span class='ident'>destroy_shaders</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	{
+	}
 }
 
-<span class='comment'>// Not Send just because of the marker in the event source</span>
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Display</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
 	{
+		<span class='self'>self</span>.<span class='ident'>destroy_shaders</span>();
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_destroy_display</span>(<span class='self'>self</span>.<span class='ident'>allegro_display</span>);
@@ -635,6 +755,12 @@
 			}
 		}
 	}
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>allegro_5_1_0</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>register_shader</span>(<span class='ident'>d</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Display</span>, <span class='ident'>valid</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;&gt;</span>, <span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>)
+{
+	<span class='ident'>d</span>.<span class='ident'>shaders</span>.<span class='ident'>push</span>((<span class='ident'>valid</span>, <span class='ident'>shader</span>));
 }
 </pre>
 </section>
