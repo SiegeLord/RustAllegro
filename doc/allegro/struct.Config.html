@@ -58,7 +58,7 @@
 <div class='docblock'><p>Loads a config from a path.</p>
 </div><h4 id='method.merge' class='method'><code>fn <a href='#method.merge' class='fnname'>merge</a>(cfg1: &amp;<a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a>, cfg2: &amp;<a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a>) -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
 <div class='docblock'><p>Merge two configs into 1.</p>
-</div><h4 id='method.get_allegro_config' class='method'><code>fn <a href='#method.get_allegro_config' class='fnname'>get_allegro_config</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_sys/config/enum.ALLEGRO_CONFIG.html' title='allegro_sys::config::ALLEGRO_CONFIG'>ALLEGRO_CONFIG</a></a></code></h4>
+</div><h4 id='method.get_allegro_config' class='method'><code>fn <a href='#method.get_allegro_config' class='fnname'>get_allegro_config</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../allegro_sys/config/enum.ALLEGRO_CONFIG.html' title='allegro_sys::config::ALLEGRO_CONFIG'>ALLEGRO_CONFIG</a></code></h4>
 <div class='docblock'><p>Returns the wrapped ALLEGRO_CONFIG.</p>
 </div><h4 id='method.save' class='method'><code>fn <a href='#method.save' class='fnname'>save</a>(&amp;self, path: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <div class='docblock'><p>Loads a config from a path.</p>
@@ -82,7 +82,7 @@ returned section will typically be the root section, even if it&#39;s empty.</p>
 </div><h4 id='method.keys' class='method'><code>fn <a href='#method.keys' class='fnname'>keys</a>&lt;'l&gt;(&amp;'l self, section: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../allegro/struct.ConfigEntry.html' title='allegro::ConfigEntry'>ConfigEntry</a>&lt;'l&gt;</code></h4>
 <div class='docblock'><p>Returns an iterator over all the entries in a particular section.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
@@ -127,7 +127,7 @@ returned section will typically be the root section, even if it&#39;s empty.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

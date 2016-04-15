@@ -60,7 +60,7 @@
 <h4 id='method.get_data' class='method'><code>fn <a href='#method.get_data' class='fnname'>get_data</a>&lt;'l, T: <a class='trait' href='../allegro_audio/trait.DataSample.html' title='allegro_audio::DataSample'>DataSample</a>&gt;(&amp;'l self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'l [</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <h4 id='method.get_data_mut' class='method'><code>fn <a href='#method.get_data_mut' class='fnname'>get_data_mut</a>&lt;'l, T: <a class='trait' href='../allegro_audio/trait.DataSample.html' title='allegro_audio::DataSample'>DataSample</a>&gt;(&amp;'l mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'l mut [</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <h4 id='method.get_raw_data_mut' class='method'><code>fn <a href='#method.get_raw_data_mut' class='fnname'>get_raw_data_mut</a>&lt;'l&gt;(&amp;'l mut self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'l mut [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
-<h4 id='method.get_allegro_sample' class='method'><code>fn <a href='#method.get_allegro_sample' class='fnname'>get_allegro_sample</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_audio_sys/allegro_audio/enum.ALLEGRO_SAMPLE.html' title='allegro_audio_sys::allegro_audio::ALLEGRO_SAMPLE'>ALLEGRO_SAMPLE</a></a></code></h4>
+<h4 id='method.get_allegro_sample' class='method'><code>fn <a href='#method.get_allegro_sample' class='fnname'>get_allegro_sample</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../allegro_audio_sys/allegro_audio/enum.ALLEGRO_SAMPLE.html' title='allegro_audio_sys::allegro_audio::ALLEGRO_SAMPLE'>ALLEGRO_SAMPLE</a></code></h4>
 </div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro_audio/struct.Sample.html' title='allegro_audio::Sample'>Sample</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
@@ -105,7 +105,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

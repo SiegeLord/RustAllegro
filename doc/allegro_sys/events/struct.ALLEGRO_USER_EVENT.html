@@ -49,9 +49,9 @@
         </span><a id='src-753' class='srclink' href='../../src/allegro_sys/events.rs.html#135-145' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ALLEGRO_USER_EVENT {
     pub _type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a>,
-    pub source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro_sys::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a></a>,
+    pub source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_EVENT_SOURCE.html' title='allegro_sys::events::ALLEGRO_EVENT_SOURCE'>ALLEGRO_EVENT_SOURCE</a>,
     pub timestamp: <a class='type' href='../../libc/types/os/arch/c95/type.c_double.html' title='libc::types::os::arch::c95::c_double'>c_double</a>,
-    pub _internal__descr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../../libc/types/common/c95/enum.c_void.html' title='libc::types::common::c95::c_void'>c_void</a></a>,
+    pub _internal__descr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../libc/types/common/c95/enum.c_void.html' title='libc::types::common::c95::c_void'>c_void</a>,
     pub data1: <a class='type' href='../../libc/types/os/arch/c99/type.intptr_t.html' title='libc::types::os::arch::c99::intptr_t'>intptr_t</a>,
     pub data2: <a class='type' href='../../libc/types/os/arch/c99/type.intptr_t.html' title='libc::types::os::arch::c99::intptr_t'>intptr_t</a>,
     pub data3: <a class='type' href='../../libc/types/os/arch/c99/type.intptr_t.html' title='libc::types::os::arch::c99::intptr_t'>intptr_t</a>,
@@ -66,7 +66,7 @@
                                   <td id='structfield.data2'><code>data2</code></td><td></td></tr><tr class='stab '>
                                   <td id='structfield.data3'><code>data3</code></td><td></td></tr><tr class='stab '>
                                   <td id='structfield.data4'><code>data4</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_USER_EVENT.html' title='allegro_sys::events::ALLEGRO_USER_EVENT'>ALLEGRO_USER_EVENT</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_USER_EVENT.html' title='allegro_sys::events::ALLEGRO_USER_EVENT'>ALLEGRO_USER_EVENT</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_USER_EVENT.html' title='allegro_sys::events::ALLEGRO_USER_EVENT'>ALLEGRO_USER_EVENT</a></code></h3><div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
@@ -110,7 +110,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

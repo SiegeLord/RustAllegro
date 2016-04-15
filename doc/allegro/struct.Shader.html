@@ -55,7 +55,7 @@ Wraps ALLEGRO_SHADER.</p>
 <div class='docblock'><p>Create a new shader for a particular platform.</p>
 
 <p>A shader gets invalidated when the display is destroyed.</p>
-</div><h4 id='method.get_allegro_shader' class='method'><code>fn <a href='#method.get_allegro_shader' class='fnname'>get_allegro_shader</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='../allegro_sys/shader/enum.ALLEGRO_SHADER.html' title='allegro_sys::shader::ALLEGRO_SHADER'>ALLEGRO_SHADER</a></a></code></h4>
+</div><h4 id='method.get_allegro_shader' class='method'><code>fn <a href='#method.get_allegro_shader' class='fnname'>get_allegro_shader</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../allegro_sys/shader/enum.ALLEGRO_SHADER.html' title='allegro_sys::shader::ALLEGRO_SHADER'>ALLEGRO_SHADER</a></code></h4>
 <div class='docblock'><p>Returns the wrapped Allegro shader pointer.</p>
 </div><h4 id='method.attach_shader_source' class='method'><code>fn <a href='#method.attach_shader_source' class='fnname'>attach_shader_source</a>(&amp;mut self, shader_type: <a class='enum' href='../allegro/enum.ShaderType.html' title='allegro::ShaderType'>ShaderType</a>, source: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <div class='docblock'><p>Attach a source to the shader. Passing None clears the source.</p>
@@ -115,7 +115,7 @@ Pass None to bmp to clear the sampler.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

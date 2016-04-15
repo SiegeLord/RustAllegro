@@ -48,12 +48,12 @@
             </a>
         </span><a id='src-226' class='srclink' href='../src/allegro_primitives/lib.rs.html#266-270' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait VertexVector {
-    fn <a href='#tymethod.get_ptr' class='fnname'>get_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></a>;
-    fn <a href='#tymethod.get_decl' class='fnname'>get_decl</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='../allegro_primitives_sys/allegro_primitives/enum.ALLEGRO_VERTEX_DECL.html' title='allegro_primitives_sys::allegro_primitives::ALLEGRO_VERTEX_DECL'>ALLEGRO_VERTEX_DECL</a></a>;
+    fn <a href='#tymethod.get_ptr' class='fnname'>get_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>;
+    fn <a href='#tymethod.get_decl' class='fnname'>get_decl</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='enum' href='../allegro_primitives_sys/allegro_primitives/enum.ALLEGRO_VERTEX_DECL.html' title='allegro_primitives_sys::allegro_primitives::ALLEGRO_VERTEX_DECL'>ALLEGRO_VERTEX_DECL</a>;
 }</pre>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.get_ptr' class='method stab '><code>fn <a href='#tymethod.get_ptr' class='fnname'>get_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></a></code></h3><h3 id='tymethod.get_decl' class='method stab '><code>fn <a href='#tymethod.get_decl' class='fnname'>get_decl</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='../allegro_primitives_sys/allegro_primitives/enum.ALLEGRO_VERTEX_DECL.html' title='allegro_primitives_sys::allegro_primitives::ALLEGRO_VERTEX_DECL'>ALLEGRO_VERTEX_DECL</a></a></code></h3></div>
+        <h3 id='tymethod.get_ptr' class='method stab '><code>fn <a href='#tymethod.get_ptr' class='fnname'>get_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h3><h3 id='tymethod.get_decl' class='method stab '><code>fn <a href='#tymethod.get_decl' class='fnname'>get_decl</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='enum' href='../allegro_primitives_sys/allegro_primitives/enum.ALLEGRO_VERTEX_DECL.html' title='allegro_primitives_sys::allegro_primitives::ALLEGRO_VERTEX_DECL'>ALLEGRO_VERTEX_DECL</a></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl&lt;'l&gt; <a class='trait' href='../allegro_primitives/trait.VertexVector.html' title='allegro_primitives::VertexVector'>VertexVector</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'l [</a><a class='struct' href='../allegro_primitives/struct.Vertex.html' title='allegro_primitives::Vertex'>Vertex</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></li>
@@ -102,7 +102,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
