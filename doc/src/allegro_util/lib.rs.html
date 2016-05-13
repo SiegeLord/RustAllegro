@@ -168,6 +168,17 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -278,6 +289,17 @@
 			}
 		}
 
+		$(
+			<span class='kw'>pub</span> <span class='kw'>const</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>n</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>{<span class='ident'>bits</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>};
+		)<span class='op'>+</span>
+	}
+}
+
+<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>flags</span>
+{
+	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>: <span class='ident'>ident</span> { $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>n</span>: <span class='ident'>ident</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>: <span class='ident'>expr</span>),<span class='op'>*</span>}) <span class='op'>=&gt;</span>
+	{
 		$(
 			<span class='kw'>pub</span> <span class='kw'>const</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>n</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>{<span class='ident'>bits</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>};
 		)<span class='op'>+</span>

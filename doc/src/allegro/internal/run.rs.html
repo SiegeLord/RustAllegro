@@ -84,14 +84,12 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
-<span id="44">44</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>process</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
@@ -105,13 +103,13 @@
 	<span class='kw'>unsafe</span>
 	{
 		<span class='ident'>global_main_func</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>main_func</span>);
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>al_run_main</span>(<span class='number'>0</span>, <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>allegro_main</span>));
+		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>al_run_main</span>(<span class='number'>0</span>, <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>allegro_main</span>);
 		<span class='ident'>process</span>::<span class='ident'>exit</span>(<span class='ident'>ret</span>)
 	}
 }
 
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
-<span class='kw'>fn</span> <span class='ident'>allegro_main</span>(_: <span class='ident'>isize</span>, _: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
+<span class='kw'>fn</span> <span class='ident'>allegro_main</span>(_: <span class='ident'>i32</span>, _: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
 {
 	<span class='kw'>unsafe</span>
 	{
