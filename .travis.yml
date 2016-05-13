@@ -8,7 +8,7 @@ env:
     - secure: gQIARgN5jCAP3IOrXv2DFgCiJpEa+wEdZyRbwzZfwKI288DGRJ50jKs2nFSQWTh/2oq2tHdprXIOFyxWrB+kaazLA6wQPjHHMNVMnEBmhW420xwyFrRLvaM9+3q3YV9gkPu98cbzeP14hqvgJa0yfXM7DdWMvHh+pUWAcBHdNcY=
     - secure: UsmZSrX1K7DLfHQZcw1vMZBYm1zE27XgypCK1Jd4cmo4wKogx+uFCCIya53Cw8Jfd/MazcMpGjKFgdv+/qMDSctJqAgVUWRcbE7cxlO8F0OmpLDirTfOE/tTZ26pdQxxEpGfdQdbEGkl0HV/xYznmsKRR25VX+KY+yVU/jzyF6c=
 before_install:
-  - yes | sudo add-apt-repository ppa:allegro/5.1
+  - yes | sudo add-apt-repository ppa:allegro/5.2
   - sudo apt-get update
 install:
   - sudo apt-get install liballegro5-dev --force-yes
