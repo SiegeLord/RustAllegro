@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_ttf"
-version = "0.0.23" #auto
+version = "0.0.24" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_ttf/index.html"
@@ -27,19 +27,19 @@ libc = "0.1"
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.23" #auto
+version = "=0.0.24" #auto
 
 [dependencies.allegro_font]
 
 path = "../allegro_font"
-version = "=0.0.23" #auto
+version = "=0.0.24" #auto
 
 [dependencies.allegro_ttf-sys]
 
 path = "../allegro_ttf-sys"
-version = "=0.0.23" #auto
+version = "=0.0.24" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.23" #auto
+version = "=0.0.24" #auto
