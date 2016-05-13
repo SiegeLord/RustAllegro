@@ -29,6 +29,11 @@ path = "audio_example.rs"
 name = "multiple_windows"
 path = "multiple_windows.rs"
 
+[[bin]]
+
+name = "shaders"
+path = "shaders.rs"
+
 [dependencies]
 
 getopts = "=0.2.11"
@@ -66,4 +71,9 @@ version = "=0.0.23" #auto
 [dependencies.allegro_primitives]
 
 path = "../allegro_primitives"
+version = "=0.0.23" #auto
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
 version = "=0.0.23" #auto

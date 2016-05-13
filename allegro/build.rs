@@ -14,6 +14,4 @@ fn main()
 	{
 		println!("cargo:rustc-cfg=allegro_5_{}_{}", allegro_sub_version, v)
 	}
-	println!("cargo:sub_version={}", allegro_sub_version);
-	println!("cargo:wip_version={}", allegro_wip_version);
 }

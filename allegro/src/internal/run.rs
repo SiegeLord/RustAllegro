@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::mem;
 use std::ptr;
 use std::process;
 use std::thread::spawn;
@@ -17,13 +16,13 @@ pub fn run(main_func: extern "Rust" fn()) -> !
 	unsafe
 	{
 		global_main_func = Some(main_func);
-		let ret = al_run_main(0, ptr::null(), mem::transmute(allegro_main));
+		let ret = al_run_main(0, ptr::null(), allegro_main);
 		process::exit(ret)
 	}
 }
 
 extern "C"
-fn allegro_main(_: isize, _: *const *const u8) -> c_int
+fn allegro_main(_: i32, _: *const *const i8) -> c_int
 {
 	unsafe
 	{

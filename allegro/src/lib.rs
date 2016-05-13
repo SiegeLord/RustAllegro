@@ -20,7 +20,7 @@ pub use internal::events::external::*;
 pub use internal::joystick::*;
 pub use internal::keycodes::*;
 pub use internal::run::*;
-#[cfg(allegro_5_1_0)]
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 pub use internal::shader::*;
 pub use internal::timer::*;
 pub use internal::transformations::external::*;
@@ -38,7 +38,7 @@ mod internal
 	pub mod joystick;
 	pub mod keycodes;
 	pub mod run;
-	#[cfg(allegro_5_1_0)]
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	pub mod shader;
 	pub mod timer;
 	pub mod transformations;

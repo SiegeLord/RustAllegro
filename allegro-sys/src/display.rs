@@ -20,6 +20,9 @@ pub const ALLEGRO_OPENGL_3_0: u32                = 1 << 7;
 pub const ALLEGRO_OPENGL_FORWARD_COMPATIBLE: u32 = 1 << 8;
 pub const ALLEGRO_FULLSCREEN_WINDOW: u32         = 1 << 9;
 pub const ALLEGRO_MINIMIZED: u32                 = 1 << 10;
+pub const ALLEGRO_PROGRAMMABLE_PIPELINE: u32     = 1 << 11;
+pub const ALLEGRO_MAXIMIZED: u32                 = 1 << 13;
+pub const ALLEGRO_OPENGL_ES_PROFILE: u32         = 1 << 14;
 
 pub const ALLEGRO_RED_SIZE: u32 = 0;
 pub const ALLEGRO_GREEN_SIZE: u32 = 1;

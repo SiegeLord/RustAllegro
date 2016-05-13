@@ -2,7 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
 use std::cell::Cell;
 use std::ffi::{CStr, CString};
 use std::ptr;
@@ -11,6 +10,7 @@ use std::rc::Rc;
 use internal::bitmap_like::BitmapLike;
 use internal::display::{Display, register_shader};
 
+use libc::*;
 use ffi::*;
 
 /// Shader platform.
@@ -86,7 +86,7 @@ impl Shader
 		}
 	}
 
-	/// Returns the wrapped Allegro shader pointer.
+	/// Return the wrapped Allegro shader pointer.
 	pub fn get_allegro_shader(&self) -> *mut ALLEGRO_SHADER
 	{
 		if self.is_valid()
@@ -100,11 +100,13 @@ impl Shader
 	}
 
 	/// Attach a source to the shader. Passing None clears the source.
-	pub fn attach_shader_source(&mut self, shader_type: ShaderType, source: Option<&str>) -> Result<(), ()>
+	///
+	/// Returns the log if there was an error.
+	pub fn attach_shader_source(&mut self, shader_type: ShaderType, source: Option<&str>) -> Result<(), String>
 	{
 		if !self.is_valid()
 		{
-			return Err(());
+			return Err("Shader is not valid".to_string());
 		}
 		let shader_type = shader_type as ALLEGRO_SHADER_TYPE;
 		let ret = unsafe
@@ -125,16 +127,18 @@ impl Shader
 		}
 		else
 		{
-			Err(())
+			Err(self.get_log())
 		}
 	}
 
 	/// Attach a source to the shader that is loaded from a file.
-	pub fn attach_shader_source_file(&mut self, shader_type: ShaderType, filename: &str) -> Result<(), ()>
+	///
+	/// Returns the log if there was an error.
+	pub fn attach_shader_source_file(&mut self, shader_type: ShaderType, filename: &str) -> Result<(), String>
 	{
 		if !self.is_valid()
 		{
-			return Err(())
+			return Err("Shader is not valid".to_string())
 		}
 		let filename = CString::new(filename.as_bytes()).unwrap();
 		let ret = unsafe
@@ -147,16 +151,18 @@ impl Shader
 		}
 		else
 		{
-			Err(())
+			Err(self.get_log())
 		}
 	}
 
 	/// Build the shader. Call this after attaching the sources.
-	pub fn build(&mut self) -> Result<(), ()>
+	///
+	/// Returns the log if there was an error.
+	pub fn build(&mut self) -> Result<(), String>
 	{
 		if !self.is_valid()
 		{
-			return Err(());
+			return Err("Shader is not valid".to_string());
 		}
 		let ret = unsafe
 		{
@@ -168,7 +174,7 @@ impl Shader
 		}
 		else
 		{
-			Err(())
+			Err(self.get_log())
 		}
 	}
 
@@ -186,7 +192,7 @@ impl Shader
 		}
 	}
 
-	/// Returns the platform of this shader.
+	/// Return the platform of this shader.
 	pub fn get_platform(&self) -> Result<ShaderPlatform, ()>
 	{
 		if self.is_valid()
@@ -202,29 +208,8 @@ impl Shader
 		}
 	}
 
-	/// Sets a sampler for a particular uniform and unit. Different uniforms should be set to different units.
-	/// Pass None to bmp to clear the sampler.
-	pub fn set_sampler<T: BitmapLike>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
-	{
-		if !self.is_valid()
-		{
-			return Err(())
-		}
-		let c_name = CString::new(name.as_bytes()).unwrap();
-		let ret = unsafe
-		{
-			al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0
-		};
-		if ret
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
-		}
-	}
-
+	/// Return true if the shader is valid. Shaders are invalidated when their
+	/// associated display dies.
 	pub fn is_valid(&self) -> bool
 	{
 		self.valid.get()
@@ -244,3 +229,42 @@ impl Drop for Shader
 		}
 	}
 }
+
+/// Trait implemented by types that can be used to set uniforms in shaders.
+pub trait ShaderUniform
+{
+	unsafe fn set_self_for_shader(&self, name: &str) -> Result<(), ()>;
+}
+
+macro_rules! impl_shader_vector
+{
+	($rust_type: ty, $func: expr, $num_elems: expr, $c_type: ty) =>
+	{
+		impl ShaderUniform for $rust_type
+		{
+			unsafe fn set_self_for_shader(&self, name: &str) -> Result<(), ()>
+			{
+				let c_name = CString::new(name.as_bytes()).unwrap();
+				//~ println!("{} {} {} {}", name, $num_elems, self.len(), stringify!($func));
+				let ret = $func(c_name.as_ptr(), $num_elems, self.as_ptr() as *mut $c_type, self.len() as i32);
+				if ret != 0
+				{
+					Ok(())
+				}
+				else
+				{
+					Err(())
+				}
+			}
+		}
+	}
+}
+
+impl_shader_vector!([f32], al_set_shader_float_vector, 1, c_float);
+impl_shader_vector!([[f32; 2]], al_set_shader_float_vector, 2, c_float);
+impl_shader_vector!([[f32; 3]], al_set_shader_float_vector, 3, c_float);
+impl_shader_vector!([[f32; 4]], al_set_shader_float_vector, 4, c_float);
+impl_shader_vector!([i32], al_set_shader_int_vector, 1, c_int);
+impl_shader_vector!([[i32; 2]], al_set_shader_int_vector, 1, c_int);
+impl_shader_vector!([[i32; 3]], al_set_shader_int_vector, 3, c_int);
+impl_shader_vector!([[i32; 4]], al_set_shader_int_vector, 4, c_int);

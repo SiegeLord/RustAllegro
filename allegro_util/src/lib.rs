@@ -114,6 +114,17 @@ macro_rules! flag_type
 }
 
 #[macro_export]
+macro_rules! flags
+{
+	($f: ident { $($n: ident = $v: expr),*}) =>
+	{
+		$(
+			pub const $n: $f = $f{bits: $v};
+		)+
+	}
+}
+
+#[macro_export]
 macro_rules! cast_to_c
 {
 	($p:ident, f32) =>

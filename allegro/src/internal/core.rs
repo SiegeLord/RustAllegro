@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::ffi::CStr;
+use std::ffi::{CStr, CString};
 use std::mem;
 use std::thread::spawn;
 use std::sync::{Arc, Mutex};
@@ -17,8 +17,8 @@ use internal::display::{Display, DisplayOption, DisplayOptionImportance, Display
 use internal::color::{Color, PixelFormat};
 use internal::config::{Config, new_config_ref};
 use internal::bitmap_like::{BitmapLike, BitmapFlags};
-#[cfg(allegro_5_1_0)]
-use internal::shader::{Shader, ShaderPlatform, ShaderType};
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+use internal::shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
 use internal::transformations::{Transform, new_transform_wrap};
 use allegro_util::{Flag, from_c_str, c_bool};
 
@@ -763,8 +763,8 @@ impl Core
 
 	/// Set the shader as current for the current bitmap. Pass None to stop using this shader.
 	/// Returns an error if the shader isn't compatible with the bitmap.
-	#[cfg(allegro_5_1_6)]
-	pub fn use_shader(&self, shader: Option<Shader>) -> Result<(), ()>
+	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
+	pub fn use_shader(&self, shader: Option<&Shader>) -> Result<(), ()>
 	{
 		match shader
 		{
@@ -802,7 +802,7 @@ impl Core
 	}
 
 	/// Returns the source of the shader that Allegro uses by default.
-	#[cfg(allegro_5_1_6)]
+	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
 	pub fn get_default_shader_source(&self, platform: ShaderPlatform, shader_type: ShaderType) -> Option<String>
 	{
 		unsafe
@@ -863,6 +863,37 @@ impl Core
 		unsafe
 		{
 			al_is_bitmap_drawing_held() != 0
+		}
+	}
+
+	/// Set a sampler for a particular uniform and unit for the current shader.
+	/// Different uniforms should be set to different units.
+	/// Pass None to bmp to clear the sampler.
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn set_shader_sampler<T: BitmapLike>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
+	{
+		let c_name = CString::new(name.as_bytes()).unwrap();
+		let ret = unsafe
+		{
+			al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0
+		};
+		if ret
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
+		}
+	}
+
+	/// Sets a shader uniform to a value.
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn set_shader_uniform<T: ShaderUniform + ?Sized>(&self, name: &str, val: &T) -> Result<(), ()>
+	{
+		unsafe
+		{
+			val.set_self_for_shader(name)
 		}
 	}
 }

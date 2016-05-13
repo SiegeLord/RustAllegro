@@ -46,6 +46,22 @@ mod export_helper
 			MINIMIZED                 = ALLEGRO_MINIMIZED
 		}
 	}
+	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
+	flags!
+	{
+		DisplayFlags
+		{
+			PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
+		}
+	}
+	#[cfg(any(allegro_5_2_0, allegro_5_1_12))]
+	flags!
+	{
+		DisplayFlags
+		{
+			MAXIMIZED = ALLEGRO_MAXIMIZED
+		}
+	}
 }
 
 #[repr(u32)]
@@ -112,7 +128,7 @@ pub struct Display
 	_backbuffer: Rc<Bitmap>,
 	backbuffer_subbitmap: SubBitmap,
 	event_source: EventSource,
-	#[cfg(allegro_5_1_0)]
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	shaders: Vec<(Rc<Cell<bool>>, *mut ALLEGRO_SHADER)>
 }
 
@@ -139,7 +155,7 @@ impl Display
 		}
 	}
 
-	#[cfg(not(allegro_5_1_0))]
+	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
 	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
 	{
 		Display
@@ -151,7 +167,7 @@ impl Display
 		}
 	}
 
-	#[cfg(allegro_5_1_0)]
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
 	{
 		Display
@@ -315,7 +331,7 @@ impl Display
 		self.allegro_display
 	}
 
-	#[cfg(allegro_5_1_0)]
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	fn destroy_shaders(&mut self)
 	{
 		for &mut (ref mut valid, shader) in &mut self.shaders
@@ -331,7 +347,7 @@ impl Display
 		}
 	}
 
-	#[cfg(not(allegro_5_1_0))]
+	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
 	fn destroy_shaders(&mut self)
 	{
 	}
@@ -353,7 +369,7 @@ impl Drop for Display
 	}
 }
 
-#[cfg(allegro_5_1_0)]
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 pub fn register_shader(d: &mut Display, valid: Rc<Cell<bool>>, shader: *mut ALLEGRO_SHADER)
 {
 	d.shaders.push((valid, shader));
