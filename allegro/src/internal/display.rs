@@ -125,7 +125,7 @@ pub enum DisplayOrientation
 pub struct Display
 {
 	allegro_display: *mut ALLEGRO_DISPLAY,
-	_backbuffer: Rc<Bitmap>,
+	backbuffer: Rc<Bitmap>,
 	backbuffer_subbitmap: SubBitmap,
 	event_source: EventSource,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
@@ -161,7 +161,7 @@ impl Display
 		Display
 		{
 			allegro_display: d,
-			_backbuffer: backbuffer,
+			backbuffer: backbuffer,
 			backbuffer_subbitmap: backbuffer_subbitmap,
 			event_source: event_source,
 		}
@@ -173,7 +173,7 @@ impl Display
 		Display
 		{
 			allegro_display: d,
-			_backbuffer: backbuffer,
+			backbuffer: backbuffer,
 			backbuffer_subbitmap: backbuffer_subbitmap,
 			event_source: event_source,
 			shaders: vec![]
@@ -233,12 +233,13 @@ impl Display
 		&self.backbuffer_subbitmap
 	}
 
-	pub fn acknowledge_resize(&self) -> Result<(), ()>
+	pub fn acknowledge_resize(&mut self) -> Result<(), ()>
 	{
 		unsafe
 		{
 			if al_acknowledge_resize(self.allegro_display) != 0
 			{
+				self.backbuffer_subbitmap = try!(self.backbuffer.create_sub_bitmap(0, 0, self.backbuffer.get_width(), self.backbuffer.get_height()));
 				Ok(())
 			}
 			else
