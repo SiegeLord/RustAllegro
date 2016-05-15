@@ -13,7 +13,7 @@ impl Color
 {
 	pub fn from_rgb(r: u8, g: u8, b: u8) -> Color
 	{
-		Color::from_rgba(r, g, b, 0)
+		Color::from_rgba(r, g, b, 255)
 	}
 
 	pub fn from_rgba(r: u8, g: u8, b: u8, a: u8) -> Color
@@ -23,7 +23,7 @@ impl Color
 
 	pub fn from_rgb_f(r: f32, g: f32, b: f32) -> Color
 	{
-		Color::from_rgba_f(r, g, b, 0.0)
+		Color::from_rgba_f(r, g, b, 1.0)
 	}
 
 	pub fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color

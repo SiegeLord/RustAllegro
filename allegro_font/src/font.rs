@@ -101,7 +101,7 @@ impl Font
 	{
 		unsafe
 		{
-			let font = al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), (ranges.len() * 2) as c_int, ranges.as_ptr() as *const c_int);
+			let font = al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), ranges.len() as c_int, ranges.as_ptr() as *const c_int);
 			Font::wrap_allegro_font(font)
 		}
 	}
