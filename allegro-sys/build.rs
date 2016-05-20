@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use std::env::var;
-use std::fs::File;
+use std::fs::{File, canonicalize};
 use std::io::prelude::*;
 
 // Parses lines of the form KEY VALUE, where VALUE may be a quote delimited string.
@@ -45,6 +45,7 @@ fn main()
 	for include_dir in &include_dirs
 	{
 		let include_path = include_dir.clone() + "/allegro5/base.h";
+		println!("Trying to open {}.", canonicalize(&include_path).unwrap().to_str().unwrap());
 		if let Ok(mut header_file) = File::open(&include_path)
 		{
 			let mut s = String::new();
@@ -57,18 +58,7 @@ fn main()
 
 	if header_contents.is_empty()
 	{
-		println!("WARNING: Could not find the Allegro headers, falling back to targeting Allegro 5.0.10.");
-		header_contents = r#"
-#define ALLEGRO_VERSION          5
-#define ALLEGRO_SUB_VERSION      0
-#define ALLEGRO_WIP_VERSION      10
-
-#define ALLEGRO_RELEASE_NUMBER   1
-
-#define ALLEGRO_VERSION_STR      "5.0.10"
-#define ALLEGRO_DATE_STR         "2013"
-#define ALLEGRO_DATE             20130616    /* yyyymmdd */
-		"#.to_string();
+		panic!("Could not find Allegro headers!");
 	}
 
 	let mut allegro_version = -1;
