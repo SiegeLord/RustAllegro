@@ -45,7 +45,7 @@ fn main()
 	for include_dir in &include_dirs
 	{
 		let include_path = include_dir.clone() + "/allegro5/base.h";
-		println!("Trying to open {}.", canonicalize(&include_path).unwrap().to_str().unwrap());
+		println!("Trying to open {}.", include_path);
 		if let Ok(mut header_file) = File::open(&include_path)
 		{
 			let mut s = String::new();
