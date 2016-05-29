@@ -418,6 +418,7 @@
 <span id="374">374</span>
 <span id="375">375</span>
 <span id="376">376</span>
+<span id="377">377</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -546,7 +547,7 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Display</span>
 {
 	<span class='ident'>allegro_display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
-	<span class='ident'>_backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>,
+	<span class='ident'>backbuffer</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span><span class='op'>&gt;</span>,
 	<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>SubBitmap</span>,
 	<span class='ident'>event_source</span>: <span class='ident'>EventSource</span>,
 	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_0</span>))]</span>
@@ -582,7 +583,7 @@
 		<span class='ident'>Display</span>
 		{
 			<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
-			<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
+			<span class='ident'>backbuffer</span>: <span class='ident'>backbuffer</span>,
 			<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
 			<span class='ident'>event_source</span>: <span class='ident'>event_source</span>,
 		}
@@ -594,7 +595,7 @@
 		<span class='ident'>Display</span>
 		{
 			<span class='ident'>allegro_display</span>: <span class='ident'>d</span>,
-			<span class='ident'>_backbuffer</span>: <span class='ident'>backbuffer</span>,
+			<span class='ident'>backbuffer</span>: <span class='ident'>backbuffer</span>,
 			<span class='ident'>backbuffer_subbitmap</span>: <span class='ident'>backbuffer_subbitmap</span>,
 			<span class='ident'>event_source</span>: <span class='ident'>event_source</span>,
 			<span class='ident'>shaders</span>: <span class='macro'>vec</span><span class='macro'>!</span>[]
@@ -654,12 +655,13 @@
 		<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>backbuffer_subbitmap</span>
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>acknowledge_resize</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>acknowledge_resize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='kw'>if</span> <span class='ident'>al_acknowledge_resize</span>(<span class='self'>self</span>.<span class='ident'>allegro_display</span>) <span class='op'>!=</span> <span class='number'>0</span>
 			{
+				<span class='self'>self</span>.<span class='ident'>backbuffer_subbitmap</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>backbuffer</span>.<span class='ident'>create_sub_bitmap</span>(<span class='number'>0</span>, <span class='number'>0</span>, <span class='self'>self</span>.<span class='ident'>backbuffer</span>.<span class='ident'>get_width</span>(), <span class='self'>self</span>.<span class='ident'>backbuffer</span>.<span class='ident'>get_height</span>()));
 				<span class='prelude-val'>Ok</span>(())
 			}
 			<span class='kw'>else</span>

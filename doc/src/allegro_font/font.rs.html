@@ -329,7 +329,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='kw'>let</span> <span class='ident'>font</span> <span class='op'>=</span> <span class='ident'>al_grab_font_from_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>(), (<span class='ident'>ranges</span>.<span class='ident'>len</span>() <span class='op'>*</span> <span class='number'>2</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>ranges</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_int</span>);
+			<span class='kw'>let</span> <span class='ident'>font</span> <span class='op'>=</span> <span class='ident'>al_grab_font_from_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>ranges</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>ranges</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_int</span>);
 			<span class='ident'>Font</span>::<span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>)
 		}
 	}
