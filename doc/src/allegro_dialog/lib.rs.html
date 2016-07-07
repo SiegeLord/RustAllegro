@@ -213,8 +213,8 @@
 	<span class='ident'>Negatory</span>
 }
 
-<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-<span class='macro'>thread_local</span><span class='macro'>!</span>(<span class='kw'>static</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>RefCell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>));
+<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>initialized</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
+<span class='macro'>thread_local</span><span class='macro'>!</span>(<span class='kw'>static</span> <span class='ident'>spawned_on_this_thread</span>: <span class='ident'>RefCell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='boolvalue'>false</span>));
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DialogAddon</span>
 {
@@ -237,7 +237,7 @@
 				}
 				<span class='kw'>else</span>
 				{
-					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
+					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolvalue'>true</span>);
 					<span class='prelude-val'>Ok</span>(<span class='ident'>DialogAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
 				}
 			}
@@ -245,8 +245,8 @@
 			{
 				<span class='kw'>if</span> <span class='ident'>al_init_native_dialog_addon</span>() <span class='op'>!=</span> <span class='number'>0</span>
 				{
-					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolval'>true</span>);
+					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
+					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='boolvalue'>true</span>);
 					<span class='prelude-val'>Ok</span>(<span class='ident'>DialogAddon</span>{ <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
 				}
 				<span class='kw'>else</span>
@@ -323,6 +323,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

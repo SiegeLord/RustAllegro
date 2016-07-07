@@ -47,13 +47,14 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-288' class='srclink' href='../src/allegro/internal/config.rs.html#16-20' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-315' class='srclink' href='../src/allegro/internal/config.rs.html#16-20' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Config {
     // some fields omitted
 }</pre><div class='docblock'><p>Allegro configuration.</p>
 
 <p>Wraps ALLEGRO_CONFIG.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-318' class='srclink' href='../src/allegro/internal/config.rs.html#22-222' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
 <div class='docblock'><p>Creates an empty configuration.</p>
 </div><h4 id='method.load' class='method'><code>fn <a href='#method.load' class='fnname'>load</a>(path: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <div class='docblock'><p>Loads a config from a path.</p>
@@ -82,10 +83,15 @@
 returned section will typically be the root section, even if it&#39;s empty.</p>
 </div><h4 id='method.keys' class='method'><code>fn <a href='#method.keys' class='fnname'>keys</a>&lt;'l&gt;(&amp;'l self, section: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../allegro/struct.ConfigEntry.html' title='allegro::ConfigEntry'>ConfigEntry</a>&lt;'l&gt;</code></h4>
 <div class='docblock'><p>Returns an iterator over all the entries in a particular section.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
-<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-385' class='srclink' href='../src/allegro/internal/config.rs.html#224-233' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-389' class='srclink' href='../src/allegro/internal/config.rs.html#235-247' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -108,6 +114,8 @@ returned section will typically be the root section, even if it&#39;s empty.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

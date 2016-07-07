@@ -47,12 +47,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1616' class='srclink' href='../src/allegro/internal/shader.rs.html#52-56' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1805' class='srclink' href='../src/allegro/internal/shader.rs.html#52-56' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Shader {
     // some fields omitted
 }</pre><div class='docblock'><p>A shader program comprising of a pixel (fragment) and a vertex shader.
 Wraps ALLEGRO_SHADER.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(display: &amp;mut <a class='struct' href='../allegro/struct.Display.html' title='allegro::Display'>Display</a>, platform: <a class='enum' href='../allegro/enum.ShaderPlatform.html' title='allegro::ShaderPlatform'>ShaderPlatform</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1808' class='srclink' href='../src/allegro/internal/shader.rs.html#58-217' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(display: &amp;mut <a class='struct' href='../allegro/struct.Display.html' title='allegro::Display'>Display</a>, platform: <a class='enum' href='../allegro/enum.ShaderPlatform.html' title='allegro::ShaderPlatform'>ShaderPlatform</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <div class='docblock'><p>Create a new shader for a particular platform.</p>
 
 <p>A shader gets invalidated when the display is destroyed.</p>
@@ -77,8 +78,10 @@ Wraps ALLEGRO_SHADER.</p>
 </div><h4 id='method.is_valid' class='method'><code>fn <a href='#method.is_valid' class='fnname'>is_valid</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Return true if the shader is valid. Shaders are invalidated when their
 associated display dies.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../allegro/struct.Shader.html' title='allegro::Shader'>Shader</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1842' class='srclink' href='../src/allegro/internal/shader.rs.html#219-231' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +104,8 @@ associated display dies.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

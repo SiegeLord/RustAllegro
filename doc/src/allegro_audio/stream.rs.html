@@ -462,7 +462,7 @@
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
 				<span class='ident'>allegro_audio_stream</span>: <span class='ident'>stream</span>,
 				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>usize</span>,
-				<span class='ident'>created_by_load</span>: <span class='boolval'>true</span>,
+				<span class='ident'>created_by_load</span>: <span class='boolvalue'>true</span>,
 			})
 		}
 	}
@@ -484,7 +484,7 @@
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
 				<span class='ident'>allegro_audio_stream</span>: <span class='ident'>stream</span>,
 				<span class='ident'>fragment_samples</span>: <span class='ident'>samples</span> <span class='kw'>as</span> <span class='ident'>usize</span>,
-				<span class='ident'>created_by_load</span>: <span class='boolval'>false</span>,
+				<span class='ident'>created_by_load</span>: <span class='boolvalue'>false</span>,
 			})
 		}
 	}
@@ -543,8 +543,8 @@
 		{
 			<span class='kw'>match</span> <span class='ident'>al_rewind_audio_stream</span>(<span class='self'>self</span>.<span class='ident'>allegro_audio_stream</span>) <span class='op'>!=</span> <span class='number'>0</span>
 			{
-				<span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Ok</span>(()),
-				<span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(())
+				<span class='boolvalue'>true</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Ok</span>(()),
+				<span class='boolvalue'>false</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(())
 			}
 		}
 	}
@@ -656,7 +656,7 @@
 		};
 		<span class='kw'>if</span> <span class='ident'>fragment</span>.<span class='ident'>is_null</span>()
 		{
-			<span class='kw'>return</span> <span class='prelude-val'>Ok</span>(<span class='boolval'>false</span>);
+			<span class='kw'>return</span> <span class='prelude-val'>Ok</span>(<span class='boolvalue'>false</span>);
 		}
 
 		<span class='kw'>let</span> <span class='ident'>frag_size</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_channels</span>().<span class='ident'>get_num_channels</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>get_depth</span>().<span class='ident'>get_byte_size</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>fragment_samples</span>;
@@ -671,7 +671,7 @@
 
 			<span class='kw'>if</span> <span class='ident'>al_set_audio_stream_fragment</span>(<span class='self'>self</span>.<span class='ident'>allegro_audio_stream</span>, <span class='ident'>fragment</span>) <span class='op'>!=</span> <span class='number'>0</span>
 			{
-				<span class='prelude-val'>Ok</span>(<span class='boolval'>true</span>)
+				<span class='prelude-val'>Ok</span>(<span class='boolvalue'>true</span>)
 			}
 			<span class='kw'>else</span>
 			{
@@ -741,6 +741,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

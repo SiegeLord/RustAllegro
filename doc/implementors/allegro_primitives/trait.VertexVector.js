@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['allegro_primitives'] = [];
+implementors["allegro_primitives"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

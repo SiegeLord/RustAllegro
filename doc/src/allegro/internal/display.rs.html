@@ -440,8 +440,8 @@
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>external</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>DisplayOption</span>, <span class='ident'>DisplayOptionImportance</span>, <span class='ident'>DisplayOrientation</span>, <span class='ident'>Display</span>};
-	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>export_helper</span>::<span class='op'>*</span>;
+	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>DisplayOption</span>, <span class='ident'>DisplayOptionImportance</span>, <span class='ident'>DisplayOrientation</span>, <span class='ident'>Display</span>};
+	<span class='kw'>pub</span> <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>export_helper</span>::<span class='op'>*</span>;
 }
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>export_helper</span>::<span class='op'>*</span>;
@@ -765,7 +765,7 @@
 				{
 					<span class='ident'>al_destroy_shader</span>(<span class='ident'>shader</span>);
 				}
-				<span class='ident'>valid</span>.<span class='ident'>set</span>(<span class='boolval'>false</span>);
+				<span class='ident'>valid</span>.<span class='ident'>set</span>(<span class='boolvalue'>false</span>);
 			}
 		}
 	}
@@ -821,6 +821,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

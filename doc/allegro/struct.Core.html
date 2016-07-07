@@ -47,10 +47,11 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-438' class='srclink' href='../src/allegro/internal/core.rs.html#48-54' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-465' class='srclink' href='../src/allegro/internal/core.rs.html#48-54' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Core {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a></code></h3><div class='impl-items'><h4 id='method.init' class='method'><code>fn <a href='#method.init' class='fnname'>init</a>() -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-470' class='srclink' href='../src/allegro/internal/core.rs.html#56-899' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.init' class='method'><code>fn <a href='#method.init' class='fnname'>init</a>() -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../allegro/struct.Core.html' title='allegro::Core'>Core</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
 <div class='docblock'><p>This must be called on the main thread.</p>
 </div><h4 id='method.get_system_config' class='method'><code>fn <a href='#method.get_system_config' class='fnname'>get_system_config</a>() -&gt; <a class='struct' href='../allegro/struct.Config.html' title='allegro::Config'>Config</a></code></h4>
 <div class='docblock'><p>Returns the system config.
@@ -157,6 +158,8 @@ Pass None to bmp to clear the sampler.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
