@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Config","Allegro configuration."],["ConfigEntry","Configuration entry. Used for iterating through all the entries of a configuration."],["ConfigSection","Configuration section. Used for iterating through all the sections of a configuration."]]});

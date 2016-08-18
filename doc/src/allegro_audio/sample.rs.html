@@ -562,7 +562,7 @@
 			<span class='prelude-val'>Ok</span>(<span class='ident'>Sample</span>
 			{
 				<span class='ident'>allegro_sample</span>: <span class='ident'>samp</span>,
-				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolvalue'>true</span>))
+				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='bool-val'>true</span>))
 			})
 		}
 	}
@@ -675,7 +675,7 @@
 	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
 	{
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>valid</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sample_valid</span>.<span class='ident'>lock</span>().<span class='ident'>unwrap</span>();
-		<span class='op'>*</span><span class='ident'>valid</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
+		<span class='op'>*</span><span class='ident'>valid</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>al_destroy_sample</span>(<span class='self'>self</span>.<span class='ident'>allegro_sample</span>);
@@ -763,7 +763,7 @@
 			<span class='prelude-val'>Ok</span>(<span class='ident'>SampleInstance</span>
 			{
 				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
-				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolvalue'>false</span>)),
+				<span class='ident'>sample_valid</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='bool-val'>false</span>)),
 				<span class='ident'>allegro_sample_instance</span>: <span class='ident'>inst</span>
 			})
 		}
@@ -786,7 +786,7 @@
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='self'>self</span>.<span class='ident'>sample_valid</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='boolvalue'>false</span>));
+			<span class='self'>self</span>.<span class='ident'>sample_valid</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='bool-val'>false</span>));
 			<span class='comment'>// As per docs of al_set_sample</span>
 			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
 			<span class='prelude-val'>Err</span>(())

@@ -387,7 +387,7 @@
 		};
 		<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>shader</span>.<span class='ident'>is_null</span>()
 		{
-			<span class='kw'>let</span> <span class='ident'>valid</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='boolvalue'>true</span>));
+			<span class='kw'>let</span> <span class='ident'>valid</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='bool-val'>true</span>));
 			<span class='ident'>register_shader</span>(<span class='ident'>display</span>, <span class='ident'>valid</span>.<span class='ident'>clone</span>(), <span class='ident'>shader</span>);
 			<span class='prelude-val'>Ok</span>(<span class='ident'>Shader</span>
 			{

@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-667' class='srclink' href='../../src/allegro_sys/events.rs.html#76-86' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-669' class='srclink' href='../../src/allegro_sys/events.rs.html#76-86' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ALLEGRO_JOYSTICK_EVENT {
     pub _type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a>,
     pub source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a>,
@@ -57,21 +57,20 @@
     pub axis: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
     pub pos: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a>,
     pub button: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
-}</pre><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                             <td id='structfield._type'><code>_type</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.source'><code>source</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.timestamp'><code>timestamp</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.id'><code>id</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.stick'><code>stick</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.axis'><code>axis</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.pos'><code>pos</code></td><td></td></tr><tr class='stab '>
-                             <td id='structfield.button'><code>button</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_JOYSTICK_EVENT.html' title='allegro_sys::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-676' class='srclink' href='../../src/allegro_sys/events.rs.html#75' title='goto source code'>[src]</a></span></h3>
+}</pre><h2 class='fields'>Fields</h2><span id='structfield._type' class='structfield'><code>_type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a></code>
+                           </span><span class='stab '></span><span id='structfield.source' class='structfield'><code>source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a></code>
+                           </span><span class='stab '></span><span id='structfield.timestamp' class='structfield'><code>timestamp: <a class='type' href='../../libc/types/os/arch/c95/type.c_double.html' title='libc::types::os::arch::c95::c_double'>c_double</a></code>
+                           </span><span class='stab '></span><span id='structfield.id' class='structfield'><code>id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/joystick/enum.ALLEGRO_JOYSTICK.html' title='allegro_sys::joystick::ALLEGRO_JOYSTICK'>ALLEGRO_JOYSTICK</a></code>
+                           </span><span class='stab '></span><span id='structfield.stick' class='structfield'><code>stick: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span><span class='stab '></span><span id='structfield.axis' class='structfield'><code>axis: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span><span class='stab '></span><span id='structfield.pos' class='structfield'><code>pos: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a></code>
+                           </span><span class='stab '></span><span id='structfield.button' class='structfield'><code>button: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span><span class='stab '></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_JOYSTICK_EVENT.html' title='allegro_sys::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-657' class='srclink' href='../../src/allegro_sys/events.rs.html#75' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_JOYSTICK_EVENT.html' title='allegro_sys::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></code></h4>
 <div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
 <div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_JOYSTICK_EVENT.html' title='allegro_sys::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-687' class='srclink' href='../../src/allegro_sys/events.rs.html#75' title='goto source code'>[src]</a></span></h3>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_JOYSTICK_EVENT.html' title='allegro_sys::events::ALLEGRO_JOYSTICK_EVENT'>ALLEGRO_JOYSTICK_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-668' class='srclink' href='../../src/allegro_sys/events.rs.html#75' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 

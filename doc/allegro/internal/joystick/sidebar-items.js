@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["ANALOGUE",""],["DIGITAL",""]],"struct":[["Joystick",""],["StickFlags",""]]});

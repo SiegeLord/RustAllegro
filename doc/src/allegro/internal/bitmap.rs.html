@@ -380,7 +380,7 @@
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='boolvalue'>false</span> })
+				<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='bool-val'>false</span> })
 			}
 		}
 	}
@@ -398,7 +398,7 @@
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='boolvalue'>false</span> })
+			<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='bool-val'>false</span> })
 		}
 	}
 
@@ -448,7 +448,7 @@
 		{
 			<span class='kw'>unsafe</span>
 			{
-				<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='boolvalue'>false</span>);
+				<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='bool-val'>false</span>);
 			}
 		}
 	}
@@ -469,7 +469,7 @@
 		<span class='kw'>let</span> <span class='ident'>bmp</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>;
 		<span class='comment'>// Don&#39;t run MemoryBitmap&#39;s destructor</span>
 		<span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='self'>self</span>);
-		<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>bmp</span>, <span class='ident'>is_ref</span>: <span class='boolvalue'>false</span> }
+		<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>bmp</span>, <span class='ident'>is_ref</span>: <span class='bool-val'>false</span> }
 	}
 }
 
@@ -479,7 +479,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='boolvalue'>false</span>);
+			<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='bool-val'>false</span>);
 		}
 	}
 }
@@ -513,7 +513,7 @@
 	{
 		<span class='kw'>unsafe</span>
 		{
-			<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='boolvalue'>true</span>);
+			<span class='ident'>handle_bitmap_destruction</span>(<span class='self'>self</span>.<span class='ident'>allegro_bitmap</span>, <span class='bool-val'>true</span>);
 		}
 	}
 }
@@ -623,7 +623,7 @@ Expresses something that shares access with a real bitmap.
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_bitmap_ref</span>(<span class='ident'>bmp</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>Bitmap</span>
 {
-	<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>bmp</span>, <span class='ident'>is_ref</span>: <span class='boolvalue'>true</span> }
+	<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>bmp</span>, <span class='ident'>is_ref</span>: <span class='bool-val'>true</span> }
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>clone_bitmap</span>(<span class='ident'>bmp</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Bitmap</span>, ()<span class='op'>&gt;</span>
@@ -637,7 +637,7 @@ Expresses something that shares access with a real bitmap.
 		}
 		<span class='kw'>else</span>
 		{
-			<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='boolvalue'>false</span> })
+			<span class='prelude-val'>Ok</span>(<span class='ident'>Bitmap</span>{ <span class='ident'>allegro_bitmap</span>: <span class='ident'>b</span>, <span class='ident'>is_ref</span>: <span class='bool-val'>false</span> })
 		}
 	}
 }
