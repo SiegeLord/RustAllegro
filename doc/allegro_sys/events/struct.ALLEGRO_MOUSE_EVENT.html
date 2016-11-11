@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-717' class='srclink' href='../../src/allegro_sys/events.rs.html#104-120' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-666' class='srclink' href='../../src/allegro_sys/events.rs.html#104-120' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ALLEGRO_MOUSE_EVENT {
     pub _type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a>,
     pub source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/mouse/enum.ALLEGRO_MOUSE.html' title='allegro_sys::mouse::ALLEGRO_MOUSE'>ALLEGRO_MOUSE</a>,
@@ -63,27 +63,55 @@
     pub dw: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
     pub button: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
     pub pressure: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a>,
-}</pre><h2 class='fields'>Fields</h2><span id='structfield._type' class='structfield'><code>_type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a></code>
-                           </span><span class='stab '></span><span id='structfield.source' class='structfield'><code>source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/mouse/enum.ALLEGRO_MOUSE.html' title='allegro_sys::mouse::ALLEGRO_MOUSE'>ALLEGRO_MOUSE</a></code>
-                           </span><span class='stab '></span><span id='structfield.timestamp' class='structfield'><code>timestamp: <a class='type' href='../../libc/types/os/arch/c95/type.c_double.html' title='libc::types::os::arch::c95::c_double'>c_double</a></code>
-                           </span><span class='stab '></span><span id='structfield.display' class='structfield'><code>display: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/display/enum.ALLEGRO_DISPLAY.html' title='allegro_sys::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a></code>
-                           </span><span class='stab '></span><span id='structfield.x' class='structfield'><code>x: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.y' class='structfield'><code>y: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.z' class='structfield'><code>z: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.w' class='structfield'><code>w: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.dx' class='structfield'><code>dx: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.dy' class='structfield'><code>dy: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.dz' class='structfield'><code>dz: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.dw' class='structfield'><code>dw: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
-                           </span><span class='stab '></span><span id='structfield.button' class='structfield'><code>button: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a></code>
-                           </span><span class='stab '></span><span id='structfield.pressure' class='structfield'><code>pressure: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a></code>
-                           </span><span class='stab '></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-699' class='srclink' href='../../src/allegro_sys/events.rs.html#103' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></h4>
+}</pre><h2 class='fields'>Fields</h2><span id='structfield._type' class='structfield'>
+                           <span id='_type.v' class='invisible'>
+                           <code>_type: <a class='type' href='../../allegro_sys/events/type.ALLEGRO_EVENT_TYPE.html' title='allegro_sys::events::ALLEGRO_EVENT_TYPE'>ALLEGRO_EVENT_TYPE</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.source' class='structfield'>
+                           <span id='source.v' class='invisible'>
+                           <code>source: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/mouse/enum.ALLEGRO_MOUSE.html' title='allegro_sys::mouse::ALLEGRO_MOUSE'>ALLEGRO_MOUSE</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.timestamp' class='structfield'>
+                           <span id='timestamp.v' class='invisible'>
+                           <code>timestamp: <a class='type' href='../../libc/types/os/arch/c95/type.c_double.html' title='libc::types::os::arch::c95::c_double'>c_double</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.display' class='structfield'>
+                           <span id='display.v' class='invisible'>
+                           <code>display: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/display/enum.ALLEGRO_DISPLAY.html' title='allegro_sys::display::ALLEGRO_DISPLAY'>ALLEGRO_DISPLAY</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.x' class='structfield'>
+                           <span id='x.v' class='invisible'>
+                           <code>x: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.y' class='structfield'>
+                           <span id='y.v' class='invisible'>
+                           <code>y: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.z' class='structfield'>
+                           <span id='z.v' class='invisible'>
+                           <code>z: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.w' class='structfield'>
+                           <span id='w.v' class='invisible'>
+                           <code>w: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.dx' class='structfield'>
+                           <span id='dx.v' class='invisible'>
+                           <code>dx: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.dy' class='structfield'>
+                           <span id='dy.v' class='invisible'>
+                           <code>dy: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.dz' class='structfield'>
+                           <span id='dz.v' class='invisible'>
+                           <code>dz: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.dw' class='structfield'>
+                           <span id='dw.v' class='invisible'>
+                           <code>dw: <a class='type' href='../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.button' class='structfield'>
+                           <span id='button.v' class='invisible'>
+                           <code>button: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.pressure' class='structfield'>
+                           <span id='pressure.v' class='invisible'>
+                           <code>pressure: <a class='type' href='../../libc/types/os/arch/c95/type.c_float.html' title='libc::types::os::arch::c95::c_float'>c_float</a></code>
+                           </span></span><span class='stab '></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-681' class='srclink' href='../../src/allegro_sys/events.rs.html#103' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-682' class='srclink' href='../../src/allegro_sys/events.rs.html#103' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></span></h4>
 <div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
-</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
 <div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../allegro_sys/events/struct.ALLEGRO_MOUSE_EVENT.html' title='allegro_sys::events::ALLEGRO_MOUSE_EVENT'>ALLEGRO_MOUSE_EVENT</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-716' class='srclink' href='../../src/allegro_sys/events.rs.html#103' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'></div></section>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
