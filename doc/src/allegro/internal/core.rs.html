@@ -941,6 +941,40 @@
 <span id="897">897</span>
 <span id="898">898</span>
 <span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -973,6 +1007,31 @@
 		<span class='ident'>FLIP_HORIZONTAL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_FLIP_HORIZONTAL</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
 		<span class='ident'>FLIP_VERTICAL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_FLIP_VERTICAL</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>
 	}
+}
+
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>BlendMode</span>
+{
+    <span class='ident'>Zero</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ZERO</span>,
+    <span class='ident'>One</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ONE</span>,
+    <span class='ident'>Alpha</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ALPHA</span>,
+    <span class='ident'>InverseAlpha</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_ALPHA</span>,
+    <span class='ident'>SrcColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SRC_COLOR</span>,
+    <span class='ident'>DestColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DEST_COLOR</span>,
+    <span class='ident'>InverseSrcColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_SRC_COLOR</span>,
+    <span class='ident'>InverseDestColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_DEST_COLOR</span>,
+    <span class='ident'>ConstColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_CONST_COLOR</span>,
+    <span class='ident'>InverseConstColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_CONST_COLOR</span>,
+}
+
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>BlendOperation</span>
+{
+    <span class='ident'>Add</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ADD</span>,
+    <span class='ident'>SrcMinusDest</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SRC_MINUS_DEST</span>,
+    <span class='ident'>DestMinusSrc</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DEST_MINUS_SRC</span>,
 }
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>external</span>
@@ -1833,11 +1892,20 @@
 
 	<span class='doccomment'>/// Sets a shader uniform to a value.</span>
 	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_0</span>))]</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_shader_uniform</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>ShaderUniform</span> <span class='op'>+</span> ?<span class='ident'>Sized</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>val</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_shader_uniform</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>ShaderUniform</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>val</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span>
 		{
 			<span class='ident'>val</span>.<span class='ident'>set_self_for_shader</span>(<span class='ident'>name</span>)
+		}
+	}
+
+	<span class='doccomment'>/// Set blender options.</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_blender</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>op</span>: <span class='ident'>BlendOperation</span>, <span class='ident'>source</span>: <span class='ident'>BlendMode</span>, <span class='ident'>dest</span>: <span class='ident'>BlendMode</span>)
+	{
+		<span class='kw'>unsafe</span>
+		{
+			<span class='ident'>al_set_blender</span>(<span class='ident'>op</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>source</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>dest</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
 		}
 	}
 }
@@ -1898,11 +1966,9 @@
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "allegro";
-        window.playgroundUrl = "";
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>
