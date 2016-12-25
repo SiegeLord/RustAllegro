@@ -31,6 +31,31 @@ flag_type!{
 	}
 }
 
+#[repr(u32)]
+#[derive(Copy, Clone)]
+pub enum BlendMode
+{
+    Zero = ALLEGRO_ZERO,
+    One = ALLEGRO_ONE,
+    Alpha = ALLEGRO_ALPHA,
+    InverseAlpha = ALLEGRO_INVERSE_ALPHA,
+    SrcColor = ALLEGRO_SRC_COLOR,
+    DestColor = ALLEGRO_DEST_COLOR,
+    InverseSrcColor = ALLEGRO_INVERSE_SRC_COLOR,
+    InverseDestColor = ALLEGRO_INVERSE_DEST_COLOR,
+    ConstColor = ALLEGRO_CONST_COLOR,
+    InverseConstColor = ALLEGRO_INVERSE_CONST_COLOR,
+}
+
+#[repr(u32)]
+#[derive(Copy, Clone)]
+pub enum BlendOperation
+{
+    Add = ALLEGRO_ADD,
+    SrcMinusDest = ALLEGRO_SRC_MINUS_DEST,
+    DestMinusSrc = ALLEGRO_DEST_MINUS_SRC,
+}
+
 pub mod external
 {
 	pub use super::
@@ -894,6 +919,15 @@ impl Core
 		unsafe
 		{
 			val.set_self_for_shader(name)
+		}
+	}
+
+	/// Set blender options.
+	pub fn set_blender(&self, op: BlendOperation, source: BlendMode, dest: BlendMode)
+	{
+		unsafe
+		{
+			al_set_blender(op as c_int, source as c_int, dest as c_int);
 		}
 	}
 }

@@ -15,7 +15,7 @@ use std::marker::PhantomData;
 use std::ptr;
 use std::sync::{Arc, Mutex};
 
-use allegro::{Bitmap, BitmapLike, Core, Color};
+use allegro::{BitmapLike, Core, Color};
 use allegro_primitives_sys::*;
 use libc::*;
 
@@ -90,7 +90,7 @@ impl PrimitivesAddon
 		self.core_mutex.clone()
 	}
 
-	pub fn draw_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType) -> u32
+	pub fn draw_prim<T: VertexVector, B: BitmapLike>(&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType) -> u32
 	{
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe
@@ -99,7 +99,7 @@ impl PrimitivesAddon
 		}
 	}
 
-	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike = Bitmap>(&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32, type_: PrimType) -> u32
+	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike>(&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32, type_: PrimType) -> u32
 	{
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe
