@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_primitives"
-version = "0.0.28" #auto
+version = "0.0.29" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_primitives/index.html"
@@ -27,9 +27,9 @@ libc = "0.1"
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.28" #auto
+version = "=0.0.29" #auto
 
 [dependencies.allegro_primitives-sys]
 
 path = "../allegro_primitives-sys"
-version = "=0.0.28" #auto
+version = "=0.0.29" #auto
