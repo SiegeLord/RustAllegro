@@ -62,6 +62,8 @@ pub mod external
 	{
 		Core,
 		BitmapDrawingFlags,
+		BlendOperation,
+		BlendMode,
 		FLIP_NONE,
 		FLIP_HORIZONTAL,
 		FLIP_VERTICAL
