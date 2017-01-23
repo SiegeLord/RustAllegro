@@ -8,11 +8,11 @@ use std::mem;
 use std::ffi::CString;
 use std::rc::Rc;
 
-use internal::bitmap::{Bitmap, SubBitmap, SharedBitmap, new_bitmap_ref, clone_bitmap};
-use internal::bitmap_like::BitmapLike;
-use internal::color::PixelFormat;
-use internal::core::{Core, dummy_target};
-use internal::events::{EventSource, new_event_source_ref};
+use bitmap::{Bitmap, SubBitmap, SharedBitmap, new_bitmap_ref, clone_bitmap};
+use bitmap_like::BitmapLike;
+use color::PixelFormat;
+use core::{Core, dummy_target};
+use events::{EventSource, new_event_source_ref};
 
 use ffi::*;
 

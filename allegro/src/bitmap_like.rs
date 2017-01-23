@@ -5,7 +5,7 @@
 use std::mem;
 use libc::*;
 
-use internal::color::{Color, PixelFormat};
+use color::{Color, PixelFormat};
 use allegro_util::Flag;
 
 use ffi::*;

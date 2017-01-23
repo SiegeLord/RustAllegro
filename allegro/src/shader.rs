@@ -7,8 +7,8 @@ use std::ffi::{CStr, CString};
 use std::ptr;
 use std::rc::Rc;
 
-use internal::bitmap_like::BitmapLike;
-use internal::display::{Display, register_shader};
+use bitmap_like::BitmapLike;
+use display::{Display, register_shader};
 
 use libc::*;
 use ffi::*;

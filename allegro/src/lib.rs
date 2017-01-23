@@ -10,37 +10,34 @@ extern crate allegro_sys as ffi;
 #[macro_use]
 extern crate allegro_util;
 
-pub use internal::bitmap::external::*;
-pub use internal::bitmap_like::*;
-pub use internal::color::*;
-pub use internal::config::external::*;
-pub use internal::core::external::*;
-pub use internal::display::external::*;
-pub use internal::events::external::*;
-pub use internal::joystick::*;
-pub use internal::keycodes::*;
-pub use internal::run::*;
+pub use bitmap::external::*;
+pub use bitmap_like::*;
+pub use color::*;
+pub use config::external::*;
+pub use core::external::*;
+pub use display::external::*;
+pub use events::external::*;
+pub use joystick::*;
+pub use keycodes::*;
+pub use run::*;
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-pub use internal::shader::*;
-pub use internal::timer::*;
-pub use internal::transformations::external::*;
+pub use shader::*;
+pub use timer::*;
+pub use transformations::external::*;
 pub use allegro_util::*;
 
-mod internal
-{
-	pub mod bitmap;
-	pub mod bitmap_like;
-	pub mod color;
-	pub mod config;
-	pub mod core;
-	pub mod display;
-	pub mod events;
-	pub mod joystick;
-	pub mod keycodes;
-	pub mod run;
-	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	pub mod shader;
-	pub mod timer;
-	pub mod transformations;
-}
+pub mod bitmap;
+pub mod bitmap_like;
+pub mod color;
+pub mod config;
+pub mod core;
+pub mod display;
+pub mod events;
+pub mod joystick;
+pub mod keycodes;
+pub mod run;
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+pub mod shader;
+pub mod timer;
+pub mod transformations;
 pub mod allegro_main;

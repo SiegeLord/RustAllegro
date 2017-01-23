@@ -5,8 +5,8 @@
 use libc::*;
 use std::mem;
 
-use internal::keycodes::{KeyCode, KeyModifier};
-use internal::core::Core;
+use keycodes::{KeyCode, KeyModifier};
+use core::Core;
 use ffi::*;
 
 pub use self::Event::*;

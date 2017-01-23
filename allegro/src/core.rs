@@ -11,15 +11,15 @@ use std::ptr;
 
 use ffi::*;
 
-use internal::events::{EventSource, new_event_source_ref};
-use internal::keycodes::{KeyCode, KeyModifier};
-use internal::display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
-use internal::color::{Color, PixelFormat};
-use internal::config::{Config, new_config_ref};
-use internal::bitmap_like::{BitmapLike, BitmapFlags};
+use events::{EventSource, new_event_source_ref};
+use keycodes::{KeyCode, KeyModifier};
+use display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
+use color::{Color, PixelFormat};
+use config::{Config, new_config_ref};
+use bitmap_like::{BitmapLike, BitmapFlags};
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-use internal::shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
-use internal::transformations::{Transform, new_transform_wrap};
+use shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
+use transformations::{Transform, new_transform_wrap};
 use allegro_util::{Flag, from_c_str, c_bool};
 
 flag_type!{

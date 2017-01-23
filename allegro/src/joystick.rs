@@ -7,7 +7,7 @@ use std::mem;
 
 use ffi::*;
 use allegro_util::{Flag, from_c_str};
-use internal::core::Core;
+use core::Core;
 
 flag_type!{
 	StickFlags

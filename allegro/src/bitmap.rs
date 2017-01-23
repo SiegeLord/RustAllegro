@@ -7,8 +7,8 @@ use std::ffi::CString;
 use std::mem;
 use std::rc::{Rc, Weak};
 
-use internal::bitmap_like::{BitmapLike, MEMORY_BITMAP};
-use internal::core::Core;
+use bitmap_like::{BitmapLike, MEMORY_BITMAP};
+use core::Core;
 
 use ffi::*;
 
@@ -261,7 +261,7 @@ impl SharedBitmap for SubBitmap
 
 unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: bool)
 {
-	use internal::core::dummy_target;
+	use core::dummy_target;
 
 	/* If this bitmap is the target or the parent of the target
 	 * then the target becomes invalid. Set it to the dummy target. */

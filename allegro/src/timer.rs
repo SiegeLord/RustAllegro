@@ -6,8 +6,8 @@ use libc::*;
 use std::mem;
 use ffi::*;
 
-use internal::events::{EventSource, new_event_source_ref};
-use internal::core::Core;
+use events::{EventSource, new_event_source_ref};
+use core::Core;
 
 pub struct Timer
 {
