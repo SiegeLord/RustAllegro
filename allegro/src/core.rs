@@ -61,9 +61,6 @@ pub static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
 pub struct Core
 {
-	keyboard_event_source: Option<EventSource>,
-	mouse_event_source: Option<EventSource>,
-	joystick_event_source: Option<EventSource>,
 	mutex: Arc<Mutex<()>>,
 }
 
@@ -96,9 +93,6 @@ impl Core
 						(
 							Core
 							{
-								keyboard_event_source: None,
-								mouse_event_source: None,
-								joystick_event_source: None,
 								mutex: Arc::new(Mutex::new(())),
 							}
 						)
@@ -138,9 +132,6 @@ impl Core
 		{
 			thread_proc(Core
 			{
-				keyboard_event_source: None,
-				mouse_event_source: None,
-				joystick_event_source: None,
 				mutex: mutex,
 			});
 		});
@@ -214,17 +205,19 @@ impl Core
 		}
 	}
 
-	pub fn get_keyboard_event_source(&mut self) -> &EventSource
+	pub fn get_keyboard_event_source(&self) -> Option<EventSource>
 	{
-		if self.keyboard_event_source.is_none() && self.is_keyboard_installed()
+		if self.is_keyboard_installed()
 		{
 			unsafe
 			{
-				self.keyboard_event_source = Some(EventSource::wrap(al_get_keyboard_event_source()));
+				Some(EventSource::wrap(al_get_keyboard_event_source()))
 			}
 		}
-
-		self.keyboard_event_source.as_ref().expect("Keyboard not installed")
+		else
+		{
+			None
+		}
 	}
 
 	pub fn set_keyboard_leds(&self, leds: KeyModifier) -> Result<(), ()>
@@ -275,17 +268,19 @@ impl Core
 		}
 	}
 
-	pub fn get_mouse_event_source(&mut self) -> &EventSource
+	pub fn get_mouse_event_source(&self) -> Option<EventSource>
 	{
-		if self.mouse_event_source.is_none() && self.is_mouse_installed()
+		if self.is_mouse_installed()
 		{
 			unsafe
 			{
-				self.mouse_event_source = Some(EventSource::wrap(al_get_mouse_event_source()));
+				Some(EventSource::wrap(al_get_mouse_event_source()))
 			}
 		}
-
-		self.mouse_event_source.as_ref().expect("Mouse not installed")
+		else
+		{
+			None
+		}
 	}
 
 	pub fn install_joystick(&self) -> Result<(), ()>
@@ -311,17 +306,19 @@ impl Core
 		}
 	}
 
-	pub fn get_joystick_event_source(&mut self) -> &EventSource
+	pub fn get_joystick_event_source(&self) -> Option<EventSource>
 	{
-		if self.joystick_event_source.is_none() && self.is_joystick_installed()
+		if self.is_joystick_installed()
 		{
 			unsafe
 			{
-				self.joystick_event_source = Some(EventSource::wrap(al_get_joystick_event_source()));
+				Some(EventSource::wrap(al_get_joystick_event_source()))
 			}
 		}
-
-		self.joystick_event_source.as_ref().expect("Joystick not installed")
+		else
+		{
+			None
+		}
 	}
 
 	pub fn reconfigure_joysticks(&self) -> Result<(), ()>

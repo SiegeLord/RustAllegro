@@ -51,7 +51,7 @@ allegro_main!
 		return;
 	}
 
-	let mut core = Core::init().unwrap();
+	let core = Core::init().unwrap();
 	let font_addon = FontAddon::init(&core).unwrap();
 	let audio_addon = AudioAddon::init(&core).unwrap();
 	AcodecAddon::init(&audio_addon).unwrap();
@@ -70,7 +70,7 @@ allegro_main!
 
 	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source());
+	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
 	let callback = Box::new(AudioCallback{ silence: matches.opt_present("silence") });

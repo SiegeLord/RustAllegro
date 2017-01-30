@@ -12,7 +12,6 @@ use core::Core;
 pub struct Timer
 {
 	allegro_timer: *mut ALLEGRO_TIMER,
-	event_source: EventSource
 }
 
 impl Timer
@@ -24,7 +23,7 @@ impl Timer
 			let t = al_create_timer(speed_secs as c_double);
 			if !t.is_null()
 			{
-				Ok(Timer{ allegro_timer: t, event_source: EventSource::wrap(al_get_timer_event_source(t)) })
+				Ok(Timer{ allegro_timer: t })
 			}
 			else
 			{
@@ -97,9 +96,12 @@ impl Timer
 		}
 	}
 
-	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
+	pub fn get_event_source(&self) -> EventSource
 	{
-		&self.event_source
+		unsafe
+		{
+			EventSource::wrap(al_get_timer_event_source(self.allegro_timer))
+		}
 	}
 }
 

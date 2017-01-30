@@ -8,6 +8,7 @@ use std::mem;
 use keycodes::{KeyCode, KeyModifier};
 use core::Core;
 use ffi::*;
+use std::marker::PhantomData;
 
 pub use self::Event::*;
 
@@ -39,7 +40,7 @@ impl EventQueue
 		}
 	}
 
-	pub fn register_event_source(&self, src: &EventSource)
+	pub fn register_event_source(&self, src: EventSource)
 	{
 		unsafe
 		{
@@ -149,17 +150,18 @@ impl Drop for EventQueue
 	}
 }
 
-#[allow(missing_copy_implementations)]
-pub struct EventSource
+#[derive(Copy, Clone)]
+pub struct EventSource<'l>
 {
 	allegro_source: *mut ALLEGRO_EVENT_SOURCE,
+	marker: PhantomData<&'l ()>
 }
 
-impl EventSource
+impl<'m> EventSource<'m>
 {
-	pub unsafe fn wrap(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
+	pub unsafe fn wrap<'l>(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource<'l>
 	{
-		EventSource{ allegro_source: source }
+		EventSource{ allegro_source: source, marker: PhantomData }
 	}
 
 	pub fn get_event_source(&self) -> *mut ALLEGRO_EVENT_SOURCE

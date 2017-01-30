@@ -11,7 +11,7 @@ use std::env;
 use allegro::*;
 use allegro_font::*;
 
-fn other_window(mut core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
+fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 {
 	let font_addon = FontAddon::init(&core).unwrap();
 
@@ -27,7 +27,7 @@ fn other_window(mut core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 
 	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source());
+	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
 	let font = Font::new_builtin(&font_addon).unwrap();
@@ -88,7 +88,7 @@ allegro_main!
 
 	let init_only = matches.opt_present("i");
 
-	let mut core = Core::init().unwrap();
+	let core = Core::init().unwrap();
 
 	let font_addon = FontAddon::init(&core).unwrap();
 	core.install_keyboard().unwrap();
@@ -112,7 +112,7 @@ allegro_main!
 
 	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source());
+	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
 	let font = Font::new_builtin(&font_addon).unwrap();

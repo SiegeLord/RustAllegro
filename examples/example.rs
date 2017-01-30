@@ -27,7 +27,7 @@ allegro_main!
 
 	let init_only = matches.opt_present("i");
 
-	let mut core = Core::init().unwrap();
+	let core = Core::init().unwrap();
 	ImageAddon::init(&core).unwrap();
 	let font_addon = FontAddon::init(&core).unwrap();
 	let ttf_addon = TtfAddon::init(&font_addon).unwrap();
@@ -48,8 +48,8 @@ allegro_main!
 
 	let q = EventQueue::new(&core).unwrap();
 	q.register_event_source(disp.get_event_source());
-	q.register_event_source(core.get_keyboard_event_source());
-	q.register_event_source(core.get_mouse_event_source());
+	q.register_event_source(core.get_keyboard_event_source().unwrap());
+	q.register_event_source(core.get_mouse_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
 	let bmp = Rc::new(Bitmap::new(&core, 256, 256).unwrap());

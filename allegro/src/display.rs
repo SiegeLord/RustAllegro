@@ -114,7 +114,6 @@ pub struct Display
 	allegro_display: *mut ALLEGRO_DISPLAY,
 	backbuffer: Rc<Bitmap>,
 	backbuffer_subbitmap: SubBitmap,
-	event_source: EventSource,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	shaders: Vec<(Rc<Cell<bool>>, *mut ALLEGRO_SHADER)>
 }
@@ -136,33 +135,31 @@ impl Display
 				let backbuffer_subbitmap = try!(backbuffer.create_sub_bitmap(0, 0, backbuffer.get_width(), backbuffer.get_height()));
 				Ok
 				(
-					Display::new_impl(d, backbuffer, backbuffer_subbitmap, EventSource::wrap(al_get_display_event_source(d)))
+					Display::new_impl(d, backbuffer, backbuffer_subbitmap)
 				)
 			}
 		}
 	}
 
 	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
-	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap) -> Display
 	{
 		Display
 		{
 			allegro_display: d,
 			backbuffer: backbuffer,
 			backbuffer_subbitmap: backbuffer_subbitmap,
-			event_source: event_source,
 		}
 	}
 
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap, event_source: EventSource) -> Display
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap) -> Display
 	{
 		Display
 		{
 			allegro_display: d,
 			backbuffer: backbuffer,
 			backbuffer_subbitmap: backbuffer_subbitmap,
-			event_source: event_source,
 			shaders: vec![]
 		}
 	}
@@ -312,9 +309,12 @@ impl Display
 		}
 	}
 
-	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
+	pub fn get_event_source(&self) -> EventSource
 	{
-		&self.event_source
+		unsafe
+		{
+			EventSource::wrap(al_get_display_event_source(self.allegro_display))
+		}
 	}
 
 	pub fn get_allegro_display(&self) -> *mut ALLEGRO_DISPLAY
