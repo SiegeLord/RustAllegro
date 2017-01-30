@@ -6,7 +6,7 @@ use libc::*;
 use std::mem;
 use ffi::*;
 
-use events::{EventSource, new_event_source_ref};
+use events::EventSource;
 use core::Core;
 
 pub struct Timer
@@ -24,7 +24,7 @@ impl Timer
 			let t = al_create_timer(speed_secs as c_double);
 			if !t.is_null()
 			{
-				Ok(Timer{ allegro_timer: t, event_source: new_event_source_ref(al_get_timer_event_source(t)) })
+				Ok(Timer{ allegro_timer: t, event_source: EventSource::wrap(al_get_timer_event_source(t)) })
 			}
 			else
 			{

@@ -12,11 +12,6 @@ pub struct Transform(ALLEGRO_TRANSFORM);
 
 unsafe impl Send for Transform {}
 
-pub mod external
-{
-	pub use super::Transform;
-}
-
 impl Transform
 {
 	pub fn identity() -> Transform
@@ -29,7 +24,7 @@ impl Transform
 		})
 	}
 
-	pub fn from_allegro_transform(t: ALLEGRO_TRANSFORM) -> Transform
+	pub fn wrap(t: ALLEGRO_TRANSFORM) -> Transform
 	{
 		Transform(t)
 	}
@@ -117,9 +112,4 @@ impl Transform
 			al_check_inverse(&self.0, tol as c_float) != 0
 		}
 	}
-}
-
-pub fn new_transform_wrap(trans: ALLEGRO_TRANSFORM) -> Transform
-{
-	Transform(trans)
 }

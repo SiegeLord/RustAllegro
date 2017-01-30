@@ -11,12 +11,6 @@ use ffi::*;
 
 pub use self::Event::*;
 
-pub mod external
-{
-	pub use super::{Event, EventQueue, EventSource};
-	pub use super::Event::*;
-}
-
 pub struct EventQueue
 {
 	allegro_queue: *mut ALLEGRO_EVENT_QUEUE,
@@ -24,6 +18,11 @@ pub struct EventQueue
 
 impl EventQueue
 {
+	pub unsafe fn wrap(queue: *mut ALLEGRO_EVENT_QUEUE) -> EventQueue
+	{
+		EventQueue{ allegro_queue: queue }
+	}
+
 	pub fn new(_: &Core) -> Result<EventQueue, ()>
 	{
 		unsafe
@@ -35,7 +34,7 @@ impl EventQueue
 			}
 			else
 			{
-				Ok(EventQueue{ allegro_queue: q })
+				Ok(EventQueue::wrap(q))
 			}
 		}
 	}
@@ -158,6 +157,11 @@ pub struct EventSource
 
 impl EventSource
 {
+	pub unsafe fn wrap(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
+	{
+		EventSource{ allegro_source: source }
+	}
+
 	pub fn get_event_source(&self) -> *mut ALLEGRO_EVENT_SOURCE
 	{
 		self.allegro_source
@@ -405,9 +409,4 @@ impl Event
 			}
 		}
 	}
-}
-
-pub fn new_event_source_ref(source: *mut ALLEGRO_EVENT_SOURCE) -> EventSource
-{
-	EventSource{ allegro_source: source }
 }

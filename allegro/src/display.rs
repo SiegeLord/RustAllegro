@@ -8,59 +8,46 @@ use std::mem;
 use std::ffi::CString;
 use std::rc::Rc;
 
-use bitmap::{Bitmap, SubBitmap, SharedBitmap, new_bitmap_ref, clone_bitmap};
+use allegro_util::Flag;
+use bitmap::{Bitmap, SubBitmap, SharedBitmap};
 use bitmap_like::BitmapLike;
 use color::PixelFormat;
-use core::{Core, dummy_target};
-use events::{EventSource, new_event_source_ref};
+use core::{Core, DUMMY_TARGET};
+use events::EventSource;
 
 use ffi::*;
 
-pub mod external
+flag_type!
 {
-	pub use super::{DisplayOption, DisplayOptionImportance, DisplayOrientation, Display};
-	pub use super::export_helper::*;
+	DisplayFlags
+	{
+		WINDOWED                  = ALLEGRO_WINDOWED,
+		FULLSCREEN                = ALLEGRO_FULLSCREEN,
+		OPENGL                    = ALLEGRO_OPENGL,
+		DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
+		RESIZABLE                 = ALLEGRO_RESIZABLE,
+		FRAMELESS                 = ALLEGRO_FRAMELESS,
+		GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
+		OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
+		OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
+		FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
+		MINIMIZED                 = ALLEGRO_MINIMIZED
+	}
 }
-
-pub use self::export_helper::*;
-
-mod export_helper
+#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
+flags!
 {
-	use allegro_util::Flag;
-	use ffi::*;
-
-	flag_type!
+	DisplayFlags
 	{
-		DisplayFlags
-		{
-			WINDOWED                  = ALLEGRO_WINDOWED,
-			FULLSCREEN                = ALLEGRO_FULLSCREEN,
-			OPENGL                    = ALLEGRO_OPENGL,
-			DIRECT3D                  = ALLEGRO_DIRECT3D_INTERNAL,
-			RESIZABLE                 = ALLEGRO_RESIZABLE,
-			FRAMELESS                 = ALLEGRO_FRAMELESS,
-			GENERATE_EXPOSE_EVENTS    = ALLEGRO_GENERATE_EXPOSE_EVENTS,
-			OPENGL_3_0                = ALLEGRO_OPENGL_3_0,
-			OPENGL_FORWARD_COMPATIBLE = ALLEGRO_OPENGL_FORWARD_COMPATIBLE,
-			FULLSCREEN_WINDOW         = ALLEGRO_FULLSCREEN_WINDOW,
-			MINIMIZED                 = ALLEGRO_MINIMIZED
-		}
+		PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
 	}
-	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
-	flags!
+}
+#[cfg(any(allegro_5_2_0, allegro_5_1_12))]
+flags!
+{
+	DisplayFlags
 	{
-		DisplayFlags
-		{
-			PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
-		}
-	}
-	#[cfg(any(allegro_5_2_0, allegro_5_1_12))]
-	flags!
-	{
-		DisplayFlags
-		{
-			MAXIMIZED = ALLEGRO_MAXIMIZED
-		}
+		MAXIMIZED = ALLEGRO_MAXIMIZED
 	}
 }
 
@@ -145,11 +132,11 @@ impl Display
 			}
 			else
 			{
-				let backbuffer = Rc::new(new_bitmap_ref(al_get_backbuffer(d)));
+				let backbuffer = Rc::new(Bitmap::wrap(al_get_backbuffer(d), false));
 				let backbuffer_subbitmap = try!(backbuffer.create_sub_bitmap(0, 0, backbuffer.get_width(), backbuffer.get_height()));
 				Ok
 				(
-					Display::new_impl(d, backbuffer, backbuffer_subbitmap, new_event_source_ref(al_get_display_event_source(d)))
+					Display::new_impl(d, backbuffer, backbuffer_subbitmap, EventSource::wrap(al_get_display_event_source(d)))
 				)
 			}
 		}
@@ -319,7 +306,10 @@ impl Display
 
 	pub fn convert_bitmap<T: BitmapLike>(&self, bmp: &T) -> Result<Bitmap, ()>
 	{
-		clone_bitmap(bmp.get_allegro_bitmap())
+		unsafe
+		{
+			Bitmap::clone_and_wrap(bmp.get_allegro_bitmap())
+		}
 	}
 
 	pub fn get_event_source<'l>(&'l self) -> &'l EventSource
@@ -364,12 +354,13 @@ impl Drop for Display
 			al_destroy_display(self.allegro_display);
 			if al_get_target_bitmap().is_null()
 			{
-				al_set_target_bitmap(dummy_target);
+				al_set_target_bitmap(DUMMY_TARGET);
 			}
 		}
 	}
 }
 
+#[doc(hidden)]
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 pub fn register_shader(d: &mut Display, valid: Rc<Cell<bool>>, shader: *mut ALLEGRO_SHADER)
 {

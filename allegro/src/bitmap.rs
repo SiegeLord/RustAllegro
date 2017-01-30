@@ -12,15 +12,10 @@ use core::Core;
 
 use ffi::*;
 
-pub mod external
-{
-	pub use super::{Bitmap, SubBitmap, MemoryBitmap, SharedBitmap};
-}
-
 pub struct Bitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
-	is_ref: bool,
+	owned: bool,
 }
 
 impl Bitmap
@@ -36,41 +31,66 @@ impl Bitmap
 			}
 			else
 			{
-				Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
+				Ok(Bitmap::wrap(b, true))
 			}
 		}
 	}
 
 	pub fn load(_: &Core, filename: &str) -> Result<Bitmap, ()>
 	{
-		let b = unsafe
+		unsafe
 		{
 			let filename = CString::new(filename.as_bytes()).unwrap();
-			al_load_bitmap(filename.as_ptr())
-		};
+			let b = al_load_bitmap(filename.as_ptr());
+			if b.is_null()
+			{
+				Err(())
+			}
+			else
+			{
+				Ok(Bitmap::wrap(b, true))
+			}
+		}
+	}
+
+	/// Wraps an Allegro bitmap.
+	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP, own: bool) -> Bitmap
+	{
+		Bitmap{ allegro_bitmap: bmp, owned: own }
+	}
+
+	pub unsafe fn clone_and_wrap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
+	{
+		let b = al_clone_bitmap(bmp);
 		if b.is_null()
 		{
 			Err(())
 		}
 		else
 		{
-			Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
+			Ok(Bitmap::wrap(b, true))
 		}
 	}
 
 	pub fn maybe_clone(&self) -> Result<Bitmap, ()>
 	{
-		clone_bitmap(self.allegro_bitmap)
+		unsafe
+		{
+			Bitmap::clone_and_wrap(self.allegro_bitmap)
+		}
 	}
 
 	pub fn into_memory_bitmap(self) -> Result<MemoryBitmap, Bitmap>
 	{
-		if self.get_flags() & MEMORY_BITMAP && !self.is_ref
+		if self.get_flags() & MEMORY_BITMAP && self.owned
 		{
 			let bmp = self.allegro_bitmap;
 			// Don't run Bitmap's destructor
 			mem::forget(self);
-			Ok(MemoryBitmap{ allegro_bitmap: bmp })
+			unsafe
+			{
+				Ok(MemoryBitmap::wrap(bmp))
+			}
 		}
 		else
 		{
@@ -100,7 +120,7 @@ impl Drop for Bitmap
 {
 	fn drop(&mut self)
 	{
-		if !self.is_ref
+		if self.owned
 		{
 			unsafe
 			{
@@ -120,12 +140,23 @@ unsafe impl Send for MemoryBitmap {}
 
 impl MemoryBitmap
 {
+	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP) -> MemoryBitmap
+	{
+		MemoryBitmap
+		{
+			allegro_bitmap: bmp
+		}
+	}
+
 	pub fn into_bitmap(self) -> Bitmap
 	{
 		let bmp = self.allegro_bitmap;
 		// Don't run MemoryBitmap's destructor
 		mem::forget(self);
-		Bitmap{ allegro_bitmap: bmp, is_ref: false }
+		unsafe
+		{
+			Bitmap::wrap(bmp, true)
+		}
 	}
 }
 
@@ -150,7 +181,10 @@ impl SubBitmap
 {
 	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
 	{
-		clone_bitmap(self.allegro_bitmap)
+		unsafe
+		{
+			Bitmap::clone_and_wrap(self.allegro_bitmap)
+		}
 	}
 }
 
@@ -219,13 +253,13 @@ impl SharedBitmap for Weak<Bitmap>
 	{
 		self.upgrade().and_then(|bitmap|
 		{
-			if bitmap.is_ref
+			if bitmap.owned
 			{
-				None
+				Some(bitmap)
 			}
 			else
 			{
-				Some(bitmap)
+				None
 			}
 		})
 	}
@@ -240,8 +274,8 @@ impl SharedBitmap for Rc<Bitmap>
 
 	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
 	{
-		// We shouldn't ever hand out Bitmaps that are refs.
-		assert!(!self.is_ref);
+		// We shouldn't ever hand out Bitmaps that are not owned.
+		assert!(self.owned);
 		Some(self.clone())
 	}
 }
@@ -250,6 +284,7 @@ impl SharedBitmap for SubBitmap
 {
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
 	{
+		// TODO: This isn't correct.
 		self.parent.create_sub_bitmap(x, y, w, h)
 	}
 
@@ -261,7 +296,7 @@ impl SharedBitmap for SubBitmap
 
 unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: bool)
 {
-	use core::dummy_target;
+	use core::DUMMY_TARGET;
 
 	/* If this bitmap is the target or the parent of the target
 	 * then the target becomes invalid. Set it to the dummy target. */
@@ -272,28 +307,7 @@ unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: boo
 	}
 	if target == bmp || (!is_sub_bitmap && al_get_parent_bitmap(target) == bmp)
 	{
-		al_set_target_bitmap(dummy_target);
+		al_set_target_bitmap(DUMMY_TARGET);
 	}
 	al_destroy_bitmap(bmp);
-}
-
-pub fn new_bitmap_ref(bmp: *mut ALLEGRO_BITMAP) -> Bitmap
-{
-	Bitmap{ allegro_bitmap: bmp, is_ref: true }
-}
-
-pub fn clone_bitmap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
-{
-	unsafe
-	{
-		let b = al_clone_bitmap(bmp);
-		if b.is_null()
-		{
-			Err(())
-		}
-		else
-		{
-			Ok(Bitmap{ allegro_bitmap: b, is_ref: false })
-		}
-	}
 }

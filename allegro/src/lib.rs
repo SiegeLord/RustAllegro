@@ -10,20 +10,20 @@ extern crate allegro_sys as ffi;
 #[macro_use]
 extern crate allegro_util;
 
-pub use bitmap::external::*;
+pub use bitmap::*;
 pub use bitmap_like::*;
 pub use color::*;
-pub use config::external::*;
-pub use core::external::*;
-pub use display::external::*;
-pub use events::external::*;
+pub use config::*;
+pub use core::*;
+pub use display::*;
+pub use events::*;
 pub use joystick::*;
 pub use keycodes::*;
 pub use run::*;
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 pub use shader::*;
 pub use timer::*;
-pub use transformations::external::*;
+pub use transformations::*;
 pub use allegro_util::*;
 
 pub mod bitmap;

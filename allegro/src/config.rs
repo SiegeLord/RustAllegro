@@ -3,11 +3,6 @@ use std::ptr;
 
 use ffi::*;
 
-pub mod external
-{
-	pub use super::{Config, ConfigEntry, ConfigSection};
-}
-
 /**
 Allegro configuration.
 
@@ -16,7 +11,7 @@ Wraps ALLEGRO_CONFIG.
 pub struct Config
 {
 	allegro_config: *mut ALLEGRO_CONFIG,
-	is_ref: bool,
+	owned: bool,
 }
 
 impl Config
@@ -26,11 +21,16 @@ impl Config
 	{
 		unsafe
 		{
-			Config
-			{
-				allegro_config: al_create_config(),
-				is_ref: false
-			}
+			Config::wrap(al_create_config(), true)
+		}
+	}
+
+	pub unsafe fn wrap(config: *mut ALLEGRO_CONFIG, own: bool) -> Config
+	{
+		Config
+		{
+			allegro_config: config,
+			owned: own,
 		}
 	}
 
@@ -38,37 +38,26 @@ impl Config
 	pub fn load(path: &str) -> Result<Config, ()>
 	{
 		let path = CString::new(path.as_bytes()).unwrap();
-		let allegro_config = unsafe
+		unsafe
 		{
-			al_load_config_file(path.as_ptr())
-		};
-		if allegro_config.is_null()
-		{
-			Err(())
-		}
-		else
-		{
-			Ok(
-				Config
-				{
-					allegro_config: allegro_config,
-					is_ref: false
-				}
-			)
+			let allegro_config = al_load_config_file(path.as_ptr());
+			if allegro_config.is_null()
+			{
+				Err(())
+			}
+			else
+			{
+				Ok(Config::wrap(allegro_config, true))
+			}
 		}
 	}
 
 	/// Merge two configs into 1.
 	pub fn merge(cfg1: &Config, cfg2: &Config) -> Config
 	{
-		let allegro_config = unsafe
+		unsafe
 		{
-			al_merge_config(cfg1.allegro_config, cfg2.allegro_config)
-		};
-		Config
-		{
-			allegro_config: allegro_config,
-			is_ref: false
+			Config::wrap(al_merge_config(cfg1.allegro_config, cfg2.allegro_config), true)
 		}
 	}
 
@@ -236,7 +225,7 @@ impl Drop for Config
 {
 	fn drop(&mut self)
 	{
-		if !self.is_ref
+		if self.owned
 		{
 			unsafe
 			{
@@ -315,14 +304,5 @@ impl<'l> Iterator for ConfigEntry<'l>
 			};
 		}
 		ret
-	}
-}
-
-pub fn new_config_ref(config: *mut ALLEGRO_CONFIG) -> Config
-{
-	Config
-	{
-		allegro_config: config,
-		is_ref: true,
 	}
 }

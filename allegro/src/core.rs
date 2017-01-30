@@ -11,15 +11,15 @@ use std::ptr;
 
 use ffi::*;
 
-use events::{EventSource, new_event_source_ref};
+use events::EventSource;
 use keycodes::{KeyCode, KeyModifier};
 use display::{Display, DisplayOption, DisplayOptionImportance, DisplayFlags};
 use color::{Color, PixelFormat};
-use config::{Config, new_config_ref};
+use config::Config;
 use bitmap_like::{BitmapLike, BitmapFlags};
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 use shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
-use transformations::{Transform, new_transform_wrap};
+use transformations::Transform;
 use allegro_util::{Flag, from_c_str, c_bool};
 
 flag_type!{
@@ -56,21 +56,8 @@ pub enum BlendOperation
     DestMinusSrc = ALLEGRO_DEST_MINUS_SRC,
 }
 
-pub mod external
-{
-	pub use super::
-	{
-		Core,
-		BitmapDrawingFlags,
-		BlendOperation,
-		BlendMode,
-		FLIP_NONE,
-		FLIP_HORIZONTAL,
-		FLIP_VERTICAL
-	};
-}
-
-pub static mut dummy_target: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
+#[doc(hidden)]
+pub static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
 pub struct Core
 {
@@ -86,25 +73,25 @@ impl Core
 	pub fn init() -> Result<Core, String>
 	{
 		use std::sync::{Once, ONCE_INIT};
-		static mut run_once: Once = ONCE_INIT;
+		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("Already initialized.".to_string());
 		unsafe
 		{
-			run_once.call_once(||
+			RUN_ONCE.call_once(||
 			{
 				res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 				{
 					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP as i32);
-					dummy_target = al_create_bitmap(1, 1);
+					DUMMY_TARGET = al_create_bitmap(1, 1);
 					al_set_new_bitmap_flags(0);
-					if dummy_target.is_null()
+					if DUMMY_TARGET.is_null()
 					{
 						Err("Failed to create the dummy target... something is very wrong!".to_string())
 					}
 					else
 					{
-						al_set_target_bitmap(dummy_target);
+						al_set_target_bitmap(DUMMY_TARGET);
 						Ok
 						(
 							Core
@@ -140,7 +127,7 @@ impl Core
 	{
 		unsafe
 		{
-			new_config_ref(al_get_system_config())
+			Config::wrap(al_get_system_config(), false)
 		}
 	}
 
@@ -233,7 +220,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.keyboard_event_source = Some(new_event_source_ref(al_get_keyboard_event_source()));
+				self.keyboard_event_source = Some(EventSource::wrap(al_get_keyboard_event_source()));
 			}
 		}
 
@@ -294,7 +281,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.mouse_event_source = Some(new_event_source_ref(al_get_mouse_event_source()));
+				self.mouse_event_source = Some(EventSource::wrap(al_get_mouse_event_source()));
 			}
 		}
 
@@ -330,7 +317,7 @@ impl Core
 		{
 			unsafe
 			{
-				self.joystick_event_source = Some(new_event_source_ref(al_get_joystick_event_source()));
+				self.joystick_event_source = Some(EventSource::wrap(al_get_joystick_event_source()));
 			}
 		}
 
@@ -776,7 +763,7 @@ impl Core
 		}
 		unsafe
 		{
-			new_transform_wrap(*t)
+			Transform::wrap(*t)
 		}
 	}
 

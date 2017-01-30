@@ -9,13 +9,13 @@ use std::thread::spawn;
 
 use ffi::*;
 
-static mut global_main_func: Option<extern "Rust" fn()> = None;
+static mut GLOBAL_MAIN_FUNC: Option<extern "Rust" fn()> = None;
 
 pub fn run(main_func: extern "Rust" fn()) -> !
 {
 	unsafe
 	{
-		global_main_func = Some(main_func);
+		GLOBAL_MAIN_FUNC = Some(main_func);
 		let ret = al_run_main(0, ptr::null(), allegro_main);
 		process::exit(ret)
 	}
@@ -28,7 +28,7 @@ fn allegro_main(_: i32, _: *const *const i8) -> c_int
 	{
 		let ok = spawn(move ||
 		{
-			(global_main_func.unwrap())();
+			(GLOBAL_MAIN_FUNC.unwrap())();
 		}).join().is_ok();
 		al_uninstall_system();
 		if ok
