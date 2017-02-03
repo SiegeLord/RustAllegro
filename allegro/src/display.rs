@@ -9,7 +9,7 @@ use std::ffi::CString;
 use std::rc::Rc;
 
 use allegro_util::Flag;
-use bitmap::{Bitmap, SubBitmap, SharedBitmap};
+use bitmap::Bitmap;
 use bitmap_like::BitmapLike;
 use color::PixelFormat;
 use core::{Core, DUMMY_TARGET};
@@ -112,8 +112,7 @@ pub enum DisplayOrientation
 pub struct Display
 {
 	allegro_display: *mut ALLEGRO_DISPLAY,
-	backbuffer: Rc<Bitmap>,
-	backbuffer_subbitmap: SubBitmap,
+	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	shaders: Vec<(Rc<Cell<bool>>, *mut ALLEGRO_SHADER)>
 }
@@ -131,35 +130,32 @@ impl Display
 			}
 			else
 			{
-				let backbuffer = Rc::new(Bitmap::wrap(al_get_backbuffer(d), false));
-				let backbuffer_subbitmap = try!(backbuffer.create_sub_bitmap(0, 0, backbuffer.get_width(), backbuffer.get_height()));
+				let backbuffer = Bitmap::wrap(al_get_backbuffer(d), false);
 				Ok
 				(
-					Display::new_impl(d, backbuffer, backbuffer_subbitmap)
+					Display::new_impl(d, backbuffer)
 				)
 			}
 		}
 	}
 
 	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
-	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap) -> Display
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Bitmap) -> Display
 	{
 		Display
 		{
 			allegro_display: d,
 			backbuffer: backbuffer,
-			backbuffer_subbitmap: backbuffer_subbitmap,
 		}
 	}
 
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Rc<Bitmap>, backbuffer_subbitmap: SubBitmap) -> Display
+	fn new_impl(d: *mut ALLEGRO_DISPLAY, backbuffer: Bitmap) -> Display
 	{
 		Display
 		{
 			allegro_display: d,
 			backbuffer: backbuffer,
-			backbuffer_subbitmap: backbuffer_subbitmap,
 			shaders: vec![]
 		}
 	}
@@ -212,18 +208,17 @@ impl Display
 		}
 	}
 
-	pub fn get_backbuffer(&self) -> &SubBitmap
+	pub fn get_backbuffer(&self) -> &Bitmap
 	{
-		&self.backbuffer_subbitmap
+		&self.backbuffer
 	}
 
-	pub fn acknowledge_resize(&mut self) -> Result<(), ()>
+	pub fn acknowledge_resize(&self) -> Result<(), ()>
 	{
 		unsafe
 		{
 			if al_acknowledge_resize(self.allegro_display) != 0
 			{
-				self.backbuffer_subbitmap = try!(self.backbuffer.create_sub_bitmap(0, 0, self.backbuffer.get_width(), self.backbuffer.get_height()));
 				Ok(())
 			}
 			else

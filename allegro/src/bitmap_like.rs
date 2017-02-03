@@ -3,9 +3,11 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use std::mem;
+use std::rc::Weak;
 use libc::*;
 
 use color::{Color, PixelFormat};
+use bitmap::SubBitmap;
 use allegro_util::Flag;
 
 use ffi::*;
@@ -32,6 +34,13 @@ A trait implemented by types that behave like bitmaps.
 pub trait BitmapLike
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP;
+
+	/**
+	Creates a sub-bitmap of the current bitmap. Note that the parent bitmap
+	will panic upon destruction if any strong references to its sub-bitmaps are
+	held at that time.
+	*/
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>;
 
 	fn get_width(&self) -> i32
 	{

@@ -6,6 +6,7 @@ use libc::*;
 use std::ffi::CString;
 use std::mem;
 use std::rc::{Rc, Weak};
+use std::cell::RefCell;
 
 use bitmap_like::{BitmapLike, MEMORY_BITMAP};
 use core::Core;
@@ -16,6 +17,7 @@ pub struct Bitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
 	owned: bool,
+	sub_bitmaps: Rc<RefCell<Vec<Rc<SubBitmap>>>>,
 }
 
 impl Bitmap
@@ -56,7 +58,11 @@ impl Bitmap
 	/// Wraps an Allegro bitmap.
 	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP, own: bool) -> Bitmap
 	{
-		Bitmap{ allegro_bitmap: bmp, owned: own }
+		Bitmap {
+			allegro_bitmap: bmp,
+			owned: own,
+			sub_bitmaps: Rc::new(RefCell::new(vec![])),
+		}
 	}
 
 	pub unsafe fn clone_and_wrap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
@@ -72,6 +78,18 @@ impl Bitmap
 		}
 	}
 
+	fn has_outstanding_sub_bitmaps(&self) -> bool
+	{
+		for bmp in &*self.sub_bitmaps.borrow()
+		{
+			if Rc::strong_count(&bmp) != 1
+			{
+				return true;
+			}
+		}
+		false
+	}
+
 	pub fn maybe_clone(&self) -> Result<Bitmap, ()>
 	{
 		unsafe
@@ -80,11 +98,22 @@ impl Bitmap
 		}
 	}
 
+	/**
+	Converts a bitmap into a memory bitmap, if possible.
+
+	Panics if there are any outstanding sub-bitmaps.
+	*/
 	pub fn into_memory_bitmap(self) -> Result<MemoryBitmap, Bitmap>
 	{
 		if self.get_flags() & MEMORY_BITMAP && self.owned
 		{
 			let bmp = self.allegro_bitmap;
+			if self.has_outstanding_sub_bitmaps()
+			{
+				panic!("Bitmap has outstanding sub-bitmaps.");
+			}
+			// Clone the sub-bitmaps out, so we don't leak them.
+			let _ = self.sub_bitmaps.clone();
 			// Don't run Bitmap's destructor
 			mem::forget(self);
 			unsafe
@@ -105,6 +134,11 @@ impl BitmapLike for Bitmap
 	{
 		self.allegro_bitmap
 	}
+
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>
+	{
+		SubBitmap::new(self.allegro_bitmap, Rc::downgrade(&self.sub_bitmaps), x, y, w, h)
+	}
 }
 
 impl Clone for Bitmap
@@ -115,11 +149,14 @@ impl Clone for Bitmap
 	}
 }
 
-// Not Send just because of the marker
 impl Drop for Bitmap
 {
 	fn drop(&mut self)
 	{
+		if self.has_outstanding_sub_bitmaps()
+		{
+			panic!("Bitmap has outstanding sub-bitmaps.");
+		}
 		if self.owned
 		{
 			unsafe
@@ -174,11 +211,37 @@ impl Drop for MemoryBitmap
 pub struct SubBitmap
 {
 	allegro_bitmap: *mut ALLEGRO_BITMAP,
-	parent: Weak<Bitmap>,
+	siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>,
 }
 
 impl SubBitmap
 {
+	fn new(parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>
+	{
+		let b = unsafe
+		{
+			al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int)
+		};
+		if b.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			if let Some(siblings) = siblings.upgrade()
+			{
+				let sub_bitmap = Rc::new(SubBitmap{ allegro_bitmap: b, siblings: Rc::downgrade(&siblings) });
+				let ret = Rc::downgrade(&sub_bitmap);
+				siblings.borrow_mut().push(sub_bitmap);
+				Ok(ret)
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
 	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
 	{
 		unsafe
@@ -192,8 +255,12 @@ impl BitmapLike for SubBitmap
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
 	{
-		self.parent.upgrade().expect("My parent is deaaaad!");
 		self.allegro_bitmap
+	}
+
+	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>
+	{
+		SubBitmap::new(self.allegro_bitmap, self.siblings.clone(), x, y, w, h)
 	}
 }
 
@@ -205,92 +272,6 @@ impl Drop for SubBitmap
 		{
 			handle_bitmap_destruction(self.allegro_bitmap, true);
 		}
-	}
-}
-
-fn create_sub_bitmap(bitmap: &Rc<Bitmap>, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
-{
-	let b = unsafe
-	{
-		al_create_sub_bitmap(bitmap.allegro_bitmap, x as c_int, y as c_int, w as c_int, h as c_int)
-	};
-	if b.is_null()
-	{
-		Err(())
-	}
-	else
-	{
-		Ok(SubBitmap{ allegro_bitmap: b, parent: Rc::downgrade(&bitmap) })
-	}
-}
-
-/**
-Expresses something that shares access with a real bitmap.
-*/
-pub trait SharedBitmap
-{
-	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>;
-
-	/// Returns the backing bitmap, if possible.
-	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>;
-}
-
-impl SharedBitmap for Weak<Bitmap>
-{
-	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
-	{
-		if let Some(bitmap) = self.upgrade()
-		{
-			create_sub_bitmap(&bitmap, x, y, w, h)
-		}
-		else
-		{
-			Err(())
-		}
-	}
-
-	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
-	{
-		self.upgrade().and_then(|bitmap|
-		{
-			if bitmap.owned
-			{
-				Some(bitmap)
-			}
-			else
-			{
-				None
-			}
-		})
-	}
-}
-
-impl SharedBitmap for Rc<Bitmap>
-{
-	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
-	{
-		create_sub_bitmap(self, x, y, w, h)
-	}
-
-	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
-	{
-		// We shouldn't ever hand out Bitmaps that are not owned.
-		assert!(self.owned);
-		Some(self.clone())
-	}
-}
-
-impl SharedBitmap for SubBitmap
-{
-	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<SubBitmap, ()>
-	{
-		// TODO: This isn't correct.
-		self.parent.create_sub_bitmap(x, y, w, h)
-	}
-
-	fn get_backing_bitmap(&self) -> Option<Rc<Bitmap>>
-	{
-		self.parent.get_backing_bitmap()
 	}
 }
 
