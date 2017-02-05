@@ -2,13 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::cell::Cell;
 use std::ffi::{CStr, CString};
 use std::ptr;
-use std::rc::Rc;
-
-use bitmap_like::BitmapLike;
-use display::{Display, register_shader};
 
 use libc::*;
 use ffi::*;
@@ -52,62 +47,29 @@ pub enum ShaderType
 pub struct Shader
 {
 	allegro_shader: *mut ALLEGRO_SHADER,
-	valid: Rc<Cell<bool>>,
 }
 
 impl Shader
 {
-	/// Create a new shader for a particular platform.
-	///
-	/// A shader gets invalidated when the display is destroyed.
-	pub fn new(display: &mut Display, platform: ShaderPlatform) -> Result<Shader, ()>
+	pub unsafe fn wrap(shader: *mut ALLEGRO_SHADER) -> Shader
 	{
-		let shader;
-		unsafe
+		Shader
 		{
-			let old_target = al_get_target_bitmap();
-			al_set_target_bitmap(display.get_backbuffer().get_allegro_bitmap());
-			shader = al_create_shader(platform as ALLEGRO_SHADER_PLATFORM);
-			al_set_target_bitmap(old_target);
-		};
-		if !shader.is_null()
-		{
-			let valid = Rc::new(Cell::new(true));
-			register_shader(display, valid.clone(), shader);
-			Ok(Shader
-			{
-				allegro_shader: shader,
-				valid: valid,
-			})
-		}
-		else
-		{
-			Err(())
+			allegro_shader: shader,
 		}
 	}
 
 	/// Return the wrapped Allegro shader pointer.
 	pub fn get_allegro_shader(&self) -> *mut ALLEGRO_SHADER
 	{
-		if self.is_valid()
-		{
-			self.allegro_shader
-		}
-		else
-		{
-			ptr::null_mut()
-		}
+		self.allegro_shader
 	}
 
 	/// Attach a source to the shader. Passing None clears the source.
 	///
 	/// Returns the log if there was an error.
-	pub fn attach_shader_source(&mut self, shader_type: ShaderType, source: Option<&str>) -> Result<(), String>
+	pub fn attach_shader_source(&self, shader_type: ShaderType, source: Option<&str>) -> Result<(), String>
 	{
-		if !self.is_valid()
-		{
-			return Err("Shader is not valid".to_string());
-		}
 		let shader_type = shader_type as ALLEGRO_SHADER_TYPE;
 		let ret = unsafe
 		{
@@ -134,12 +96,8 @@ impl Shader
 	/// Attach a source to the shader that is loaded from a file.
 	///
 	/// Returns the log if there was an error.
-	pub fn attach_shader_source_file(&mut self, shader_type: ShaderType, filename: &str) -> Result<(), String>
+	pub fn attach_shader_source_file(&self, shader_type: ShaderType, filename: &str) -> Result<(), String>
 	{
-		if !self.is_valid()
-		{
-			return Err("Shader is not valid".to_string())
-		}
 		let filename = CString::new(filename.as_bytes()).unwrap();
 		let ret = unsafe
 		{
@@ -158,12 +116,8 @@ impl Shader
 	/// Build the shader. Call this after attaching the sources.
 	///
 	/// Returns the log if there was an error.
-	pub fn build(&mut self) -> Result<(), String>
+	pub fn build(&self) -> Result<(), String>
 	{
-		if !self.is_valid()
-		{
-			return Err("Shader is not valid".to_string());
-		}
 		let ret = unsafe
 		{
 			al_build_shader(self.allegro_shader)
@@ -181,10 +135,6 @@ impl Shader
 	/// Get the log from the shader. Call this function if any of the attach/build functions fail to determine what went wrong.
 	pub fn get_log(&self) -> String
 	{
-		if !self.is_valid()
-		{
-			return "".to_string();
-		}
 		unsafe
 		{
 			let log = al_get_shader_log(self.allegro_shader);
@@ -193,26 +143,12 @@ impl Shader
 	}
 
 	/// Return the platform of this shader.
-	pub fn get_platform(&self) -> Result<ShaderPlatform, ()>
+	pub fn get_platform(&self) -> ShaderPlatform
 	{
-		if self.is_valid()
+		unsafe
 		{
-			unsafe
-			{
-				Ok(ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader)))
-			}
+			ShaderPlatform::from_allegro(al_get_shader_platform(self.allegro_shader))
 		}
-		else
-		{
-			return Err(())
-		}
-	}
-
-	/// Return true if the shader is valid. Shaders are invalidated when their
-	/// associated display dies.
-	pub fn is_valid(&self) -> bool
-	{
-		self.valid.get()
 	}
 }
 
@@ -220,12 +156,9 @@ impl Drop for Shader
 {
 	fn drop(&mut self)
 	{
-		if self.is_valid()
+		unsafe
 		{
-			unsafe
-			{
-				al_destroy_shader(self.allegro_shader);
-			}
+			al_destroy_shader(self.allegro_shader);
 		}
 	}
 }

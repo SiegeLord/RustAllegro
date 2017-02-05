@@ -3,10 +3,9 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use libc::*;
-use std::cell::Cell;
 use std::mem;
 use std::ffi::CString;
-use std::rc::Rc;
+use std::rc::{Rc, Weak};
 
 use allegro_util::Flag;
 use bitmap::Bitmap;
@@ -14,6 +13,8 @@ use bitmap_like::BitmapLike;
 use color::PixelFormat;
 use core::{Core, DUMMY_TARGET};
 use events::EventSource;
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+use shader::{Shader, ShaderPlatform};
 
 use ffi::*;
 
@@ -114,7 +115,7 @@ pub struct Display
 	allegro_display: *mut ALLEGRO_DISPLAY,
 	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	shaders: Vec<(Rc<Cell<bool>>, *mut ALLEGRO_SHADER)>
+	shaders: Vec<Rc<Shader>>
 }
 
 impl Display
@@ -317,25 +318,54 @@ impl Display
 		self.allegro_display
 	}
 
+	/// Create a new shader associated with this display.
+	///
+	/// Note that display destruction will panic if a strong reference is held
+	/// to a shader at that time.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	fn destroy_shaders(&mut self)
+	pub fn create_shader(&mut self, platform: ShaderPlatform) -> Result<Weak<Shader>, ()>
 	{
-		for &mut (ref mut valid, shader) in &mut self.shaders
+		let shader;
+		unsafe
 		{
-			if valid.get()
+			let old_target = al_get_target_bitmap();
+			al_set_target_bitmap(self.get_backbuffer().get_allegro_bitmap());
+			shader = al_create_shader(platform as ALLEGRO_SHADER_PLATFORM);
+			al_set_target_bitmap(old_target);
+		};
+		if !shader.is_null()
+		{
+			let shader = unsafe
 			{
-				unsafe
-				{
-					al_destroy_shader(shader);
-				}
-				valid.set(false);
-			}
+				Rc::new(Shader::wrap(shader))
+			};
+			let ret = Rc::downgrade(&shader);
+			self.shaders.push(shader);
+			Ok(ret)
+		}
+		else
+		{
+			Err(())
 		}
 	}
 
-	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
-	fn destroy_shaders(&mut self)
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	fn has_outstanding_shaders(&self) -> bool
 	{
+		for shader in &self.shaders
+		{
+			if Rc::strong_count(&shader) != 1
+			{
+				return true;
+			}
+		}
+		false
+	}
+
+	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
+	fn has_outstanding_shaders(&self) -> bool
+	{
+		false
 	}
 }
 
@@ -343,7 +373,10 @@ impl Drop for Display
 {
 	fn drop(&mut self)
 	{
-		self.destroy_shaders();
+		if self.has_outstanding_shaders()
+		{
+			panic!("Display has outstanding shaders!");
+		}
 		unsafe
 		{
 			al_destroy_display(self.allegro_display);
@@ -353,11 +386,4 @@ impl Drop for Display
 			}
 		}
 	}
-}
-
-#[doc(hidden)]
-#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-pub fn register_shader(d: &mut Display, valid: Rc<Cell<bool>>, shader: *mut ALLEGRO_SHADER)
-{
-	d.shaders.push((valid, shader));
 }

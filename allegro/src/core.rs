@@ -781,20 +781,13 @@ impl Core
 		{
 			Some(shader) =>
 			{
-				if shader.is_valid()
+				let ret = unsafe
 				{
-					let ret = unsafe
-					{
-						al_use_shader(shader.get_allegro_shader())
-					};
-					if ret != 0
-					{
-						Ok(())
-					}
-					else
-					{
-						Err(())
-					}
+					al_use_shader(shader.get_allegro_shader())
+				};
+				if ret != 0
+				{
+					Ok(())
 				}
 				else
 				{
