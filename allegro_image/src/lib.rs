@@ -7,7 +7,6 @@
 #![allow(non_upper_case_globals)]
 
 extern crate allegro;
-#[macro_use]
 extern crate allegro_util;
 extern crate libc;
 
