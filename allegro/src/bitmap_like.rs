@@ -2,15 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use std::mem;
-use std::rc::Weak;
-use libc::*;
+use allegro_util::Flag;
+use bitmap::SubBitmap;
 
 use color::{Color, PixelFormat};
-use bitmap::SubBitmap;
-use allegro_util::Flag;
 
 use ffi::*;
+use libc::*;
+use std::mem;
+use std::rc::Weak;
 
 flag_type!{
 	BitmapFlags
@@ -44,48 +44,32 @@ pub trait BitmapLike
 
 	fn get_width(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_bitmap_width(self.get_allegro_bitmap()) as i32
-		}
+		unsafe { al_get_bitmap_width(self.get_allegro_bitmap()) as i32 }
 	}
 
 	fn get_height(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_bitmap_height(self.get_allegro_bitmap()) as i32
-		}
+		unsafe { al_get_bitmap_height(self.get_allegro_bitmap()) as i32 }
 	}
 
 	fn get_format(&self) -> PixelFormat
 	{
-		unsafe
-		{
-			mem::transmute(al_get_bitmap_format(self.get_allegro_bitmap()) as u32)
-		}
+		unsafe { mem::transmute(al_get_bitmap_format(self.get_allegro_bitmap()) as u32) }
 	}
 
 	fn get_flags(&self) -> BitmapFlags
 	{
-		unsafe
-		{
-			mem::transmute(al_get_bitmap_flags(self.get_allegro_bitmap()) as u32)
-		}
+		unsafe { mem::transmute(al_get_bitmap_flags(self.get_allegro_bitmap()) as u32) }
 	}
 
 	fn get_pixel(&self, x: i32, y: i32) -> Color
 	{
-		unsafe
-		{
-			Color::from_allegro_color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int))
-		}
+		unsafe { Color::from_allegro_color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int)) }
 	}
 
 	fn convert_mask_to_alpha(&self, mask_color: Color)
 	{
-		unsafe
-		{
+		unsafe {
 			al_convert_mask_to_alpha(self.get_allegro_bitmap(), mask_color.get_allegro_color());
 		}
 	}
@@ -99,9 +83,6 @@ pub trait BitmapLike
 	*/
 	fn is_compatible_bitmap(&self) -> bool
 	{
-		unsafe
-		{
-			al_is_compatible_bitmap(self.get_allegro_bitmap()) != 0
-		}
+		unsafe { al_is_compatible_bitmap(self.get_allegro_bitmap()) != 0 }
 	}
 }

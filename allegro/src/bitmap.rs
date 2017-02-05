@@ -2,16 +2,16 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
-use std::ffi::CString;
-use std::mem;
-use std::rc::{Rc, Weak};
-use std::cell::RefCell;
 
 use bitmap_like::{BitmapLike, MEMORY_BITMAP};
 use core::Core;
 
 use ffi::*;
+use libc::*;
+use std::cell::RefCell;
+use std::ffi::CString;
+use std::mem;
+use std::rc::{Rc, Weak};
 
 pub struct Bitmap
 {
@@ -24,8 +24,7 @@ impl Bitmap
 {
 	pub fn new(_: &Core, w: i32, h: i32) -> Result<Bitmap, ()>
 	{
-		unsafe
-		{
+		unsafe {
 			let b = al_create_bitmap(w as c_int, h as c_int);
 			if b.is_null()
 			{
@@ -40,8 +39,7 @@ impl Bitmap
 
 	pub fn load(_: &Core, filename: &str) -> Result<Bitmap, ()>
 	{
-		unsafe
-		{
+		unsafe {
 			let filename = CString::new(filename.as_bytes()).unwrap();
 			let b = al_load_bitmap(filename.as_ptr());
 			if b.is_null()
@@ -92,10 +90,7 @@ impl Bitmap
 
 	pub fn maybe_clone(&self) -> Result<Bitmap, ()>
 	{
-		unsafe
-		{
-			Bitmap::clone_and_wrap(self.allegro_bitmap)
-		}
+		unsafe { Bitmap::clone_and_wrap(self.allegro_bitmap) }
 	}
 
 	/**
@@ -116,10 +111,7 @@ impl Bitmap
 			let _ = self.sub_bitmaps.clone();
 			// Don't run Bitmap's destructor
 			mem::forget(self);
-			unsafe
-			{
-				Ok(MemoryBitmap::wrap(bmp))
-			}
+			unsafe { Ok(MemoryBitmap::wrap(bmp)) }
 		}
 		else
 		{
@@ -159,8 +151,7 @@ impl Drop for Bitmap
 		}
 		if self.owned
 		{
-			unsafe
-			{
+			unsafe {
 				handle_bitmap_destruction(self.allegro_bitmap, false);
 			}
 		}
@@ -179,10 +170,7 @@ impl MemoryBitmap
 {
 	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP) -> MemoryBitmap
 	{
-		MemoryBitmap
-		{
-			allegro_bitmap: bmp
-		}
+		MemoryBitmap { allegro_bitmap: bmp }
 	}
 
 	pub fn into_bitmap(self) -> Bitmap
@@ -190,10 +178,7 @@ impl MemoryBitmap
 		let bmp = self.allegro_bitmap;
 		// Don't run MemoryBitmap's destructor
 		mem::forget(self);
-		unsafe
-		{
-			Bitmap::wrap(bmp, true)
-		}
+		unsafe { Bitmap::wrap(bmp, true) }
 	}
 }
 
@@ -201,8 +186,7 @@ impl Drop for MemoryBitmap
 {
 	fn drop(&mut self)
 	{
-		unsafe
-		{
+		unsafe {
 			handle_bitmap_destruction(self.allegro_bitmap, false);
 		}
 	}
@@ -216,12 +200,10 @@ pub struct SubBitmap
 
 impl SubBitmap
 {
-	fn new(parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>
+	fn new(parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32)
+	       -> Result<Weak<SubBitmap>, ()>
 	{
-		let b = unsafe
-		{
-			al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int)
-		};
+		let b = unsafe { al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int) };
 		if b.is_null()
 		{
 			Err(())
@@ -230,7 +212,10 @@ impl SubBitmap
 		{
 			if let Some(siblings) = siblings.upgrade()
 			{
-				let sub_bitmap = Rc::new(SubBitmap{ allegro_bitmap: b, siblings: Rc::downgrade(&siblings) });
+				let sub_bitmap = Rc::new(SubBitmap {
+					allegro_bitmap: b,
+					siblings: Rc::downgrade(&siblings),
+				});
 				let ret = Rc::downgrade(&sub_bitmap);
 				siblings.borrow_mut().push(sub_bitmap);
 				Ok(ret)
@@ -244,10 +229,7 @@ impl SubBitmap
 
 	pub fn to_bitmap(&self) -> Result<Bitmap, ()>
 	{
-		unsafe
-		{
-			Bitmap::clone_and_wrap(self.allegro_bitmap)
-		}
+		unsafe { Bitmap::clone_and_wrap(self.allegro_bitmap) }
 	}
 }
 
@@ -268,8 +250,7 @@ impl Drop for SubBitmap
 {
 	fn drop(&mut self)
 	{
-		unsafe
-		{
+		unsafe {
 			handle_bitmap_destruction(self.allegro_bitmap, true);
 		}
 	}

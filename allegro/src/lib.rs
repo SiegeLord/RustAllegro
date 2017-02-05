@@ -10,6 +10,7 @@ extern crate allegro_sys as ffi;
 #[macro_use]
 extern crate allegro_util;
 
+pub use allegro_util::*;
 pub use bitmap::*;
 pub use bitmap_like::*;
 pub use color::*;
@@ -24,7 +25,6 @@ pub use run::*;
 pub use shader::*;
 pub use timer::*;
 pub use transformations::*;
-pub use allegro_util::*;
 
 pub mod bitmap;
 pub mod bitmap_like;

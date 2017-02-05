@@ -8,7 +8,11 @@ import glob
 from shutil import copy, rmtree
 from subprocess import check_call
 
-crate_list="""
+def split(s):
+	ret = s.split('\n')
+	return filter(lambda v: v, ret)
+
+crate_list_sys = split("""
 allegro_util
 allegro-sys
 allegro_image-sys
@@ -18,7 +22,9 @@ allegro_dialog-sys
 allegro_primitives-sys
 allegro_font-sys
 allegro_ttf-sys
-allegro_color-sys
+allegro_color-sys""")
+
+crate_list_wrapper = split("""
 allegro
 allegro_image
 allegro_audio
@@ -28,8 +34,9 @@ allegro_primitives
 allegro_font
 allegro_ttf
 allegro_color
-examples
-"""
+examples""")
+
+crate_list = crate_list_sys + crate_list_wrapper
 
 parser = argparse.ArgumentParser(description='Perform an operation on all crates.')
 parser.add_argument('--version', metavar='VERSION', default='', help='set the version to VERSION')
@@ -38,12 +45,10 @@ parser.add_argument('--build', action='store_true', help='build the crates')
 parser.add_argument('--test', action='store_true', help='test the crates')
 parser.add_argument('--clean', action='store_true', help='clean the crates')
 parser.add_argument('--doc', action='store_true', help='build the documentation')
+parser.add_argument('--format', action='store_true', help='format all the non-sys crates')
 parser.add_argument('--verbose', action='store_true', help='pass --verbose to cargo')
 
 args = parser.parse_args()
-
-crate_list = crate_list.split('\n')
-crate_list = filter(lambda crate: len(crate) > 0, crate_list)
 
 def cargo_cmd(command):
 	return ['cargo', command] + (['--verbose'] if args.verbose else [])
@@ -68,6 +73,10 @@ if args.publish:
 if args.build:
 	check_call(cargo_cmd('build'), cwd='doc')
 	check_call(cargo_cmd('build'), cwd='examples')
+
+if args.format:
+	for crate in crate_list_wrapper:
+		check_call(cargo_cmd('fmt'), cwd=crate)
 
 if args.test:
 	crates_no_examples = filter(lambda crate: crate != 'examples', crate_list)

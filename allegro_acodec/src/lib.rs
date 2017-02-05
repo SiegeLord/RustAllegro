@@ -11,10 +11,10 @@ extern crate allegro;
 extern crate allegro_audio;
 extern crate allegro_acodec_sys;
 
+use allegro_acodec_sys::*;
+use allegro_audio::AudioAddon;
 use std::cell::RefCell;
 use std::marker::PhantomData;
-use allegro_audio::AudioAddon;
-use allegro_acodec_sys::*;
 
 static mut initialized: bool = false;
 thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
@@ -30,8 +30,7 @@ impl AcodecAddon
 	{
 		let mutex = audio_addon.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -41,7 +40,7 @@ impl AcodecAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AcodecAddon{ no_send_marker: PhantomData })
+					Ok(AcodecAddon { no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -50,7 +49,7 @@ impl AcodecAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AcodecAddon{ no_send_marker: PhantomData })
+					Ok(AcodecAddon { no_send_marker: PhantomData })
 				}
 				else
 				{
@@ -62,9 +61,6 @@ impl AcodecAddon
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_acodec_version() as i32
-		}
+		unsafe { al_get_allegro_acodec_version() as i32 }
 	}
 }

@@ -13,12 +13,12 @@ extern crate allegro;
 extern crate allegro_util;
 extern crate libc;
 
-use allegro::{Core, Flag, Display};
+use allegro::{Core, Display, Flag};
 use allegro_dialog_sys::*;
 
 use std::cell::RefCell;
-use std::marker::PhantomData;
 use std::ffi::CString;
+use std::marker::PhantomData;
 
 flag_type!
 {
@@ -37,7 +37,7 @@ pub enum MessageBoxResult
 {
 	NoButton,
 	Affirmative,
-	Negatory
+	Negatory,
 }
 
 static mut initialized: bool = false;
@@ -45,7 +45,7 @@ thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false)
 
 pub struct DialogAddon
 {
-	no_send_marker: PhantomData<*mut u8>
+	no_send_marker: PhantomData<*mut u8>,
 }
 
 impl DialogAddon
@@ -54,8 +54,7 @@ impl DialogAddon
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -65,7 +64,7 @@ impl DialogAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(DialogAddon{ no_send_marker: PhantomData })
+					Ok(DialogAddon { no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -74,7 +73,7 @@ impl DialogAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(DialogAddon{ no_send_marker: PhantomData })
+					Ok(DialogAddon { no_send_marker: PhantomData })
 				}
 				else
 				{
@@ -86,14 +85,13 @@ impl DialogAddon
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_native_dialog_version() as i32
-		}
+		unsafe { al_get_allegro_native_dialog_version() as i32 }
 	}
 }
 
-pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>, flags: MessageBoxFlags) -> MessageBoxResult
+pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>,
+                               flags: MessageBoxFlags)
+                               -> MessageBoxResult
 {
 	use std::ptr;
 	use libc::c_int;
@@ -103,19 +101,15 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 	let heading = CString::new(heading.as_bytes()).unwrap();
 	let text = CString::new(text.as_bytes()).unwrap();
 
-	let ret = unsafe
-	{
+	let ret = unsafe {
 		match buttons
 		{
 			Some(buttons) =>
 			{
 				let buttons = CString::new(buttons.as_bytes()).unwrap();
 				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), buttons.as_ptr(), flags.get() as c_int)
-			},
-			None =>
-			{
-				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), ptr::null(), flags.get() as c_int)
 			}
+			None => al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), ptr::null(), flags.get() as c_int),
 		}
 	};
 

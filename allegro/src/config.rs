@@ -1,7 +1,8 @@
-use std::ffi::{CStr, CString};
-use std::ptr;
+
 
 use ffi::*;
+use std::ffi::{CStr, CString};
+use std::ptr;
 
 /**
 Allegro configuration.
@@ -19,27 +20,19 @@ impl Config
 	/// Creates an empty configuration.
 	pub fn new() -> Config
 	{
-		unsafe
-		{
-			Config::wrap(al_create_config(), true)
-		}
+		unsafe { Config::wrap(al_create_config(), true) }
 	}
 
 	pub unsafe fn wrap(config: *mut ALLEGRO_CONFIG, own: bool) -> Config
 	{
-		Config
-		{
-			allegro_config: config,
-			owned: own,
-		}
+		Config { allegro_config: config, owned: own }
 	}
 
 	/// Loads a config from a path.
 	pub fn load(path: &str) -> Result<Config, ()>
 	{
 		let path = CString::new(path.as_bytes()).unwrap();
-		unsafe
-		{
+		unsafe {
 			let allegro_config = al_load_config_file(path.as_ptr());
 			if allegro_config.is_null()
 			{
@@ -55,10 +48,7 @@ impl Config
 	/// Merge two configs into 1.
 	pub fn merge(cfg1: &Config, cfg2: &Config) -> Config
 	{
-		unsafe
-		{
-			Config::wrap(al_merge_config(cfg1.allegro_config, cfg2.allegro_config), true)
-		}
+		unsafe { Config::wrap(al_merge_config(cfg1.allegro_config, cfg2.allegro_config), true) }
 	}
 
 	/// Returns the wrapped ALLEGRO_CONFIG.
@@ -71,26 +61,15 @@ impl Config
 	pub fn save(&self, path: &str) -> Result<(), ()>
 	{
 		let path = CString::new(path.as_bytes()).unwrap();
-		let ret = unsafe
-		{
-			al_save_config_file(path.as_ptr(), self.allegro_config)
-		};
-		if ret != 0
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
-		}
+		let ret = unsafe { al_save_config_file(path.as_ptr(), self.allegro_config) };
+		if ret != 0 { Ok(()) } else { Err(()) }
 	}
 
 	/// Adds an empty section with the specified name.
 	pub fn add_section(&mut self, name: &str)
 	{
 		let name = CString::new(name.as_bytes()).unwrap();
-		unsafe
-		{
+		unsafe {
 			al_add_config_section(self.allegro_config, name.as_ptr());
 		}
 	}
@@ -99,10 +78,7 @@ impl Config
 	pub fn remove_section(&mut self, name: &str) -> bool
 	{
 		let name = CString::new(name.as_bytes()).unwrap();
-		unsafe
-		{
-			al_remove_config_section(self.allegro_config, name.as_ptr()) != 0
-		}
+		unsafe { al_remove_config_section(self.allegro_config, name.as_ptr()) != 0 }
 	}
 
 	/// Sets the value of a key in a section.
@@ -111,8 +87,7 @@ impl Config
 		let section = CString::new(section.as_bytes()).unwrap();
 		let key = CString::new(key.as_bytes()).unwrap();
 		let value = CString::new(value.as_bytes()).unwrap();
-		unsafe
-		{
+		unsafe {
 			al_set_config_value(self.allegro_config, section.as_ptr(), key.as_ptr(), value.as_ptr());
 		}
 	}
@@ -122,10 +97,7 @@ impl Config
 	{
 		let section = CString::new(section.as_bytes()).unwrap();
 		let key = CString::new(key.as_bytes()).unwrap();
-		unsafe
-		{
-			al_remove_config_key(self.allegro_config, section.as_ptr(), key.as_ptr()) != 0
-		}
+		unsafe { al_remove_config_key(self.allegro_config, section.as_ptr(), key.as_ptr()) != 0 }
 	}
 
 	/// Adds a comment to a section.
@@ -133,8 +105,7 @@ impl Config
 	{
 		let section = CString::new(section.as_bytes()).unwrap();
 		let comment = CString::new(comment.as_bytes()).unwrap();
-		unsafe
-		{
+		unsafe {
 			al_add_config_comment(self.allegro_config, section.as_ptr(), comment.as_ptr());
 		}
 	}
@@ -144,8 +115,7 @@ impl Config
 	{
 		let section = CString::new(section.as_bytes()).unwrap();
 		let key = CString::new(key.as_bytes()).unwrap();
-		unsafe
-		{
+		unsafe {
 			let value = al_get_config_value(self.allegro_config, section.as_ptr(), key.as_ptr());
 			if value.is_null()
 			{
@@ -161,8 +131,7 @@ impl Config
 	/// Merge in sections from a different config.
 	pub fn merge_from(&mut self, source: &Config)
 	{
-		unsafe
-		{
+		unsafe {
 			al_merge_config_into(self.allegro_config, source.allegro_config);
 		}
 	}
@@ -171,14 +140,12 @@ impl Config
 	/// returned section will typically be the root section, even if it's empty.
 	pub fn sections<'l>(&'l self) -> ConfigSection<'l>
 	{
-		let mut config_section = ConfigSection
-		{
+		let mut config_section = ConfigSection {
 			_config: self,
 			config_section: ptr::null_mut(),
 			next_section: None,
 		};
-		unsafe
-		{
+		unsafe {
 			let next_section = al_get_first_config_section(self.allegro_config, &mut config_section.config_section);
 			if !next_section.is_null()
 			{
@@ -192,14 +159,12 @@ impl Config
 	pub fn keys<'l>(&'l self, section: &str) -> ConfigEntry<'l>
 	{
 		let section = CString::new(section.as_bytes()).unwrap();
-		let mut config_entry = ConfigEntry
-		{
+		let mut config_entry = ConfigEntry {
 			_config: self,
 			config_entry: ptr::null_mut(),
 			next_key: None,
 		};
-		unsafe
-		{
+		unsafe {
 			let next_key = al_get_first_config_entry(self.allegro_config, section.as_ptr(), &mut config_entry.config_entry);
 			if !next_key.is_null()
 			{
@@ -227,8 +192,7 @@ impl Drop for Config
 	{
 		if self.owned
 		{
-			unsafe
-			{
+			unsafe {
 				al_destroy_config(self.allegro_config);
 			}
 		}
@@ -242,7 +206,7 @@ pub struct ConfigSection<'l>
 {
 	_config: &'l Config,
 	config_section: *mut ALLEGRO_CONFIG_SECTION,
-	next_section: Option<String>
+	next_section: Option<String>,
 }
 
 impl<'l> Iterator for ConfigSection<'l>
@@ -254,8 +218,7 @@ impl<'l> Iterator for ConfigSection<'l>
 		let ret = self.next_section.take();
 		if ret.is_some()
 		{
-			self.next_section = unsafe
-			{
+			self.next_section = unsafe {
 				let next_section = al_get_next_config_section(&mut self.config_section as *mut _);
 				if !next_section.is_null()
 				{
@@ -278,7 +241,7 @@ pub struct ConfigEntry<'l>
 {
 	_config: &'l Config,
 	config_entry: *mut ALLEGRO_CONFIG_ENTRY,
-	next_key: Option<String>
+	next_key: Option<String>,
 }
 
 impl<'l> Iterator for ConfigEntry<'l>
@@ -290,8 +253,7 @@ impl<'l> Iterator for ConfigEntry<'l>
 		let ret = self.next_key.take();
 		if ret.is_some()
 		{
-			self.next_key = unsafe
-			{
+			self.next_key = unsafe {
 				let next_key = al_get_next_config_entry(&mut self.config_entry as *mut _);
 				if !next_key.is_null()
 				{

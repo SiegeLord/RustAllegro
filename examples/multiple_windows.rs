@@ -4,12 +4,12 @@ extern crate allegro;
 extern crate allegro_font;
 extern crate getopts;
 
-use getopts::*;
-use std::sync::mpsc;
-use std::env;
 
 use allegro::*;
 use allegro_font::*;
+use getopts::*;
+use std::env;
+use std::sync::mpsc;
 
 fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 {
@@ -41,22 +41,27 @@ fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(Color::from_rgb_f(0.0, 0.0, c));
-			core.draw_text(&font, Color::from_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, "Whee... multiple windows!");
+			core.draw_text(&font,
+			               Color::from_rgb_f(1.0, 1.0, 1.0),
+			               (disp.get_width() / 2) as f32,
+			               (disp.get_height() / 2) as f32,
+			               FontAlign::Centre,
+			               "Whee... multiple windows!");
 			core.flip_display();
 			redraw = false;
 		}
 
 		match q.wait_for_event()
 		{
-			DisplayClose{..} =>
+			DisplayClose { .. } =>
 			{
 				break 'exit;
-			},
-			KeyDown{keycode: k, ..} if k == KeyCode::Escape =>
+			}
+			KeyDown { keycode: k, .. } if k == KeyCode::Escape =>
 			{
 				break 'exit;
-			},
-			TimerTick{..} =>
+			}
+			TimerTick { .. } =>
 			{
 				redraw = true;
 				c += d;
@@ -70,8 +75,8 @@ fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 					c = 0.0;
 					d = -d;
 				}
-			},
-			_ => ()
+			}
+			_ => (),
 		}
 	}
 
@@ -127,7 +132,8 @@ allegro_main!
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(Color::from_rgb_f(c, 0.0, 0.0));
-			core.draw_text(&font, Color::from_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32, (disp.get_height() / 2) as f32, FontAlign::Centre, text);
+			core.draw_text(&font, Color::from_rgb_f(1.0, 1.0, 1.0), (disp.get_width() / 2) as f32,
+				(disp.get_height() / 2) as f32, FontAlign::Centre, text);
 			core.flip_display();
 			redraw = false;
 		}

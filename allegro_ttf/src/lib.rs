@@ -14,13 +14,13 @@ extern crate allegro_util;
 extern crate libc;
 
 use allegro::Flag;
-use allegro_font::{FontAddon, Font};
+use allegro_font::{Font, FontAddon};
 use allegro_ttf_sys::*;
 use libc::*;
 
 use std::cell::RefCell;
-use std::marker::PhantomData;
 use std::ffi::CString;
+use std::marker::PhantomData;
 
 static mut initialized: bool = false;
 thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
@@ -37,7 +37,7 @@ flag_type!
 
 pub struct TtfAddon
 {
-	no_send_marker: PhantomData<*mut u8>
+	no_send_marker: PhantomData<*mut u8>,
 }
 
 impl TtfAddon
@@ -46,8 +46,7 @@ impl TtfAddon
 	{
 		let mutex = font_addon.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -57,7 +56,7 @@ impl TtfAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon{ no_send_marker: PhantomData })
+					Ok(TtfAddon { no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -66,7 +65,7 @@ impl TtfAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon{ no_send_marker: PhantomData })
+					Ok(TtfAddon { no_send_marker: PhantomData })
 				}
 				else
 				{
@@ -78,19 +77,13 @@ impl TtfAddon
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_ttf_version() as i32
-		}
+		unsafe { al_get_allegro_ttf_version() as i32 }
 	}
 
 	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Result<Font, ()>
 	{
 		let filename = CString::new(filename.as_bytes()).unwrap();
-		unsafe
-		{
-			Font::wrap_allegro_font(al_load_ttf_font(filename.as_ptr(), size as c_int, flags.get() as c_int))
-		}
+		unsafe { Font::wrap_allegro_font(al_load_ttf_font(filename.as_ptr(), size as c_int, flags.get() as c_int)) }
 	}
 
 	pub fn load_ttf_font_stretch(&self, filename: &str, width: i32, height: i32, flags: TtfFlags) -> Result<Font, String>
@@ -102,8 +95,7 @@ impl TtfAddon
 		else
 		{
 			let filename = CString::new(filename.as_bytes()).unwrap();
-			unsafe
-			{
+			unsafe {
 				Font::wrap_allegro_font(al_load_ttf_font_stretch(filename.as_ptr(), width as c_int, height as c_int, flags.get() as c_int))
 					.map_err(|_| "Failed to load the ttf font.".to_string())
 			}

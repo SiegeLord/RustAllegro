@@ -2,9 +2,9 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
 
 use ffi::*;
+use libc::*;
 
 #[derive(Copy, Clone)]
 pub struct Color(ALLEGRO_COLOR);
@@ -28,7 +28,7 @@ impl Color
 
 	pub fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color
 	{
-		Color(ALLEGRO_COLOR{ r: r, g: g, b: b, a: a })
+		Color(ALLEGRO_COLOR { r: r, g: g, b: b, a: a })
 	}
 
 	pub fn from_allegro_color(c: ALLEGRO_COLOR) -> Color
@@ -99,17 +99,11 @@ impl PixelFormat
 {
 	pub fn get_size(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_pixel_size(*self as c_int) as i32
-		}
+		unsafe { al_get_pixel_size(*self as c_int) as i32 }
 	}
 
 	pub fn get_bits(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_pixel_format_bits(*self as c_int) as i32
-		}
+		unsafe { al_get_pixel_format_bits(*self as c_int) as i32 }
 	}
 }

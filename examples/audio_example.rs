@@ -6,13 +6,13 @@ extern crate allegro_audio;
 extern crate allegro_acodec;
 extern crate getopts;
 
-use getopts::*;
-use std::env;
 
 use allegro::*;
-use allegro_font::*;
-use allegro_audio::*;
 use allegro_acodec::*;
+use allegro_audio::*;
+use allegro_font::*;
+use getopts::*;
+use std::env;
 
 struct AudioCallback
 {

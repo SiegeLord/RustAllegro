@@ -26,8 +26,7 @@ impl AudioAddon
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -37,7 +36,10 @@ impl AudioAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AudioAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
+					Ok(AudioAddon {
+						core_mutex: core.get_core_mutex(),
+						no_send_marker: PhantomData,
+					})
 				}
 			}
 			else
@@ -46,7 +48,10 @@ impl AudioAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AudioAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
+					Ok(AudioAddon {
+						core_mutex: core.get_core_mutex(),
+						no_send_marker: PhantomData,
+					})
 				}
 				else
 				{
@@ -58,10 +63,7 @@ impl AudioAddon
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_audio_version() as i32
-		}
+		unsafe { al_get_allegro_audio_version() as i32 }
 	}
 
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>

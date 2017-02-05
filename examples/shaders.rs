@@ -4,11 +4,11 @@ extern crate allegro;
 extern crate allegro_image;
 extern crate getopts;
 
-use getopts::*;
-use std::env;
 
 use allegro::*;
 use allegro_image::*;
+use getopts::*;
+use std::env;
 
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 allegro_main!
@@ -116,4 +116,7 @@ allegro_main!
 }
 
 #[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
-fn main() { panic!("This example needs at least Allegro 5.1"); }
+fn main()
+{
+	panic!("This example needs at least Allegro 5.1");
+}

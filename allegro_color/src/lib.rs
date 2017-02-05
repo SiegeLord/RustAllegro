@@ -28,8 +28,7 @@ pub trait ColorAddonExtensions
 		let mut g: c_float = 0.0;
 		let mut b: c_float = 0.0;
 
-		unsafe
-		{
+		unsafe {
 			al_color_hsv_to_rgb(hue as c_float, saturation as c_float, value as c_float, &mut r, &mut g, &mut b);
 		}
 
@@ -42,8 +41,7 @@ pub trait ColorAddonExtensions
 		let mut g: c_float = 0.0;
 		let mut b: c_float = 0.0;
 
-		unsafe
-		{
+		unsafe {
 			al_color_hsl_to_rgb(hue as c_float, saturation as c_float, lightness as c_float, &mut r, &mut g, &mut b);
 		}
 
@@ -57,8 +55,7 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 		let name = CString::new(name.as_bytes()).unwrap();
 
-		unsafe
-		{
+		unsafe {
 			al_color_name_to_rgb(name.as_ptr(), &mut r, &mut g, &mut b);
 		}
 
@@ -71,8 +68,7 @@ pub trait ColorAddonExtensions
 		let mut g: c_float = 0.0;
 		let mut b: c_float = 0.0;
 
-		unsafe
-		{
+		unsafe {
 			al_color_cmyk_to_rgb(cyan as c_float, magenta as c_float, yellow as c_float, key as c_float, &mut r, &mut g, &mut b);
 		}
 
@@ -85,8 +81,7 @@ pub trait ColorAddonExtensions
 		let mut g: c_float = 0.0;
 		let mut b: c_float = 0.0;
 
-		unsafe
-		{
+		unsafe {
 			al_color_yuv_to_rgb(y as c_float, u as c_float, v as c_float, &mut r, &mut g, &mut b);
 		}
 
@@ -100,8 +95,7 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 		let html_hex = CString::new(html_hex.as_bytes()).unwrap();
 
-		unsafe
-		{
+		unsafe {
 			al_color_html_to_rgb(html_hex.as_ptr(), &mut r, &mut g, &mut b);
 		}
 
@@ -115,8 +109,7 @@ pub trait ColorAddonExtensions
 		let mut v: c_float = 0.0;
 		let (r, g, b) = self.get_color().to_rgb_f();
 
-		unsafe
-		{
+		unsafe {
 			al_color_rgb_to_hsv(r as c_float, g as c_float, b as c_float, &mut h, &mut s, &mut v);
 		}
 
@@ -130,8 +123,7 @@ pub trait ColorAddonExtensions
 		let mut l: c_float = 0.0;
 		let (r, g, b) = self.get_color().to_rgb_f();
 
-		unsafe
-		{
+		unsafe {
 			al_color_rgb_to_hsl(r as c_float, g as c_float, b as c_float, &mut h, &mut s, &mut l);
 		}
 
@@ -142,8 +134,7 @@ pub trait ColorAddonExtensions
 	{
 		let (r, g, b) = self.get_color().to_rgb_f();
 
-		unsafe
-		{
+		unsafe {
 			let name = al_color_rgb_to_name(r as c_float, g as c_float, b as c_float);
 			CStr::from_ptr(name).to_string_lossy().into_owned()
 		}
@@ -157,8 +148,7 @@ pub trait ColorAddonExtensions
 		let mut k: c_float = 0.0;
 		let (r, g, b) = self.get_color().to_rgb_f();
 
-		unsafe
-		{
+		unsafe {
 			al_color_rgb_to_cmyk(r as c_float, g as c_float, b as c_float, &mut c, &mut y, &mut m, &mut k);
 		}
 
@@ -172,8 +162,7 @@ pub trait ColorAddonExtensions
 		let mut v: c_float = 0.0;
 		let (r, g, b) = self.get_color().to_rgb_f();
 
-		unsafe
-		{
+		unsafe {
 			al_color_rgb_to_yuv(r as c_float, g as c_float, b as c_float, &mut y, &mut u, &mut v);
 		}
 
@@ -191,8 +180,5 @@ impl ColorAddonExtensions for Color
 
 pub fn get_color_addon_version() -> i32
 {
-	unsafe
-	{
-		al_get_allegro_color_version() as i32
-	}
+	unsafe { al_get_allegro_color_version() as i32 }
 }

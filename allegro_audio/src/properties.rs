@@ -23,13 +23,13 @@ impl AudioDepth
 	{
 		match val
 		{
-			ALLEGRO_AUDIO_DEPTH_INT8     => AudioDepth::I8,
-			ALLEGRO_AUDIO_DEPTH_INT16    => AudioDepth::I16,
-			ALLEGRO_AUDIO_DEPTH_INT24    => AudioDepth::I24,
+			ALLEGRO_AUDIO_DEPTH_INT8 => AudioDepth::I8,
+			ALLEGRO_AUDIO_DEPTH_INT16 => AudioDepth::I16,
+			ALLEGRO_AUDIO_DEPTH_INT24 => AudioDepth::I24,
 			ALLEGRO_AUDIO_DEPTH_UNSIGNED => AudioDepth::U8,
-			ALLEGRO_AUDIO_DEPTH_UINT16   => AudioDepth::U16,
-			ALLEGRO_AUDIO_DEPTH_UINT24   => AudioDepth::U24,
-			ALLEGRO_AUDIO_DEPTH_FLOAT32  => AudioDepth::F32,
+			ALLEGRO_AUDIO_DEPTH_UINT16 => AudioDepth::U16,
+			ALLEGRO_AUDIO_DEPTH_UINT24 => AudioDepth::U24,
+			ALLEGRO_AUDIO_DEPTH_FLOAT32 => AudioDepth::F32,
 		}
 	}
 
@@ -37,10 +37,10 @@ impl AudioDepth
 	{
 		match *self
 		{
-			AudioDepth::I8  => ALLEGRO_AUDIO_DEPTH_INT8,
+			AudioDepth::I8 => ALLEGRO_AUDIO_DEPTH_INT8,
 			AudioDepth::I16 => ALLEGRO_AUDIO_DEPTH_INT16,
 			AudioDepth::I24 => ALLEGRO_AUDIO_DEPTH_INT24,
-			AudioDepth::U8  => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
+			AudioDepth::U8 => ALLEGRO_AUDIO_DEPTH_UNSIGNED,
 			AudioDepth::U16 => ALLEGRO_AUDIO_DEPTH_UINT16,
 			AudioDepth::U24 => ALLEGRO_AUDIO_DEPTH_UINT24,
 			AudioDepth::F32 => ALLEGRO_AUDIO_DEPTH_FLOAT32,
@@ -51,10 +51,10 @@ impl AudioDepth
 	{
 		match *self
 		{
-			AudioDepth::I8  => 1,
+			AudioDepth::I8 => 1,
 			AudioDepth::I16 => 2,
 			AudioDepth::I24 => 3,
-			AudioDepth::U8  => 1,
+			AudioDepth::U8 => 1,
 			AudioDepth::U16 => 2,
 			AudioDepth::U24 => 3,
 			AudioDepth::F32 => 4,
@@ -80,10 +80,10 @@ impl ChannelConf
 	{
 		match val
 		{
-			ALLEGRO_CHANNEL_CONF_1   => ChannelConf::Conf1,
-			ALLEGRO_CHANNEL_CONF_2   => ChannelConf::Conf2,
-			ALLEGRO_CHANNEL_CONF_3   => ChannelConf::Conf3,
-			ALLEGRO_CHANNEL_CONF_4   => ChannelConf::Conf4,
+			ALLEGRO_CHANNEL_CONF_1 => ChannelConf::Conf1,
+			ALLEGRO_CHANNEL_CONF_2 => ChannelConf::Conf2,
+			ALLEGRO_CHANNEL_CONF_3 => ChannelConf::Conf3,
+			ALLEGRO_CHANNEL_CONF_4 => ChannelConf::Conf4,
 			ALLEGRO_CHANNEL_CONF_5_1 => ChannelConf::Conf51,
 			ALLEGRO_CHANNEL_CONF_6_1 => ChannelConf::Conf61,
 			ALLEGRO_CHANNEL_CONF_7_1 => ChannelConf::Conf71,
@@ -94,10 +94,10 @@ impl ChannelConf
 	{
 		match *self
 		{
-			ChannelConf::Conf1  => ALLEGRO_CHANNEL_CONF_1,
-			ChannelConf::Conf2  => ALLEGRO_CHANNEL_CONF_2,
-			ChannelConf::Conf3  => ALLEGRO_CHANNEL_CONF_3,
-			ChannelConf::Conf4  => ALLEGRO_CHANNEL_CONF_4,
+			ChannelConf::Conf1 => ALLEGRO_CHANNEL_CONF_1,
+			ChannelConf::Conf2 => ALLEGRO_CHANNEL_CONF_2,
+			ChannelConf::Conf3 => ALLEGRO_CHANNEL_CONF_3,
+			ChannelConf::Conf4 => ALLEGRO_CHANNEL_CONF_4,
 			ChannelConf::Conf51 => ALLEGRO_CHANNEL_CONF_5_1,
 			ChannelConf::Conf61 => ALLEGRO_CHANNEL_CONF_6_1,
 			ChannelConf::Conf71 => ALLEGRO_CHANNEL_CONF_7_1,
@@ -108,10 +108,10 @@ impl ChannelConf
 	{
 		match *self
 		{
-			ChannelConf::Conf1  => 1,
-			ChannelConf::Conf2  => 2,
-			ChannelConf::Conf3  => 3,
-			ChannelConf::Conf4  => 4,
+			ChannelConf::Conf1 => 1,
+			ChannelConf::Conf2 => 2,
+			ChannelConf::Conf3 => 3,
+			ChannelConf::Conf4 => 4,
 			ChannelConf::Conf51 => 6,
 			ChannelConf::Conf61 => 7,
 			ChannelConf::Conf71 => 8,
@@ -165,9 +165,9 @@ impl MixerQuality
 	{
 		match val
 		{
-			ALLEGRO_MIXER_QUALITY_POINT  => MixerQuality::Point,
+			ALLEGRO_MIXER_QUALITY_POINT => MixerQuality::Point,
 			ALLEGRO_MIXER_QUALITY_LINEAR => MixerQuality::Linear,
-			ALLEGRO_MIXER_QUALITY_CUBIC  => MixerQuality::Cubic,
+			ALLEGRO_MIXER_QUALITY_CUBIC => MixerQuality::Cubic,
 		}
 	}
 

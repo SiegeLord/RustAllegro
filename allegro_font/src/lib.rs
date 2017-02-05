@@ -11,8 +11,8 @@ extern crate allegro_font_sys;
 extern crate allegro_util;
 extern crate libc;
 
-pub use font::*;
 pub use addon::*;
+pub use font::*;
 
 mod addon;
 mod font;

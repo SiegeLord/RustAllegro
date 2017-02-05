@@ -2,19 +2,19 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use addon::AudioAddon;
 use allegro::c_bool;
 
-use libc::*;
-use std::mem;
-use std::ptr;
-
 use allegro_audio_sys::*;
-use addon::AudioAddon;
+use internal::AttachToMixerImpl;
 use internal::Connection;
 use internal::HasMixer;
-use internal::AttachToMixerImpl;
+
+use libc::*;
 use properties::*;
 use sample::{Sample, SampleInstance};
+use std::mem;
+use std::ptr;
 
 macro_rules! set_impl
 {
@@ -48,7 +48,7 @@ macro_rules! get_bool_impl
 	}
 }
 
-pub trait AttachToMixer : AttachToMixerImpl
+pub trait AttachToMixer: AttachToMixerImpl
 {
 	fn detach(&mut self);
 
@@ -57,10 +57,7 @@ pub trait AttachToMixer : AttachToMixerImpl
 		self.detach();
 
 		let m = mixer.get_mixer_mut();
-		self.create_connection(m.allegro_mixer).map(|conn|
-		{
-			m.children.push(conn);
-		})
+		self.create_connection(m.allegro_mixer).map(|conn| { m.children.push(conn); })
 	}
 }
 
@@ -94,8 +91,7 @@ impl Mixer
 		}
 		else
 		{
-			Ok(Mixer
-			{
+			Ok(Mixer {
 				allegro_mixer: mixer,
 				parent: None,
 				children: Vec::new(),
@@ -111,8 +107,7 @@ impl Mixer
 
 	fn detach(allegro_mixer: *mut c_void)
 	{
-		unsafe
-		{
+		unsafe {
 			al_detach_mixer(mem::transmute(allegro_mixer));
 		}
 	}
@@ -124,14 +119,13 @@ impl Drop for Mixer
 	{
 		self.detach();
 		self.children.clear();
-		unsafe
-		{
+		unsafe {
 			al_destroy_mixer(self.allegro_mixer);
 		}
 	}
 }
 
-pub trait MixerLike : HasMixer
+pub trait MixerLike: HasMixer
 {
 	fn get_allegro_mixer(&self) -> *mut ALLEGRO_MIXER
 	{
@@ -141,8 +135,7 @@ pub trait MixerLike : HasMixer
 	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Result<SampleInstance, ()>
 	{
 		let inst = sample.create_instance();
-		inst.and_then(|mut inst|
-		{
+		inst.and_then(|mut inst| {
 			let m = self.get_mixer_mut();
 			if_ok!(inst.attach(m));
 			if_ok!(inst.set_gain(gain));
@@ -217,26 +210,27 @@ pub trait MixerLike : HasMixer
 		{
 			Some(cb) =>
 			{
-				let mut cbh = Box::new(CallbackHolder{ cb: cb, sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size() });
-				let ret = unsafe
-				{
-					al_set_mixer_postprocess_callback(allegro_mixer, Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)), &mut *cbh as *mut _ as *mut _)
+				let mut cbh = Box::new(CallbackHolder {
+					cb: cb,
+					sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size(),
+				});
+				let ret = unsafe {
+					al_set_mixer_postprocess_callback(allegro_mixer,
+					                                  Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)),
+					                                  &mut *cbh as *mut _ as *mut _)
 				};
 				if ret == 0
 				{
-					return Err(())
+					return Err(());
 				}
 				self.get_mixer_mut().callback = Some(cbh);
-			},
+			}
 			None =>
 			{
-				let ret = unsafe
-				{
-					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::null_mut())
-				};
+				let ret = unsafe { al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::null_mut()) };
 				if ret == 0
 				{
-					return Err(())
+					return Err(());
 				}
 				self.get_mixer_mut().callback = None;
 			}
@@ -248,8 +242,7 @@ pub trait MixerLike : HasMixer
 extern "C" fn mixer_callback(data: *mut c_void, num_samples: c_uint, cb: *mut c_void)
 {
 	use std::slice::from_raw_parts_mut;
-	unsafe
-	{
+	unsafe {
 		let cbh: &mut CallbackHolder = mem::transmute(cb);
 		let buf = from_raw_parts_mut(data as *mut u8, num_samples as usize * cbh.sample_size);
 		cbh.cb.process(buf, num_samples as u32);
@@ -269,13 +262,13 @@ impl AttachToMixerImpl for Mixer
 		{
 			Err(())
 		}
-		else if unsafe{ al_attach_mixer_to_mixer(self.allegro_mixer, allegro_mixer) == 0 }
+		else if unsafe { al_attach_mixer_to_mixer(self.allegro_mixer, allegro_mixer) == 0 }
 		{
 			Err(())
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe{ mem::transmute(self.allegro_mixer) }, Mixer::detach);
+			let (c1, c2) = Connection::new(unsafe { mem::transmute(self.allegro_mixer) }, Mixer::detach);
 			self.parent = Some(c1);
 			Ok(c2)
 		}

@@ -2,10 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use addon::FontAddon;
+use allegro::{Bitmap, BitmapLike, Color, Core};
 use allegro_font_sys::*;
 use allegro_sys::*;
-use allegro::{Core, Color, Bitmap, BitmapLike};
-use addon::FontAddon;
 
 use libc::*;
 use std::ffi::CString;
@@ -16,7 +16,7 @@ pub enum FontAlign
 {
 	Left,
 	Centre,
-	Right
+	Right,
 }
 
 impl FontAlign
@@ -46,13 +46,18 @@ impl FontDrawing for Core
 		{
 			return;
 		}
-		unsafe
-		{
+		unsafe {
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
 
-			al_draw_justified_ustr(mem::transmute(font.get_font()), color.get_allegro_color(), x1 as c_float,
-			                       x2 as c_float, y as c_float, diff as c_float, align.get_allegro_flags(), ustr);
+			al_draw_justified_ustr(mem::transmute(font.get_font()),
+			                       color.get_allegro_color(),
+			                       x1 as c_float,
+			                       x2 as c_float,
+			                       y as c_float,
+			                       diff as c_float,
+			                       align.get_allegro_flags(),
+			                       ustr);
 		}
 	}
 
@@ -62,12 +67,16 @@ impl FontDrawing for Core
 		{
 			return;
 		}
-		unsafe
-		{
+		unsafe {
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
 
-			al_draw_ustr(mem::transmute(font.get_font()), color.get_allegro_color(), x as c_float, y as c_float, align.get_allegro_flags(), ustr);
+			al_draw_ustr(mem::transmute(font.get_font()),
+			             color.get_allegro_color(),
+			             x as c_float,
+			             y as c_float,
+			             align.get_allegro_flags(),
+			             ustr);
 		}
 	}
 }
@@ -81,16 +90,12 @@ impl Font
 {
 	pub fn new_builtin(_: &FontAddon) -> Result<Font, ()>
 	{
-		unsafe
-		{
-			Font::wrap_allegro_font(al_create_builtin_font())
-		}
+		unsafe { Font::wrap_allegro_font(al_create_builtin_font()) }
 	}
 
 	pub fn load_bitmap_font(_: &FontAddon, filename: &str) -> Result<Font, ()>
 	{
-		unsafe
-		{
+		unsafe {
 			let filename = CString::new(filename.as_bytes()).unwrap();
 			let font = al_load_bitmap_font(filename.as_ptr());
 			Font::wrap_allegro_font(font)
@@ -99,8 +104,7 @@ impl Font
 
 	pub fn grab_from_bitmap(_: &FontAddon, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Result<Font, ()>
 	{
-		unsafe
-		{
+		unsafe {
 			let font = al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), ranges.len() as c_int, ranges.as_ptr() as *const c_int);
 			Font::wrap_allegro_font(font)
 		}
@@ -114,7 +118,7 @@ impl Font
 		}
 		else
 		{
-			Ok(Font{ allegro_font: font })
+			Ok(Font { allegro_font: font })
 		}
 	}
 
@@ -125,8 +129,7 @@ impl Font
 
 	pub fn get_text_width(&self, text: &str) -> i32
 	{
-		unsafe
-		{
+		unsafe {
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
 			al_get_ustr_width(self.get_font() as *const _, ustr) as i32
@@ -135,32 +138,22 @@ impl Font
 
 	pub fn get_line_height(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_font_line_height(self.get_font() as *const _) as i32
-		}
+		unsafe { al_get_font_line_height(self.get_font() as *const _) as i32 }
 	}
 
 	pub fn get_ascent(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_font_ascent(self.get_font() as *const _) as i32
-		}
+		unsafe { al_get_font_ascent(self.get_font() as *const _) as i32 }
 	}
 
 	pub fn get_descent(&self) -> i32
 	{
-		unsafe
-		{
-			al_get_font_descent(self.get_font() as *const _) as i32
-		}
+		unsafe { al_get_font_descent(self.get_font() as *const _) as i32 }
 	}
 
 	pub fn get_text_dimensions(&self, text: &str) -> (i32, i32, i32, i32)
 	{
-		unsafe
-		{
+		unsafe {
 			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninitialized();
 			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
 			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
@@ -175,8 +168,7 @@ impl Drop for Font
 {
 	fn drop(&mut self)
 	{
-		unsafe
-		{
+		unsafe {
 			al_destroy_font(self.allegro_font);
 		}
 	}

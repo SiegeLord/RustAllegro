@@ -10,29 +10,25 @@ extern crate allegro;
 extern crate allegro_util;
 extern crate libc;
 
-use std::cell::RefCell;
-use std::marker::PhantomData;
 
 use allegro::Core;
 use ffi::allegro_image::*;
+use std::cell::RefCell;
+use std::marker::PhantomData;
 
 #[cfg(not(manual_link))]
-mod link_name
-{
+mod link_name {
 	#[link(name = "allegro_image")]
 	extern "C" {}
 }
 
-pub mod ffi
-{
+pub mod ffi {
 	pub use self::allegro_image::*;
-	pub mod allegro_image
-	{
-		use libc::*;
+	pub mod allegro_image {
 		use allegro::c_bool;
+		use libc::*;
 
-		extern "C"
-		{
+		extern "C" {
 			pub fn al_init_image_addon() -> c_bool;
 			pub fn al_shutdown_image_addon();
 			pub fn al_get_allegro_image_version() -> uint32_t;
@@ -45,7 +41,7 @@ thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false)
 
 pub struct ImageAddon
 {
-	no_send_marker: PhantomData<*mut u8>
+	no_send_marker: PhantomData<*mut u8>,
 }
 
 impl ImageAddon
@@ -54,8 +50,7 @@ impl ImageAddon
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -65,7 +60,7 @@ impl ImageAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon{ no_send_marker: PhantomData })
+					Ok(ImageAddon { no_send_marker: PhantomData })
 				}
 			}
 			else
@@ -74,7 +69,7 @@ impl ImageAddon
 				{
 					initialized = true;
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon{ no_send_marker: PhantomData })
+					Ok(ImageAddon { no_send_marker: PhantomData })
 				}
 				else
 				{
@@ -86,9 +81,6 @@ impl ImageAddon
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_image_version() as i32
-		}
+		unsafe { al_get_allegro_image_version() as i32 }
 	}
 }

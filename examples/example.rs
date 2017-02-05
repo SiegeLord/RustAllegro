@@ -7,14 +7,14 @@ extern crate allegro_ttf;
 extern crate allegro_primitives;
 extern crate getopts;
 
-use getopts::*;
-use std::env;
 
 use allegro::*;
-use allegro_image::*;
 use allegro_font::*;
-use allegro_ttf::*;
+use allegro_image::*;
 use allegro_primitives::*;
+use allegro_ttf::*;
+use getopts::*;
+use std::env;
 
 allegro_main!
 {

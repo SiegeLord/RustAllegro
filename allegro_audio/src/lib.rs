@@ -12,11 +12,11 @@ extern crate allegro_util;
 extern crate libc;
 
 pub use addon::*;
-pub use stream::*;
-pub use properties::*;
-pub use sink::*;
 pub use mixer::*;
+pub use properties::*;
 pub use sample::*;
+pub use sink::*;
+pub use stream::*;
 
 mod addon;
 mod stream;

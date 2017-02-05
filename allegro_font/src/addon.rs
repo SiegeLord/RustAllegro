@@ -4,12 +4,12 @@
 
 #![allow(non_upper_case_globals)]
 
-use std::cell::RefCell;
-use std::marker::PhantomData;
-use std::sync::{Arc, Mutex};
 
 use allegro::Core;
 use allegro_font_sys::*;
+use std::cell::RefCell;
+use std::marker::PhantomData;
+use std::sync::{Arc, Mutex};
 
 static mut initialized: bool = false;
 thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
@@ -26,8 +26,7 @@ impl FontAddon
 	{
 		let mutex = core.get_core_mutex();
 		let _guard = mutex.lock();
-		unsafe
-		{
+		unsafe {
 			if initialized
 			{
 				if spawned_on_this_thread.with(|x| *x.borrow())
@@ -37,7 +36,10 @@ impl FontAddon
 				else
 				{
 					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(FontAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
+					Ok(FontAddon {
+						core_mutex: core.get_core_mutex(),
+						no_send_marker: PhantomData,
+					})
 				}
 			}
 			else
@@ -45,17 +47,17 @@ impl FontAddon
 				al_init_font_addon();
 				initialized = true;
 				spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-				Ok(FontAddon{ core_mutex: core.get_core_mutex(), no_send_marker: PhantomData })
+				Ok(FontAddon {
+					core_mutex: core.get_core_mutex(),
+					no_send_marker: PhantomData,
+				})
 			}
 		}
 	}
 
 	pub fn get_version() -> i32
 	{
-		unsafe
-		{
-			al_get_allegro_font_version() as i32
-		}
+		unsafe { al_get_allegro_font_version() as i32 }
 	}
 
 	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
