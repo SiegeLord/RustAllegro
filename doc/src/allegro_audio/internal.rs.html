@@ -96,18 +96,26 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='ident'>ALLEGRO_MIXER</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>c_void</span>;
 <span class='kw'>use</span> <span class='ident'>mixer</span>::<span class='ident'>Mixer</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Arc</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>AtomicBool</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::<span class='ident'>Ordering</span>::<span class='ident'>SeqCst</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>c_void</span>;
 
 <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AttachToMixerImpl</span>
@@ -136,8 +144,16 @@
 	{
 		<span class='kw'>let</span> <span class='ident'>active1</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='bool-val'>true</span>));
 		<span class='kw'>let</span> <span class='ident'>active2</span> <span class='op'>=</span> <span class='ident'>active1</span>.<span class='ident'>clone</span>();
-		(<span class='ident'>Connection</span>{ <span class='ident'>active</span>: <span class='ident'>active1</span>, <span class='ident'>payload</span>: <span class='ident'>payload</span>, <span class='ident'>callback</span>: <span class='ident'>callback</span> },
-		 <span class='ident'>Connection</span>{ <span class='ident'>active</span>: <span class='ident'>active2</span>, <span class='ident'>payload</span>: <span class='ident'>payload</span>, <span class='ident'>callback</span>: <span class='ident'>callback</span> })
+		(<span class='ident'>Connection</span> {
+			 <span class='ident'>active</span>: <span class='ident'>active1</span>,
+			 <span class='ident'>payload</span>: <span class='ident'>payload</span>,
+			 <span class='ident'>callback</span>: <span class='ident'>callback</span>,
+		 },
+		 <span class='ident'>Connection</span> {
+			 <span class='ident'>active</span>: <span class='ident'>active2</span>,
+			 <span class='ident'>payload</span>: <span class='ident'>payload</span>,
+			 <span class='ident'>callback</span>: <span class='ident'>callback</span>,
+		 })
 	}
 }
 

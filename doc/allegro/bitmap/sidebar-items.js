@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Bitmap",""],["MemoryBitmap","A memory bitmap, unlike a regular bitmap, can be transferred between threads."],["SubBitmap",""]]});

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Bitmap` struct in crate `allegro`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Bitmap">
+
+    <title>allegro::bitmap::Bitmap - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>allegro</a>::<wbr><a href='index.html'>bitmap</a></p><script>window.sidebarCurrent = {name: 'Bitmap', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>allegro</a>::<wbr><a href='index.html'>bitmap</a>::<wbr><a class='struct' href=''>Bitmap</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/allegro/bitmap.rs.html#16-21' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Bitmap { /* fields omitted */ }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/allegro/bitmap.rs.html#23-121' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(_: &amp;<a class='struct' href='../../allegro/core/struct.Core.html' title='allegro::core::Core'>Core</a>, w: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, h: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<h4 id='method.load' class='method'><span id='load.v' class='invisible'><code>fn <a href='#method.load' class='fnname'>load</a>(_: &amp;<a class='struct' href='../../allegro/core/struct.Core.html' title='allegro::core::Core'>Core</a>, filename: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<h4 id='method.wrap' class='method'><span id='wrap.v' class='invisible'><code>unsafe fn <a href='#method.wrap' class='fnname'>wrap</a>(bmp: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/bitmap/enum.ALLEGRO_BITMAP.html' title='allegro_sys::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a>, own: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span></h4>
+<div class='docblock'><p>Wraps an Allegro bitmap.</p>
+</div><h4 id='method.clone_and_wrap' class='method'><span id='clone_and_wrap.v' class='invisible'><code>unsafe fn <a href='#method.clone_and_wrap' class='fnname'>clone_and_wrap</a>(bmp: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/bitmap/enum.ALLEGRO_BITMAP.html' title='allegro_sys::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<h4 id='method.maybe_clone' class='method'><span id='maybe_clone.v' class='invisible'><code>fn <a href='#method.maybe_clone' class='fnname'>maybe_clone</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<h4 id='method.into_memory_bitmap' class='method'><span id='into_memory_bitmap.v' class='invisible'><code>fn <a href='#method.into_memory_bitmap' class='fnname'>into_memory_bitmap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.MemoryBitmap.html' title='allegro::bitmap::MemoryBitmap'>MemoryBitmap</a>, <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a>&gt;</code></span></h4>
+<div class='docblock'><p>Converts a bitmap into a memory bitmap, if possible.</p>
+
+<p>Panics if there are any outstanding sub-bitmaps.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../allegro/bitmap_like/trait.BitmapLike.html' title='allegro::bitmap_like::BitmapLike'>BitmapLike</a> for <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/allegro/bitmap.rs.html#123-134' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_allegro_bitmap' class='method'><span id='get_allegro_bitmap.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#tymethod.get_allegro_bitmap' class='fnname'>get_allegro_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='../../allegro_sys/bitmap/enum.ALLEGRO_BITMAP.html' title='allegro_sys::bitmap::ALLEGRO_BITMAP'>ALLEGRO_BITMAP</a></code></span></h4>
+<h4 id='method.create_sub_bitmap' class='method'><span id='create_sub_bitmap.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#tymethod.create_sub_bitmap' class='fnname'>create_sub_bitmap</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Weak.html' title='alloc::rc::Weak'>Weak</a>&lt;<a class='struct' href='../../allegro/bitmap/struct.SubBitmap.html' title='allegro::bitmap::SubBitmap'>SubBitmap</a>&gt;, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Creates a sub-bitmap of the current bitmap. Note that the parent bitmap will panic upon destruction if any strong references to its sub-bitmaps are held at that time. <a href="../../allegro/bitmap_like/trait.BitmapLike.html#tymethod.create_sub_bitmap">Read more</a></p>
+</div><h4 id='method.get_width' class='method'><span id='get_width.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></span></h4>
+<h4 id='method.get_height' class='method'><span id='get_height.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></span></h4>
+<h4 id='method.get_format' class='method'><span id='get_format.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.get_format' class='fnname'>get_format</a>(&amp;self) -&gt; <a class='enum' href='../../allegro/color/enum.PixelFormat.html' title='allegro::color::PixelFormat'>PixelFormat</a></code></span></h4>
+<h4 id='method.get_flags' class='method'><span id='get_flags.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.get_flags' class='fnname'>get_flags</a>(&amp;self) -&gt; <a class='struct' href='../../allegro/bitmap_like/struct.BitmapFlags.html' title='allegro::bitmap_like::BitmapFlags'>BitmapFlags</a></code></span></h4>
+<h4 id='method.get_pixel' class='method'><span id='get_pixel.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.get_pixel' class='fnname'>get_pixel</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../../allegro/color/struct.Color.html' title='allegro::color::Color'>Color</a></code></span></h4>
+<h4 id='method.convert_mask_to_alpha' class='method'><span id='convert_mask_to_alpha.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.convert_mask_to_alpha' class='fnname'>convert_mask_to_alpha</a>(&amp;self, mask_color: <a class='struct' href='../../allegro/color/struct.Color.html' title='allegro::color::Color'>Color</a>)</code></span></h4>
+<h4 id='method.is_compatible_bitmap' class='method'><span id='is_compatible_bitmap.v' class='invisible'><code>fn <a href='../../allegro/bitmap_like/trait.BitmapLike.html#method.is_compatible_bitmap' class='fnname'>is_compatible_bitmap</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns if this bitmap is compatible with the current display. This comes into play when you have multiple displays in a single thread, and have created bitmaps for different displays. A bitmap created for one display may or may not be compatible with the other display. If the bitmap is not compatible, drawing it will be slow. <a href="../../allegro/bitmap_like/trait.BitmapLike.html#method.is_compatible_bitmap">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/allegro/bitmap.rs.html#136-142' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../allegro/bitmap/struct.Bitmap.html' title='allegro::bitmap::Bitmap'>Bitmap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/allegro/bitmap.rs.html#144-159' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><span id='drop.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></span></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "allegro";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

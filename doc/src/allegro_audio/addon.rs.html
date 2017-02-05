@@ -113,6 +113,8 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -142,8 +144,7 @@
 	{
 		<span class='kw'>let</span> <span class='ident'>mutex</span> <span class='op'>=</span> <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>();
 		<span class='kw'>let</span> <span class='ident'>_guard</span> <span class='op'>=</span> <span class='ident'>mutex</span>.<span class='ident'>lock</span>();
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='kw'>if</span> <span class='ident'>initialized</span>
 			{
 				<span class='kw'>if</span> <span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow</span>())
@@ -153,7 +154,10 @@
 				<span class='kw'>else</span>
 				{
 					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='bool-val'>true</span>);
-					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>(), <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span> {
+						<span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>(),
+						<span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span>,
+					})
 				}
 			}
 			<span class='kw'>else</span>
@@ -162,7 +166,10 @@
 				{
 					<span class='ident'>initialized</span> <span class='op'>=</span> <span class='bool-val'>true</span>;
 					<span class='ident'>spawned_on_this_thread</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>borrow_mut</span>() <span class='op'>=</span> <span class='bool-val'>true</span>);
-					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span>{ <span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>(), <span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span> })
+					<span class='prelude-val'>Ok</span>(<span class='ident'>AudioAddon</span> {
+						<span class='ident'>core_mutex</span>: <span class='ident'>core</span>.<span class='ident'>get_core_mutex</span>(),
+						<span class='ident'>no_send_marker</span>: <span class='ident'>PhantomData</span>,
+					})
 				}
 				<span class='kw'>else</span>
 				{
@@ -174,10 +181,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_version</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span>
-		{
-			<span class='ident'>al_get_allegro_audio_version</span>() <span class='kw'>as</span> <span class='ident'>i32</span>
-		}
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_allegro_audio_version</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_core_mutex</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>

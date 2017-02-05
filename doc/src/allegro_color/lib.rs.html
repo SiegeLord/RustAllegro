@@ -226,20 +226,6 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -271,8 +257,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>g</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_hsv_to_rgb</span>(<span class='ident'>hue</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>saturation</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>value</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -285,8 +270,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>g</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_hsl_to_rgb</span>(<span class='ident'>hue</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>saturation</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>lightness</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -300,8 +284,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='ident'>name</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_name_to_rgb</span>(<span class='ident'>name</span>.<span class='ident'>as_ptr</span>(), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -314,8 +297,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>g</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_cmyk_to_rgb</span>(<span class='ident'>cyan</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>magenta</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>yellow</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>key</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -328,8 +310,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>g</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_yuv_to_rgb</span>(<span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>u</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>v</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -343,8 +324,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> <span class='ident'>html_hex</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>html_hex</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_html_to_rgb</span>(<span class='ident'>html_hex</span>.<span class='ident'>as_ptr</span>(), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>g</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
 		}
 
@@ -358,8 +338,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> (<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_color</span>().<span class='ident'>to_rgb_f</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_rgb_to_hsv</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>h</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>s</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);
 		}
 
@@ -373,8 +352,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>l</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> (<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_color</span>().<span class='ident'>to_rgb_f</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_rgb_to_hsl</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>h</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>s</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>l</span>);
 		}
 
@@ -385,8 +363,7 @@
 	{
 		<span class='kw'>let</span> (<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_color</span>().<span class='ident'>to_rgb_f</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='kw'>let</span> <span class='ident'>name</span> <span class='op'>=</span> <span class='ident'>al_color_rgb_to_name</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
 			<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>name</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>()
 		}
@@ -400,8 +377,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>k</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> (<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_color</span>().<span class='ident'>to_rgb_f</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_rgb_to_cmyk</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>m</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>k</span>);
 		}
 
@@ -415,8 +391,7 @@
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span>: <span class='ident'>c_float</span> <span class='op'>=</span> <span class='number'>0.0</span>;
 		<span class='kw'>let</span> (<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_color</span>().<span class='ident'>to_rgb_f</span>();
 
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_color_rgb_to_yuv</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>u</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);
 		}
 
@@ -434,10 +409,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_color_addon_version</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 {
-	<span class='kw'>unsafe</span>
-	{
-		<span class='ident'>al_get_allegro_color_version</span>() <span class='kw'>as</span> <span class='ident'>i32</span>
-	}
+	<span class='kw'>unsafe</span> { <span class='ident'>al_get_allegro_color_version</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
 }
 </pre>
 </section>

@@ -198,20 +198,19 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
-<span id="157">157</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
+<span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>;
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>c_bool</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>HasMixer</span>;
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>;
+<span class='kw'>use</span> <span class='ident'>mixer</span>::{<span class='ident'>Mixer</span>, <span class='ident'>MixerLike</span>};
 <span class='kw'>use</span> <span class='ident'>properties</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>mixer</span>::{<span class='ident'>MixerLike</span>, <span class='ident'>Mixer</span>};
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>HasMixer</span>;
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>set_impl</span>
 {
@@ -248,7 +247,7 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Sink</span>
 {
 	<span class='ident'>allegro_voice</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_VOICE</span>,
-	<span class='ident'>mixer</span>: <span class='ident'>Mixer</span>
+	<span class='ident'>mixer</span>: <span class='ident'>Mixer</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Sink</span>
@@ -258,18 +257,16 @@
 		<span class='ident'>Sink</span>::<span class='ident'>new_custom</span>(<span class='ident'>addon</span>, <span class='number'>44100</span>, <span class='ident'>AudioDepth</span>::<span class='ident'>I16</span>, <span class='ident'>ChannelConf</span>::<span class='ident'>Conf2</span>, <span class='ident'>AudioDepth</span>::<span class='ident'>F32</span>, <span class='ident'>ChannelConf</span>::<span class='ident'>Conf2</span>)
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_custom</span>(<span class='ident'>addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
-		<span class='ident'>mixer_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>mixer_chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_custom</span>(<span class='ident'>addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>, <span class='ident'>mixer_depth</span>: <span class='ident'>AudioDepth</span>,
+	                  <span class='ident'>mixer_chan_conf</span>: <span class='ident'>ChannelConf</span>)
+	                  <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='ident'>Mixer</span>::<span class='ident'>new_custom</span>(<span class='ident'>addon</span>, <span class='ident'>frequency</span>, <span class='ident'>mixer_depth</span>, <span class='ident'>mixer_chan_conf</span>)
-		.<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='string'>&quot;Could not create the mixer.&quot;</span>.<span class='ident'>to_string</span>())
-		.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>mixer</span><span class='op'>|</span>
-			<span class='ident'>Sink</span>::<span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>, <span class='ident'>voice_depth</span>, <span class='ident'>voice_chan_conf</span>, <span class='ident'>mixer</span>)
-		)
+			.<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='string'>&quot;Could not create the mixer.&quot;</span>.<span class='ident'>to_string</span>())
+			.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>mixer</span><span class='op'>|</span> <span class='ident'>Sink</span>::<span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>, <span class='ident'>voice_depth</span>, <span class='ident'>voice_chan_conf</span>, <span class='ident'>mixer</span>))
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>,
-		<span class='ident'>mixer</span>: <span class='ident'>Mixer</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_with_mixer</span>(<span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>voice_depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>voice_chan_conf</span>: <span class='ident'>ChannelConf</span>, <span class='ident'>mixer</span>: <span class='ident'>Mixer</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Sink</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>voice</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_create_voice</span>(<span class='ident'>frequency</span> <span class='kw'>as</span> <span class='ident'>c_uint</span>, <span class='ident'>voice_depth</span>.<span class='ident'>get</span>(), <span class='ident'>voice_chan_conf</span>.<span class='ident'>get</span>()) };
 		<span class='kw'>if</span> <span class='ident'>voice</span>.<span class='ident'>is_null</span>()
@@ -280,11 +277,13 @@
 		{
 			<span class='kw'>if</span> <span class='kw'>unsafe</span> { <span class='ident'>al_attach_mixer_to_voice</span>(<span class='ident'>mixer</span>.<span class='ident'>get_allegro_mixer</span>(), <span class='ident'>voice</span>) <span class='op'>!=</span> <span class='number'>0</span> }
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>Sink</span>{ <span class='ident'>allegro_voice</span>: <span class='ident'>voice</span>, <span class='ident'>mixer</span>: <span class='ident'>mixer</span> })
+				<span class='prelude-val'>Ok</span>(<span class='ident'>Sink</span> { <span class='ident'>allegro_voice</span>: <span class='ident'>voice</span>, <span class='ident'>mixer</span>: <span class='ident'>mixer</span> })
 			}
 			<span class='kw'>else</span>
 			{
-				<span class='kw'>unsafe</span> { <span class='ident'>al_destroy_voice</span>(<span class='ident'>voice</span>); }
+				<span class='kw'>unsafe</span> {
+					<span class='ident'>al_destroy_voice</span>(<span class='ident'>voice</span>);
+				}
 				<span class='prelude-val'>Err</span>(<span class='string'>&quot;Could not attach mixer to voice&quot;</span>.<span class='ident'>to_string</span>())
 			}
 		}
@@ -335,8 +334,7 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
 	{
-		<span class='kw'>unsafe</span>
-		{
+		<span class='kw'>unsafe</span> {
 			<span class='ident'>al_detach_mixer</span>(<span class='self'>self</span>.<span class='ident'>mixer</span>.<span class='ident'>get_allegro_mixer</span>());
 			<span class='ident'>al_destroy_voice</span>(<span class='self'>self</span>.<span class='ident'>allegro_voice</span>);
 		}
