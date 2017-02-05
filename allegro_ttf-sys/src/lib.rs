@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 
 extern crate allegro_font_sys;
-#[macro_use]
 extern crate allegro_util;
 extern crate libc;
 

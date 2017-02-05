@@ -3,7 +3,7 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 use std::env::var;
-use std::fs::{File, canonicalize};
+use std::fs::File;
 use std::io::prelude::*;
 
 // Parses lines of the form KEY VALUE, where VALUE may be a quote delimited string.
@@ -20,7 +20,7 @@ fn get_define_value<'l>(line: &'l str, key: &'l str) -> Option<&'l str>
 		{
 			// + 2 because we start with 1 offset, and we actually want the character after the "
 			Some(v) => v + 2,
-			None => return panic!("Couldn't parse value from '{}'", line)
+			None => panic!("Couldn't parse value from '{}'", line)
 		}
 	}
 	else

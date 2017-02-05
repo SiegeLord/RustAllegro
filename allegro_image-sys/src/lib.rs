@@ -6,7 +6,6 @@
 #![crate_type = "lib"]
 
 extern crate libc;
-#[macro_use]
 extern crate allegro_util;
 
 pub use allegro_image::*;
