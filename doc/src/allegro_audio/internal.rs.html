@@ -9,6 +9,7 @@
 
     <title>internal.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -120,7 +121,7 @@
 <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AttachToMixerImpl</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>create_connection</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>allegro_mixer</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Connection</span>, ()<span class='op'>&gt;</span>;
+	<span class='kw'>fn</span> <span class='ident'>create_connection</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>allegro_mixer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Connection</span>, ()<span class='op'>&gt;</span>;
 }
 
 <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
@@ -134,13 +135,13 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Connection</span>
 {
 	<span class='ident'>active</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
-	<span class='ident'>payload</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>,
-	<span class='ident'>callback</span>: <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>),
+	<span class='ident'>payload</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>,
+	<span class='ident'>callback</span>: <span class='kw'>fn</span>(<span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>),
 }
 
 <span class='kw'>impl</span> <span class='ident'>Connection</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>payload</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>callback</span>: <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>)) <span class='op'>-&gt;</span> (<span class='ident'>Connection</span>, <span class='ident'>Connection</span>)
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>payload</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>callback</span>: <span class='kw'>fn</span>(<span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>)) <span class='op'>-&gt;</span> (<span class='ident'>Connection</span>, <span class='ident'>Connection</span>)
 	{
 		<span class='kw'>let</span> <span class='ident'>active1</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='bool-val'>true</span>));
 		<span class='kw'>let</span> <span class='ident'>active2</span> <span class='op'>=</span> <span class='ident'>active1</span>.<span class='ident'>clone</span>();

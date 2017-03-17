@@ -9,6 +9,7 @@
 
     <title>base.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -70,7 +71,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='macro'>include</span><span class='macro'>!</span>(<span class='macro'>concat</span><span class='macro'>!</span>(<span class='macro'>env</span><span class='macro'>!</span>(<span class='string'>&quot;OUT_DIR&quot;</span>), <span class='string'>&quot;/versions.rs&quot;</span>));
 
@@ -79,7 +80,7 @@
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 {
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_allegro_version</span>() <span class='op'>-&gt;</span> <span class='ident'>uint32_t</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_run_main</span>(<span class='ident'>argc</span>: <span class='ident'>c_int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>user_main</span>: <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>argc</span>: <span class='ident'>c_int</span>, <span class='ident'>argv</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_run_main</span>(<span class='ident'>argc</span>: <span class='ident'>c_int</span>, <span class='ident'>argv</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>user_main</span>: <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>argc</span>: <span class='ident'>c_int</span>, <span class='ident'>argv</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
 }
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_PI</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>3.14159265358979323846</span>;

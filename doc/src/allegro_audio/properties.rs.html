@@ -9,6 +9,7 @@
 
     <title>properties.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -230,7 +231,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='kw-2'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
@@ -263,7 +264,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_AUDIO_DEPTH</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>AudioDepth</span>::<span class='ident'>I8</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_AUDIO_DEPTH_INT8</span>,
 			<span class='ident'>AudioDepth</span>::<span class='ident'>I16</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_AUDIO_DEPTH_INT16</span>,
@@ -277,7 +278,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_byte_size</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>AudioDepth</span>::<span class='ident'>I8</span> <span class='op'>=&gt;</span> <span class='number'>1</span>,
 			<span class='ident'>AudioDepth</span>::<span class='ident'>I16</span> <span class='op'>=&gt;</span> <span class='number'>2</span>,
@@ -320,7 +321,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_CHANNEL_CONF</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>ChannelConf</span>::<span class='ident'>Conf1</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_CHANNEL_CONF_1</span>,
 			<span class='ident'>ChannelConf</span>::<span class='ident'>Conf2</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_CHANNEL_CONF_2</span>,
@@ -334,7 +335,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_num_channels</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>ChannelConf</span>::<span class='ident'>Conf1</span> <span class='op'>=&gt;</span> <span class='number'>1</span>,
 			<span class='ident'>ChannelConf</span>::<span class='ident'>Conf2</span> <span class='op'>=&gt;</span> <span class='number'>2</span>,
@@ -370,7 +371,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_PLAYMODE</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>Playmode</span>::<span class='ident'>Once</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_PLAYMODE_ONCE</span>,
 			<span class='ident'>Playmode</span>::<span class='ident'>Loop</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_PLAYMODE_LOOP</span>,
@@ -401,7 +402,7 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_MIXER_QUALITY</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>MixerQuality</span>::<span class='ident'>Point</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_MIXER_QUALITY_POINT</span>,
 			<span class='ident'>MixerQuality</span>::<span class='ident'>Linear</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_MIXER_QUALITY_LINEAR</span>,

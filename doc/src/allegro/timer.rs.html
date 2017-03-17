@@ -9,6 +9,7 @@
 
     <title>timer.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -148,13 +149,13 @@
 <span class='kw'>use</span> <span class='ident'>core</span>::<span class='ident'>Core</span>;
 
 <span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>EventSource</span>;
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Timer</span>
 {
-	<span class='ident'>allegro_timer</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>,
+	<span class='ident'>allegro_timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Timer</span>

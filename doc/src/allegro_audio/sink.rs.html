@@ -9,6 +9,7 @@
 
     <title>sink.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -205,12 +206,12 @@
 
 <span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>;
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>c_bool</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>HasMixer</span>;
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>mixer</span>::{<span class='ident'>Mixer</span>, <span class='ident'>MixerLike</span>};
-<span class='kw'>use</span> <span class='ident'>properties</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>properties</span>::<span class='kw-2'>*</span>;
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>set_impl</span>
 {
@@ -224,7 +225,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span>: <span class='ident'>ty</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span> }
+		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span> }
 	}
 }
 
@@ -232,7 +233,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>: <span class='ident'>path</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _)) }
+		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _)) }
 	}
 }
 
@@ -240,13 +241,13 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>allegro_voice</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='op'>!=</span> <span class='number'>0</span> }
 	}
 }
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Sink</span>
 {
-	<span class='ident'>allegro_voice</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_VOICE</span>,
+	<span class='ident'>allegro_voice</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_VOICE</span>,
 	<span class='ident'>mixer</span>: <span class='ident'>Mixer</span>,
 }
 
@@ -289,7 +290,7 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_voice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_VOICE</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_voice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_VOICE</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_voice</span>
 	}

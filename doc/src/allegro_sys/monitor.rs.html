@@ -9,6 +9,7 @@
 
     <title>monitor.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -71,7 +72,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
@@ -89,7 +90,7 @@
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 {
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_num_video_adapters</span>() <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span>: <span class='ident'>c_int</span>, <span class='ident'>info</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span>: <span class='ident'>c_int</span>, <span class='ident'>info</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 }
 </pre>
 </section>

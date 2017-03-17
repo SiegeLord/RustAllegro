@@ -9,6 +9,7 @@
 
     <title>config.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -315,7 +316,7 @@
 </pre><pre class='rust '>
 
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
@@ -326,7 +327,7 @@ Wraps ALLEGRO_CONFIG.
 */</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Config</span>
 {
-	<span class='ident'>allegro_config</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>,
+	<span class='ident'>allegro_config</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>,
 	<span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 
@@ -338,7 +339,7 @@ Wraps ALLEGRO_CONFIG.
 		<span class='kw'>unsafe</span> { <span class='ident'>Config</span>::<span class='ident'>wrap</span>(<span class='ident'>al_create_config</span>(), <span class='bool-val'>true</span>) }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>config</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>, <span class='ident'>own</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Config</span>
+	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>config</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>, <span class='ident'>own</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Config</span>
 	{
 		<span class='ident'>Config</span> { <span class='ident'>allegro_config</span>: <span class='ident'>config</span>, <span class='ident'>owned</span>: <span class='ident'>own</span> }
 	}
@@ -367,7 +368,7 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class='doccomment'>/// Returns the wrapped ALLEGRO_CONFIG.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_config</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_config</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_config</span>
 	}
@@ -520,7 +521,7 @@ Configuration section. Used for iterating through all the sections of a configur
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ConfigSection</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>
 {
 	<span class='ident'>_config</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Config</span>,
-	<span class='ident'>config_section</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG_SECTION</span>,
+	<span class='ident'>config_section</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG_SECTION</span>,
 	<span class='ident'>next_section</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
 }
 
@@ -534,7 +535,7 @@ Configuration section. Used for iterating through all the sections of a configur
 		<span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_some</span>()
 		{
 			<span class='self'>self</span>.<span class='ident'>next_section</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-				<span class='kw'>let</span> <span class='ident'>next_section</span> <span class='op'>=</span> <span class='ident'>al_get_next_config_section</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>config_section</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _);
+				<span class='kw'>let</span> <span class='ident'>next_section</span> <span class='op'>=</span> <span class='ident'>al_get_next_config_section</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>config_section</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> _);
 				<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>next_section</span>.<span class='ident'>is_null</span>()
 				{
 					<span class='prelude-val'>Some</span>(<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>next_section</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>())
@@ -555,7 +556,7 @@ Configuration entry. Used for iterating through all the entries of a configurati
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ConfigEntry</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>
 {
 	<span class='ident'>_config</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Config</span>,
-	<span class='ident'>config_entry</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG_ENTRY</span>,
+	<span class='ident'>config_entry</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG_ENTRY</span>,
 	<span class='ident'>next_key</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
 }
 
@@ -569,7 +570,7 @@ Configuration entry. Used for iterating through all the entries of a configurati
 		<span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_some</span>()
 		{
 			<span class='self'>self</span>.<span class='ident'>next_key</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-				<span class='kw'>let</span> <span class='ident'>next_key</span> <span class='op'>=</span> <span class='ident'>al_get_next_config_entry</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>config_entry</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> _);
+				<span class='kw'>let</span> <span class='ident'>next_key</span> <span class='op'>=</span> <span class='ident'>al_get_next_config_entry</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>config_entry</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> _);
 				<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>next_key</span>.<span class='ident'>is_null</span>()
 				{
 					<span class='prelude-val'>Some</span>(<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>next_key</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>())

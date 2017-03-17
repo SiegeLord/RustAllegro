@@ -9,6 +9,7 @@
 
     <title>shader.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -106,10 +107,10 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
-<span class='kw'>use</span> <span class='ident'>bitmap</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>transformations</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>bitmap</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>transformations</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_SHADER</span>);
@@ -125,41 +126,41 @@
 
 <span class='kw'>extern</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_shader</span>(<span class='ident'>platform</span>: <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_attach_shader_source</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_shader</span>(<span class='ident'>platform</span>: <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_attach_shader_source</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
 	                               <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_SHADER_TYPE</span>,
-	                               <span class='ident'>source</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>)
+	                               <span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>)
 	                               <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_attach_shader_source_file</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_attach_shader_source_file</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
 	                                    <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_SHADER_TYPE</span>,
-	                                    <span class='ident'>filename</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>)
+	                                    <span class='ident'>filename</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>)
 	                                    <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_build_shader</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_shader_log</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_shader_platform</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_use_shader</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_shader</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> ();
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_sampler</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
-	                             <span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>,
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_build_shader</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_shader_log</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_shader_platform</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_use_shader</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_shader</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> ();
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_sampler</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
+	                             <span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>,
 	                             <span class='ident'>unit</span>: <span class='ident'>c_int</span>)
 	                             <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_matrix</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>matrix</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_int</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_float</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>f</span>: <span class='ident'>c_float</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_int_vector</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_matrix</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>matrix</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_int</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_float</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>f</span>: <span class='ident'>c_float</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_int_vector</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
 	                                <span class='ident'>num_components</span>: <span class='ident'>c_int</span>,
-	                                <span class='ident'>i</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+	                                <span class='ident'>i</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
 	                                <span class='ident'>num_elems</span>: <span class='ident'>c_int</span>)
 	                                <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_float_vector</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_float_vector</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>,
 	                                  <span class='ident'>num_components</span>: <span class='ident'>c_int</span>,
-	                                  <span class='ident'>f</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>,
+	                                  <span class='ident'>f</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>,
 	                                  <span class='ident'>num_elems</span>: <span class='ident'>c_int</span>)
 	                                  <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_bool</span>(<span class='ident'>name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>b</span>: <span class='ident'>c_bool</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_shader_bool</span>(<span class='ident'>name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>b</span>: <span class='ident'>c_bool</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_default_shader_source</span>(<span class='ident'>platform</span>: <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>,
 	                                    <span class='ident'>_type</span>: <span class='ident'>ALLEGRO_SHADER_TYPE</span>)
-	                                    <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	                                    <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
 }
 </pre>
 </section>

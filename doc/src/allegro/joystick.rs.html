@@ -9,6 +9,7 @@
 
     <title>joystick.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -181,8 +182,8 @@
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::{<span class='ident'>Flag</span>, <span class='ident'>from_c_str</span>};
 <span class='kw'>use</span> <span class='ident'>core</span>::<span class='ident'>Core</span>;
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
 <span class='macro'>flag_type</span><span class='macro'>!</span>{
@@ -196,7 +197,7 @@
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>missing_copy_implementations</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Joystick</span>
 {
-	<span class='ident'>allegro_joystick</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,
+	<span class='ident'>allegro_joystick</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Joystick</span>
@@ -300,7 +301,7 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_joystick</span>
 	}

@@ -9,6 +9,7 @@
 
     <title>color.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -157,8 +158,8 @@
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Color</span>(<span class='ident'>ALLEGRO_COLOR</span>);
@@ -253,12 +254,12 @@
 {
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_size</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_pixel_size</span>(<span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_pixel_size</span>(<span class='kw-2'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_bits</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_pixel_format_bits</span>(<span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_pixel_format_bits</span>(<span class='kw-2'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 }
 </pre>

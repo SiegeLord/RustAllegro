@@ -9,6 +9,7 @@
 
     <title>font.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -224,10 +225,10 @@
 
 <span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>FontAddon</span>;
 <span class='kw'>use</span> <span class='ident'>allegro</span>::{<span class='ident'>Bitmap</span>, <span class='ident'>BitmapLike</span>, <span class='ident'>Color</span>, <span class='ident'>Core</span>};
-<span class='kw'>use</span> <span class='ident'>allegro_font_sys</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_font_sys</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_sys</span>::<span class='kw-2'>*</span>;
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
@@ -243,7 +244,7 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>get_allegro_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
 	{
-		<span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>
+		<span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>
 		{
 			<span class='ident'>FontAlign</span>::<span class='ident'>Left</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_ALIGN_LEFT</span>,
 			<span class='ident'>FontAlign</span>::<span class='ident'>Right</span> <span class='op'>=&gt;</span> <span class='ident'>ALLEGRO_ALIGN_RIGHT</span>,
@@ -268,7 +269,7 @@
 		}
 		<span class='kw'>unsafe</span> {
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
-			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
+			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
 
 			<span class='ident'>al_draw_justified_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()),
 			                       <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(),
@@ -289,7 +290,7 @@
 		}
 		<span class='kw'>unsafe</span> {
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
-			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
+			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
 
 			<span class='ident'>al_draw_ustr</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>font</span>.<span class='ident'>get_font</span>()),
 			             <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>(),
@@ -303,7 +304,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Font</span>
 {
-	<span class='ident'>allegro_font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>,
+	<span class='ident'>allegro_font</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Font</span>
@@ -325,12 +326,12 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>grab_from_bitmap</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>FontAddon</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>Bitmap</span>, <span class='ident'>ranges</span>: <span class='kw-2'>&amp;</span>[(<span class='ident'>c_int</span>, <span class='ident'>c_int</span>)]) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='ident'>font</span> <span class='op'>=</span> <span class='ident'>al_grab_font_from_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>ranges</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>ranges</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_int</span>);
+			<span class='kw'>let</span> <span class='ident'>font</span> <span class='op'>=</span> <span class='ident'>al_grab_font_from_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>ranges</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>ranges</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_int</span>);
 			<span class='ident'>Font</span>::<span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>)
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap_allegro_font</span>(<span class='ident'>font</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Font</span>, ()<span class='op'>&gt;</span>
 	{
 		<span class='kw'>if</span> <span class='ident'>font</span>.<span class='ident'>is_null</span>()
 		{
@@ -342,7 +343,7 @@
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_font</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FONT</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_font</span>
 	}
@@ -351,24 +352,24 @@
 	{
 		<span class='kw'>unsafe</span> {
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
-			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
-			<span class='ident'>al_get_ustr_width</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _, <span class='ident'>ustr</span>) <span class='kw'>as</span> <span class='ident'>i32</span>
+			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
+			<span class='ident'>al_get_ustr_width</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _, <span class='ident'>ustr</span>) <span class='kw'>as</span> <span class='ident'>i32</span>
 		}
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_line_height</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_line_height</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_line_height</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_ascent</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_ascent</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_ascent</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_descent</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_descent</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class='kw'>unsafe</span> { <span class='ident'>al_get_font_descent</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='ident'>i32</span> }
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_text_dimensions</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> (<span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>)
@@ -376,8 +377,8 @@
 		<span class='kw'>unsafe</span> {
 			<span class='kw'>let</span> (<span class='kw-2'>mut</span> <span class='ident'>x</span>, <span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>mut</span> <span class='ident'>w</span>, <span class='kw-2'>mut</span> <span class='ident'>h</span>): (<span class='ident'>c_int</span>, <span class='ident'>c_int</span>, <span class='ident'>c_int</span>, <span class='ident'>c_int</span>) <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
 			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info</span>: <span class='ident'>ALLEGRO_USTR_INFO</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
-			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
-			<span class='ident'>al_get_ustr_dimensions</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> _, <span class='ident'>ustr</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>w</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>h</span>);
+			<span class='kw'>let</span> <span class='ident'>ustr</span> <span class='op'>=</span> <span class='ident'>al_ref_buffer</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info</span>, <span class='ident'>text</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>, <span class='ident'>text</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>size_t</span>);
+			<span class='ident'>al_get_ustr_dimensions</span>(<span class='self'>self</span>.<span class='ident'>get_font</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _, <span class='ident'>ustr</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>w</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>h</span>);
 			(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>w</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>h</span> <span class='kw'>as</span> <span class='ident'>i32</span>)
 		}
 	}

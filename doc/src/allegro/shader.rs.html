@@ -9,6 +9,7 @@
 
     <title>shader.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -253,8 +254,8 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
 
 <span class='doccomment'>/// Shader platform.</span>
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
@@ -294,12 +295,12 @@
 <span class='doccomment'>/// Wraps ALLEGRO_SHADER.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Shader</span>
 {
-	<span class='ident'>allegro_shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
+	<span class='ident'>allegro_shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Shader</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>shader</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>Shader</span>
+	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>Shader</span>
 	{
 		<span class='ident'>Shader</span>
 		{
@@ -308,7 +309,7 @@
 	}
 
 	<span class='doccomment'>/// Return the wrapped Allegro shader pointer.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>allegro_shader</span>
 	}
@@ -427,7 +428,7 @@
 			{
 				<span class='kw'>let</span> <span class='ident'>c_name</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
 				<span class='comment'>//~ println!(&quot;{} {} {} {}&quot;, name, $num_elems, self.len(), stringify!($func));</span>
-				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func</span>(<span class='ident'>c_name</span>.<span class='ident'>as_ptr</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>num_elems</span>, <span class='self'>self</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_type</span>, <span class='self'>self</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>i32</span>);
+				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func</span>(<span class='ident'>c_name</span>.<span class='ident'>as_ptr</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>num_elems</span>, <span class='self'>self</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_type</span>, <span class='self'>self</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>i32</span>);
 				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
 				{
 					<span class='prelude-val'>Ok</span>(())

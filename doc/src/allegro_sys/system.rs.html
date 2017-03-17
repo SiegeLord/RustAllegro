@@ -9,6 +9,7 @@
 
     <title>system.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -89,10 +90,10 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
-<span class='kw'>use</span> <span class='ident'>config</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>path</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>config</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>path</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
 
 <span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_SYSTEM</span>);
@@ -102,8 +103,8 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_install_system</span>(<span class='ident'>version</span>: <span class='ident'>c_int</span>, <span class='ident'>atexit_ptr</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>atexit_ptr</span>: <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>()) <span class='op'>-&gt;</span> <span class='ident'>c_int</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_uninstall_system</span>();
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_is_system_installed</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_driver</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SYSTEM</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_config</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_driver</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SYSTEM</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_system_config</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_CONFIG</span>;
 }
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_RESOURCES_PATH</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>0</span>;
@@ -117,13 +118,13 @@
 
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_standard_path</span>(<span class='ident'>id</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_exe_name</span>(<span class='ident'>path</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_standard_path</span>(<span class='ident'>id</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_exe_name</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_org_name</span>(<span class='ident'>org_name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_app_name</span>(<span class='ident'>app_name</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_org_name</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_app_name</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_org_name</span>(<span class='ident'>org_name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_app_name</span>(<span class='ident'>app_name</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_org_name</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_app_name</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_inhibit_screensaver</span>(<span class='ident'>inhibit</span>: <span class='ident'>c_uchar</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 }

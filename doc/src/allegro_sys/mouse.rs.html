@@ -9,6 +9,7 @@
 
     <title>mouse.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -93,7 +94,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>display</span>::<span class='ident'>ALLEGRO_DISPLAY</span>;
 <span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
@@ -113,7 +114,7 @@
     <span class='kw'>pub</span> <span class='ident'>more_axes</span>: [<span class='ident'>c_int</span>; <span class='ident'>ALLEGRO_MOUSE_MAX_EXTRA_AXES</span> <span class='kw'>as</span> <span class='ident'>usize</span>],
     <span class='kw'>pub</span> <span class='ident'>buttons</span>: <span class='ident'>c_int</span>,
     <span class='kw'>pub</span> <span class='ident'>pressure</span>: <span class='ident'>c_float</span>,
-    <span class='kw'>pub</span> <span class='ident'>display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+    <span class='kw'>pub</span> <span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
 }
 
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
@@ -123,17 +124,17 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_uninstall_mouse</span>();
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_num_buttons</span>() <span class='op'>-&gt;</span> <span class='ident'>c_uint</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_num_axes</span>() <span class='op'>-&gt;</span> <span class='ident'>c_uint</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_mouse_xy</span>(<span class='ident'>display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_mouse_xy</span>(<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_mouse_z</span>(<span class='ident'>z</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_mouse_w</span>(<span class='ident'>w</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_mouse_axis</span>(<span class='ident'>axis</span>: <span class='ident'>c_int</span>, <span class='ident'>value</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_state</span>(<span class='ident'>ret_state</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_mouse_button_down</span>(<span class='ident'>state</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>, <span class='ident'>button</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_state_axis</span>(<span class='ident'>state</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>, <span class='ident'>axis</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_cursor_position</span>(<span class='ident'>ret_x</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>ret_y</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_grab_mouse</span>(<span class='ident'>display</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_state</span>(<span class='ident'>ret_state</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_mouse_button_down</span>(<span class='ident'>state</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>, <span class='ident'>button</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_state_axis</span>(<span class='ident'>state</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MOUSE_STATE</span>, <span class='ident'>axis</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_cursor_position</span>(<span class='ident'>ret_x</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>ret_y</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_grab_mouse</span>(<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_ungrab_mouse</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_event_source</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_mouse_event_source</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
 }
 </pre>
 </section>

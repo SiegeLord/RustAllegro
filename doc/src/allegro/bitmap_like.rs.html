@@ -9,6 +9,7 @@
 
     <title>bitmap_like.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -140,8 +141,8 @@
 
 <span class='kw'>use</span> <span class='ident'>color</span>::{<span class='ident'>Color</span>, <span class='ident'>PixelFormat</span>};
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Weak</span>;
 
@@ -166,7 +167,7 @@ A trait implemented by types that behave like bitmaps.
 */</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitmapLike</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
 
 	<span class='doccomment'>/**
 	Creates a sub-bitmap of the current bitmap. Note that the parent bitmap

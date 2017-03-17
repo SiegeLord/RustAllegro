@@ -9,6 +9,7 @@
 
     <title>blend.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -86,7 +87,7 @@
 <span id="42">42</span>
 <span id="43">43</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>color</span>::<span class='ident'>ALLEGRO_COLOR</span>;
 
@@ -112,9 +113,9 @@
                           <span class='ident'>source</span>: <span class='ident'>c_int</span>,
                           <span class='ident'>dest</span>: <span class='ident'>c_int</span>);
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_blend_color</span>(<span class='ident'>color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_blender</span>(<span class='ident'>op</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                          <span class='ident'>source</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                          <span class='ident'>dest</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_blender</span>(<span class='ident'>op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                          <span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                          <span class='ident'>dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_blend_color</span>() <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_COLOR</span>;
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_separate_blender</span>(<span class='ident'>op</span>: <span class='ident'>c_int</span>,
                                    <span class='ident'>source</span>: <span class='ident'>c_int</span>,
@@ -122,12 +123,12 @@
                                    <span class='ident'>alpha_op</span>: <span class='ident'>c_int</span>,
                                    <span class='ident'>alpha_source</span>: <span class='ident'>c_int</span>,
                                    <span class='ident'>alpha_dest</span>: <span class='ident'>c_int</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_separate_blender</span>(<span class='ident'>op</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>source</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>dest</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_op</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_src</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_dest</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_separate_blender</span>(<span class='ident'>op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                                   <span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                                   <span class='ident'>dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                                   <span class='ident'>alpha_op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                                   <span class='ident'>alpha_src</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
+                                   <span class='ident'>alpha_dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
 }
 </pre>
 </section>

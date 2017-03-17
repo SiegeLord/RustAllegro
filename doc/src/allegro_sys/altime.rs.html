@@ -9,6 +9,7 @@
 
     <title>altime.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -67,7 +68,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
@@ -81,7 +82,7 @@
 {
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_time</span>() <span class='op'>-&gt;</span> <span class='ident'>c_double</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_rest</span>(<span class='ident'>seconds</span>: <span class='ident'>c_double</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_init_timeout</span>(<span class='ident'>timeout</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMEOUT</span>, <span class='ident'>seconds</span>: <span class='ident'>c_double</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_init_timeout</span>(<span class='ident'>timeout</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMEOUT</span>, <span class='ident'>seconds</span>: <span class='ident'>c_double</span>);
 }
 </pre>
 </section>

@@ -9,6 +9,7 @@
 
     <title>transformations.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -75,7 +76,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
@@ -86,18 +87,18 @@
 
 <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_use_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_copy_transform</span>(<span class='ident'>dest</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>src</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_identity_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_build_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='ident'>c_float</span>, <span class='ident'>sx</span>: <span class='ident'>c_float</span>, <span class='ident'>sy</span>: <span class='ident'>c_float</span>, <span class='ident'>theta</span>: <span class='ident'>c_float</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_translate_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='ident'>c_float</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_rotate_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>theta</span>: <span class='ident'>c_float</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_scale_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>sx</span>: <span class='ident'>c_float</span>, <span class='ident'>sy</span>: <span class='ident'>c_float</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_transform_coordinates</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_compose_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>other</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_current_transform</span>() <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_invert_transform</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_check_inverse</span>(<span class='ident'>trans</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>tol</span>: <span class='ident'>c_float</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_use_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_copy_transform</span>(<span class='ident'>dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>src</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_identity_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_build_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='ident'>c_float</span>, <span class='ident'>sx</span>: <span class='ident'>c_float</span>, <span class='ident'>sy</span>: <span class='ident'>c_float</span>, <span class='ident'>theta</span>: <span class='ident'>c_float</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_translate_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='ident'>c_float</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_rotate_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>theta</span>: <span class='ident'>c_float</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_scale_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>sx</span>: <span class='ident'>c_float</span>, <span class='ident'>sy</span>: <span class='ident'>c_float</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_transform_coordinates</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>x</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>, <span class='ident'>y</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_float</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_compose_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>other</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_current_transform</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_invert_transform</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TRANSFORM</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_check_inverse</span>(<span class='ident'>trans</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TRANSFORM</span>, <span class='ident'>tol</span>: <span class='ident'>c_float</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
 }
 </pre>
 </section>

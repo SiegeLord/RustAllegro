@@ -9,6 +9,7 @@
 
     <title>bitmap.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -102,7 +103,7 @@
 <span class='comment'>//</span>
 <span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>color</span>::<span class='ident'>ALLEGRO_COLOR</span>;
 <span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
@@ -129,29 +130,29 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_new_bitmap_flags</span>() <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_add_new_bitmap_flag</span>(<span class='ident'>flag</span>: <span class='ident'>c_int</span>);
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_width</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_height</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_format</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_flags</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_width</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_height</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_format</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_bitmap_flags</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_bitmap</span>(<span class='ident'>w</span>: <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_bitmap</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_bitmap</span>(<span class='ident'>w</span>: <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_bitmap</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>);
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_put_pixel</span>(<span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>, <span class='ident'>color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_put_blended_pixel</span>(<span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>, <span class='ident'>color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_pixel</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_COLOR</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_pixel</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_COLOR</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_convert_mask_to_alpha</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>mask_color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_convert_mask_to_alpha</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>mask_color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_clipping_rectangle</span>(<span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>, <span class='ident'>width</span>: <span class='ident'>c_int</span>, <span class='ident'>height</span>: <span class='ident'>c_int</span>);
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_reset_clipping_rectangle</span>();
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_clipping_rectangle</span>(<span class='ident'>x</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>w</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_clipping_rectangle</span>(<span class='ident'>x</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>w</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_sub_bitmap</span>(<span class='ident'>parent</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>, <span class='ident'>w</span>: <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_is_sub_bitmap</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_parent_bitmap</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_sub_bitmap</span>(<span class='ident'>parent</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>, <span class='ident'>x</span>: <span class='ident'>c_int</span>, <span class='ident'>y</span>: <span class='ident'>c_int</span>, <span class='ident'>w</span>: <span class='ident'>c_int</span>, <span class='ident'>h</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_is_sub_bitmap</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_parent_bitmap</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_clone_bitmap</span>(<span class='ident'>bitmap</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_clone_bitmap</span>(<span class='ident'>bitmap</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
 }
 </pre>
 </section>

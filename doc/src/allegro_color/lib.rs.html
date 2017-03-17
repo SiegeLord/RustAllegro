@@ -9,6 +9,7 @@
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -242,8 +243,8 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 
 <span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>Color</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_color_sys</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>allegro_color_sys</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ColorAddonExtensions</span>
@@ -403,7 +404,7 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>get_color</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Color</span>
 	{
-		<span class='op'>*</span><span class='self'>self</span>
+		<span class='kw-2'>*</span><span class='self'>self</span>
 	}
 }
 
