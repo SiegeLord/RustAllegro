@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -246,210 +246,210 @@
 <span id="201">201</span>
 <span id="202">202</span>
 <span id="203">203</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::{<span class="ident">CStr</span>, <span class="ident">CString</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
 
-<span class='doccomment'>/// Shader platform.</span>
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ShaderPlatform</span>
+<span class="doccomment">/// Shader platform.</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShaderPlatform</span>
 {
-	<span class='doccomment'>/// Automatically detect the platform, only appropriate for shader creation.</span>
-	<span class='ident'>Auto</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SHADER_AUTO</span>,
-	<span class='ident'>GLSL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SHADER_GLSL</span>,
-	<span class='ident'>HLSL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SHADER_HLSL</span>,
+	<span class="doccomment">/// Automatically detect the platform, only appropriate for shader creation.</span>
+	<span class="ident">Auto</span> <span class="op">=</span> <span class="ident">ALLEGRO_SHADER_AUTO</span>,
+	<span class="ident">GLSL</span> <span class="op">=</span> <span class="ident">ALLEGRO_SHADER_GLSL</span>,
+	<span class="ident">HLSL</span> <span class="op">=</span> <span class="ident">ALLEGRO_SHADER_HLSL</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>ShaderPlatform</span>
+<span class="kw">impl</span> <span class="ident">ShaderPlatform</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_allegro</span>(<span class='ident'>platform</span>: <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>) <span class='op'>-&gt;</span> <span class='ident'>ShaderPlatform</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_allegro</span>(<span class="ident">platform</span>: <span class="ident">ALLEGRO_SHADER_PLATFORM</span>) <span class="op">-&gt;</span> <span class="ident">ShaderPlatform</span>
 	{
-		<span class='kw'>match</span> <span class='ident'>platform</span>
+		<span class="kw">match</span> <span class="ident">platform</span>
 		{
-			<span class='ident'>ALLEGRO_SHADER_AUTO</span> <span class='op'>=&gt;</span> <span class='ident'>ShaderPlatform</span>::<span class='ident'>Auto</span>,
-			<span class='ident'>ALLEGRO_SHADER_GLSL</span> <span class='op'>=&gt;</span> <span class='ident'>ShaderPlatform</span>::<span class='ident'>GLSL</span>,
-			<span class='ident'>ALLEGRO_SHADER_HLSL</span> <span class='op'>=&gt;</span> <span class='ident'>ShaderPlatform</span>::<span class='ident'>HLSL</span>,
-			_ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Malformed platform: {}&quot;</span>, <span class='ident'>platform</span>)
+			<span class="ident">ALLEGRO_SHADER_AUTO</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">Auto</span>,
+			<span class="ident">ALLEGRO_SHADER_GLSL</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">GLSL</span>,
+			<span class="ident">ALLEGRO_SHADER_HLSL</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">HLSL</span>,
+			_ <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Malformed platform: {}&quot;</span>, <span class="ident">platform</span>)
 		}
 	}
 }
 
-<span class='doccomment'>/// Shader type.</span>
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ShaderType</span>
+<span class="doccomment">/// Shader type.</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShaderType</span>
 {
-	<span class='ident'>Pixel</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_PIXEL_SHADER</span>,
-	<span class='ident'>Vertex</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_VERTEX_SHADER</span>,
+	<span class="ident">Pixel</span> <span class="op">=</span> <span class="ident">ALLEGRO_PIXEL_SHADER</span>,
+	<span class="ident">Vertex</span> <span class="op">=</span> <span class="ident">ALLEGRO_VERTEX_SHADER</span>,
 }
 
-<span class='doccomment'>/// A shader program comprising of a pixel (fragment) and a vertex shader.</span>
-<span class='doccomment'>/// Wraps ALLEGRO_SHADER.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Shader</span>
+<span class="doccomment">/// A shader program comprising of a pixel (fragment) and a vertex shader.</span>
+<span class="doccomment">/// Wraps ALLEGRO_SHADER.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Shader</span>
 {
-	<span class='ident'>allegro_shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>,
+	<span class="ident">allegro_shader</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SHADER</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>Shader</span>
+<span class="kw">impl</span> <span class="ident">Shader</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>shader</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>) <span class='op'>-&gt;</span> <span class='ident'>Shader</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">shader</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SHADER</span>) <span class="op">-&gt;</span> <span class="ident">Shader</span>
 	{
-		<span class='ident'>Shader</span>
+		<span class="ident">Shader</span>
 		{
-			<span class='ident'>allegro_shader</span>: <span class='ident'>shader</span>,
+			<span class="ident">allegro_shader</span>: <span class="ident">shader</span>,
 		}
 	}
 
-	<span class='doccomment'>/// Return the wrapped Allegro shader pointer.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_SHADER</span>
+	<span class="doccomment">/// Return the wrapped Allegro shader pointer.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SHADER</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>allegro_shader</span>
+		<span class="self">self</span>.<span class="ident">allegro_shader</span>
 	}
 
-	<span class='doccomment'>/// Attach a source to the shader. Passing None clears the source.</span>
-	<span class='doccomment'>///</span>
-	<span class='doccomment'>/// Returns the log if there was an error.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>attach_shader_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader_type</span>: <span class='ident'>ShaderType</span>, <span class='ident'>source</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class="doccomment">/// Attach a source to the shader. Passing None clears the source.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Returns the log if there was an error.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attach_shader_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>, <span class="ident">source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>shader_type</span> <span class='op'>=</span> <span class='ident'>shader_type</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_TYPE</span>;
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
+		<span class="kw">let</span> <span class="ident">shader_type</span> <span class="op">=</span> <span class="ident">shader_type</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_TYPE</span>;
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span>
 		{
-			<span class='kw'>match</span> <span class='ident'>source</span>
+			<span class="kw">match</span> <span class="ident">source</span>
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>source</span>) <span class='op'>=&gt;</span>
+				<span class="prelude-val">Some</span>(<span class="ident">source</span>) <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>source</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>source</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
-					<span class='ident'>al_attach_shader_source</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>, <span class='ident'>shader_type</span>, <span class='ident'>source</span>.<span class='ident'>as_ptr</span>())
+					<span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">source</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
+					<span class="ident">al_attach_shader_source</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>, <span class="ident">shader_type</span>, <span class="ident">source</span>.<span class="ident">as_ptr</span>())
 				},
-				<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>al_attach_shader_source</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>, <span class='ident'>shader_type</span>, <span class='ident'>ptr</span>::<span class='ident'>null</span>())
+				<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">al_attach_shader_source</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>, <span class="ident">shader_type</span>, <span class="ident">ptr</span>::<span class="ident">null</span>())
 			}
 		};
-		<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
 		{
-			<span class='prelude-val'>Ok</span>(())
+			<span class="prelude-val">Ok</span>(())
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>Err</span>(<span class='self'>self</span>.<span class='ident'>get_log</span>())
+			<span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">get_log</span>())
 		}
 	}
 
-	<span class='doccomment'>/// Attach a source to the shader that is loaded from a file.</span>
-	<span class='doccomment'>///</span>
-	<span class='doccomment'>/// Returns the log if there was an error.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>attach_shader_source_file</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader_type</span>: <span class='ident'>ShaderType</span>, <span class='ident'>filename</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class="doccomment">/// Attach a source to the shader that is loaded from a file.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Returns the log if there was an error.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attach_shader_source_file</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>filename</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>filename</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
+		<span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">filename</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span>
 		{
-			<span class='ident'>al_attach_shader_source_file</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>, <span class='ident'>shader_type</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_TYPE</span>, <span class='ident'>filename</span>.<span class='ident'>as_ptr</span>())
+			<span class="ident">al_attach_shader_source_file</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>, <span class="ident">shader_type</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_TYPE</span>, <span class="ident">filename</span>.<span class="ident">as_ptr</span>())
 		};
-		<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
 		{
-			<span class='prelude-val'>Ok</span>(())
+			<span class="prelude-val">Ok</span>(())
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>Err</span>(<span class='self'>self</span>.<span class='ident'>get_log</span>())
+			<span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">get_log</span>())
 		}
 	}
 
-	<span class='doccomment'>/// Build the shader. Call this after attaching the sources.</span>
-	<span class='doccomment'>///</span>
-	<span class='doccomment'>/// Returns the log if there was an error.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class="doccomment">/// Build the shader. Call this after attaching the sources.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Returns the log if there was an error.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span>
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span>
 		{
-			<span class='ident'>al_build_shader</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>)
+			<span class="ident">al_build_shader</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>)
 		};
-		<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
 		{
-			<span class='prelude-val'>Ok</span>(())
+			<span class="prelude-val">Ok</span>(())
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>Err</span>(<span class='self'>self</span>.<span class='ident'>get_log</span>())
-		}
-	}
-
-	<span class='doccomment'>/// Get the log from the shader. Call this function if any of the attach/build functions fail to determine what went wrong.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_log</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span>
-	{
-		<span class='kw'>unsafe</span>
-		{
-			<span class='kw'>let</span> <span class='ident'>log</span> <span class='op'>=</span> <span class='ident'>al_get_shader_log</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>);
-			<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>log</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>()
+			<span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">get_log</span>())
 		}
 	}
 
-	<span class='doccomment'>/// Return the platform of this shader.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_platform</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ShaderPlatform</span>
+	<span class="doccomment">/// Get the log from the shader. Call this function if any of the attach/build functions fail to determine what went wrong.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">String</span>
 	{
-		<span class='kw'>unsafe</span>
+		<span class="kw">unsafe</span>
 		{
-			<span class='ident'>ShaderPlatform</span>::<span class='ident'>from_allegro</span>(<span class='ident'>al_get_shader_platform</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>))
+			<span class="kw">let</span> <span class="ident">log</span> <span class="op">=</span> <span class="ident">al_get_shader_log</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>);
+			<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">log</span>).<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>()
 		}
 	}
-}
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Shader</span>
-{
-	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	<span class="doccomment">/// Return the platform of this shader.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_platform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ShaderPlatform</span>
 	{
-		<span class='kw'>unsafe</span>
+		<span class="kw">unsafe</span>
 		{
-			<span class='ident'>al_destroy_shader</span>(<span class='self'>self</span>.<span class='ident'>allegro_shader</span>);
+			<span class="ident">ShaderPlatform</span>::<span class="ident">from_allegro</span>(<span class="ident">al_get_shader_platform</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>))
 		}
 	}
 }
 
-<span class='doccomment'>/// Trait implemented by types that can be used to set uniforms in shaders.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ShaderUniform</span>
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Shader</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_self_for_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
+	{
+		<span class="kw">unsafe</span>
+		{
+			<span class="ident">al_destroy_shader</span>(<span class="self">self</span>.<span class="ident">allegro_shader</span>);
+		}
+	}
 }
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_shader_vector</span>
+<span class="doccomment">/// Trait implemented by types that can be used to set uniforms in shaders.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ShaderUniform</span>
 {
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>rust_type</span>: <span class='ident'>ty</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func</span>: <span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>num_elems</span>: <span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_type</span>: <span class='ident'>ty</span>) <span class='op'>=&gt;</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_self_for_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>;
+}
+
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_shader_vector</span>
+{
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span>: <span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">num_elems</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_type</span>: <span class="ident">ty</span>) <span class="op">=&gt;</span>
 	{
-		<span class='kw'>impl</span> <span class='ident'>ShaderUniform</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>rust_type</span>
+		<span class="kw">impl</span> <span class="ident">ShaderUniform</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span>
 		{
-			<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_self_for_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_self_for_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 			{
-				<span class='kw'>let</span> <span class='ident'>c_name</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
-				<span class='comment'>//~ println!(&quot;{} {} {} {}&quot;, name, $num_elems, self.len(), stringify!($func));</span>
-				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func</span>(<span class='ident'>c_name</span>.<span class='ident'>as_ptr</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>num_elems</span>, <span class='self'>self</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_type</span>, <span class='self'>self</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>i32</span>);
-				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span>
+				<span class="kw">let</span> <span class="ident">c_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">name</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
+				<span class="comment">//~ println!(&quot;{} {} {} {}&quot;, name, $num_elems, self.len(), stringify!($func));</span>
+				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>(<span class="ident">c_name</span>.<span class="ident">as_ptr</span>(), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">num_elems</span>, <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_type</span>, <span class="self">self</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>);
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
 				{
-					<span class='prelude-val'>Ok</span>(())
+					<span class="prelude-val">Ok</span>(())
 				}
-				<span class='kw'>else</span>
+				<span class="kw">else</span>
 				{
-					<span class='prelude-val'>Err</span>(())
+					<span class="prelude-val">Err</span>(())
 				}
 			}
 		}
 	}
 }
 
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([<span class='ident'>f32</span>], <span class='ident'>al_set_shader_float_vector</span>, <span class='number'>1</span>, <span class='ident'>c_float</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>f32</span>; <span class='number'>2</span>]], <span class='ident'>al_set_shader_float_vector</span>, <span class='number'>2</span>, <span class='ident'>c_float</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>f32</span>; <span class='number'>3</span>]], <span class='ident'>al_set_shader_float_vector</span>, <span class='number'>3</span>, <span class='ident'>c_float</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>f32</span>; <span class='number'>4</span>]], <span class='ident'>al_set_shader_float_vector</span>, <span class='number'>4</span>, <span class='ident'>c_float</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([<span class='ident'>i32</span>], <span class='ident'>al_set_shader_int_vector</span>, <span class='number'>1</span>, <span class='ident'>c_int</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>i32</span>; <span class='number'>2</span>]], <span class='ident'>al_set_shader_int_vector</span>, <span class='number'>1</span>, <span class='ident'>c_int</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>i32</span>; <span class='number'>3</span>]], <span class='ident'>al_set_shader_int_vector</span>, <span class='number'>3</span>, <span class='ident'>c_int</span>);
-<span class='macro'>impl_shader_vector</span><span class='macro'>!</span>([[<span class='ident'>i32</span>; <span class='number'>4</span>]], <span class='ident'>al_set_shader_int_vector</span>, <span class='number'>4</span>, <span class='ident'>c_int</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([<span class="ident">f32</span>], <span class="ident">al_set_shader_float_vector</span>, <span class="number">1</span>, <span class="ident">c_float</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">f32</span>; <span class="number">2</span>]], <span class="ident">al_set_shader_float_vector</span>, <span class="number">2</span>, <span class="ident">c_float</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">f32</span>; <span class="number">3</span>]], <span class="ident">al_set_shader_float_vector</span>, <span class="number">3</span>, <span class="ident">c_float</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">f32</span>; <span class="number">4</span>]], <span class="ident">al_set_shader_float_vector</span>, <span class="number">4</span>, <span class="ident">c_float</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([<span class="ident">i32</span>], <span class="ident">al_set_shader_int_vector</span>, <span class="number">1</span>, <span class="ident">c_int</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">i32</span>; <span class="number">2</span>]], <span class="ident">al_set_shader_int_vector</span>, <span class="number">1</span>, <span class="ident">c_int</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">i32</span>; <span class="number">3</span>]], <span class="ident">al_set_shader_int_vector</span>, <span class="number">3</span>, <span class="ident">c_int</span>);
+<span class="macro">impl_shader_vector</span><span class="macro">!</span>([[<span class="ident">i32</span>; <span class="number">4</span>]], <span class="ident">al_set_shader_int_vector</span>, <span class="number">4</span>, <span class="ident">c_int</span>);
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

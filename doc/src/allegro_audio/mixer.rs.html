@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -342,306 +342,306 @@
 <span id="297">297</span>
 <span id="298">298</span>
 <span id="299">299</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>addon</span>::<span class='ident'>AudioAddon</span>;
-<span class='kw'>use</span> <span class='ident'>allegro</span>::<span class='ident'>c_bool</span>;
+<span class="kw">use</span> <span class="ident">addon</span>::<span class="ident">AudioAddon</span>;
+<span class="kw">use</span> <span class="ident">allegro</span>::<span class="ident">c_bool</span>;
 
-<span class='kw'>use</span> <span class='ident'>allegro_audio_sys</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>AttachToMixerImpl</span>;
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>Connection</span>;
-<span class='kw'>use</span> <span class='ident'>internal</span>::<span class='ident'>HasMixer</span>;
+<span class="kw">use</span> <span class="ident">allegro_audio_sys</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">internal</span>::<span class="ident">AttachToMixerImpl</span>;
+<span class="kw">use</span> <span class="ident">internal</span>::<span class="ident">Connection</span>;
+<span class="kw">use</span> <span class="ident">internal</span>::<span class="ident">HasMixer</span>;
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>properties</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>sample</span>::{<span class='ident'>Sample</span>, <span class='ident'>SampleInstance</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">properties</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">sample</span>::{<span class="ident">Sample</span>, <span class="ident">SampleInstance</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>set_impl</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">set_impl</span>
 {
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>var</span>: <span class='ident'>expr</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>: <span class="ident">expr</span>),<span class="op">+</span>) <span class="op">=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='kw'>if</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>var</span>),<span class='op'>+</span>) <span class='op'>!=</span> <span class='number'>0</span> { <span class='prelude-val'>Ok</span>(()) } <span class='kw'>else</span> { <span class='prelude-val'>Err</span>(()) } }
+		<span class="kw">unsafe</span>{ <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>),<span class="op">+</span>) <span class="op">!=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) } }
 	}
 }
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>get_impl</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_impl</span>
 {
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span>: <span class='ident'>ty</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>: <span class="ident">ty</span>) <span class="op">=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>dest_ty</span> }
+		<span class="kw">unsafe</span>{ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span> }
 	}
 }
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>get_conv_impl</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_conv_impl</span>
 {
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>: <span class='ident'>path</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>: <span class="ident">path</span>) <span class="op">=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>conv</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _)) }
+		<span class="kw">unsafe</span>{ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _)) }
 	}
 }
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>get_bool_impl</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_bool_impl</span>
 {
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>: <span class='ident'>ident</span>,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>) <span class="op">=&gt;</span>
 	{
-		<span class='kw'>unsafe</span>{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c_func</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>self_</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> _) <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="kw">unsafe</span>{ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _) <span class="op">!=</span> <span class="number">0</span> }
 	}
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AttachToMixer</span>: <span class='ident'>AttachToMixerImpl</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AttachToMixer</span>: <span class="ident">AttachToMixerImpl</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>detach</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>);
+	<span class="kw">fn</span> <span class="ident">detach</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>);
 
-	<span class='kw'>fn</span> <span class='ident'>attach</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>HasMixer</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>mixer</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">attach</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">HasMixer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mixer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>detach</span>();
+		<span class="self">self</span>.<span class="ident">detach</span>();
 
-		<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='ident'>mixer</span>.<span class='ident'>get_mixer_mut</span>();
-		<span class='self'>self</span>.<span class='ident'>create_connection</span>(<span class='ident'>m</span>.<span class='ident'>allegro_mixer</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>conn</span><span class='op'>|</span> { <span class='ident'>m</span>.<span class='ident'>children</span>.<span class='ident'>push</span>(<span class='ident'>conn</span>); })
+		<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">mixer</span>.<span class="ident">get_mixer_mut</span>();
+		<span class="self">self</span>.<span class="ident">create_connection</span>(<span class="ident">m</span>.<span class="ident">allegro_mixer</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">conn</span><span class="op">|</span> { <span class="ident">m</span>.<span class="ident">children</span>.<span class="ident">push</span>(<span class="ident">conn</span>); })
 	}
 }
 
-<span class='kw'>struct</span> <span class='ident'>CallbackHolder</span>
+<span class="kw">struct</span> <span class="ident">CallbackHolder</span>
 {
-	<span class='ident'>cb</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostProcessCallback</span> <span class='op'>+</span> <span class='ident'>Send</span><span class='op'>&gt;</span>,
-	<span class='ident'>sample_size</span>: <span class='ident'>usize</span>,
+	<span class="ident">cb</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>,
+	<span class="ident">sample_size</span>: <span class="ident">usize</span>,
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Mixer</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Mixer</span>
 {
-	<span class='ident'>allegro_mixer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>,
-	<span class='ident'>parent</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Connection</span><span class='op'>&gt;</span>,
-	<span class='ident'>children</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Connection</span><span class='op'>&gt;</span>,
-	<span class='ident'>callback</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>CallbackHolder</span><span class='op'>&gt;&gt;</span>,
+	<span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>,
+	<span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Connection</span><span class="op">&gt;</span>,
+	<span class="ident">children</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Connection</span><span class="op">&gt;</span>,
+	<span class="ident">callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">CallbackHolder</span><span class="op">&gt;&gt;</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>Mixer</span>
+<span class="kw">impl</span> <span class="ident">Mixer</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>addon</span>: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Mixer</span>, ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">addon</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
 	{
-		<span class='ident'>Mixer</span>::<span class='ident'>new_custom</span>(<span class='ident'>addon</span>, <span class='number'>44100</span>, <span class='ident'>AudioDepth</span>::<span class='ident'>F32</span>, <span class='ident'>ChannelConf</span>::<span class='ident'>Conf2</span>)
+		<span class="ident">Mixer</span>::<span class="ident">new_custom</span>(<span class="ident">addon</span>, <span class="number">44100</span>, <span class="ident">AudioDepth</span>::<span class="ident">F32</span>, <span class="ident">ChannelConf</span>::<span class="ident">Conf2</span>)
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_custom</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>AudioAddon</span>, <span class='ident'>frequency</span>: <span class='ident'>u32</span>, <span class='ident'>depth</span>: <span class='ident'>AudioDepth</span>, <span class='ident'>chan_conf</span>: <span class='ident'>ChannelConf</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Mixer</span>, ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_custom</span>(_: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>, <span class="ident">depth</span>: <span class="ident">AudioDepth</span>, <span class="ident">chan_conf</span>: <span class="ident">ChannelConf</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>mixer</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_create_mixer</span>(<span class='ident'>frequency</span> <span class='kw'>as</span> <span class='ident'>c_uint</span>, <span class='ident'>depth</span>.<span class='ident'>get</span>(), <span class='ident'>chan_conf</span>.<span class='ident'>get</span>()) };
-		<span class='kw'>if</span> <span class='ident'>mixer</span>.<span class='ident'>is_null</span>()
+		<span class="kw">let</span> <span class="ident">mixer</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_create_mixer</span>(<span class="ident">frequency</span> <span class="kw">as</span> <span class="ident">c_uint</span>, <span class="ident">depth</span>.<span class="ident">get</span>(), <span class="ident">chan_conf</span>.<span class="ident">get</span>()) };
+		<span class="kw">if</span> <span class="ident">mixer</span>.<span class="ident">is_null</span>()
 		{
-			<span class='prelude-val'>Err</span>(())
+			<span class="prelude-val">Err</span>(())
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>Ok</span>(<span class='ident'>Mixer</span> {
-				<span class='ident'>allegro_mixer</span>: <span class='ident'>mixer</span>,
-				<span class='ident'>parent</span>: <span class='prelude-val'>None</span>,
-				<span class='ident'>children</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
-				<span class='ident'>callback</span>: <span class='prelude-val'>None</span>,
+			<span class="prelude-val">Ok</span>(<span class="ident">Mixer</span> {
+				<span class="ident">allegro_mixer</span>: <span class="ident">mixer</span>,
+				<span class="ident">parent</span>: <span class="prelude-val">None</span>,
+				<span class="ident">children</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+				<span class="ident">callback</span>: <span class="prelude-val">None</span>,
 			})
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_allegro_mixer</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>allegro_mixer</span>
+		<span class="self">self</span>.<span class="ident">allegro_mixer</span>
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>detach</span>(<span class='ident'>allegro_mixer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>)
+	<span class="kw">fn</span> <span class="ident">detach</span>(<span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_detach_mixer</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>allegro_mixer</span>));
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_detach_mixer</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">allegro_mixer</span>));
 		}
 	}
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Mixer</span>
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
 	{
-		<span class='self'>self</span>.<span class='ident'>detach</span>();
-		<span class='self'>self</span>.<span class='ident'>children</span>.<span class='ident'>clear</span>();
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_destroy_mixer</span>(<span class='self'>self</span>.<span class='ident'>allegro_mixer</span>);
+		<span class="self">self</span>.<span class="ident">detach</span>();
+		<span class="self">self</span>.<span class="ident">children</span>.<span class="ident">clear</span>();
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_destroy_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>);
 		}
 	}
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MixerLike</span>: <span class='ident'>HasMixer</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MixerLike</span>: <span class="ident">HasMixer</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_allegro_mixer</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>
+	<span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span>
+		<span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>play_sample</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>sample</span>: <span class='kw-2'>&amp;</span><span class='ident'>Sample</span>, <span class='ident'>gain</span>: <span class='ident'>f32</span>, <span class='ident'>pan</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f32</span><span class='op'>&gt;</span>, <span class='ident'>speed</span>: <span class='ident'>f32</span>, <span class='ident'>playmode</span>: <span class='ident'>Playmode</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>SampleInstance</span>, ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">play_sample</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>, <span class="ident">gain</span>: <span class="ident">f32</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>, <span class="ident">speed</span>: <span class="ident">f32</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>inst</span> <span class='op'>=</span> <span class='ident'>sample</span>.<span class='ident'>create_instance</span>();
-		<span class='ident'>inst</span>.<span class='ident'>and_then</span>(<span class='op'>|</span><span class='kw-2'>mut</span> <span class='ident'>inst</span><span class='op'>|</span> {
-			<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>();
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>attach</span>(<span class='ident'>m</span>));
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_gain</span>(<span class='ident'>gain</span>));
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_pan</span>(<span class='ident'>pan</span>));
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_speed</span>(<span class='ident'>speed</span>));
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_playmode</span>(<span class='ident'>playmode</span>));
-			<span class='macro'>if_ok</span><span class='macro'>!</span>(<span class='ident'>inst</span>.<span class='ident'>set_playing</span>(<span class='bool-val'>true</span>));
-			<span class='prelude-val'>Ok</span>(<span class='ident'>inst</span>)
+		<span class="kw">let</span> <span class="ident">inst</span> <span class="op">=</span> <span class="ident">sample</span>.<span class="ident">create_instance</span>();
+		<span class="ident">inst</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">inst</span><span class="op">|</span> {
+			<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_mixer_mut</span>();
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">attach</span>(<span class="ident">m</span>));
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">set_gain</span>(<span class="ident">gain</span>));
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">set_pan</span>(<span class="ident">pan</span>));
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">set_speed</span>(<span class="ident">speed</span>));
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">set_playmode</span>(<span class="ident">playmode</span>));
+			<span class="macro">if_ok</span><span class="macro">!</span>(<span class="ident">inst</span>.<span class="ident">set_playing</span>(<span class="bool-val">true</span>));
+			<span class="prelude-val">Ok</span>(<span class="ident">inst</span>)
 		})
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span>
+	<span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span>
 	{
-		<span class='macro'>get_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_frequency</span>, <span class='ident'>u32</span>)
+		<span class="macro">get_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_frequency</span>, <span class="ident">u32</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_gain</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class="kw">fn</span> <span class="ident">get_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">f32</span>
 	{
-		<span class='macro'>get_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_gain</span>, <span class='ident'>f32</span>)
+		<span class="macro">get_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_gain</span>, <span class="ident">f32</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_quality</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MixerQuality</span>
+	<span class="kw">fn</span> <span class="ident">get_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MixerQuality</span>
 	{
-		<span class='macro'>get_conv_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_quality</span>, <span class='ident'>MixerQuality</span>::<span class='ident'>from_allegro</span>)
+		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_quality</span>, <span class="ident">MixerQuality</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_channels</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ChannelConf</span>
+	<span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ChannelConf</span>
 	{
-		<span class='macro'>get_conv_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_channels</span>, <span class='ident'>ChannelConf</span>::<span class='ident'>from_allegro</span>)
+		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_channels</span>, <span class="ident">ChannelConf</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_depth</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>AudioDepth</span>
+	<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>
 	{
-		<span class='macro'>get_conv_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_depth</span>, <span class='ident'>AudioDepth</span>::<span class='ident'>from_allegro</span>)
+		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_depth</span>, <span class="ident">AudioDepth</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_playing</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">fn</span> <span class="ident">get_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='macro'>get_bool_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_playing</span>)
+		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_playing</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_attached</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">fn</span> <span class="ident">get_attached</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='macro'>get_bool_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_get_mixer_attached</span>)
+		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_attached</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set_playing</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>playing</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playing</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>set_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_set_mixer_playing</span>, <span class='ident'>playing</span> <span class='kw'>as</span> <span class='ident'>c_bool</span>)
+		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_playing</span>, <span class="ident">playing</span> <span class="kw">as</span> <span class="ident">c_bool</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set_gain</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gain</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gain</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>set_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_set_mixer_gain</span>, <span class='ident'>gain</span> <span class='kw'>as</span> <span class='ident'>c_float</span>)
+		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_gain</span>, <span class="ident">gain</span> <span class="kw">as</span> <span class="ident">c_float</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>freq</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">freq</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>set_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_set_mixer_frequency</span>, <span class='ident'>freq</span> <span class='kw'>as</span> <span class='ident'>u32</span>)
+		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_frequency</span>, <span class="ident">freq</span> <span class="kw">as</span> <span class="ident">u32</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set_quality</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>quality</span>: <span class='ident'>MixerQuality</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">quality</span>: <span class="ident">MixerQuality</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>set_impl</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='ident'>al_set_mixer_quality</span>, <span class='ident'>quality</span>.<span class='ident'>get</span>())
+		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_quality</span>, <span class="ident">quality</span>.<span class="ident">get</span>())
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set_postprocess_callback</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cb</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostProcessCallback</span> <span class='op'>+</span> <span class='ident'>Send</span><span class='op'>&gt;&gt;</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_postprocess_callback</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cb</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>allegro_mixer</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_mixer</span>().<span class='ident'>allegro_mixer</span>;
+		<span class="kw">let</span> <span class="ident">allegro_mixer</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>;
 
-		<span class='kw'>match</span> <span class='ident'>cb</span>
+		<span class="kw">match</span> <span class="ident">cb</span>
 		{
-			<span class='prelude-val'>Some</span>(<span class='ident'>cb</span>) <span class='op'>=&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">cb</span>) <span class="op">=&gt;</span>
 			{
-				<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>cbh</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>CallbackHolder</span> {
-					<span class='ident'>cb</span>: <span class='ident'>cb</span>,
-					<span class='ident'>sample_size</span>: <span class='self'>self</span>.<span class='ident'>get_channels</span>().<span class='ident'>get_num_channels</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>get_depth</span>().<span class='ident'>get_byte_size</span>(),
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cbh</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">CallbackHolder</span> {
+					<span class="ident">cb</span>: <span class="ident">cb</span>,
+					<span class="ident">sample_size</span>: <span class="self">self</span>.<span class="ident">get_channels</span>().<span class="ident">get_num_channels</span>() <span class="op">*</span> <span class="self">self</span>.<span class="ident">get_depth</span>().<span class="ident">get_byte_size</span>(),
 				});
-				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-					<span class='ident'>al_set_mixer_postprocess_callback</span>(<span class='ident'>allegro_mixer</span>,
-					                                  <span class='prelude-val'>Some</span>(<span class='ident'>mixer_callback</span> <span class='kw'>as</span> <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>c_uint</span>, <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>)),
-					                                  <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='kw-2'>*</span><span class='ident'>cbh</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> _ <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> _)
+				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+					<span class="ident">al_set_mixer_postprocess_callback</span>(<span class="ident">allegro_mixer</span>,
+					                                  <span class="prelude-val">Some</span>(<span class="ident">mixer_callback</span> <span class="kw">as</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>, <span class="ident">c_uint</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>)),
+					                                  <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">cbh</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> _ <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> _)
 				};
-				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>==</span> <span class='number'>0</span>
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">==</span> <span class="number">0</span>
 				{
-					<span class='kw'>return</span> <span class='prelude-val'>Err</span>(());
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(());
 				}
-				<span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>().<span class='ident'>callback</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>cbh</span>);
+				<span class="self">self</span>.<span class="ident">get_mixer_mut</span>().<span class="ident">callback</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">cbh</span>);
 			}
-			<span class='prelude-val'>None</span> <span class='op'>=&gt;</span>
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span>
 			{
-				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_set_mixer_postprocess_callback</span>(<span class='ident'>allegro_mixer</span>, <span class='prelude-val'>None</span>, <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>()) };
-				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>==</span> <span class='number'>0</span>
+				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_set_mixer_postprocess_callback</span>(<span class="ident">allegro_mixer</span>, <span class="prelude-val">None</span>, <span class="ident">ptr</span>::<span class="ident">null_mut</span>()) };
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">==</span> <span class="number">0</span>
 				{
-					<span class='kw'>return</span> <span class='prelude-val'>Err</span>(());
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(());
 				}
-				<span class='self'>self</span>.<span class='ident'>get_mixer_mut</span>().<span class='ident'>callback</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
+				<span class="self">self</span>.<span class="ident">get_mixer_mut</span>().<span class="ident">callback</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 			}
 		}
-		<span class='prelude-val'>Ok</span>(())
+		<span class="prelude-val">Ok</span>(())
 	}
 }
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span> <span class='ident'>mixer_callback</span>(<span class='ident'>data</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>num_samples</span>: <span class='ident'>c_uint</span>, <span class='ident'>cb</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>)
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">mixer_callback</span>(<span class="ident">data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>, <span class="ident">num_samples</span>: <span class="ident">c_uint</span>, <span class="ident">cb</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>)
 {
-	<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts_mut</span>;
-	<span class='kw'>unsafe</span> {
-		<span class='kw'>let</span> <span class='ident'>cbh</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>CallbackHolder</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>cb</span>);
-		<span class='kw'>let</span> <span class='ident'>buf</span> <span class='op'>=</span> <span class='ident'>from_raw_parts_mut</span>(<span class='ident'>data</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>num_samples</span> <span class='kw'>as</span> <span class='ident'>usize</span> <span class='op'>*</span> <span class='ident'>cbh</span>.<span class='ident'>sample_size</span>);
-		<span class='ident'>cbh</span>.<span class='ident'>cb</span>.<span class='ident'>process</span>(<span class='ident'>buf</span>, <span class='ident'>num_samples</span> <span class='kw'>as</span> <span class='ident'>u32</span>);
+	<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>::<span class="ident">from_raw_parts_mut</span>;
+	<span class="kw">unsafe</span> {
+		<span class="kw">let</span> <span class="ident">cbh</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CallbackHolder</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">cb</span>);
+		<span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">from_raw_parts_mut</span>(<span class="ident">data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span>, <span class="ident">num_samples</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">cbh</span>.<span class="ident">sample_size</span>);
+		<span class="ident">cbh</span>.<span class="ident">cb</span>.<span class="ident">process</span>(<span class="ident">buf</span>, <span class="ident">num_samples</span> <span class="kw">as</span> <span class="ident">u32</span>);
 	}
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PostProcessCallback</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PostProcessCallback</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>process</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>data</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>], <span class='ident'>num_samples</span>: <span class='ident'>u32</span>);
+	<span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">num_samples</span>: <span class="ident">u32</span>);
 }
 
-<span class='kw'>impl</span> <span class='ident'>AttachToMixerImpl</span> <span class='kw'>for</span> <span class='ident'>Mixer</span>
+<span class="kw">impl</span> <span class="ident">AttachToMixerImpl</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>create_connection</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>allegro_mixer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_MIXER</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Connection</span>, ()<span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">create_connection</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Connection</span>, ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>allegro_mixer</span> <span class='op'>==</span> <span class='ident'>allegro_mixer</span>
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">allegro_mixer</span> <span class="op">==</span> <span class="ident">allegro_mixer</span>
 		{
-			<span class='prelude-val'>Err</span>(())
+			<span class="prelude-val">Err</span>(())
 		}
-		<span class='kw'>else</span> <span class='kw'>if</span> <span class='kw'>unsafe</span> { <span class='ident'>al_attach_mixer_to_mixer</span>(<span class='self'>self</span>.<span class='ident'>allegro_mixer</span>, <span class='ident'>allegro_mixer</span>) <span class='op'>==</span> <span class='number'>0</span> }
+		<span class="kw">else</span> <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">al_attach_mixer_to_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>, <span class="ident">allegro_mixer</span>) <span class="op">==</span> <span class="number">0</span> }
 		{
-			<span class='prelude-val'>Err</span>(())
+			<span class="prelude-val">Err</span>(())
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='kw'>let</span> (<span class='ident'>c1</span>, <span class='ident'>c2</span>) <span class='op'>=</span> <span class='ident'>Connection</span>::<span class='ident'>new</span>(<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>allegro_mixer</span>) }, <span class='ident'>Mixer</span>::<span class='ident'>detach</span>);
-			<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>c1</span>);
-			<span class='prelude-val'>Ok</span>(<span class='ident'>c2</span>)
+			<span class="kw">let</span> (<span class="ident">c1</span>, <span class="ident">c2</span>) <span class="op">=</span> <span class="ident">Connection</span>::<span class="ident">new</span>(<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>) }, <span class="ident">Mixer</span>::<span class="ident">detach</span>);
+			<span class="self">self</span>.<span class="ident">parent</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">c1</span>);
+			<span class="prelude-val">Ok</span>(<span class="ident">c2</span>)
 		}
 	}
 }
 
-<span class='kw'>impl</span> <span class='ident'>AttachToMixer</span> <span class='kw'>for</span> <span class='ident'>Mixer</span>
+<span class="kw">impl</span> <span class="ident">AttachToMixer</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>detach</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	<span class="kw">fn</span> <span class="ident">detach</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
 	{
-		<span class='self'>self</span>.<span class='ident'>parent</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
+		<span class="self">self</span>.<span class="ident">parent</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 	}
 }
 
-<span class='kw'>impl</span> <span class='ident'>HasMixer</span> <span class='kw'>for</span> <span class='ident'>Mixer</span>
+<span class="kw">impl</span> <span class="ident">HasMixer</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_mixer</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Mixer</span>
+	<span class="kw">fn</span> <span class="ident">get_mixer</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Mixer</span>
 	{
-		<span class='self'>self</span>
+		<span class="self">self</span>
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_mixer_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='kw-2'>mut</span> <span class='ident'>Mixer</span>
+	<span class="kw">fn</span> <span class="ident">get_mixer_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="ident">Mixer</span>
 	{
-		<span class='self'>self</span>
+		<span class="self">self</span>
 	}
 }
 
-<span class='kw'>impl</span> <span class='ident'>MixerLike</span> <span class='kw'>for</span> <span class='ident'>Mixer</span> {}
+<span class="kw">impl</span> <span class="ident">MixerLike</span> <span class="kw">for</span> <span class="ident">Mixer</span> {}
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

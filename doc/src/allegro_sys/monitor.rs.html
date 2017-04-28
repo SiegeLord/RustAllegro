@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -67,30 +67,30 @@
 <span id="22">22</span>
 <span id="23">23</span>
 <span id="24">24</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ALLEGRO_MONITOR_INFO</span>
 {
-	<span class='kw'>pub</span> <span class='ident'>x1</span>: <span class='ident'>c_int</span>,
-	<span class='kw'>pub</span> <span class='ident'>y1</span>: <span class='ident'>c_int</span>,
-	<span class='kw'>pub</span> <span class='ident'>x2</span>: <span class='ident'>c_int</span>,
-	<span class='kw'>pub</span> <span class='ident'>y2</span>: <span class='ident'>c_int</span>,
+	<span class="kw">pub</span> <span class="ident">x1</span>: <span class="ident">c_int</span>,
+	<span class="kw">pub</span> <span class="ident">y1</span>: <span class="ident">c_int</span>,
+	<span class="kw">pub</span> <span class="ident">x2</span>: <span class="ident">c_int</span>,
+	<span class="kw">pub</span> <span class="ident">y2</span>: <span class="ident">c_int</span>,
 }
 
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_DEFAULT_DISPLAY_ADAPTER</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_DEFAULT_DISPLAY_ADAPTER</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="op">-</span><span class="number">1</span>;
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_num_video_adapters</span>() <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span>: <span class='ident'>c_int</span>, <span class='ident'>info</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_num_video_adapters</span>() <span class="op">-&gt;</span> <span class="ident">c_int</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_monitor_info</span>(<span class="ident">adapter</span>: <span class="ident">c_int</span>, <span class="ident">info</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_MONITOR_INFO</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
 }
 </pre>
 </section>

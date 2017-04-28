@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -76,39 +76,39 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
-<span class='kw'>use</span> <span class='ident'>display</span>::<span class='ident'>ALLEGRO_DISPLAY</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
+<span class="kw">use</span> <span class="ident">events</span>::<span class="ident">ALLEGRO_EVENT_SOURCE</span>;
+<span class="kw">use</span> <span class="ident">display</span>::<span class="ident">ALLEGRO_DISPLAY</span>;
+<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
-<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_KEYBOARD</span>);
+<span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_KEYBOARD</span>);
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ALLEGRO_KEYBOARD_STATE</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ALLEGRO_KEYBOARD_STATE</span>
 {
-	<span class='kw'>pub</span> <span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
-	<span class='kw'>pub</span> <span class='ident'>__key_down__internal__</span>: [<span class='ident'>c_uint</span>; <span class='number'>8</span>],
+	<span class="kw">pub</span> <span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
+	<span class="kw">pub</span> <span class="ident">__key_down__internal__</span>: [<span class="ident">c_uint</span>; <span class="number">8</span>],
 }
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_is_keyboard_installed</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_install_keyboard</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_uninstall_keyboard</span>();
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_keyboard_leds</span>(<span class='ident'>leds</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_keycode_to_name</span>(<span class='ident'>keycode</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_keyboard_state</span>(<span class='ident'>ret_state</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_KEYBOARD_STATE</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_key_down</span>(<span class='ident'>arg1</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_KEYBOARD_STATE</span>, <span class='ident'>keycode</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_keyboard_event_source</span>() <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_is_keyboard_installed</span>() <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_install_keyboard</span>() <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_uninstall_keyboard</span>();
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_keyboard_leds</span>(<span class="ident">leds</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_keycode_to_name</span>(<span class="ident">keycode</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_keyboard_state</span>(<span class="ident">ret_state</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_KEYBOARD_STATE</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_key_down</span>(<span class="ident">arg1</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_KEYBOARD_STATE</span>, <span class="ident">keycode</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_keyboard_event_source</span>() <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>;
 }
 </pre>
 </section>

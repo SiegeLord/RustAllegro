@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -94,57 +94,57 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
+<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NATIVE_PATH_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;\\&#39;</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;:&#39;</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NATIVE_PATH_SEP</span>: <span class="ident">char</span> <span class="op">=</span> <span class="string">&#39;\\&#39;</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class="ident">char</span> <span class="op">=</span> <span class="string">&#39;:&#39;</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NATIVE_PATH_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;/&#39;</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>windows</span>))]</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class='ident'>char</span> <span class='op'>=</span> <span class='string'>&#39;\x00&#39;</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NATIVE_PATH_SEP</span>: <span class="ident">char</span> <span class="op">=</span> <span class="string">&#39;/&#39;</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NATIVE_DRIVE_SEP</span>: <span class="ident">char</span> <span class="op">=</span> <span class="string">&#39;\x00&#39;</span>;
 
-<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_PATH</span>);
+<span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_PATH</span>);
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_path</span>(<span class='ident'>str</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_path_for_directory</span>(<span class='ident'>str</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_clone_path</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_create_path</span>(<span class="ident">str</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_create_path_for_directory</span>(<span class="ident">str</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_clone_path</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_num_components</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_component</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_replace_path_component</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>, <span class='ident'>s</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_remove_path_component</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_insert_path_component</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>i</span>: <span class='ident'>c_int</span>, <span class='ident'>s</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_tail</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_drop_path_tail</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_append_path_component</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>s</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_join_paths</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>tail</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_rebase_path</span>(<span class='ident'>head</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>tail</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_path_cstr</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>delim</span>: <span class='ident'>c_char</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_path</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_num_components</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_component</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">i</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_replace_path_component</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">i</span>: <span class="ident">c_int</span>, <span class="ident">s</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_remove_path_component</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">i</span>: <span class="ident">c_int</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_insert_path_component</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">i</span>: <span class="ident">c_int</span>, <span class="ident">s</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_tail</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_drop_path_tail</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_append_path_component</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">s</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_join_paths</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">tail</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_rebase_path</span>(<span class="ident">head</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">tail</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_path_cstr</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">delim</span>: <span class="ident">c_char</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_destroy_path</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>);
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_path_drive</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>drive</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_drive</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_path_drive</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">drive</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_drive</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_path_filename</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>filename</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_filename</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_path_filename</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_filename</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_extension</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_path_extension</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>, <span class='ident'>extension</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>) <span class='op'>-&gt;</span>	<span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_path_basename</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_extension</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_path_extension</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>, <span class="ident">extension</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-&gt;</span>	<span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_path_basename</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_make_path_canonical</span>(<span class='ident'>path</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_PATH</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_make_path_canonical</span>(<span class="ident">path</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_PATH</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
 }
 </pre>
 </section>

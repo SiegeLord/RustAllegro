@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -902,863 +902,863 @@
 <span id="857">857</span>
 <span id="858">858</span>
 <span id="859">859</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::{<span class='ident'>Flag</span>, <span class='ident'>c_bool</span>, <span class='ident'>from_c_str</span>};
-<span class='kw'>use</span> <span class='ident'>bitmap_like</span>::{<span class='ident'>BitmapFlags</span>, <span class='ident'>BitmapLike</span>};
-<span class='kw'>use</span> <span class='ident'>color</span>::{<span class='ident'>Color</span>, <span class='ident'>PixelFormat</span>};
-<span class='kw'>use</span> <span class='ident'>config</span>::<span class='ident'>Config</span>;
-<span class='kw'>use</span> <span class='ident'>display</span>::{<span class='ident'>Display</span>, <span class='ident'>DisplayFlags</span>, <span class='ident'>DisplayOption</span>, <span class='ident'>DisplayOptionImportance</span>};
+<span class="kw">use</span> <span class="ident">allegro_util</span>::{<span class="ident">Flag</span>, <span class="ident">c_bool</span>, <span class="ident">from_c_str</span>};
+<span class="kw">use</span> <span class="ident">bitmap_like</span>::{<span class="ident">BitmapFlags</span>, <span class="ident">BitmapLike</span>};
+<span class="kw">use</span> <span class="ident">color</span>::{<span class="ident">Color</span>, <span class="ident">PixelFormat</span>};
+<span class="kw">use</span> <span class="ident">config</span>::<span class="ident">Config</span>;
+<span class="kw">use</span> <span class="ident">display</span>::{<span class="ident">Display</span>, <span class="ident">DisplayFlags</span>, <span class="ident">DisplayOption</span>, <span class="ident">DisplayOptionImportance</span>};
 
-<span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>EventSource</span>;
+<span class="kw">use</span> <span class="ident">events</span>::<span class="ident">EventSource</span>;
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>keycodes</span>::{<span class='ident'>KeyCode</span>, <span class='ident'>KeyModifier</span>};
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_0</span>))]</span>
-<span class='kw'>use</span> <span class='ident'>shader</span>::{<span class='ident'>Shader</span>, <span class='ident'>ShaderPlatform</span>, <span class='ident'>ShaderType</span>, <span class='ident'>ShaderUniform</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::{<span class='ident'>CStr</span>, <span class='ident'>CString</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
-<span class='kw'>use</span> <span class='ident'>transformations</span>::<span class='ident'>Transform</span>;
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">keycodes</span>::{<span class="ident">KeyCode</span>, <span class="ident">KeyModifier</span>};
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+<span class="kw">use</span> <span class="ident">shader</span>::{<span class="ident">Shader</span>, <span class="ident">ShaderPlatform</span>, <span class="ident">ShaderType</span>, <span class="ident">ShaderUniform</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::{<span class="ident">CStr</span>, <span class="ident">CString</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>::<span class="ident">spawn</span>;
+<span class="kw">use</span> <span class="ident">transformations</span>::<span class="ident">Transform</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>{
-	<span class='ident'>BitmapDrawingFlags</span>
+<span class="macro">flag_type</span><span class="macro">!</span>{
+	<span class="ident">BitmapDrawingFlags</span>
 	{
-		<span class='ident'>FLIP_NONE</span> <span class='op'>=</span> <span class='number'>0x1</span>,
-		<span class='ident'>FLIP_HORIZONTAL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_FLIP_HORIZONTAL</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
-		<span class='ident'>FLIP_VERTICAL</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_FLIP_VERTICAL</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>
+		<span class="ident">FLIP_NONE</span> <span class="op">=</span> <span class="number">0x1</span>,
+		<span class="ident">FLIP_HORIZONTAL</span> <span class="op">=</span> <span class="ident">ALLEGRO_FLIP_HORIZONTAL</span> <span class="op">&lt;&lt;</span> <span class="number">1</span>,
+		<span class="ident">FLIP_VERTICAL</span> <span class="op">=</span> <span class="ident">ALLEGRO_FLIP_VERTICAL</span> <span class="op">&lt;&lt;</span> <span class="number">1</span>
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>BlendMode</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BlendMode</span>
 {
-	<span class='ident'>Zero</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ZERO</span>,
-	<span class='ident'>One</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ONE</span>,
-	<span class='ident'>Alpha</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ALPHA</span>,
-	<span class='ident'>InverseAlpha</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_ALPHA</span>,
-	<span class='ident'>SrcColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SRC_COLOR</span>,
-	<span class='ident'>DestColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DEST_COLOR</span>,
-	<span class='ident'>InverseSrcColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_SRC_COLOR</span>,
-	<span class='ident'>InverseDestColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_DEST_COLOR</span>,
-	<span class='ident'>ConstColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_CONST_COLOR</span>,
-	<span class='ident'>InverseConstColor</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_INVERSE_CONST_COLOR</span>,
+	<span class="ident">Zero</span> <span class="op">=</span> <span class="ident">ALLEGRO_ZERO</span>,
+	<span class="ident">One</span> <span class="op">=</span> <span class="ident">ALLEGRO_ONE</span>,
+	<span class="ident">Alpha</span> <span class="op">=</span> <span class="ident">ALLEGRO_ALPHA</span>,
+	<span class="ident">InverseAlpha</span> <span class="op">=</span> <span class="ident">ALLEGRO_INVERSE_ALPHA</span>,
+	<span class="ident">SrcColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_SRC_COLOR</span>,
+	<span class="ident">DestColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_DEST_COLOR</span>,
+	<span class="ident">InverseSrcColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_INVERSE_SRC_COLOR</span>,
+	<span class="ident">InverseDestColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_INVERSE_DEST_COLOR</span>,
+	<span class="ident">ConstColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_CONST_COLOR</span>,
+	<span class="ident">InverseConstColor</span> <span class="op">=</span> <span class="ident">ALLEGRO_INVERSE_CONST_COLOR</span>,
 }
 
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>u32</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>BlendOperation</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BlendOperation</span>
 {
-	<span class='ident'>Add</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ADD</span>,
-	<span class='ident'>SrcMinusDest</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_SRC_MINUS_DEST</span>,
-	<span class='ident'>DestMinusSrc</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_DEST_MINUS_SRC</span>,
+	<span class="ident">Add</span> <span class="op">=</span> <span class="ident">ALLEGRO_ADD</span>,
+	<span class="ident">SrcMinusDest</span> <span class="op">=</span> <span class="ident">ALLEGRO_SRC_MINUS_DEST</span>,
+	<span class="ident">DestMinusSrc</span> <span class="op">=</span> <span class="ident">ALLEGRO_DEST_MINUS_SRC</span>,
 }
 
-<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>DUMMY_TARGET</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span> <span class='op'>=</span> <span class='number'>0</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">DUMMY_TARGET</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span> <span class="op">=</span> <span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Core</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Core</span>
 {
-	<span class='ident'>mutex</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>,
+	<span class="ident">mutex</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span>()<span class="op">&gt;&gt;</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>Core</span>
+<span class="kw">impl</span> <span class="ident">Core</span>
 {
-	<span class='doccomment'>/// This must be called on the main thread.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>init</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Core</span>, <span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class="doccomment">/// This must be called on the main thread.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Core</span>, <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>ONCE_INIT</span>, <span class='ident'>Once</span>};
-		<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>RUN_ONCE</span>: <span class='ident'>Once</span> <span class='op'>=</span> <span class='ident'>ONCE_INIT</span>;
+		<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">ONCE_INIT</span>, <span class="ident">Once</span>};
+		<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">RUN_ONCE</span>: <span class="ident">Once</span> <span class="op">=</span> <span class="ident">ONCE_INIT</span>;
 
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;Already initialized.&quot;</span>.<span class='ident'>to_string</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>RUN_ONCE</span>.<span class='ident'>call_once</span>(<span class='op'>||</span> {
-				<span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>al_install_system</span>(<span class='ident'>ALLEGRO_VERSION_INT</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='prelude-val'>None</span>) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Already initialized.&quot;</span>.<span class="ident">to_string</span>());
+		<span class="kw">unsafe</span> {
+			<span class="ident">RUN_ONCE</span>.<span class="ident">call_once</span>(<span class="op">||</span> {
+				<span class="ident">res</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">al_install_system</span>(<span class="ident">ALLEGRO_VERSION_INT</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="prelude-val">None</span>) <span class="op">!=</span> <span class="number">0</span>
 				{
-					<span class='ident'>al_set_new_bitmap_flags</span>(<span class='ident'>ALLEGRO_MEMORY_BITMAP</span> <span class='kw'>as</span> <span class='ident'>i32</span>);
-					<span class='ident'>DUMMY_TARGET</span> <span class='op'>=</span> <span class='ident'>al_create_bitmap</span>(<span class='number'>1</span>, <span class='number'>1</span>);
-					<span class='ident'>al_set_new_bitmap_flags</span>(<span class='number'>0</span>);
-					<span class='kw'>if</span> <span class='ident'>DUMMY_TARGET</span>.<span class='ident'>is_null</span>()
+					<span class="ident">al_set_new_bitmap_flags</span>(<span class="ident">ALLEGRO_MEMORY_BITMAP</span> <span class="kw">as</span> <span class="ident">i32</span>);
+					<span class="ident">DUMMY_TARGET</span> <span class="op">=</span> <span class="ident">al_create_bitmap</span>(<span class="number">1</span>, <span class="number">1</span>);
+					<span class="ident">al_set_new_bitmap_flags</span>(<span class="number">0</span>);
+					<span class="kw">if</span> <span class="ident">DUMMY_TARGET</span>.<span class="ident">is_null</span>()
 					{
-						<span class='prelude-val'>Err</span>(<span class='string'>&quot;Failed to create the dummy target... something is very wrong!&quot;</span>.<span class='ident'>to_string</span>())
+						<span class="prelude-val">Err</span>(<span class="string">&quot;Failed to create the dummy target... something is very wrong!&quot;</span>.<span class="ident">to_string</span>())
 					}
-					<span class='kw'>else</span>
+					<span class="kw">else</span>
 					{
-						<span class='ident'>al_set_target_bitmap</span>(<span class='ident'>DUMMY_TARGET</span>);
-						<span class='prelude-val'>Ok</span>(<span class='ident'>Core</span> { <span class='ident'>mutex</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(())) })
+						<span class="ident">al_set_target_bitmap</span>(<span class="ident">DUMMY_TARGET</span>);
+						<span class="prelude-val">Ok</span>(<span class="ident">Core</span> { <span class="ident">mutex</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(())) })
 					}
 				}
-				<span class='kw'>else</span>
+				<span class="kw">else</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>version</span> <span class='op'>=</span> <span class='ident'>al_get_allegro_version</span>();
-					<span class='kw'>let</span> <span class='ident'>major</span> <span class='op'>=</span> <span class='ident'>version</span> <span class='op'>&gt;&gt;</span> <span class='number'>24</span>;
-					<span class='kw'>let</span> <span class='ident'>minor</span> <span class='op'>=</span> (<span class='ident'>version</span> <span class='op'>&gt;&gt;</span> <span class='number'>16</span>) <span class='op'>&amp;</span> <span class='number'>255</span>;
-					<span class='kw'>let</span> <span class='ident'>revision</span> <span class='op'>=</span> (<span class='ident'>version</span> <span class='op'>&gt;&gt;</span> <span class='number'>8</span>) <span class='op'>&amp;</span> <span class='number'>255</span>;
-					<span class='kw'>let</span> <span class='ident'>release</span> <span class='op'>=</span> <span class='ident'>version</span> <span class='op'>&amp;</span> <span class='number'>255</span>;
+					<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">al_get_allegro_version</span>();
+					<span class="kw">let</span> <span class="ident">major</span> <span class="op">=</span> <span class="ident">version</span> <span class="op">&gt;&gt;</span> <span class="number">24</span>;
+					<span class="kw">let</span> <span class="ident">minor</span> <span class="op">=</span> (<span class="ident">version</span> <span class="op">&gt;&gt;</span> <span class="number">16</span>) <span class="op">&amp;</span> <span class="number">255</span>;
+					<span class="kw">let</span> <span class="ident">revision</span> <span class="op">=</span> (<span class="ident">version</span> <span class="op">&gt;&gt;</span> <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">255</span>;
+					<span class="kw">let</span> <span class="ident">release</span> <span class="op">=</span> <span class="ident">version</span> <span class="op">&amp;</span> <span class="number">255</span>;
 
-					<span class='prelude-val'>Err</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})&quot;</span>,
-					            <span class='ident'>major</span>,
-					            <span class='ident'>minor</span>,
-					            <span class='ident'>revision</span>,
-					            <span class='ident'>release</span>,
-					            <span class='ident'>ALLEGRO_VERSION</span>,
-					            <span class='ident'>ALLEGRO_SUB_VERSION</span>,
-					            <span class='ident'>ALLEGRO_WIP_VERSION</span>,
-					            <span class='ident'>ALLEGRO_RELEASE_NUMBER</span>))
+					<span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})&quot;</span>,
+					            <span class="ident">major</span>,
+					            <span class="ident">minor</span>,
+					            <span class="ident">revision</span>,
+					            <span class="ident">release</span>,
+					            <span class="ident">ALLEGRO_VERSION</span>,
+					            <span class="ident">ALLEGRO_SUB_VERSION</span>,
+					            <span class="ident">ALLEGRO_WIP_VERSION</span>,
+					            <span class="ident">ALLEGRO_RELEASE_NUMBER</span>))
 				};
 			});
 		}
-		<span class='ident'>res</span>
+		<span class="ident">res</span>
 	}
 
-	<span class='doccomment'>/// Returns the system config.</span>
-	<span class='doccomment'>/// TODO: This isn&#39;t quite thread safe...</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_system_config</span>() <span class='op'>-&gt;</span> <span class='ident'>Config</span>
+	<span class="doccomment">/// Returns the system config.</span>
+	<span class="doccomment">/// TODO: This isn&#39;t quite thread safe...</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_system_config</span>() <span class="op">-&gt;</span> <span class="ident">Config</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>Config</span>::<span class='ident'>wrap</span>(<span class='ident'>al_get_system_config</span>(), <span class='bool-val'>false</span>) }
+		<span class="kw">unsafe</span> { <span class="ident">Config</span>::<span class="ident">wrap</span>(<span class="ident">al_get_system_config</span>(), <span class="bool-val">false</span>) }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>spawn</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='ident'>Core</span>) <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>thread_proc</span>: <span class='ident'>F</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">spawn</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Core</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">thread_proc</span>: <span class="ident">F</span>)
 	{
-		<span class='kw'>let</span> <span class='ident'>mutex</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_core_mutex</span>();
-		<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> { <span class='ident'>thread_proc</span>(<span class='ident'>Core</span> { <span class='ident'>mutex</span>: <span class='ident'>mutex</span> }); });
+		<span class="kw">let</span> <span class="ident">mutex</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_core_mutex</span>();
+		<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> { <span class="ident">thread_proc</span>(<span class="ident">Core</span> { <span class="ident">mutex</span>: <span class="ident">mutex</span> }); });
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_core_mutex</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_core_mutex</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span>()<span class="op">&gt;&gt;</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>mutex</span>.<span class='ident'>clone</span>()
+		<span class="self">self</span>.<span class="ident">mutex</span>.<span class="ident">clone</span>()
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_num_video_adapters</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_num_video_adapters</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_num_video_adapters</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_get_num_video_adapters</span>() <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_monitor_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>adapter</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(<span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monitor_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adapter</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c_info</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MONITOR_INFO</span> { <span class='ident'>x1</span>: <span class='number'>0</span>, <span class='ident'>y1</span>: <span class='number'>0</span>, <span class='ident'>x2</span>: <span class='number'>0</span>, <span class='ident'>y2</span>: <span class='number'>0</span> };
-			<span class='kw'>if</span> <span class='ident'>al_get_monitor_info</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>c_info</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> _) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">unsafe</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c_info</span> <span class="op">=</span> <span class="ident">ALLEGRO_MONITOR_INFO</span> { <span class="ident">x1</span>: <span class="number">0</span>, <span class="ident">y1</span>: <span class="number">0</span>, <span class="ident">x2</span>: <span class="number">0</span>, <span class="ident">y2</span>: <span class="number">0</span> };
+			<span class="kw">if</span> <span class="ident">al_get_monitor_info</span>(<span class="ident">adapter</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">c_info</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> _) <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>((<span class='ident'>c_info</span>.<span class='ident'>x1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y1</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>x2</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>c_info</span>.<span class='ident'>y2</span> <span class='kw'>as</span> <span class='ident'>i32</span>))
+				<span class="prelude-val">Ok</span>((<span class="ident">c_info</span>.<span class="ident">x1</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">c_info</span>.<span class="ident">y1</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">c_info</span>.<span class="ident">x2</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">c_info</span>.<span class="ident">y2</span> <span class="kw">as</span> <span class="ident">i32</span>))
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rest</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>seconds</span>: <span class='ident'>f64</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_rest</span>(<span class='ident'>seconds</span> <span class='kw'>as</span> <span class='ident'>c_double</span>);
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_time</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
-	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_time</span>() <span class='kw'>as</span> <span class='ident'>f64</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_keyboard</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_install_keyboard</span>() <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_keyboard_installed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">seconds</span>: <span class="ident">f64</span>)
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_keyboard_installed</span>() <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_rest</span>(<span class="ident">seconds</span> <span class="kw">as</span> <span class="ident">c_double</span>);
+		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_keyboard_event_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>EventSource</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
 	{
-		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_keyboard_installed</span>()
+		<span class="kw">unsafe</span> { <span class="ident">al_get_time</span>() <span class="kw">as</span> <span class="ident">f64</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">install_keyboard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	{
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_install_keyboard</span>() <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_keyboard_installed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	{
+		<span class="kw">unsafe</span> { <span class="ident">al_is_keyboard_installed</span>() <span class="op">!=</span> <span class="number">0</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_keyboard_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventSource</span><span class="op">&gt;</span>
+	{
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_keyboard_installed</span>()
 		{
-			<span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(<span class='ident'>EventSource</span>::<span class='ident'>wrap</span>(<span class='ident'>al_get_keyboard_event_source</span>())) }
+			<span class="kw">unsafe</span> { <span class="prelude-val">Some</span>(<span class="ident">EventSource</span>::<span class="ident">wrap</span>(<span class="ident">al_get_keyboard_event_source</span>())) }
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class="prelude-val">None</span>
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_keyboard_leds</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>leds</span>: <span class='ident'>KeyModifier</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_keyboard_leds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">leds</span>: <span class="ident">KeyModifier</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_keyboard_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_set_keyboard_leds</span>(<span class='ident'>leds</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_keyboard_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_set_keyboard_leds</span>(<span class="ident">leds</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>keycode_to_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>k</span>: <span class='ident'>KeyCode</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_keyboard_installed</span>());
-		<span class='kw'>unsafe</span> { <span class='ident'>from_c_str</span>(<span class='ident'>al_keycode_to_name</span>(<span class='ident'>k</span> <span class='kw'>as</span> <span class='ident'>c_int</span>)) }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_mouse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_install_mouse</span>() <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_mouse_installed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keycode_to_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">k</span>: <span class="ident">KeyCode</span>) <span class="op">-&gt;</span> <span class="ident">String</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_mouse_installed</span>() <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_keyboard_installed</span>());
+		<span class="kw">unsafe</span> { <span class="ident">from_c_str</span>(<span class="ident">al_keycode_to_name</span>(<span class="ident">k</span> <span class="kw">as</span> <span class="ident">c_int</span>)) }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_mouse_event_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>EventSource</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">install_mouse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>()
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_install_mouse</span>() <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_mouse_installed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	{
+		<span class="kw">unsafe</span> { <span class="ident">al_is_mouse_installed</span>() <span class="op">!=</span> <span class="number">0</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mouse_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventSource</span><span class="op">&gt;</span>
+	{
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_mouse_installed</span>()
 		{
-			<span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(<span class='ident'>EventSource</span>::<span class='ident'>wrap</span>(<span class='ident'>al_get_mouse_event_source</span>())) }
+			<span class="kw">unsafe</span> { <span class="prelude-val">Some</span>(<span class="ident">EventSource</span>::<span class="ident">wrap</span>(<span class="ident">al_get_mouse_event_source</span>())) }
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class="prelude-val">None</span>
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>install_joystick</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">install_joystick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_install_joystick</span>() <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_install_joystick</span>() <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_joystick_installed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_joystick_installed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_joystick_installed</span>() <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_is_joystick_installed</span>() <span class="op">!=</span> <span class="number">0</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_joystick_event_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>EventSource</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_joystick_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventSource</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>()
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_joystick_installed</span>()
 		{
-			<span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(<span class='ident'>EventSource</span>::<span class='ident'>wrap</span>(<span class='ident'>al_get_joystick_event_source</span>())) }
+			<span class="kw">unsafe</span> { <span class="prelude-val">Some</span>(<span class="ident">EventSource</span>::<span class="ident">wrap</span>(<span class="ident">al_get_joystick_event_source</span>())) }
 		}
-		<span class='kw'>else</span>
+		<span class="kw">else</span>
 		{
-			<span class='prelude-val'>None</span>
+			<span class="prelude-val">None</span>
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reconfigure_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reconfigure_joysticks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_reconfigure_joysticks</span>() <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_joystick_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_reconfigure_joysticks</span>() <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_num_joysticks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_joystick_installed</span>());
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_num_joysticks</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_mouse_num_buttons</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_mouse_num_buttons</span>() <span class='kw'>as</span> <span class='ident'>u32</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_mouse_num_axes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_mouse_num_axes</span>() <span class='kw'>as</span> <span class='ident'>u32</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mouse_xy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>display</span>: <span class='kw-2'>&amp;</span><span class='ident'>Display</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_set_mouse_xy</span>(<span class='ident'>display</span>.<span class='ident'>get_allegro_display</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mouse_z</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>z</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_num_joysticks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_set_mouse_z</span>(<span class='ident'>z</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_joystick_installed</span>());
+		<span class="kw">unsafe</span> { <span class="ident">al_get_num_joysticks</span>() <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mouse_w</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>w</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mouse_num_buttons</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_set_mouse_w</span>(<span class='ident'>w</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> { <span class="ident">al_get_mouse_num_buttons</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mouse_axis</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>axis</span>: <span class='ident'>i32</span>, <span class='ident'>value</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mouse_num_axes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_set_mouse_axis</span>(<span class='ident'>axis</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>value</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> { <span class="ident">al_get_mouse_num_axes</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mouse_xy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	{
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_set_mouse_xy</span>(<span class="ident">display</span>.<span class="ident">get_allegro_display</span>(), <span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>grab_mouse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>display</span>: <span class='kw-2'>&amp;</span><span class='ident'>Display</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mouse_z</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">z</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_grab_mouse</span>(<span class='ident'>display</span>.<span class='ident'>get_allegro_display</span>()) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_set_mouse_z</span>(<span class="ident">z</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
-			}
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ungrab_mouse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
-	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>is_mouse_installed</span>());
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_ungrab_mouse</span>() <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='prelude-val'>Ok</span>(())
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_bitmap_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mouse_w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">w</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_bitmap_flags</span>(<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_set_mouse_w</span>(<span class="ident">w</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_bitmap_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>BitmapFlags</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mouse_axis</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">axis</span>: <span class="ident">i32</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_new_bitmap_flags</span>() <span class='kw'>as</span> <span class='ident'>u32</span>) }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_bitmap_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>format</span>: <span class='ident'>PixelFormat</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_bitmap_format</span>(<span class='ident'>format</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_set_mouse_axis</span>(<span class="ident">axis</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">value</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_bitmap_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PixelFormat</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">grab_mouse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_new_bitmap_format</span>() <span class='kw'>as</span> <span class='ident'>u32</span>) }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_target_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_target_bitmap</span>(<span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>());
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_grab_mouse</span>(<span class="ident">display</span>.<span class="ident">get_allegro_display</span>()) <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>clear_to_color</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ungrab_mouse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_clear_to_color</span>(<span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_mouse_installed</span>());
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_ungrab_mouse</span>() <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="prelude-val">Ok</span>(())
+			}
+			<span class="kw">else</span>
+			{
+				<span class="prelude-val">Err</span>(())
+			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_pixel</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f32</span>, <span class='ident'>y</span>: <span class='ident'>f32</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_bitmap_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">BitmapFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_bitmap_flags</span>(<span class="ident">flags</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>put_pixel</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_bitmap_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">BitmapFlags</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_put_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
+		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_new_bitmap_flags</span>() <span class="kw">as</span> <span class="ident">u32</span>) }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_bitmap_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">format</span>: <span class="ident">PixelFormat</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_bitmap_format</span>(<span class="ident">format</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>put_blended_pixel</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_bitmap_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">PixelFormat</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_put_blended_pixel</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>color</span>.<span class='ident'>get_allegro_color</span>());
+		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_new_bitmap_format</span>() <span class="kw">as</span> <span class="ident">u32</span>) }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_target_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bmp</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_target_bitmap</span>(<span class="ident">bmp</span>.<span class="ident">get_allegro_bitmap</span>());
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_to_color</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">color</span>: <span class="ident">Color</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>, (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_clear_to_color</span>(<span class="ident">color</span>.<span class="ident">get_allegro_color</span>());
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_bitmap_region</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>sx</span>: <span class='ident'>f32</span>, <span class='ident'>sy</span>: <span class='ident'>f32</span>, <span class='ident'>sw</span>: <span class='ident'>f32</span>, <span class='ident'>sh</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>,
-	                                         <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>, <span class="ident">color</span>: <span class="ident">Color</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                      <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_pixel</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">color</span>.<span class="ident">get_allegro_color</span>());
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_scaled_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>sx</span>: <span class='ident'>f32</span>, <span class='ident'>sy</span>: <span class='ident'>f32</span>, <span class='ident'>sw</span>: <span class='ident'>f32</span>, <span class='ident'>sh</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>dw</span>: <span class='ident'>f32</span>, <span class='ident'>dh</span>: <span class='ident'>f32</span>,
-	                                         <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">put_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">color</span>: <span class="ident">Color</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_scaled_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                      <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_put_pixel</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">color</span>.<span class="ident">get_allegro_color</span>());
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_rotated_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>cx</span>: <span class='ident'>f32</span>, <span class='ident'>cy</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>angle</span>: <span class='ident'>f32</span>,
-	                                          <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">put_blended_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">color</span>: <span class="ident">Color</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                       <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                       <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                       <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                       <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                       <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                       (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_put_blended_pixel</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">color</span>.<span class="ident">get_allegro_color</span>());
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_scaled_rotated_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>cx</span>: <span class='ident'>f32</span>, <span class='ident'>cy</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>xscale</span>: <span class='ident'>f32</span>, <span class='ident'>yscale</span>: <span class='ident'>f32</span>,
-	                                                 <span class='ident'>angle</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_scaled_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                              <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>, (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+	                                         <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                      <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                      <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                      (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_bitmap_region</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                      <span class="ident">sx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_bitmap_region</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>, <span class='ident'>sx</span>: <span class='ident'>f32</span>, <span class='ident'>sy</span>: <span class='ident'>f32</span>, <span class='ident'>sw</span>: <span class='ident'>f32</span>, <span class='ident'>sh</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>,
-	                                                <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_scaled_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>,
+	                                         <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                             <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                             <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_scaled_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                      <span class="ident">sx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">sh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_scaled_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>, <span class='ident'>sx</span>: <span class='ident'>f32</span>, <span class='ident'>sy</span>: <span class='ident'>f32</span>, <span class='ident'>sw</span>: <span class='ident'>f32</span>, <span class='ident'>sh</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>,
-	                                                <span class='ident'>dw</span>: <span class='ident'>f32</span>, <span class='ident'>dh</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>,
+	                                          <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_scaled_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                             <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                             <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             <span class='ident'>dh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                             (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_rotated_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                       <span class="ident">cx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                       <span class="ident">cy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                       <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                       <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                       <span class="ident">angle</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                       (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_rotated_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>, <span class='ident'>cx</span>: <span class='ident'>f32</span>, <span class='ident'>cy</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>angle</span>: <span class='ident'>f32</span>,
-	                                                 <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_scaled_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>,
+	                                                 <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                              <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                              <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                              (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_scaled_rotated_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                              <span class="ident">cx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">cy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">xscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">yscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">angle</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_scaled_rotated_bitmap</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>, <span class='ident'>cx</span>: <span class='ident'>f32</span>, <span class='ident'>cy</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>,
-	                                                        <span class='ident'>xscale</span>: <span class='ident'>f32</span>, <span class='ident'>yscale</span>: <span class='ident'>f32</span>, <span class='ident'>angle</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                                     <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                                     <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                     (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                      <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                      <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                      (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>draw_tinted_scaled_rotated_bitmap_region</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>bitmap</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>sx</span>: <span class='ident'>f32</span>, <span class='ident'>sy</span>: <span class='ident'>f32</span>, <span class='ident'>sw</span>: <span class='ident'>f32</span>, <span class='ident'>sh</span>: <span class='ident'>f32</span>, <span class='ident'>tint</span>: <span class='ident'>Color</span>,
-	                                                               <span class='ident'>cx</span>: <span class='ident'>f32</span>, <span class='ident'>cy</span>: <span class='ident'>f32</span>, <span class='ident'>dx</span>: <span class='ident'>f32</span>, <span class='ident'>dy</span>: <span class='ident'>f32</span>, <span class='ident'>xscale</span>: <span class='ident'>f32</span>, <span class='ident'>yscale</span>: <span class='ident'>f32</span>,
-	                                                               <span class='ident'>angle</span>: <span class='ident'>f32</span>, <span class='ident'>flags</span>: <span class='ident'>BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+	                                                <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_draw_tinted_scaled_rotated_bitmap_region</span>(<span class='ident'>bitmap</span>.<span class='ident'>get_allegro_bitmap</span>(),
-			                                            <span class='ident'>sx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>sy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>sw</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>sh</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>tint</span>.<span class='ident'>get_allegro_color</span>(),
-			                                            <span class='ident'>cx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>cy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>dx</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>dy</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>xscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>yscale</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            <span class='ident'>angle</span> <span class='kw'>as</span> <span class='ident'>c_float</span>,
-			                                            (<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='op'>&gt;&gt;</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_bitmap_region</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                             <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                             <span class="ident">sx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_clipping_rectangle</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>width</span>: <span class='ident'>i32</span>, <span class='ident'>height</span>: <span class='ident'>i32</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+	                                                <span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_clipping_rectangle</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_scaled_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                             <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                             <span class="ident">sx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">sh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             <span class="ident">dh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                             (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reset_clipping_rectangle</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>,
+	                                                 <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_reset_clipping_rectangle</span>();
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_rotated_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                              <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                              <span class="ident">cx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">cy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              <span class="ident">angle</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                              (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_clipping_rectangle</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>, <span class='ident'>i32</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+	                                                        <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0</span>;
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>y</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0</span>;
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>width</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0</span>;
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>height</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0</span>;
-			<span class='ident'>al_get_clipping_rectangle</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>width</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>height</span>);
-			(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>i32</span>)
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_scaled_rotated_bitmap</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                                     <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                                     <span class="ident">cx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">cy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">xscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">yscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     <span class="ident">angle</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                     (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_display_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>flags</span>: <span class='ident'>DisplayFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_rotated_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">tint</span>: <span class="ident">Color</span>,
+	                                                               <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>,
+	                                                               <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_display_flags</span>(<span class='ident'>flags</span>.<span class='ident'>get</span>() <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_tinted_scaled_rotated_bitmap_region</span>(<span class="ident">bitmap</span>.<span class="ident">get_allegro_bitmap</span>(),
+			                                            <span class="ident">sx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">sy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">sw</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">sh</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">tint</span>.<span class="ident">get_allegro_color</span>(),
+			                                            <span class="ident">cx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">cy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">dx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">dy</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">xscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">yscale</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            <span class="ident">angle</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+			                                            (<span class="ident">flags</span>.<span class="ident">get</span>() <span class="op">&gt;&gt;</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_display_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>DisplayFlags</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_clipping_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>)
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_new_display_flags</span>()) }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_display_refresh_rate</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rate</span>: <span class='ident'>i32</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_display_refresh_rate</span>(<span class='ident'>rate</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_clipping_rectangle</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">width</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">height</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_display_refresh_rate</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset_clipping_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>)
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_new_display_refresh_rate</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_display_adapter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>adapter</span>: <span class='ident'>i32</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_display_adapter</span>(<span class='ident'>adapter</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_reset_clipping_rectangle</span>();
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_display_adapter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_clipping_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>)
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_new_display_adapter</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_window_position</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_window_position</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
+			<span class="ident">al_get_clipping_rectangle</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">width</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">height</span>);
+			(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">width</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">height</span> <span class="kw">as</span> <span class="ident">i32</span>)
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_window_position</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>i32</span>, <span class='ident'>i32</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">DisplayFlags</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>uninitialized</span>;
-
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='ident'>uninitialized</span>();
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>y</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='ident'>uninitialized</span>();
-			<span class='ident'>al_get_new_window_position</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>y</span>);
-			(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>i32</span>)
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_display_flags</span>(<span class="ident">flags</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reset_new_display_options</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_display_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">DisplayFlags</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_reset_new_display_options</span>();
+		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_new_display_flags</span>()) }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_refresh_rate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rate</span>: <span class="ident">i32</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_display_refresh_rate</span>(<span class="ident">rate</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_new_display_option</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>option</span>: <span class='ident'>DisplayOption</span>, <span class='ident'>value</span>: <span class='ident'>i32</span>, <span class='ident'>importance</span>: <span class='ident'>DisplayOptionImportance</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_display_refresh_rate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_new_display_option</span>(<span class='ident'>option</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>value</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>importance</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> { <span class="ident">al_get_new_display_refresh_rate</span>() <span class="kw">as</span> <span class="ident">i32</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_adapter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adapter</span>: <span class="ident">i32</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_display_adapter</span>(<span class="ident">adapter</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_new_display_option</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>option</span>: <span class='ident'>DisplayOption</span>) <span class='op'>-&gt;</span> (<span class='ident'>i32</span>, <span class='ident'>DisplayOptionImportance</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_display_adapter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>uninitialized</span>;
+		<span class="kw">unsafe</span> { <span class="ident">al_get_new_display_adapter</span>() <span class="kw">as</span> <span class="ident">i32</span> }
+	}
 
-			<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>imp</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='ident'>uninitialized</span>();
-
-			<span class='kw'>let</span> <span class='ident'>val</span> <span class='op'>=</span> <span class='ident'>al_get_new_display_option</span>(<span class='ident'>option</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>imp</span>);
-			(<span class='ident'>val</span> <span class='kw'>as</span> <span class='ident'>i32</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>imp</span>))
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_window_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_window_position</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_current_transform</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Transform</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_window_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>)
 	{
-		<span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_get_current_transform</span>() };
-		<span class='kw'>if</span> <span class='ident'>t</span>.<span class='ident'>is_null</span>()
+		<span class="kw">unsafe</span> {
+			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>;
+
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
+			<span class="ident">al_get_new_window_position</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
+			(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">i32</span>)
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset_new_display_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_reset_new_display_options</span>();
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">option</span>: <span class="ident">DisplayOption</span>, <span class="ident">value</span>: <span class="ident">i32</span>, <span class="ident">importance</span>: <span class="ident">DisplayOptionImportance</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_new_display_option</span>(<span class="ident">option</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">value</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">importance</span> <span class="kw">as</span> <span class="ident">c_int</span>);
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_display_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">option</span>: <span class="ident">DisplayOption</span>) <span class="op">-&gt;</span> (<span class="ident">i32</span>, <span class="ident">DisplayOptionImportance</span>)
+	{
+		<span class="kw">unsafe</span> {
+			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>;
+
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">imp</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
+
+			<span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">al_get_new_display_option</span>(<span class="ident">option</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">imp</span>);
+			(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">imp</span>))
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_current_transform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Transform</span>
+	{
+		<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_get_current_transform</span>() };
+		<span class="kw">if</span> <span class="ident">t</span>.<span class="ident">is_null</span>()
 		{
-			<span class='comment'>/* We always have a valid target */</span>
-			<span class='macro'>unreachable</span><span class='macro'>!</span>();
+			<span class="comment">/* We always have a valid target */</span>
+			<span class="macro">unreachable</span><span class="macro">!</span>();
 		}
-		<span class='kw'>unsafe</span> { <span class='ident'>Transform</span>::<span class='ident'>wrap</span>(<span class='kw-2'>*</span><span class='ident'>t</span>) }
+		<span class="kw">unsafe</span> { <span class="ident">Transform</span>::<span class="ident">wrap</span>(<span class="kw-2">*</span><span class="ident">t</span>) }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>use_transform</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>trans</span>: <span class='kw-2'>&amp;</span><span class='ident'>Transform</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">use_transform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">trans</span>: <span class="kw-2">&amp;</span><span class="ident">Transform</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_use_transform</span>(<span class='kw-2'>&amp;</span><span class='ident'>trans</span>.<span class='ident'>get_allegro_transform</span>());
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_use_transform</span>(<span class="kw-2">&amp;</span><span class="ident">trans</span>.<span class="ident">get_allegro_transform</span>());
 		}
 	}
 
-	<span class='doccomment'>/// Set the shader as current for the current bitmap. Pass None to stop using this shader.</span>
-	<span class='doccomment'>/// Returns an error if the shader isn&#39;t compatible with the bitmap.</span>
-	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_6</span>))]</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>use_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Shader</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="doccomment">/// Set the shader as current for the current bitmap. Pass None to stop using this shader.</span>
+	<span class="doccomment">/// Returns an error if the shader isn&#39;t compatible with the bitmap.</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_6</span>))]</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">use_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Shader</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>match</span> <span class='ident'>shader</span>
+		<span class="kw">match</span> <span class="ident">shader</span>
 		{
-			<span class='prelude-val'>Some</span>(<span class='ident'>shader</span>) <span class='op'>=&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">shader</span>) <span class="op">=&gt;</span>
 			{
-				<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_use_shader</span>(<span class='ident'>shader</span>.<span class='ident'>get_allegro_shader</span>()) };
-				<span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>!=</span> <span class='number'>0</span> { <span class='prelude-val'>Ok</span>(()) } <span class='kw'>else</span> { <span class='prelude-val'>Err</span>(()) }
+				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_use_shader</span>(<span class="ident">shader</span>.<span class="ident">get_allegro_shader</span>()) };
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) }
 			}
-			<span class='prelude-val'>None</span> <span class='op'>=&gt;</span>
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span>
 			{
-				<span class='kw'>unsafe</span> {
-					<span class='ident'>al_use_shader</span>(<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>());
+				<span class="kw">unsafe</span> {
+					<span class="ident">al_use_shader</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>());
 				}
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
 		}
 	}
 
-	<span class='doccomment'>/// Returns the source of the shader that Allegro uses by default.</span>
-	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_6</span>))]</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_default_shader_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>platform</span>: <span class='ident'>ShaderPlatform</span>, <span class='ident'>shader_type</span>: <span class='ident'>ShaderType</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>
+	<span class="doccomment">/// Returns the source of the shader that Allegro uses by default.</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_6</span>))]</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default_shader_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">platform</span>: <span class="ident">ShaderPlatform</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='ident'>src</span> <span class='op'>=</span> <span class='ident'>al_get_default_shader_source</span>(<span class='ident'>platform</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_PLATFORM</span>, <span class='ident'>shader_type</span> <span class='kw'>as</span> <span class='ident'>ALLEGRO_SHADER_TYPE</span>);
-			<span class='kw'>if</span> <span class='ident'>src</span>.<span class='ident'>is_null</span>()
+		<span class="kw">unsafe</span> {
+			<span class="kw">let</span> <span class="ident">src</span> <span class="op">=</span> <span class="ident">al_get_default_shader_source</span>(<span class="ident">platform</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_PLATFORM</span>, <span class="ident">shader_type</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_TYPE</span>);
+			<span class="kw">if</span> <span class="ident">src</span>.<span class="ident">is_null</span>()
 			{
-				<span class='prelude-val'>None</span>
+				<span class="prelude-val">None</span>
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Some</span>(<span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>src</span>).<span class='ident'>to_string_lossy</span>().<span class='ident'>into_owned</span>())
+				<span class="prelude-val">Some</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">src</span>).<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>flip_display</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flip_display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_flip_display</span>();
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_flip_display</span>();
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>update_display_region</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>width</span>: <span class='ident'>i32</span>, <span class='ident'>height</span>: <span class='ident'>i32</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_display_region</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_update_display_region</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_update_display_region</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">width</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">height</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wait_for_vsync</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait_for_vsync</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_wait_for_vsync</span>() <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_wait_for_vsync</span>() <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='prelude-val'>Ok</span>(())
+				<span class="prelude-val">Ok</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>hold_bitmap_drawing</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>hold</span>: <span class='ident'>bool</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hold_bitmap_drawing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hold</span>: <span class="ident">bool</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_hold_bitmap_drawing</span>(<span class='ident'>hold</span> <span class='kw'>as</span> <span class='ident'>c_bool</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_hold_bitmap_drawing</span>(<span class="ident">hold</span> <span class="kw">as</span> <span class="ident">c_bool</span>);
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_bitmap_drawing_held</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_bitmap_drawing_held</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_bitmap_drawing_held</span>() <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_is_bitmap_drawing_held</span>() <span class="op">!=</span> <span class="number">0</span> }
 	}
 
-	<span class='doccomment'>/// Set a sampler for a particular uniform and unit for the current shader.</span>
-	<span class='doccomment'>/// Different uniforms should be set to different units.</span>
-	<span class='doccomment'>/// Pass None to bmp to clear the sampler.</span>
-	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_0</span>))]</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_shader_sampler</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>BitmapLike</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>bmp</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='ident'>unit</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="doccomment">/// Set a sampler for a particular uniform and unit for the current shader.</span>
+	<span class="doccomment">/// Different uniforms should be set to different units.</span>
+	<span class="doccomment">/// Pass None to bmp to clear the sampler.</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_sampler</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">bmp</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">unit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>c_name</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>as_bytes</span>()).<span class='ident'>unwrap</span>();
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>al_set_shader_sampler</span>(<span class='ident'>c_name</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>bmp</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>unit</span> <span class='kw'>as</span> <span class='ident'>c_int</span>) <span class='op'>!=</span> <span class='number'>0</span> };
-		<span class='kw'>if</span> <span class='ident'>ret</span> { <span class='prelude-val'>Ok</span>(()) } <span class='kw'>else</span> { <span class='prelude-val'>Err</span>(()) }
+		<span class="kw">let</span> <span class="ident">c_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">name</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_set_shader_sampler</span>(<span class="ident">c_name</span>.<span class="ident">as_ptr</span>(), <span class="ident">bmp</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">unit</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span> };
+		<span class="kw">if</span> <span class="ident">ret</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) }
 	}
 
-	<span class='doccomment'>/// Sets a shader uniform to a value.</span>
-	<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>allegro_5_2_0</span>, <span class='ident'>allegro_5_1_0</span>))]</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_shader_uniform</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>ShaderUniform</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>val</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ()<span class='op'>&gt;</span>
+	<span class="doccomment">/// Sets a shader uniform to a value.</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_uniform</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ShaderUniform</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>val</span>.<span class='ident'>set_self_for_shader</span>(<span class='ident'>name</span>) }
+		<span class="kw">unsafe</span> { <span class="ident">val</span>.<span class="ident">set_self_for_shader</span>(<span class="ident">name</span>) }
 	}
 
-	<span class='doccomment'>/// Set blender options.</span>
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_blender</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>op</span>: <span class='ident'>BlendOperation</span>, <span class='ident'>source</span>: <span class='ident'>BlendMode</span>, <span class='ident'>dest</span>: <span class='ident'>BlendMode</span>)
+	<span class="doccomment">/// Set blender options.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_blender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">op</span>: <span class="ident">BlendOperation</span>, <span class="ident">source</span>: <span class="ident">BlendMode</span>, <span class="ident">dest</span>: <span class="ident">BlendMode</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_set_blender</span>(<span class='ident'>op</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>source</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>dest</span> <span class='kw'>as</span> <span class='ident'>c_int</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_set_blender</span>(<span class="ident">op</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">source</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">dest</span> <span class="kw">as</span> <span class="ident">c_int</span>);
 		}
 	}
 }

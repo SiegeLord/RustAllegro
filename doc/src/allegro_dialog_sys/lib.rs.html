@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -103,65 +103,65 @@
 <span id="58">58</span>
 <span id="59">59</span>
 <span id="60">60</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;allegro_dialog_sys&quot;</span>]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;allegro_dialog_sys&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
 
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_sys</span>;
-<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>allegro_util</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_sys</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_util</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>allegro_dialog</span>::<span class='kw-2'>*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">allegro_dialog</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>allegro_dialog</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">allegro_dialog</span>
 {
-	<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>)]</span>
+	<span class="attribute">#<span class="op">!</span>[<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
 
-	<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-	<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
-	<span class='kw'>use</span> <span class='ident'>allegro_sys</span>::{<span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>ALLEGRO_EVENT_SOURCE</span>};
+	<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+	<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
+	<span class="kw">use</span> <span class="ident">allegro_sys</span>::{<span class="ident">ALLEGRO_DISPLAY</span>, <span class="ident">ALLEGRO_EVENT_SOURCE</span>};
 
-	<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_FILECHOOSER</span>);
-	<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_TEXTLOG</span>);
+	<span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_FILECHOOSER</span>);
+	<span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_TEXTLOG</span>);
 
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_FILE_MUST_EXIST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_SAVE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_FOLDER</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>4</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_PICTURES</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>8</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_SHOW_HIDDEN</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>16</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER_MULTIPLE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>32</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_FILE_MUST_EXIST</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_SAVE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_FOLDER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">4</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_PICTURES</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">8</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_SHOW_HIDDEN</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">16</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER_MULTIPLE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">32</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_MESSAGEBOX_WARN</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_MESSAGEBOX_ERROR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_MESSAGEBOX_OK_CANCEL</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>4</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_MESSAGEBOX_YES_NO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>8</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_MESSAGEBOX_QUESTION</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>16</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MESSAGEBOX_WARN</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MESSAGEBOX_ERROR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MESSAGEBOX_OK_CANCEL</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">4</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MESSAGEBOX_YES_NO</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">8</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MESSAGEBOX_QUESTION</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">16</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_TEXTLOG_NO_CLOSE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_TEXTLOG_MONOSPACE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_TEXTLOG_NO_CLOSE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_TEXTLOG_MONOSPACE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
 
-	<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE</span>: <span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>600</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">600</span>;
 
-	<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
+	<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 	{
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_init_native_dialog_addon</span>() <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_shutdown_native_dialog_addon</span>();
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_native_file_dialog</span>(<span class='ident'>initial_path</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>title</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>patterns</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>mode</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FILECHOOSER</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_show_native_file_dialog</span>(<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>dialog</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FILECHOOSER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_native_file_dialog_count</span>(<span class='ident'>dialog</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_native_file_dialog_path</span>(<span class='ident'>dialog</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_FILECHOOSER</span>, <span class='ident'>index</span>: <span class='ident'>size_t</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_native_file_dialog</span>(<span class='ident'>dialog</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_FILECHOOSER</span>);
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_show_native_message_box</span>(<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>, <span class='ident'>title</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>heading</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>text</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>buttons</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>flags</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_open_native_text_log</span>(<span class='ident'>title</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, <span class='ident'>flags</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TEXTLOG</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_close_native_text_log</span>(<span class='ident'>textlog</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TEXTLOG</span>);
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_append_native_text_log</span>(<span class='ident'>textlog</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TEXTLOG</span>, <span class='ident'>format</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>c_char</span>, ...);
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_native_text_log_event_source</span>(<span class='ident'>textlog</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TEXTLOG</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
-		<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_allegro_native_dialog_version</span>() <span class='op'>-&gt;</span> <span class='ident'>uint32_t</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_init_native_dialog_addon</span>() <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_shutdown_native_dialog_addon</span>();
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_create_native_file_dialog</span>(<span class="ident">initial_path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">title</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">patterns</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">mode</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILECHOOSER</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_show_native_file_dialog</span>(<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>, <span class="ident">dialog</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILECHOOSER</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_native_file_dialog_count</span>(<span class="ident">dialog</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_native_file_dialog_path</span>(<span class="ident">dialog</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_FILECHOOSER</span>, <span class="ident">index</span>: <span class="ident">size_t</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_destroy_native_file_dialog</span>(<span class="ident">dialog</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILECHOOSER</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_show_native_message_box</span>(<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>, <span class="ident">title</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">heading</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">buttons</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_open_native_text_log</span>(<span class="ident">title</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TEXTLOG</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_close_native_text_log</span>(<span class="ident">textlog</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TEXTLOG</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_append_native_text_log</span>(<span class="ident">textlog</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TEXTLOG</span>, <span class="ident">format</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, ...);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_native_text_log_event_source</span>(<span class="ident">textlog</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TEXTLOG</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_allegro_native_dialog_version</span>() <span class="op">-&gt;</span> <span class="ident">uint32_t</span>;
 	}
 }
 </pre>

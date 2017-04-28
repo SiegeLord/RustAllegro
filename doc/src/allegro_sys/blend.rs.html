@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -86,49 +86,49 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
-</pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
+</pre><pre class="rust ">
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>use</span> <span class='ident'>color</span>::<span class='ident'>ALLEGRO_COLOR</span>;
+<span class="kw">use</span> <span class="ident">color</span>::<span class="ident">ALLEGRO_COLOR</span>;
 
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_ZERO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_ONE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_ALPHA</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_INVERSE_ALPHA</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>3</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_SRC_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>4</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_DEST_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>5</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_INVERSE_SRC_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>6</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_INVERSE_DEST_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>7</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_CONST_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>8</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_INVERSE_CONST_COLOR</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>9</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NUM_BLEND_MODES</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>10</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_ZERO</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_ONE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_ALPHA</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_INVERSE_ALPHA</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">3</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_SRC_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">4</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_DEST_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">5</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_INVERSE_SRC_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">6</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_INVERSE_DEST_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">7</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_CONST_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">8</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_INVERSE_CONST_COLOR</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">9</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NUM_BLEND_MODES</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">10</span>;
 
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_ADD</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_SRC_MINUS_DEST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_DEST_MINUS_SRC</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ALLEGRO_NUM_BLEND_OPERATIONS</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>3</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_ADD</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_SRC_MINUS_DEST</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_DEST_MINUS_SRC</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NUM_BLEND_OPERATIONS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">3</span>;
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_blender</span>(<span class='ident'>op</span>: <span class='ident'>c_int</span>,
-                          <span class='ident'>source</span>: <span class='ident'>c_int</span>,
-                          <span class='ident'>dest</span>: <span class='ident'>c_int</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_blend_color</span>(<span class='ident'>color</span>: <span class='ident'>ALLEGRO_COLOR</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_blender</span>(<span class='ident'>op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                          <span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                          <span class='ident'>dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_blend_color</span>() <span class='op'>-&gt;</span> <span class='ident'>ALLEGRO_COLOR</span>;
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_separate_blender</span>(<span class='ident'>op</span>: <span class='ident'>c_int</span>,
-                                   <span class='ident'>source</span>: <span class='ident'>c_int</span>,
-                                   <span class='ident'>dest</span>: <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_op</span>: <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_source</span>: <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_dest</span>: <span class='ident'>c_int</span>);
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_separate_blender</span>(<span class='ident'>op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_op</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_src</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>,
-                                   <span class='ident'>alpha_dest</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>);
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_blender</span>(<span class="ident">op</span>: <span class="ident">c_int</span>,
+                          <span class="ident">source</span>: <span class="ident">c_int</span>,
+                          <span class="ident">dest</span>: <span class="ident">c_int</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_blend_color</span>(<span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_blender</span>(<span class="ident">op</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                          <span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                          <span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_blend_color</span>() <span class="op">-&gt;</span> <span class="ident">ALLEGRO_COLOR</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_separate_blender</span>(<span class="ident">op</span>: <span class="ident">c_int</span>,
+                                   <span class="ident">source</span>: <span class="ident">c_int</span>,
+                                   <span class="ident">dest</span>: <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_op</span>: <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_source</span>: <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_dest</span>: <span class="ident">c_int</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_separate_blender</span>(<span class="ident">op</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                                   <span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                                   <span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_op</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_src</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>,
+                                   <span class="ident">alpha_dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_int</span>);
 }
 </pre>
 </section>

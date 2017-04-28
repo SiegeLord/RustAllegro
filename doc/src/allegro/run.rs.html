@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -75,37 +75,37 @@
 <span id="30">30</span>
 <span id="31">31</span>
 <span id="32">32</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>process</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>spawn</span>;
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">process</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>::<span class="ident">spawn</span>;
 
-<span class='kw'>static</span> <span class='kw-2'>mut</span> <span class='ident'>GLOBAL_MAIN_FUNC</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw'>fn</span>()<span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">GLOBAL_MAIN_FUNC</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">fn</span>()<span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>run</span>(<span class='ident'>main_func</span>: <span class='kw'>fn</span>()) <span class='op'>-&gt;</span> <span class='op'>!</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="ident">main_func</span>: <span class="kw">fn</span>()) <span class="op">-&gt;</span> <span class="op">!</span>
 {
-	<span class='kw'>unsafe</span> {
-		<span class='ident'>GLOBAL_MAIN_FUNC</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>main_func</span>);
-		<span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>al_run_main</span>(<span class='number'>0</span>, <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>allegro_main</span>);
-		<span class='ident'>process</span>::<span class='ident'>exit</span>(<span class='ident'>ret</span>)
+	<span class="kw">unsafe</span> {
+		<span class="ident">GLOBAL_MAIN_FUNC</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">main_func</span>);
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">al_run_main</span>(<span class="number">0</span>, <span class="ident">ptr</span>::<span class="ident">null</span>(), <span class="ident">allegro_main</span>);
+		<span class="ident">process</span>::<span class="ident">exit</span>(<span class="ident">ret</span>)
 	}
 }
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span> <span class='ident'>allegro_main</span>(_: <span class='ident'>i32</span>, _: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">allegro_main</span>(_: <span class="ident">i32</span>, _: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i8</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span>
 {
-	<span class='kw'>unsafe</span> {
-		<span class='kw'>let</span> <span class='ident'>ok</span> <span class='op'>=</span> <span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> { (<span class='ident'>GLOBAL_MAIN_FUNC</span>.<span class='ident'>unwrap</span>())(); })
-			.<span class='ident'>join</span>()
-			.<span class='ident'>is_ok</span>();
-		<span class='ident'>al_uninstall_system</span>();
-		<span class='kw'>if</span> <span class='ident'>ok</span> { <span class='number'>0</span> } <span class='kw'>else</span> { <span class='number'>1</span> }
+	<span class="kw">unsafe</span> {
+		<span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> { (<span class="ident">GLOBAL_MAIN_FUNC</span>.<span class="ident">unwrap</span>())(); })
+			.<span class="ident">join</span>()
+			.<span class="ident">is_ok</span>();
+		<span class="ident">al_uninstall_system</span>();
+		<span class="kw">if</span> <span class="ident">ok</span> { <span class="number">0</span> } <span class="kw">else</span> { <span class="number">1</span> }
 	}
 }
 </pre>

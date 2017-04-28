@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -131,93 +131,93 @@
 <span id="86">86</span>
 <span id="87">87</span>
 <span id="88">88</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>Flag</span>;
-<span class='kw'>use</span> <span class='ident'>bitmap</span>::<span class='ident'>SubBitmap</span>;
+<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">Flag</span>;
+<span class="kw">use</span> <span class="ident">bitmap</span>::<span class="ident">SubBitmap</span>;
 
-<span class='kw'>use</span> <span class='ident'>color</span>::{<span class='ident'>Color</span>, <span class='ident'>PixelFormat</span>};
+<span class="kw">use</span> <span class="ident">color</span>::{<span class="ident">Color</span>, <span class="ident">PixelFormat</span>};
 
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Weak</span>;
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Weak</span>;
 
-<span class='macro'>flag_type</span><span class='macro'>!</span>{
-	<span class='ident'>BitmapFlags</span>
+<span class="macro">flag_type</span><span class="macro">!</span>{
+	<span class="ident">BitmapFlags</span>
 	{
-		<span class='ident'>MEMORY_BITMAP</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MEMORY_BITMAP</span>,
-		<span class='ident'>KEEP_BITMAP_FORMAT</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_KEEP_BITMAP_FORMAT</span>,
-		<span class='ident'>FORCE_LOCKING</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_FORCE_LOCKING</span>,
-		<span class='ident'>NO_PRESERVE_TEXTURE</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_NO_PRESERVE_TEXTURE</span>,
-		<span class='ident'>ALPHA_TEST</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_ALPHA_TEST</span>,
-		<span class='ident'>MIN_LINEAR</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MIN_LINEAR</span>,
-		<span class='ident'>MAG_LINEAR</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MAG_LINEAR</span>,
-		<span class='ident'>MIPMAP</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_MIPMAP</span>,
-		<span class='ident'>NO_PREMULTIPLIED_ALPHA</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_NO_PREMULTIPLIED_ALPHA</span>,
-		<span class='ident'>VIDEO_BITMAP</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_VIDEO_BITMAP</span>
+		<span class="ident">MEMORY_BITMAP</span> <span class="op">=</span> <span class="ident">ALLEGRO_MEMORY_BITMAP</span>,
+		<span class="ident">KEEP_BITMAP_FORMAT</span> <span class="op">=</span> <span class="ident">ALLEGRO_KEEP_BITMAP_FORMAT</span>,
+		<span class="ident">FORCE_LOCKING</span> <span class="op">=</span> <span class="ident">ALLEGRO_FORCE_LOCKING</span>,
+		<span class="ident">NO_PRESERVE_TEXTURE</span> <span class="op">=</span> <span class="ident">ALLEGRO_NO_PRESERVE_TEXTURE</span>,
+		<span class="ident">ALPHA_TEST</span> <span class="op">=</span> <span class="ident">ALLEGRO_ALPHA_TEST</span>,
+		<span class="ident">MIN_LINEAR</span> <span class="op">=</span> <span class="ident">ALLEGRO_MIN_LINEAR</span>,
+		<span class="ident">MAG_LINEAR</span> <span class="op">=</span> <span class="ident">ALLEGRO_MAG_LINEAR</span>,
+		<span class="ident">MIPMAP</span> <span class="op">=</span> <span class="ident">ALLEGRO_MIPMAP</span>,
+		<span class="ident">NO_PREMULTIPLIED_ALPHA</span> <span class="op">=</span> <span class="ident">ALLEGRO_NO_PREMULTIPLIED_ALPHA</span>,
+		<span class="ident">VIDEO_BITMAP</span> <span class="op">=</span> <span class="ident">ALLEGRO_VIDEO_BITMAP</span>
 	}
 }
 
-<span class='doccomment'>/**
+<span class="doccomment">/**
 A trait implemented by types that behave like bitmaps.
 */</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitmapLike</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">BitmapLike</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>get_allegro_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_BITMAP</span>;
+	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
 
-	<span class='doccomment'>/**
+	<span class="doccomment">/**
 	Creates a sub-bitmap of the current bitmap. Note that the parent bitmap
 	will panic upon destruction if any strong references to its sub-bitmaps are
 	held at that time.
 	*/</span>
-	<span class='kw'>fn</span> <span class='ident'>create_sub_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>w</span>: <span class='ident'>i32</span>, <span class='ident'>h</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Weak</span><span class='op'>&lt;</span><span class='ident'>SubBitmap</span><span class='op'>&gt;</span>, ()<span class='op'>&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>;
 
-	<span class='kw'>fn</span> <span class='ident'>get_width</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_bitmap_width</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_get_bitmap_width</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_height</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+	<span class="kw">fn</span> <span class="ident">get_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_get_bitmap_height</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>i32</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_get_bitmap_height</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PixelFormat</span>
+	<span class="kw">fn</span> <span class="ident">get_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">PixelFormat</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_format</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>) }
+		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_bitmap_format</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">u32</span>) }
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_flags</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>BitmapFlags</span>
+	<span class="kw">fn</span> <span class="ident">get_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">BitmapFlags</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>al_get_bitmap_flags</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='kw'>as</span> <span class='ident'>u32</span>) }
+		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_bitmap_flags</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">u32</span>) }
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get_pixel</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>Color</span>
+	<span class="kw">fn</span> <span class="ident">get_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">Color</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>Color</span>::<span class='ident'>from_allegro_color</span>(<span class='ident'>al_get_pixel</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>c_int</span>, <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>c_int</span>)) }
+		<span class="kw">unsafe</span> { <span class="ident">Color</span>::<span class="ident">from_allegro_color</span>(<span class="ident">al_get_pixel</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>)) }
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>convert_mask_to_alpha</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>mask_color</span>: <span class='ident'>Color</span>)
+	<span class="kw">fn</span> <span class="ident">convert_mask_to_alpha</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mask_color</span>: <span class="ident">Color</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_convert_mask_to_alpha</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>(), <span class='ident'>mask_color</span>.<span class='ident'>get_allegro_color</span>());
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_convert_mask_to_alpha</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">mask_color</span>.<span class="ident">get_allegro_color</span>());
 		}
 	}
 
-	<span class='doccomment'>/**
+	<span class="doccomment">/**
 	Returns if this bitmap is compatible with the current display. This comes
 	into play when you have multiple displays in a single thread, and have
 	created bitmaps for different displays. A bitmap created for one display
 	may or may not be compatible with the other display. If the bitmap is not
 	compatible, drawing it will be slow.
 	*/</span>
-	<span class='kw'>fn</span> <span class='ident'>is_compatible_bitmap</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">fn</span> <span class="ident">is_compatible_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_compatible_bitmap</span>(<span class='self'>self</span>.<span class='ident'>get_allegro_bitmap</span>()) <span class='op'>!=</span> <span class='number'>0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_is_compatible_bitmap</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="op">!=</span> <span class="number">0</span> }
 	}
 }
 </pre>

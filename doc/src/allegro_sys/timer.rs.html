@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -68,31 +68,31 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>allegro_util</span>::<span class='ident'>c_bool</span>;
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
-<span class='kw'>use</span> <span class='ident'>events</span>::<span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
+<span class="kw">use</span> <span class="ident">events</span>::<span class="ident">ALLEGRO_EVENT_SOURCE</span>;
 
-<span class='macro'>opaque</span><span class='macro'>!</span>(<span class='ident'>ALLEGRO_TIMER</span>);
+<span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_TIMER</span>);
 
-<span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_create_timer</span>(<span class='ident'>speed_secs</span>: <span class='ident'>c_double</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_destroy_timer</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_start_timer</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_stop_timer</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_timer_started</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TIMER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_bool</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_timer_speed</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TIMER</span>) <span class='op'>-&gt;</span> <span class='ident'>c_double</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_timer_speed</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>, <span class='ident'>speed_secs</span>: <span class='ident'>c_double</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_timer_count</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>ALLEGRO_TIMER</span>) <span class='op'>-&gt;</span> <span class='ident'>int64_t</span>;
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_set_timer_count</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>, <span class='ident'>count</span>: <span class='ident'>int64_t</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_add_timer_count</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>, <span class='ident'>diff</span>: <span class='ident'>int64_t</span>);
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>al_get_timer_event_source</span>(<span class='ident'>timer</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_TIMER</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_create_timer</span>(<span class="ident">speed_secs</span>: <span class="ident">c_double</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_destroy_timer</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_start_timer</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_stop_timer</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_timer_started</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TIMER</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_timer_speed</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TIMER</span>) <span class="op">-&gt;</span> <span class="ident">c_double</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_timer_speed</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>, <span class="ident">speed_secs</span>: <span class="ident">c_double</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_timer_count</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TIMER</span>) <span class="op">-&gt;</span> <span class="ident">int64_t</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_set_timer_count</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>, <span class="ident">count</span>: <span class="ident">int64_t</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_add_timer_count</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>, <span class="ident">diff</span>: <span class="ident">int64_t</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_timer_event_source</span>(<span class="ident">timer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMER</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>;
 }
 </pre>
 </section>

@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -542,502 +542,502 @@
 <span id="497">497</span>
 <span id="498">498</span>
 <span id="499">499</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class='kw'>use</span> <span class='ident'>core</span>::<span class='ident'>Core</span>;
-<span class='kw'>use</span> <span class='ident'>ffi</span>::<span class='kw-2'>*</span>;
+<span class="kw">use</span> <span class="ident">core</span>::<span class="ident">Core</span>;
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>use</span> <span class='ident'>keycodes</span>::{<span class='ident'>KeyCode</span>, <span class='ident'>KeyModifier</span>};
-<span class='kw'>use</span> <span class='ident'>libc</span>::<span class='kw-2'>*</span>;
+<span class="kw">use</span> <span class="ident">keycodes</span>::{<span class="ident">KeyCode</span>, <span class="ident">KeyModifier</span>};
+<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Event</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">Event</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EventQueue</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventQueue</span>
 {
-	<span class='ident'>allegro_queue</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_QUEUE</span>,
+	<span class="ident">allegro_queue</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_QUEUE</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>EventQueue</span>
+<span class="kw">impl</span> <span class="ident">EventQueue</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='ident'>queue</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_QUEUE</span>) <span class='op'>-&gt;</span> <span class='ident'>EventQueue</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">queue</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_QUEUE</span>) <span class="op">-&gt;</span> <span class="ident">EventQueue</span>
 	{
-		<span class='ident'>EventQueue</span> { <span class='ident'>allegro_queue</span>: <span class='ident'>queue</span> }
+		<span class="ident">EventQueue</span> { <span class="ident">allegro_queue</span>: <span class="ident">queue</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>Core</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>EventQueue</span>, ()<span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(_: <span class="kw-2">&amp;</span><span class="ident">Core</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">EventQueue</span>, ()<span class="op">&gt;</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='ident'>q</span> <span class='op'>=</span> <span class='ident'>al_create_event_queue</span>();
-			<span class='kw'>if</span> <span class='ident'>q</span>.<span class='ident'>is_null</span>()
+		<span class="kw">unsafe</span> {
+			<span class="kw">let</span> <span class="ident">q</span> <span class="op">=</span> <span class="ident">al_create_event_queue</span>();
+			<span class="kw">if</span> <span class="ident">q</span>.<span class="ident">is_null</span>()
 			{
-				<span class='prelude-val'>Err</span>(())
+				<span class="prelude-val">Err</span>(())
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='prelude-val'>Ok</span>(<span class='ident'>EventQueue</span>::<span class='ident'>wrap</span>(<span class='ident'>q</span>))
-			}
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>register_event_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>src</span>: <span class='ident'>EventSource</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_register_event_source</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>, <span class='ident'>src</span>.<span class='ident'>allegro_source</span>);
-		}
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_empty</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
-	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_is_event_queue_empty</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>) <span class='op'>!=</span> <span class='number'>0</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_next_event</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Event</span>
-	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>e</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_EVENT</span>::<span class='ident'>new</span>();
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_get_next_event</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>) <span class='op'>!=</span> <span class='number'>0</span>
-			{
-				<span class='ident'>Event</span>::<span class='ident'>from_allegro_event</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>)
-			}
-			<span class='kw'>else</span>
-			{
-				<span class='ident'>NoEvent</span>
+				<span class="prelude-val">Ok</span>(<span class="ident">EventQueue</span>::<span class="ident">wrap</span>(<span class="ident">q</span>))
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>peek_next_event</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Event</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">register_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">src</span>: <span class="ident">EventSource</span>)
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>e</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_EVENT</span>::<span class='ident'>new</span>();
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>if</span> <span class='ident'>al_peek_next_event</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>) <span class='op'>!=</span> <span class='number'>0</span>
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_register_event_source</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>, <span class="ident">src</span>.<span class="ident">allegro_source</span>);
+		}
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	{
+		<span class="kw">unsafe</span> { <span class="ident">al_is_event_queue_empty</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>) <span class="op">!=</span> <span class="number">0</span> }
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_next_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Event</span>
+	{
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">ALLEGRO_EVENT</span>::<span class="ident">new</span>();
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_get_next_event</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>) <span class="op">!=</span> <span class="number">0</span>
 			{
-				<span class='ident'>Event</span>::<span class='ident'>from_allegro_event</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>)
+				<span class="ident">Event</span>::<span class="ident">from_allegro_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>)
 			}
-			<span class='kw'>else</span>
+			<span class="kw">else</span>
 			{
-				<span class='ident'>NoEvent</span>
+				<span class="ident">NoEvent</span>
 			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>drop_next_event</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_next_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Event</span>
 	{
-		<span class='kw'>unsafe</span> { <span class='ident'>al_drop_next_event</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>) <span class='op'>!=</span> <span class='number'>0</span> }
-	}
-
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>flush</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>)
-	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_flush_event_queue</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>);
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">ALLEGRO_EVENT</span>::<span class="ident">new</span>();
+		<span class="kw">unsafe</span> {
+			<span class="kw">if</span> <span class="ident">al_peek_next_event</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>) <span class="op">!=</span> <span class="number">0</span>
+			{
+				<span class="ident">Event</span>::<span class="ident">from_allegro_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>)
+			}
+			<span class="kw">else</span>
+			{
+				<span class="ident">NoEvent</span>
+			}
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wait_for_event</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Event</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drop_next_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>e</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_EVENT</span>::<span class='ident'>new</span>();
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_wait_for_event</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>);
-		}
-		<span class='ident'>Event</span>::<span class='ident'>from_allegro_event</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>)
+		<span class="kw">unsafe</span> { <span class="ident">al_drop_next_event</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>) <span class="op">!=</span> <span class="number">0</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wait_for_event_timed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>secs</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Event</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="self">self</span>)
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>e</span> <span class='op'>=</span> <span class='ident'>ALLEGRO_EVENT</span>::<span class='ident'>new</span>();
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_wait_for_event_timed</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>, <span class='ident'>secs</span> <span class='kw'>as</span> <span class='ident'>c_float</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_flush_event_queue</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>);
 		}
-		<span class='ident'>Event</span>::<span class='ident'>from_allegro_event</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>e</span>)
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait_for_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Event</span>
+	{
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">ALLEGRO_EVENT</span>::<span class="ident">new</span>();
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_wait_for_event</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>);
+		}
+		<span class="ident">Event</span>::<span class="ident">from_allegro_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>)
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait_for_event_timed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">secs</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">Event</span>
+	{
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">ALLEGRO_EVENT</span>::<span class="ident">new</span>();
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_wait_for_event_timed</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>, <span class="ident">secs</span> <span class="kw">as</span> <span class="ident">c_float</span>);
+		}
+		<span class="ident">Event</span>::<span class="ident">from_allegro_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">e</span>)
 	}
 }
 
-<span class='kw'>impl</span> <span class='ident'>Iterator</span> <span class='kw'>for</span> <span class='ident'>EventQueue</span>
+<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">EventQueue</span>
 {
-	<span class='kw'>type</span> <span class='ident'>Item</span> <span class='op'>=</span> <span class='ident'>Event</span>;
-	<span class='kw'>fn</span> <span class='ident'>next</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Event</span><span class='op'>&gt;</span>
+	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">Event</span>;
+	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>
 	{
-		<span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>get_next_event</span>()
+		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_next_event</span>()
 		{
-			<span class='ident'>NoEvent</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
-			<span class='ident'>e</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>e</span>),
+			<span class="ident">NoEvent</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+			<span class="ident">e</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">e</span>),
 		}
 	}
 }
 
-<span class='comment'>// Not Send just because of the marker</span>
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>EventQueue</span>
+<span class="comment">// Not Send just because of the marker</span>
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">EventQueue</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
+	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='ident'>al_destroy_event_queue</span>(<span class='self'>self</span>.<span class='ident'>allegro_queue</span>);
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_destroy_event_queue</span>(<span class="self">self</span>.<span class="ident">allegro_queue</span>);
 		}
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EventSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventSource</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
 {
-	<span class='ident'>allegro_source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-	<span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> ()<span class='op'>&gt;</span>,
+	<span class="ident">allegro_source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+	<span class="ident">marker</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> ()<span class="op">&gt;</span>,
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;m</span><span class='op'>&gt;</span> <span class='ident'>EventSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;m</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;m</span><span class="op">&gt;</span> <span class="ident">EventSource</span><span class="op">&lt;</span><span class="lifetime">&#39;m</span><span class="op">&gt;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrap</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>(<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>) <span class='op'>-&gt;</span> <span class='ident'>EventSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;l</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>) <span class="op">-&gt;</span> <span class="ident">EventSource</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
 	{
-		<span class='ident'>EventSource</span> {
-			<span class='ident'>allegro_source</span>: <span class='ident'>source</span>,
-			<span class='ident'>marker</span>: <span class='ident'>PhantomData</span>,
+		<span class="ident">EventSource</span> {
+			<span class="ident">allegro_source</span>: <span class="ident">source</span>,
+			<span class="ident">marker</span>: <span class="ident">PhantomData</span>,
 		}
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_event_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>allegro_source</span>
+		<span class="self">self</span>.<span class="ident">allegro_source</span>
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Event</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span>
 {
-	<span class='ident'>NoEvent</span>,
-	<span class='ident'>DisplayClose</span>
+	<span class="ident">NoEvent</span>,
+	<span class="ident">DisplayClose</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
 	},
-	<span class='ident'>DisplayResize</span>
+	<span class="ident">DisplayResize</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>width</span>: <span class='ident'>i32</span>,
-		<span class='ident'>height</span>: <span class='ident'>i32</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">width</span>: <span class="ident">i32</span>,
+		<span class="ident">height</span>: <span class="ident">i32</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
 	},
-	<span class='ident'>JoystickAxes</span>
+	<span class="ident">JoystickAxes</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>id</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,
-		<span class='ident'>stick</span>: <span class='ident'>i32</span>,
-		<span class='ident'>axis</span>: <span class='ident'>i32</span>,
-		<span class='ident'>pos</span>: <span class='ident'>f32</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">id</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_JOYSTICK</span>,
+		<span class="ident">stick</span>: <span class="ident">i32</span>,
+		<span class="ident">axis</span>: <span class="ident">i32</span>,
+		<span class="ident">pos</span>: <span class="ident">f32</span>,
 	},
-	<span class='ident'>JoystickButtonDown</span>
+	<span class="ident">JoystickButtonDown</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>id</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,
-		<span class='ident'>button</span>: <span class='ident'>i32</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">id</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_JOYSTICK</span>,
+		<span class="ident">button</span>: <span class="ident">i32</span>,
 	},
-	<span class='ident'>JoystickButtonUp</span>
+	<span class="ident">JoystickButtonUp</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>id</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_JOYSTICK</span>,
-		<span class='ident'>button</span>: <span class='ident'>i32</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">id</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_JOYSTICK</span>,
+		<span class="ident">button</span>: <span class="ident">i32</span>,
 	},
-	<span class='ident'>JoystickConfiguration</span>
+	<span class="ident">JoystickConfiguration</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
 	},
-	<span class='ident'>KeyDown</span>
+	<span class="ident">KeyDown</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">keycode</span>: <span class="ident">KeyCode</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>KeyUp</span>
+	<span class="ident">KeyUp</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">keycode</span>: <span class="ident">KeyCode</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>KeyChar</span>
+	<span class="ident">KeyChar</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
-		<span class='ident'>unichar</span>: <span class='ident'>char</span>,
-		<span class='ident'>repeat</span>: <span class='ident'>bool</span>,
-		<span class='ident'>modifiers</span>: <span class='ident'>KeyModifier</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">keycode</span>: <span class="ident">KeyCode</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
+		<span class="ident">unichar</span>: <span class="ident">char</span>,
+		<span class="ident">repeat</span>: <span class="ident">bool</span>,
+		<span class="ident">modifiers</span>: <span class="ident">KeyModifier</span>,
 	},
-	<span class='ident'>MouseAxes</span>
+	<span class="ident">MouseAxes</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dx</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dy</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dz</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dw</span>: <span class='ident'>i32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">dx</span>: <span class="ident">i32</span>,
+		<span class="ident">dy</span>: <span class="ident">i32</span>,
+		<span class="ident">dz</span>: <span class="ident">i32</span>,
+		<span class="ident">dw</span>: <span class="ident">i32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>MouseButtonDown</span>
+	<span class="ident">MouseButtonDown</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>button</span>: <span class='ident'>u32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">button</span>: <span class="ident">u32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>MouseButtonUp</span>
+	<span class="ident">MouseButtonUp</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>button</span>: <span class='ident'>u32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">button</span>: <span class="ident">u32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>MouseWarped</span>
+	<span class="ident">MouseWarped</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dx</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dy</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dz</span>: <span class='ident'>i32</span>,
-		<span class='ident'>dw</span>: <span class='ident'>i32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">dx</span>: <span class="ident">i32</span>,
+		<span class="ident">dy</span>: <span class="ident">i32</span>,
+		<span class="ident">dz</span>: <span class="ident">i32</span>,
+		<span class="ident">dw</span>: <span class="ident">i32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>MouseEnterDisplay</span>
+	<span class="ident">MouseEnterDisplay</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>MouseLeaveDisplay</span>
+	<span class="ident">MouseLeaveDisplay</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>x</span>: <span class='ident'>i32</span>,
-		<span class='ident'>y</span>: <span class='ident'>i32</span>,
-		<span class='ident'>z</span>: <span class='ident'>i32</span>,
-		<span class='ident'>w</span>: <span class='ident'>i32</span>,
-		<span class='ident'>display</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_DISPLAY</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">x</span>: <span class="ident">i32</span>,
+		<span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">z</span>: <span class="ident">i32</span>,
+		<span class="ident">w</span>: <span class="ident">i32</span>,
+		<span class="ident">display</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_DISPLAY</span>,
 	},
-	<span class='ident'>TimerTick</span>
+	<span class="ident">TimerTick</span>
 	{
-		<span class='ident'>source</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT_SOURCE</span>,
-		<span class='ident'>timestamp</span>: <span class='ident'>f64</span>,
-		<span class='ident'>count</span>: <span class='ident'>i64</span>,
+		<span class="ident">source</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT_SOURCE</span>,
+		<span class="ident">timestamp</span>: <span class="ident">f64</span>,
+		<span class="ident">count</span>: <span class="ident">i64</span>,
 	},
 }
 
-<span class='kw'>impl</span> <span class='ident'>Event</span>
+<span class="kw">impl</span> <span class="ident">Event</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>from_allegro_event</span>(<span class='ident'>e</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ALLEGRO_EVENT</span>) <span class='op'>-&gt;</span> <span class='ident'>Event</span>
+	<span class="kw">fn</span> <span class="ident">from_allegro_event</span>(<span class="ident">e</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_EVENT</span>) <span class="op">-&gt;</span> <span class="ident">Event</span>
 	{
-		<span class='kw'>unsafe</span> {
-			<span class='kw'>let</span> <span class='ident'>src</span> <span class='op'>=</span> (<span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>any</span>()).<span class='ident'>source</span>;
-			<span class='kw'>let</span> <span class='ident'>ts</span> <span class='op'>=</span> (<span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>any</span>()).<span class='ident'>timestamp</span> <span class='kw'>as</span> <span class='ident'>f64</span>;
-			<span class='kw'>match</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>_type</span>() <span class='kw'>as</span> <span class='ident'>u32</span>
+		<span class="kw">unsafe</span> {
+			<span class="kw">let</span> <span class="ident">src</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">any</span>()).<span class="ident">source</span>;
+			<span class="kw">let</span> <span class="ident">ts</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">any</span>()).<span class="ident">timestamp</span> <span class="kw">as</span> <span class="ident">f64</span>;
+			<span class="kw">match</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">_type</span>() <span class="kw">as</span> <span class="ident">u32</span>
 			{
-				<span class='ident'>ALLEGRO_EVENT_DISPLAY_CLOSE</span> <span class='op'>=&gt;</span> <span class='ident'>DisplayClose</span> { <span class='ident'>source</span>: <span class='ident'>src</span>, <span class='ident'>timestamp</span>: <span class='ident'>ts</span> },
-				<span class='ident'>ALLEGRO_EVENT_DISPLAY_RESIZE</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_DISPLAY_CLOSE</span> <span class="op">=&gt;</span> <span class="ident">DisplayClose</span> { <span class="ident">source</span>: <span class="ident">src</span>, <span class="ident">timestamp</span>: <span class="ident">ts</span> },
+				<span class="ident">ALLEGRO_EVENT_DISPLAY_RESIZE</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>display</span>();
-					<span class='ident'>DisplayResize</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>x</span>: <span class='ident'>a</span>.<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>y</span>: <span class='ident'>a</span>.<span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>width</span>: <span class='ident'>a</span>.<span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>height</span>: <span class='ident'>a</span>.<span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
+					<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">display</span>();
+					<span class="ident">DisplayResize</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">x</span>: <span class="ident">a</span>.<span class="ident">x</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">y</span>: <span class="ident">a</span>.<span class="ident">y</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">width</span>: <span class="ident">a</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">height</span>: <span class="ident">a</span>.<span class="ident">height</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_JOYSTICK_AXIS</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_JOYSTICK_AXIS</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>joystick</span>();
-					<span class='ident'>JoystickAxes</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>id</span>: <span class='ident'>a</span>.<span class='ident'>id</span>,
-						<span class='ident'>stick</span>: <span class='ident'>a</span>.<span class='ident'>stick</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>axis</span>: <span class='ident'>a</span>.<span class='ident'>axis</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-						<span class='ident'>pos</span>: <span class='ident'>a</span>.<span class='ident'>pos</span> <span class='kw'>as</span> <span class='ident'>f32</span>,
+					<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">joystick</span>();
+					<span class="ident">JoystickAxes</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">id</span>: <span class="ident">a</span>.<span class="ident">id</span>,
+						<span class="ident">stick</span>: <span class="ident">a</span>.<span class="ident">stick</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">axis</span>: <span class="ident">a</span>.<span class="ident">axis</span> <span class="kw">as</span> <span class="ident">i32</span>,
+						<span class="ident">pos</span>: <span class="ident">a</span>.<span class="ident">pos</span> <span class="kw">as</span> <span class="ident">f32</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>joystick</span>();
-					<span class='ident'>JoystickButtonDown</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>id</span>: <span class='ident'>a</span>.<span class='ident'>id</span>,
-						<span class='ident'>button</span>: <span class='ident'>a</span>.<span class='ident'>button</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
+					<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">joystick</span>();
+					<span class="ident">JoystickButtonDown</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">id</span>: <span class="ident">a</span>.<span class="ident">id</span>,
+						<span class="ident">button</span>: <span class="ident">a</span>.<span class="ident">button</span> <span class="kw">as</span> <span class="ident">i32</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_JOYSTICK_BUTTON_UP</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_JOYSTICK_BUTTON_UP</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>joystick</span>();
-					<span class='ident'>JoystickButtonUp</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>id</span>: <span class='ident'>a</span>.<span class='ident'>id</span>,
-						<span class='ident'>button</span>: <span class='ident'>a</span>.<span class='ident'>button</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
+					<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">joystick</span>();
+					<span class="ident">JoystickButtonUp</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">id</span>: <span class="ident">a</span>.<span class="ident">id</span>,
+						<span class="ident">button</span>: <span class="ident">a</span>.<span class="ident">button</span> <span class="kw">as</span> <span class="ident">i32</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_JOYSTICK_CONFIGURATION</span> <span class='op'>=&gt;</span> <span class='ident'>JoystickConfiguration</span> { <span class='ident'>source</span>: <span class='ident'>src</span>, <span class='ident'>timestamp</span>: <span class='ident'>ts</span> },
-				<span class='ident'>ALLEGRO_EVENT_KEY_DOWN</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_JOYSTICK_CONFIGURATION</span> <span class="op">=&gt;</span> <span class="ident">JoystickConfiguration</span> { <span class="ident">source</span>: <span class="ident">src</span>, <span class="ident">timestamp</span>: <span class="ident">ts</span> },
+				<span class="ident">ALLEGRO_EVENT_KEY_DOWN</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>k</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>keyboard</span>();
-					<span class='ident'>KeyDown</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>::<span class='ident'>from_allegro_key</span>(<span class='ident'>k</span>.<span class='ident'>keycode</span>),
-						<span class='ident'>display</span>: <span class='ident'>k</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">keyboard</span>();
+					<span class="ident">KeyDown</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">keycode</span>: <span class="ident">KeyCode</span>::<span class="ident">from_allegro_key</span>(<span class="ident">k</span>.<span class="ident">keycode</span>),
+						<span class="ident">display</span>: <span class="ident">k</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_KEY_UP</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_KEY_UP</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>k</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>keyboard</span>();
-					<span class='ident'>KeyUp</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>::<span class='ident'>from_allegro_key</span>(<span class='ident'>k</span>.<span class='ident'>keycode</span>),
-						<span class='ident'>display</span>: <span class='ident'>k</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">keyboard</span>();
+					<span class="ident">KeyUp</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">keycode</span>: <span class="ident">KeyCode</span>::<span class="ident">from_allegro_key</span>(<span class="ident">k</span>.<span class="ident">keycode</span>),
+						<span class="ident">display</span>: <span class="ident">k</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_KEY_CHAR</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_KEY_CHAR</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>k</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>keyboard</span>();
-					<span class='ident'>KeyChar</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>keycode</span>: <span class='ident'>KeyCode</span>::<span class='ident'>from_allegro_key</span>(<span class='ident'>k</span>.<span class='ident'>keycode</span>),
-						<span class='ident'>display</span>: <span class='ident'>k</span>.<span class='ident'>display</span>,
-						<span class='ident'>unichar</span>: <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>k</span>.<span class='ident'>unichar</span>),
-						<span class='ident'>repeat</span>: <span class='ident'>k</span>.<span class='ident'>repeat</span> <span class='op'>!=</span> <span class='number'>0</span>,
-						<span class='ident'>modifiers</span>: <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>k</span>.<span class='ident'>modifiers</span>),
+					<span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">keyboard</span>();
+					<span class="ident">KeyChar</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">keycode</span>: <span class="ident">KeyCode</span>::<span class="ident">from_allegro_key</span>(<span class="ident">k</span>.<span class="ident">keycode</span>),
+						<span class="ident">display</span>: <span class="ident">k</span>.<span class="ident">display</span>,
+						<span class="ident">unichar</span>: <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">k</span>.<span class="ident">unichar</span>),
+						<span class="ident">repeat</span>: <span class="ident">k</span>.<span class="ident">repeat</span> <span class="op">!=</span> <span class="number">0</span>,
+						<span class="ident">modifiers</span>: <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">k</span>.<span class="ident">modifiers</span>),
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_AXES</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_AXES</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseAxes</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>dx</span>: <span class='ident'>m</span>.<span class='ident'>dx</span>,
-						<span class='ident'>dy</span>: <span class='ident'>m</span>.<span class='ident'>dy</span>,
-						<span class='ident'>dz</span>: <span class='ident'>m</span>.<span class='ident'>dz</span>,
-						<span class='ident'>dw</span>: <span class='ident'>m</span>.<span class='ident'>dw</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseAxes</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">dx</span>: <span class="ident">m</span>.<span class="ident">dx</span>,
+						<span class="ident">dy</span>: <span class="ident">m</span>.<span class="ident">dy</span>,
+						<span class="ident">dz</span>: <span class="ident">m</span>.<span class="ident">dz</span>,
+						<span class="ident">dw</span>: <span class="ident">m</span>.<span class="ident">dw</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_BUTTON_DOWN</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_BUTTON_DOWN</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseButtonDown</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>button</span>: <span class='ident'>m</span>.<span class='ident'>button</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseButtonDown</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">button</span>: <span class="ident">m</span>.<span class="ident">button</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_BUTTON_UP</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_BUTTON_UP</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseButtonUp</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>button</span>: <span class='ident'>m</span>.<span class='ident'>button</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseButtonUp</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">button</span>: <span class="ident">m</span>.<span class="ident">button</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_WARPED</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_WARPED</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseWarped</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>dx</span>: <span class='ident'>m</span>.<span class='ident'>dx</span>,
-						<span class='ident'>dy</span>: <span class='ident'>m</span>.<span class='ident'>dy</span>,
-						<span class='ident'>dz</span>: <span class='ident'>m</span>.<span class='ident'>dz</span>,
-						<span class='ident'>dw</span>: <span class='ident'>m</span>.<span class='ident'>dw</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseWarped</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">dx</span>: <span class="ident">m</span>.<span class="ident">dx</span>,
+						<span class="ident">dy</span>: <span class="ident">m</span>.<span class="ident">dy</span>,
+						<span class="ident">dz</span>: <span class="ident">m</span>.<span class="ident">dz</span>,
+						<span class="ident">dw</span>: <span class="ident">m</span>.<span class="ident">dw</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseEnterDisplay</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseEnterDisplay</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>mouse</span>();
-					<span class='ident'>MouseLeaveDisplay</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>x</span>: <span class='ident'>m</span>.<span class='ident'>x</span>,
-						<span class='ident'>y</span>: <span class='ident'>m</span>.<span class='ident'>y</span>,
-						<span class='ident'>z</span>: <span class='ident'>m</span>.<span class='ident'>z</span>,
-						<span class='ident'>w</span>: <span class='ident'>m</span>.<span class='ident'>w</span>,
-						<span class='ident'>display</span>: <span class='ident'>m</span>.<span class='ident'>display</span>,
+					<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">mouse</span>();
+					<span class="ident">MouseLeaveDisplay</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">x</span>: <span class="ident">m</span>.<span class="ident">x</span>,
+						<span class="ident">y</span>: <span class="ident">m</span>.<span class="ident">y</span>,
+						<span class="ident">z</span>: <span class="ident">m</span>.<span class="ident">z</span>,
+						<span class="ident">w</span>: <span class="ident">m</span>.<span class="ident">w</span>,
+						<span class="ident">display</span>: <span class="ident">m</span>.<span class="ident">display</span>,
 					}
 				}
-				<span class='ident'>ALLEGRO_EVENT_TIMER</span> <span class='op'>=&gt;</span>
+				<span class="ident">ALLEGRO_EVENT_TIMER</span> <span class="op">=&gt;</span>
 				{
-					<span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>e</span>.<span class='ident'>timer</span>();
-					<span class='ident'>TimerTick</span> {
-						<span class='ident'>source</span>: <span class='ident'>src</span>,
-						<span class='ident'>timestamp</span>: <span class='ident'>ts</span>,
-						<span class='ident'>count</span>: <span class='ident'>t</span>.<span class='ident'>count</span> <span class='kw'>as</span> <span class='ident'>i64</span>,
+					<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">timer</span>();
+					<span class="ident">TimerTick</span> {
+						<span class="ident">source</span>: <span class="ident">src</span>,
+						<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+						<span class="ident">count</span>: <span class="ident">t</span>.<span class="ident">count</span> <span class="kw">as</span> <span class="ident">i64</span>,
 					}
 				}
-				_ <span class='op'>=&gt;</span> <span class='ident'>NoEvent</span>,
+				_ <span class="op">=&gt;</span> <span class="ident">NoEvent</span>,
 			}
 		}
 	}
