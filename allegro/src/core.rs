@@ -56,8 +56,7 @@ pub enum BlendOperation
 	DestMinusSrc = ALLEGRO_DEST_MINUS_SRC,
 }
 
-#[doc(hidden)]
-pub static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
+pub(crate) static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
 pub struct Core
 {
