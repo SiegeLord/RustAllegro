@@ -58,6 +58,16 @@ pub enum BlendOperation
 
 pub(crate) static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
 
+/// Extents of a monitor.
+pub struct MonitorInfo
+{
+	pub x1: i32,
+	pub y1: i32,
+	pub x2: i32,
+	pub y2: i32,
+}
+
+/// Type through which you'll be doing most your interaction with Allegro.
 pub struct Core
 {
 	mutex: Arc<Mutex<()>>,
@@ -135,13 +145,19 @@ impl Core
 		unsafe { al_get_num_video_adapters() as i32 }
 	}
 
-	pub fn get_monitor_info(&self, adapter: i32) -> Result<(i32, i32, i32, i32), ()>
+	pub fn get_monitor_info(&self, adapter: i32) -> Result<MonitorInfo, ()>
 	{
 		unsafe {
 			let mut c_info = ALLEGRO_MONITOR_INFO { x1: 0, y1: 0, x2: 0, y2: 0 };
 			if al_get_monitor_info(adapter as c_int, &mut c_info as *mut _) != 0
 			{
-				Ok((c_info.x1 as i32, c_info.y1 as i32, c_info.x2 as i32, c_info.y2 as i32))
+				Ok(MonitorInfo
+				{
+					x1: c_info.x1 as i32,
+					y1: c_info.y1 as i32,
+					x2: c_info.x2 as i32,
+					y2: c_info.y2 as i32,
+				})
 			}
 			else
 			{

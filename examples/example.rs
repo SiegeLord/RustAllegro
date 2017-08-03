@@ -53,8 +53,8 @@ allegro_main!
 
 	let bmp = Bitmap::new(&core, 256, 256).unwrap();
 
-	let (mon_x1, mon_y1, mon_x2, mon_y2) = core.get_monitor_info(0).unwrap();
-	println!("{} {} {} {}", mon_x1, mon_y1, mon_x2, mon_y2);
+	let info = core.get_monitor_info(0).unwrap();
+	println!("{} {} {} {}", info.x1, info.y1, info.x2, info.y2);
 
 	core.set_target_bitmap(&bmp);
 	core.clear_to_color(Color::from_rgb_f(0.0, 0.0, 1.0));
