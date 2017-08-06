@@ -76,6 +76,12 @@ impl Core
 	/// This must be called on the main thread.
 	pub fn init() -> Result<Core, String>
 	{
+		Core::init_with_config(&Config::new())
+	}
+
+	/// Initializes Allegro while merging in the system_config into the system configuration.
+	pub fn init_with_config(system_config: &Config) -> Result<Core, String>
+	{
 		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
@@ -93,6 +99,8 @@ impl Core
 					}
 					else
 					{
+						al_merge_config_into(al_get_system_config(), system_config.get_allegro_config() as *const _);
+
 						al_set_target_bitmap(DUMMY_TARGET);
 						let config = Config::wrap(al_get_system_config(), false);
 						Ok(Core { system_config: config })
