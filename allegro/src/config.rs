@@ -206,6 +206,9 @@ impl Drop for Config
 	}
 }
 
+unsafe impl Send for Config {}
+unsafe impl Sync for Config {}
+
 /**
 Configuration section. Used for iterating through all the sections of a configuration.
  */

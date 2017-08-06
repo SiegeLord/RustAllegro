@@ -68,7 +68,7 @@ pub struct MonitorInfo
 /// Type through which you'll be doing most your interaction with Allegro.
 pub struct Core
 {
-	_dummy: (),
+	system_config: Config,
 }
 
 impl Core
@@ -94,7 +94,8 @@ impl Core
 					else
 					{
 						al_set_target_bitmap(DUMMY_TARGET);
-						Ok(Core { _dummy: () })
+						let config = Config::wrap(al_get_system_config(), false);
+						Ok(Core { system_config: config })
 					}
 				}
 				else
@@ -123,10 +124,15 @@ impl Core
 	}
 
 	/// Returns the system config.
-	/// TODO: This isn't quite thread safe...
-	pub fn get_system_config() -> Config
+	pub fn get_system_config(&self) -> &Config
 	{
-		unsafe { Config::wrap(al_get_system_config(), false) }
+		&self.system_config
+	}
+
+	/// Returns the system config.
+	pub fn get_system_config_mut(&mut self) -> &mut Config
+	{
+		&mut self.system_config
 	}
 
 	pub fn get_num_video_adapters(&self) -> i32

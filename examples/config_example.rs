@@ -29,6 +29,4 @@ allegro_main!
 			println!("{} = {}", key, value);
 		}
 	}
-
-	let _sys_cfg = Core::get_system_config();
 }
