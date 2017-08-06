@@ -4,7 +4,6 @@
 
 #![crate_name="allegro_ttf"]
 #![crate_type = "lib"]
-#![allow(non_upper_case_globals)]
 
 extern crate allegro;
 extern crate allegro_font;
@@ -18,12 +17,7 @@ use allegro_font::{Font, FontAddon};
 use allegro_ttf_sys::*;
 use libc::*;
 
-use std::cell::RefCell;
 use std::ffi::CString;
-use std::marker::PhantomData;
-
-static mut initialized: bool = false;
-thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 flag_type!
 {
@@ -37,42 +31,30 @@ flag_type!
 
 pub struct TtfAddon
 {
-	no_send_marker: PhantomData<*mut u8>,
+	_dummy: (),
 }
 
 impl TtfAddon
 {
-	pub fn init(font_addon: &FontAddon) -> Result<TtfAddon, String>
+	pub fn init(_: &FontAddon) -> Result<TtfAddon, String>
 	{
-		let mutex = font_addon.get_core_mutex();
-		let _guard = mutex.lock();
+		use std::sync::{ONCE_INIT, Once};
+		static mut RUN_ONCE: Once = ONCE_INIT;
+
+		let mut res = Err("The TTF addon already initialized.".into());
 		unsafe {
-			if initialized
-			{
-				if spawned_on_this_thread.with(|x| *x.borrow())
+			RUN_ONCE.call_once(|| {
+				res = if al_init_ttf_addon() != 0
 				{
-					Err("The ttf addon has already been created in this task.".to_string())
+					Ok(TtfAddon { _dummy: () })
 				}
 				else
 				{
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon { no_send_marker: PhantomData })
+					Err("Could not initialize the TTF addon.".into())
 				}
-			}
-			else
-			{
-				if al_init_ttf_addon() != 0
-				{
-					initialized = true;
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(TtfAddon { no_send_marker: PhantomData })
-				}
-				else
-				{
-					Err("Could not initialize the ttf addon.".to_string())
-				}
-			}
+			})
 		}
+		res
 	}
 
 	pub fn get_version() -> i32

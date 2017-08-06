@@ -5,58 +5,39 @@
 #![crate_name="allegro_acodec"]
 #![crate_type = "lib"]
 
-#![allow(non_upper_case_globals)]
-
 extern crate allegro;
 extern crate allegro_audio;
 extern crate allegro_acodec_sys;
 
 use allegro_acodec_sys::*;
 use allegro_audio::AudioAddon;
-use std::cell::RefCell;
-use std::marker::PhantomData;
-
-static mut initialized: bool = false;
-thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 pub struct AcodecAddon
 {
-	no_send_marker: PhantomData<*mut u8>,
+	_dummy: ()
 }
 
 impl AcodecAddon
 {
-	pub fn init(audio_addon: &AudioAddon) -> Result<AcodecAddon, String>
+	pub fn init(_: &AudioAddon) -> Result<AcodecAddon, String>
 	{
-		let mutex = audio_addon.get_core_mutex();
-		let _guard = mutex.lock();
+		use std::sync::{ONCE_INIT, Once};
+		static mut RUN_ONCE: Once = ONCE_INIT;
+
+		let mut res = Err("The acodec addon already initialized.".into());
 		unsafe {
-			if initialized
-			{
-				if spawned_on_this_thread.with(|x| *x.borrow())
+			RUN_ONCE.call_once(|| {
+				res = if al_init_acodec_addon() != 0
 				{
-					Err("The acodec addon has already been created in this task.".to_string())
+					Ok(AcodecAddon { _dummy: () })
 				}
 				else
 				{
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AcodecAddon { no_send_marker: PhantomData })
+					Err("Could not initialize the acodec addon.".into())
 				}
-			}
-			else
-			{
-				if al_init_acodec_addon() != 0
-				{
-					initialized = true;
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(AcodecAddon { no_send_marker: PhantomData })
-				}
-				else
-				{
-					Err("Could not initialize the acodec addon.".to_string())
-				}
-			}
+			})
 		}
+		res
 	}
 
 	pub fn get_version() -> i32

@@ -4,17 +4,13 @@
 
 #![crate_name="allegro_image"]
 #![crate_type = "lib"]
-#![allow(non_upper_case_globals)]
 
 extern crate allegro;
 extern crate allegro_util;
 extern crate libc;
 
-
 use allegro::Core;
 use ffi::allegro_image::*;
-use std::cell::RefCell;
-use std::marker::PhantomData;
 
 #[cfg(not(manual_link))]
 mod link_name {
@@ -36,47 +32,32 @@ pub mod ffi {
 	}
 }
 
-static mut initialized: bool = false;
-thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
-
 pub struct ImageAddon
 {
-	no_send_marker: PhantomData<*mut u8>,
+	_dummy: (),
 }
 
 impl ImageAddon
 {
-	pub fn init(core: &Core) -> Result<ImageAddon, String>
+	pub fn init(_: &Core) -> Result<ImageAddon, String>
 	{
-		let mutex = core.get_core_mutex();
-		let _guard = mutex.lock();
+		use std::sync::{ONCE_INIT, Once};
+		static mut RUN_ONCE: Once = ONCE_INIT;
+
+		let mut res = Err("The image addon already initialized.".into());
 		unsafe {
-			if initialized
-			{
-				if spawned_on_this_thread.with(|x| *x.borrow())
+			RUN_ONCE.call_once(|| {
+				res = if al_init_image_addon() != 0
 				{
-					Err("The image addon has already been created in this task.".to_string())
+					Ok(ImageAddon { _dummy: () })
 				}
 				else
 				{
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon { no_send_marker: PhantomData })
+					Err("Could not initialize the image addon.".into())
 				}
-			}
-			else
-			{
-				if al_init_image_addon() != 0
-				{
-					initialized = true;
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(ImageAddon { no_send_marker: PhantomData })
-				}
-				else
-				{
-					Err("Could not initialize the image addon.".to_string())
-				}
-			}
+			})
 		}
+		res
 	}
 
 	pub fn get_version() -> i32

@@ -18,8 +18,6 @@ use shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
 use std::ffi::{CStr, CString};
 use std::mem;
 use std::ptr;
-use std::sync::{Arc, Mutex};
-use std::thread::spawn;
 use transformations::Transform;
 
 flag_type!{
@@ -70,7 +68,7 @@ pub struct MonitorInfo
 /// Type through which you'll be doing most your interaction with Allegro.
 pub struct Core
 {
-	mutex: Arc<Mutex<()>>,
+	_dummy: (),
 }
 
 impl Core
@@ -96,7 +94,7 @@ impl Core
 					else
 					{
 						al_set_target_bitmap(DUMMY_TARGET);
-						Ok(Core { mutex: Arc::new(Mutex::new(())) })
+						Ok(Core { _dummy: () })
 					}
 				}
 				else
@@ -127,17 +125,6 @@ impl Core
 	pub fn get_system_config() -> Config
 	{
 		unsafe { Config::wrap(al_get_system_config(), false) }
-	}
-
-	pub fn spawn<F: FnOnce(Core) + Send + 'static>(&self, thread_proc: F)
-	{
-		let mutex = self.get_core_mutex();
-		spawn(move || { thread_proc(Core { mutex: mutex }); });
-	}
-
-	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
-	{
-		self.mutex.clone()
 	}
 
 	pub fn get_num_video_adapters(&self) -> i32

@@ -4,17 +4,16 @@ extern crate allegro;
 extern crate allegro_font;
 extern crate getopts;
 
-
 use allegro::*;
 use allegro_font::*;
 use getopts::*;
 use std::env;
 use std::sync::mpsc;
+use std::sync::Arc;
+use std::thread::spawn;
 
-fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
+fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncSender<()>, init_only: bool)
 {
-	let font_addon = FontAddon::init(&core).unwrap();
-
 	if init_only
 	{
 		return;
@@ -30,7 +29,7 @@ fn other_window(core: Core, sender: mpsc::SyncSender<()>, init_only: bool)
 	q.register_event_source(core.get_keyboard_event_source().unwrap());
 	q.register_event_source(timer.get_event_source());
 
-	let font = Font::new_builtin(&font_addon).unwrap();
+	let font = Font::new_builtin(&*font_addon).unwrap();
 
 	let mut c = 0.0f32;
 	let mut d = 0.01;
@@ -93,16 +92,17 @@ allegro_main!
 
 	let init_only = matches.opt_present("i");
 
-	let core = Core::init().unwrap();
-
-	let font_addon = FontAddon::init(&core).unwrap();
+	let core = Arc::new(Core::init().unwrap());
+	let font_addon = Arc::new(FontAddon::init(&core).unwrap());
 	core.install_keyboard().unwrap();
 
 	let (sender, receiver) = mpsc::sync_channel(0);
 
-	core.spawn(move |core|
+	let core2 = core.clone();
+	let font_addon2 = font_addon.clone();
+	spawn(move ||
 	{
-		other_window(core, sender, init_only);
+		other_window(core2, font_addon2, sender, init_only);
 	});
 
 	if init_only

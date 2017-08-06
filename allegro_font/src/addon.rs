@@ -2,66 +2,33 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![allow(non_upper_case_globals)]
-
-
 use allegro::Core;
 use allegro_font_sys::*;
-use std::cell::RefCell;
-use std::marker::PhantomData;
-use std::sync::{Arc, Mutex};
-
-static mut initialized: bool = false;
-thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
 
 pub struct FontAddon
 {
-	core_mutex: Arc<Mutex<()>>,
-	no_send_marker: PhantomData<*mut u8>,
+	_dummy: (),
 }
 
 impl FontAddon
 {
-	pub fn init(core: &Core) -> Result<FontAddon, String>
+	pub fn init(_: &Core) -> Result<FontAddon, String>
 	{
-		let mutex = core.get_core_mutex();
-		let _guard = mutex.lock();
+		use std::sync::{ONCE_INIT, Once};
+		static mut RUN_ONCE: Once = ONCE_INIT;
+
+		let mut res = Err("The font addon already initialized.".into());
 		unsafe {
-			if initialized
-			{
-				if spawned_on_this_thread.with(|x| *x.borrow())
-				{
-					Err("The font addon has already been created in this task.".to_string())
-				}
-				else
-				{
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(FontAddon {
-						core_mutex: core.get_core_mutex(),
-						no_send_marker: PhantomData,
-					})
-				}
-			}
-			else
-			{
+			RUN_ONCE.call_once(|| {
 				al_init_font_addon();
-				initialized = true;
-				spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-				Ok(FontAddon {
-					core_mutex: core.get_core_mutex(),
-					no_send_marker: PhantomData,
-				})
-			}
+				res = Ok(FontAddon{ _dummy: () });
+			})
 		}
+		res
 	}
 
 	pub fn get_version() -> i32
 	{
 		unsafe { al_get_allegro_font_version() as i32 }
-	}
-
-	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
-	{
-		self.core_mutex.clone()
 	}
 }

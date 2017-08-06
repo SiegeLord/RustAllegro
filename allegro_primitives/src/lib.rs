@@ -4,7 +4,6 @@
 
 #![crate_name="allegro_primitives"]
 #![crate_type = "lib"]
-#![allow(non_upper_case_globals)]
 
 extern crate allegro;
 extern crate allegro_primitives_sys;
@@ -14,13 +13,8 @@ extern crate libc;
 use allegro::{BitmapLike, Color, Core};
 use allegro_primitives_sys::*;
 use libc::*;
-use std::cell::RefCell;
-use std::marker::PhantomData;
-use std::ptr;
-use std::sync::{Arc, Mutex};
 
-static mut initialized: bool = false;
-thread_local!(static spawned_on_this_thread: RefCell<bool> = RefCell::new(false));
+use std::ptr;
 
 #[repr(u32)]
 #[derive(Copy, Clone)]
@@ -37,59 +31,37 @@ pub enum PrimType
 
 pub struct PrimitivesAddon
 {
-	core_mutex: Arc<Mutex<()>>,
-	no_send_marker: PhantomData<*mut u8>,
+	_dummy: (),
 }
 
 impl PrimitivesAddon
 {
-	pub fn init(core: &Core) -> Result<PrimitivesAddon, String>
+	pub fn init(_: &Core) -> Result<PrimitivesAddon, String>
 	{
-		let mutex = core.get_core_mutex();
-		let _guard = mutex.lock();
+		use std::sync::{ONCE_INIT, Once};
+		static mut RUN_ONCE: Once = ONCE_INIT;
+
+		let mut res = Err("The primitives addon already initialized.".into());
 		unsafe {
-			if initialized
-			{
-				if spawned_on_this_thread.with(|x| *x.borrow())
+			RUN_ONCE.call_once(|| {
+				res = if al_init_primitives_addon() != 0
 				{
-					Err("The primitives addon has already been created in this task.".to_string())
-				}
-				else
-				{
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
 					Ok(PrimitivesAddon {
-						core_mutex: core.get_core_mutex(),
-						no_send_marker: PhantomData,
-					})
-				}
-			}
-			else
-			{
-				if al_init_primitives_addon() != 0
-				{
-					initialized = true;
-					spawned_on_this_thread.with(|x| *x.borrow_mut() = true);
-					Ok(PrimitivesAddon {
-						core_mutex: core.get_core_mutex(),
-						no_send_marker: PhantomData,
+						_dummy: (),
 					})
 				}
 				else
 				{
-					Err("Could not initialize the primitives addon.".to_string())
-				}
-			}
+					Err("Could not initialize the primitives addon.".into())
+				};
+			})
 		}
+		res
 	}
 
 	pub fn get_version() -> i32
 	{
 		unsafe { al_get_allegro_primitives_version() as i32 }
-	}
-
-	pub fn get_core_mutex(&self) -> Arc<Mutex<()>>
-	{
-		self.core_mutex.clone()
 	}
 
 	pub fn draw_prim<T: VertexVector, B: BitmapLike>(&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType) -> u32
