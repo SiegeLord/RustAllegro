@@ -313,6 +313,16 @@
 <span id="268">268</span>
 <span id="269">269</span>
 <span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
 </pre><pre class="rust ">
 
 
@@ -378,7 +388,14 @@ Wraps ALLEGRO_CONFIG.
 	{
 		<span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">path</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_save_config_file</span>(<span class="ident">path</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">allegro_config</span>) };
-		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) }
+		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
+		{
+			<span class="prelude-val">Ok</span>(())
+		}
+		<span class="kw">else</span>
+		{
+			<span class="prelude-val">Err</span>(())
+		}
 	}
 
 	<span class="doccomment">/// Adds an empty section with the specified name.</span>
@@ -514,6 +531,9 @@ Wraps ALLEGRO_CONFIG.
 		}
 	}
 }
+
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">Config</span> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">Config</span> {}
 
 <span class="doccomment">/**
 Configuration section. Used for iterating through all the sections of a configuration.
