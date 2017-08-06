@@ -62,7 +62,14 @@ impl Config
 	{
 		let path = CString::new(path.as_bytes()).unwrap();
 		let ret = unsafe { al_save_config_file(path.as_ptr(), self.allegro_config) };
-		if ret != 0 { Ok(()) } else { Err(()) }
+		if ret != 0
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
+		}
 	}
 
 	/// Adds an empty section with the specified name.

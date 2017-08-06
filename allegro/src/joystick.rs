@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use allegro_util::{Flag, from_c_str};
+use allegro_util::{from_c_str, Flag};
 use core::Core;
 
 use ffi::*;

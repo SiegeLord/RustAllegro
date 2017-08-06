@@ -48,7 +48,12 @@ impl Color
 
 	pub fn to_rgba(&self) -> (u8, u8, u8, u8)
 	{
-		((self.0.r * 255.0) as u8, (self.0.g * 255.0) as u8, (self.0.b * 255.0) as u8, (self.0.a * 255.0) as u8)
+		(
+			(self.0.r * 255.0) as u8,
+			(self.0.g * 255.0) as u8,
+			(self.0.b * 255.0) as u8,
+			(self.0.a * 255.0) as u8,
+		)
 	}
 
 	pub fn to_rgb_f(&self) -> (f32, f32, f32)

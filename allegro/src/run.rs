@@ -27,6 +27,13 @@ extern "C" fn allegro_main(_: i32, _: *const *const i8) -> c_int
 			.join()
 			.is_ok();
 		al_uninstall_system();
-		if ok { 0 } else { 1 }
+		if ok
+		{
+			0
+		}
+		else
+		{
+			1
+		}
 	}
 }

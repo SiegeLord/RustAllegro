@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use allegro_util::{Flag, c_bool, from_c_str};
+use allegro_util::{c_bool, from_c_str, Flag};
 use bitmap_like::{BitmapFlags, BitmapLike};
 use color::{Color, PixelFormat};
 use config::Config;
@@ -76,7 +76,7 @@ impl Core
 	/// This must be called on the main thread.
 	pub fn init() -> Result<Core, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("Already initialized.".to_string());
@@ -105,15 +105,17 @@ impl Core
 					let revision = (version >> 8) & 255;
 					let release = version & 255;
 
-					Err(format!("The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
-					            major,
-					            minor,
-					            revision,
-					            release,
-					            ALLEGRO_VERSION,
-					            ALLEGRO_SUB_VERSION,
-					            ALLEGRO_WIP_VERSION,
-					            ALLEGRO_RELEASE_NUMBER))
+					Err(format!(
+						"The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
+						major,
+						minor,
+						revision,
+						release,
+						ALLEGRO_VERSION,
+						ALLEGRO_SUB_VERSION,
+						ALLEGRO_WIP_VERSION,
+						ALLEGRO_RELEASE_NUMBER
+					))
 				};
 			});
 		}
@@ -138,8 +140,7 @@ impl Core
 			let mut c_info = ALLEGRO_MONITOR_INFO { x1: 0, y1: 0, x2: 0, y2: 0 };
 			if al_get_monitor_info(adapter as c_int, &mut c_info as *mut _) != 0
 			{
-				Ok(MonitorInfo
-				{
+				Ok(MonitorInfo {
 					x1: c_info.x1 as i32,
 					y1: c_info.y1 as i32,
 					x2: c_info.x2 as i32,
@@ -468,164 +469,177 @@ impl Core
 		}
 	}
 
-	pub fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
-	                                         flags: BitmapDrawingFlags)
+	pub fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_bitmap_region(bitmap.get_allegro_bitmap(),
-			                      sx as c_float,
-			                      sy as c_float,
-			                      sw as c_float,
-			                      sh as c_float,
-			                      dx as c_float,
-			                      dy as c_float,
-			                      (flags.get() >> 1) as c_int);
+			al_draw_bitmap_region(
+				bitmap.get_allegro_bitmap(),
+				sx as c_float,
+				sy as c_float,
+				sw as c_float,
+				sh as c_float,
+				dx as c_float,
+				dy as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32,
-	                                         flags: BitmapDrawingFlags)
+	pub fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_scaled_bitmap(bitmap.get_allegro_bitmap(),
-			                      sx as c_float,
-			                      sy as c_float,
-			                      sw as c_float,
-			                      sh as c_float,
-			                      dx as c_float,
-			                      dy as c_float,
-			                      dw as c_float,
-			                      dh as c_float,
-			                      (flags.get() >> 1) as c_int);
+			al_draw_scaled_bitmap(
+				bitmap.get_allegro_bitmap(),
+				sx as c_float,
+				sy as c_float,
+				sw as c_float,
+				sh as c_float,
+				dx as c_float,
+				dy as c_float,
+				dw as c_float,
+				dh as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32,
-	                                          flags: BitmapDrawingFlags)
+	pub fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_rotated_bitmap(bitmap.get_allegro_bitmap(),
-			                       cx as c_float,
-			                       cy as c_float,
-			                       dx as c_float,
-			                       dy as c_float,
-			                       angle as c_float,
-			                       (flags.get() >> 1) as c_int);
+			al_draw_rotated_bitmap(
+				bitmap.get_allegro_bitmap(),
+				cx as c_float,
+				cy as c_float,
+				dx as c_float,
+				dy as c_float,
+				angle as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32,
-	                                                 angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(),
-			                              cx as c_float,
-			                              cy as c_float,
-			                              dx as c_float,
-			                              dy as c_float,
-			                              xscale as c_float,
-			                              yscale as c_float,
-			                              angle as c_float,
-			                              (flags.get() >> 1) as c_int);
+			al_draw_scaled_rotated_bitmap(
+				bitmap.get_allegro_bitmap(),
+				cx as c_float,
+				cy as c_float,
+				dx as c_float,
+				dy as c_float,
+				xscale as c_float,
+				yscale as c_float,
+				angle as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
 	pub fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_tinted_bitmap(bitmap.get_allegro_bitmap(),
-			                      tint.get_allegro_color(),
-			                      dx as c_float,
-			                      dy as c_float,
-			                      (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap(
+				bitmap.get_allegro_bitmap(),
+				tint.get_allegro_color(),
+				dx as c_float,
+				dy as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
-	                                                flags: BitmapDrawingFlags)
+	pub fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_tinted_bitmap_region(bitmap.get_allegro_bitmap(),
-			                             tint.get_allegro_color(),
-			                             sx as c_float,
-			                             sy as c_float,
-			                             sw as c_float,
-			                             sh as c_float,
-			                             dx as c_float,
-			                             dy as c_float,
-			                             (flags.get() >> 1) as c_int);
+			al_draw_tinted_bitmap_region(
+				bitmap.get_allegro_bitmap(),
+				tint.get_allegro_color(),
+				sx as c_float,
+				sy as c_float,
+				sw as c_float,
+				sh as c_float,
+				dx as c_float,
+				dy as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
-	                                                dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_tinted_scaled_bitmap(bitmap.get_allegro_bitmap(),
-			                             tint.get_allegro_color(),
-			                             sx as c_float,
-			                             sy as c_float,
-			                             sw as c_float,
-			                             sh as c_float,
-			                             dx as c_float,
-			                             dy as c_float,
-			                             dw as c_float,
-			                             dh as c_float,
-			                             (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_bitmap(
+				bitmap.get_allegro_bitmap(),
+				tint.get_allegro_color(),
+				sx as c_float,
+				sy as c_float,
+				sw as c_float,
+				sh as c_float,
+				dx as c_float,
+				dy as c_float,
+				dw as c_float,
+				dh as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32,
-	                                                 flags: BitmapDrawingFlags)
+	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_tinted_rotated_bitmap(bitmap.get_allegro_bitmap(),
-			                              tint.get_allegro_color(),
-			                              cx as c_float,
-			                              cy as c_float,
-			                              dx as c_float,
-			                              dy as c_float,
-			                              angle as c_float,
-			                              (flags.get() >> 1) as c_int);
+			al_draw_tinted_rotated_bitmap(
+				bitmap.get_allegro_bitmap(),
+				tint.get_allegro_color(),
+				cx as c_float,
+				cy as c_float,
+				dx as c_float,
+				dy as c_float,
+				angle as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32,
-	                                                        xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
 		unsafe {
-			al_draw_tinted_scaled_rotated_bitmap(bitmap.get_allegro_bitmap(),
-			                                     tint.get_allegro_color(),
-			                                     cx as c_float,
-			                                     cy as c_float,
-			                                     dx as c_float,
-			                                     dy as c_float,
-			                                     xscale as c_float,
-			                                     yscale as c_float,
-			                                     angle as c_float,
-			                                     (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap(
+				bitmap.get_allegro_bitmap(),
+				tint.get_allegro_color(),
+				cx as c_float,
+				cy as c_float,
+				dx as c_float,
+				dy as c_float,
+				xscale as c_float,
+				yscale as c_float,
+				angle as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color,
-	                                                               cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32,
-	                                                               angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32,
+		angle: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		unsafe {
-			al_draw_tinted_scaled_rotated_bitmap_region(bitmap.get_allegro_bitmap(),
-			                                            sx as c_float,
-			                                            sy as c_float,
-			                                            sw as c_float,
-			                                            sh as c_float,
-			                                            tint.get_allegro_color(),
-			                                            cx as c_float,
-			                                            cy as c_float,
-			                                            dx as c_float,
-			                                            dy as c_float,
-			                                            xscale as c_float,
-			                                            yscale as c_float,
-			                                            angle as c_float,
-			                                            (flags.get() >> 1) as c_int);
+			al_draw_tinted_scaled_rotated_bitmap_region(
+				bitmap.get_allegro_bitmap(),
+				sx as c_float,
+				sy as c_float,
+				sw as c_float,
+				sh as c_float,
+				tint.get_allegro_color(),
+				cx as c_float,
+				cy as c_float,
+				dx as c_float,
+				dy as c_float,
+				xscale as c_float,
+				yscale as c_float,
+				angle as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
@@ -764,7 +778,14 @@ impl Core
 			Some(shader) =>
 			{
 				let ret = unsafe { al_use_shader(shader.get_allegro_shader()) };
-				if ret != 0 { Ok(()) } else { Err(()) }
+				if ret != 0
+				{
+					Ok(())
+				}
+				else
+				{
+					Err(())
+				}
 			}
 			None =>
 			{
@@ -841,7 +862,14 @@ impl Core
 	{
 		let c_name = CString::new(name.as_bytes()).unwrap();
 		let ret = unsafe { al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0 };
-		if ret { Ok(()) } else { Err(()) }
+		if ret
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
+		}
 	}
 
 	/// Sets a shader uniform to a value.

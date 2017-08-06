@@ -2,13 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+
+pub use self::Event::*;
 use core::Core;
 use ffi::*;
 
 use keycodes::{KeyCode, KeyModifier};
 use libc::*;
-
-pub use self::Event::*;
 use std::marker::PhantomData;
 use std::mem;
 
