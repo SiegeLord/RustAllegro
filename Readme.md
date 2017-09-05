@@ -3,11 +3,60 @@
 [![Build Status](https://travis-ci.org/SiegeLord/RustAllegro.png)](https://travis-ci.org/SiegeLord/RustAllegro)
 [![](http://meritbadge.herokuapp.com/allegro)](https://crates.io/crates/allegro)
 
-A very much WIP binding of [Allegro 5](http://liballeg.org/) to the [Rust](http://www.rust-lang.org/) programming language. Both stable and unstable branches of Allegro are supported.
+A thin [Rust](http://www.rust-lang.org/) wrapper of [Allegro 5](http://liballeg.org/).
+
+## Minimal example
+
+```rust
+#[macro_use]
+extern crate allegro;
+extern crate allegro_font;
+
+use allegro::*;
+use allegro_font::*;
+
+allegro_main!
+{
+    let core = Core::init().unwrap();
+    let font_addon = FontAddon::init(&core).unwrap();
+
+    let display = Display::new(&core, 800, 600).unwrap();
+    let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
+    let font = Font::new_builtin(&font_addon).unwrap();
+
+    let queue = EventQueue::new(&core).unwrap();
+    queue.register_event_source(display.get_event_source());
+    queue.register_event_source(timer.get_event_source());
+
+    let mut redraw = true;
+    timer.start();
+    'exit: loop
+    {
+        if redraw && queue.is_empty()
+        {
+            core.clear_to_color(Color::from_rgb_f(0.0, 0.0, 0.0));
+            core.draw_text(&font, Color::from_rgb_f(1.0, 1.0, 1.0),
+                (display.get_width() / 2) as f32, (display.get_height() / 2) as f32,
+                FontAlign::Centre, "Welcome to RustAllegro!");
+            core.flip_display();
+            redraw = false;
+        }
+
+        match queue.wait_for_event()
+        {
+            DisplayClose{..} => break 'exit,
+            TimerTick{..} => redraw = true,
+            _ => (),
+        }
+    }
+}
+```
 
 ## Documentation
 
-See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note that it is very incomplete.
+See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note
+that it is very incomplete. You'll likely want to refer back to allegro's
+[documentation](http://liballeg.org/api.html) somewhat heavily at this time.
 
 ## Packages
 
@@ -60,13 +109,13 @@ corresponds to the version of the library you're linking to.
 There are a few features that might come in useful:
 
 * `link_none` - Do not try to link the standard Allegro libraries, in
-			    case you want to link the monolith library or have other
-			    needs.
+                case you want to link the monolith library or have other
+                needs.
 * `link_debug` - Link to the debug versions of the Allegro libraries. Can
                  be combined with `link_static`.
 * `link_static` - Link to the static versions of the Allegro libraries.
-				  Note that you'll have to link the various dependency
-				  libraries yourself. Can be combined with `link_debug`.
+                  Note that you'll have to link the various dependency
+                  libraries yourself. Can be combined with `link_debug`.
 
 ## Windows notes
 
