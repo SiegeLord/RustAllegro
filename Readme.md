@@ -5,7 +5,7 @@
 
 A thin [Rust](http://www.rust-lang.org/) wrapper of [Allegro 5](http://liballeg.org/).
 
-## Minimal example
+## Game loop example
 
 ```rust
 #[macro_use]
