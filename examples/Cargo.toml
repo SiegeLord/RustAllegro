@@ -16,6 +16,11 @@ path = "example.rs"
 
 [[bin]]
 
+name = "welcome"
+path = "welcome.rs"
+
+[[bin]]
+
 name = "config_example"
 path = "config_example.rs"
 

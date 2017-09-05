@@ -8,8 +8,8 @@ use allegro::*;
 use allegro_font::*;
 use getopts::*;
 use std::env;
-use std::sync::mpsc;
 use std::sync::Arc;
+use std::sync::mpsc;
 use std::thread::spawn;
 
 fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncSender<()>, init_only: bool)
@@ -40,12 +40,14 @@ fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncS
 		if redraw && q.is_empty()
 		{
 			core.clear_to_color(Color::from_rgb_f(0.0, 0.0, c));
-			core.draw_text(&font,
-			               Color::from_rgb_f(1.0, 1.0, 1.0),
-			               (disp.get_width() / 2) as f32,
-			               (disp.get_height() / 2) as f32,
-			               FontAlign::Centre,
-			               "Whee... multiple windows!");
+			core.draw_text(
+				&font,
+				Color::from_rgb_f(1.0, 1.0, 1.0),
+				(disp.get_width() / 2) as f32,
+				(disp.get_height() / 2) as f32,
+				FontAlign::Centre,
+				"Whee... multiple windows!",
+			);
 			core.flip_display();
 			redraw = false;
 		}
