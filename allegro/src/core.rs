@@ -900,4 +900,14 @@ impl Core
 			al_set_blender(op as c_int, source as c_int, dest as c_int);
 		}
 	}
+
+	/// Set blender options, with alpha channel getting a separate setting.
+	pub fn set_separate_blender(&self, op: BlendOperation, source: BlendMode, dest: BlendMode,
+									   alpha_op: BlendOperation, alpha_source: BlendMode, alpha_dest: BlendMode)
+	{
+		unsafe {
+			al_set_separate_blender(op as c_int, source as c_int, dest as c_int,
+				alpha_op as c_int, alpha_source as c_int, alpha_dest as c_int);
+		}
+	}
 }
