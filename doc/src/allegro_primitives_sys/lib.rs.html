@@ -151,8 +151,8 @@
 <span class="comment">//</span>
 <span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;allegro_primitives_sys&quot;</span>]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
+<span class="attribute">#![<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;allegro_primitives_sys&quot;</span>]</span>
+<span class="attribute">#![<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_sys</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
@@ -163,7 +163,7 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">allegro_primitives</span>
 {
-	<span class="attribute">#<span class="op">!</span>[<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
+	<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
 
 	<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
