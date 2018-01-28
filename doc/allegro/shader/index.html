@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `ALLEGRO_DATE` constant in crate `allegro_sys`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, ALLEGRO_DATE">
+    <meta name="description" content="API documentation for the Rust `shader` mod in crate `allegro`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, shader">
 
-    <title>allegro_sys::base::ALLEGRO_DATE - Rust</title>
+    <title>allegro::shader - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc constant">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>allegro_sys</a>::<wbr><a href='index.html'>base</a></p><script>window.sidebarCurrent = {name: 'ALLEGRO_DATE', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Module shader</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>allegro</a></p><script>window.sidebarCurrent = {name: 'shader', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -44,12 +44,44 @@
     </nav>
 
     <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Constant <a href='../index.html'>allegro_sys</a>::<wbr><a href='index.html'>base</a>::<wbr><a class="constant" href=''>ALLEGRO_DATE</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>allegro</a>::<wbr><a class="mod" href=''>shader</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/allegro_sys/home/travis/build/SiegeLord/RustAllegro/doc/target/debug/build/allegro-sys-19569b32748430a7/out/versions.rs.html#9' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const ALLEGRO_DATE: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><code> = </code><code>20161211</code></pre></section>
+               </span><a class='srclink' href='../../src/allegro/shader.rs.html#5-188' title='goto source code'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Shader.html"
+                                  title='struct allegro::shader::Shader'>Shader</a></td>
+                           <td class='docblock-short'>
+                                <p>A shader program comprising of a pixel (fragment) and a vertex shader.
+Wraps ALLEGRO_SHADER.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ShaderPlatform.html"
+                                  title='enum allegro::shader::ShaderPlatform'>ShaderPlatform</a></td>
+                           <td class='docblock-short'>
+                                <p>Shader platform.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ShaderType.html"
+                                  title='enum allegro::shader::ShaderType'>ShaderType</a></td>
+                           <td class='docblock-short'>
+                                <p>Shader type.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.ShaderUniform.html"
+                                  title='trait allegro::shader::ShaderUniform'>ShaderUniform</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by types that can be used to set uniforms in shaders.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -106,7 +138,7 @@
 
     <script>
         window.rootPath = "../../";
-        window.currentCrate = "allegro_sys";
+        window.currentCrate = "allegro";
     </script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
