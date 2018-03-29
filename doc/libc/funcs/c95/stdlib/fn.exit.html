@@ -10,8 +10,11 @@
     <title>libc::funcs::c95::stdlib::exit - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../../../main.css" id="themeStyle">
+    <script src="../../../../storage.js"></script>
     
 
     <link rel="shortcut icon" href="https://doc.rust-lang.org/favicon.ico">
@@ -33,6 +36,13 @@
         <p class='location'><a href='../../../index.html'>libc</a>::<wbr><a href='../../index.html'>funcs</a>::<wbr><a href='../index.html'>c95</a>::<wbr><a href='index.html'>stdlib</a></p><script>window.sidebarCurrent = {name: 'exit', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../../../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -51,14 +61,12 @@
                    </a>
                </span><a class='srclink' href='../../../../src/libc/lib.rs.html#6184' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub unsafe extern &quot;C&quot; fn exit(status: <a class="type" href="../../../../libc/types/os/arch/c95/type.c_int.html" title="type libc::types::os::arch::c95::c_int">c_int</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.never.html">!</a></pre><div class='docblock'><p>Exits the running program in a possibly dangerous manner.</p>
-
-<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<h1 id="safety" class="section-header"><a href="#safety">Safety</a></h1>
 <p>While this forces your program to exit, it does so in a way that has
 consequences. This will skip all unwinding code, which means that anything
 relying on unwinding for cleanup (such as flushing and closing a buffer to a
 file) may act in an unexpected way.</p>
-
-<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
 
@@ -80,20 +88,22 @@ file) may act in an unexpected way.</p>
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 
