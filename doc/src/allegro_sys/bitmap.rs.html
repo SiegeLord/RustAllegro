@@ -109,6 +109,21 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -132,6 +147,18 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_MIPMAP</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">256</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_NO_PREMULTIPLIED_ALPHA</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">512</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_VIDEO_BITMAP</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1024</span>;
+
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ALLEGRO_LOCKED_REGION</span> {
+	<span class="kw">pub</span> <span class="ident">data</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>,
+	<span class="kw">pub</span> <span class="ident">format</span>: <span class="ident">c_int</span>,
+	<span class="kw">pub</span> <span class="ident">pitch</span>: <span class="ident">c_int</span>,
+	<span class="kw">pub</span> <span class="ident">pixel_size</span>: <span class="ident">c_int</span>,
+}
+
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LOCK_READWRITE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LOCK_READONLY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LOCK_WRITEONLY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
 
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
@@ -164,6 +191,9 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_parent_bitmap</span>(<span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_clone_bitmap</span>(<span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_lock_bitmap</span>(<span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>, <span class="ident">format</span>: <span class="ident">c_int</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_LOCKED_REGION</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_unlock_bitmap</span>(<span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>);
 }
 </pre>
 </section>
