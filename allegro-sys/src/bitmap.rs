@@ -21,6 +21,18 @@ pub const ALLEGRO_MIPMAP: u32 = 256;
 pub const ALLEGRO_NO_PREMULTIPLIED_ALPHA: u32 = 512;
 pub const ALLEGRO_VIDEO_BITMAP: u32 = 1024;
 
+#[repr(C)]
+pub struct ALLEGRO_LOCKED_REGION {
+	pub data: *const c_void,
+	pub format: c_int,
+	pub pitch: c_int,
+	pub pixel_size: c_int,
+}
+
+pub const ALLEGRO_LOCK_READWRITE: u32 = 0;
+pub const ALLEGRO_LOCK_READONLY: u32 = 1;
+pub const ALLEGRO_LOCK_WRITEONLY: u32 = 2;
+
 extern "C"
 {
 	pub fn al_set_new_bitmap_format(format: c_int);
@@ -52,4 +64,7 @@ extern "C"
 	pub fn al_get_parent_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP;
 
 	pub fn al_clone_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP;
+
+	pub fn al_lock_bitmap(bitmap: *mut ALLEGRO_BITMAP, format: c_int, flags: c_int) -> *mut ALLEGRO_LOCKED_REGION;
+	pub fn al_unlock_bitmap(bitmap: *mut ALLEGRO_BITMAP);
 }
