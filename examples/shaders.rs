@@ -4,7 +4,6 @@ extern crate allegro;
 extern crate allegro_image;
 extern crate getopts;
 
-
 use allegro::*;
 use allegro_image::*;
 use getopts::*;

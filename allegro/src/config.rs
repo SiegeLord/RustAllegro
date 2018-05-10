@@ -1,5 +1,3 @@
-
-
 use ffi::*;
 use std::ffi::{CStr, CString};
 use std::ptr;
@@ -25,7 +23,10 @@ impl Config
 
 	pub unsafe fn wrap(config: *mut ALLEGRO_CONFIG, own: bool) -> Config
 	{
-		Config { allegro_config: config, owned: own }
+		Config {
+			allegro_config: config,
+			owned: own,
+		}
 	}
 
 	/// Loads a config from a path.

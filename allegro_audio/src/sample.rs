@@ -19,15 +19,14 @@ use std::sync::Arc;
 use std::sync::Mutex;
 
 pub trait DataSample
-	where Self: Sized
+where
+	Self: Sized,
 {
 	fn get_depth(_: Option<Self>) -> AudioDepth;
 }
 
-macro_rules! data_sample_impl
-{
-	($t: ty, $d: path) =>
-	{
+macro_rules! data_sample_impl {
+	($t:ty, $d:path) => {
 		impl DataSample for $t
 		{
 			fn get_depth(_: Option<$t>) -> AudioDepth
@@ -35,7 +34,7 @@ macro_rules! data_sample_impl
 				$d
 			}
 		}
-	}
+	};
 }
 
 data_sample_impl!(i8, AudioDepth::I8);
@@ -171,57 +170,53 @@ pub struct SampleInstance
 	allegro_sample_instance: *mut ALLEGRO_SAMPLE_INSTANCE,
 }
 
-macro_rules! check_or_else
-{
-	($self_: ident, $valid: expr, $invalid: expr) =>
-	{
-		{
-			let valid = $self_.sample_valid.lock().unwrap();
-			if *valid
+macro_rules! check_or_else {
+	($self_:ident, $valid:expr, $invalid:expr) => {{
+		let valid = $self_.sample_valid.lock().unwrap();
+		if *valid
 			{
-				unsafe
+			unsafe { $valid }
+			}
+		else
+			{
+			$invalid
+			}
+		}};
+}
+
+macro_rules! set_impl {
+	($self_:ident, $c_func:ident, $var:expr) => {
+		check_or_else!(
+			$self_,
+			if $c_func($self_.allegro_sample_instance, $var) != 0
 				{
-					$valid
+				Ok(())
 				}
-			}
 			else
-			{
-				$invalid
-			}
-		}
-	}
+				{
+				Err(())
+				},
+			Err(())
+			)
+	};
 }
 
-macro_rules! set_impl
-{
-	($self_: ident, $c_func: ident, $var: expr) =>
-	{
-		check_or_else!($self_, if $c_func($self_.allegro_sample_instance, $var) != 0 { Ok(()) } else { Err(()) }, Err(()))
-	}
-}
-
-macro_rules! get_opt_impl
-{
-	($self_: ident,$c_func: ident, $dest_ty: ty) =>
-	{
+macro_rules! get_opt_impl {
+	($self_:ident, $c_func:ident, $dest_ty:ty) => {
 		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const _) as $dest_ty), Err(()))
-	}
+	};
 }
 
-macro_rules! get_conv_impl
-{
-	($self_: ident,$c_func: ident, $conv: path) =>
-	{
+macro_rules! get_conv_impl {
+	($self_:ident, $c_func:ident, $conv:path) => {
 		check_or_else!($self_, Ok($conv($c_func($self_.allegro_sample_instance as *const _))), Err(()))
-	}
+	};
 }
 
-macro_rules! get_bool_impl
-{
-	($self_: ident,$c_func: ident) =>
-	{
+macro_rules! get_bool_impl {
+	($self_:ident, $c_func:ident) => {
 		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const _) != 0), Err(()))
-	}
+	};
 }
 
 impl SampleInstance
@@ -293,13 +288,15 @@ impl SampleInstance
 
 	pub fn set_pan(&self, pan: Option<f32>) -> Result<(), ()>
 	{
-		set_impl!(self,
-		          al_set_sample_instance_pan,
-		          match pan
-		          {
-			          Some(p) => p as c_float,
-			          None => ALLEGRO_AUDIO_PAN_NONE,
-		          })
+		set_impl!(
+			self,
+			al_set_sample_instance_pan,
+			match pan
+			{
+				Some(p) => p as c_float,
+				None => ALLEGRO_AUDIO_PAN_NONE,
+			}
+		)
 	}
 
 	pub fn set_speed(&self, speed: f32) -> Result<(), ()>

@@ -2,11 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_dialog"]
+#![crate_name = "allegro_dialog"]
 #![crate_type = "lib"]
 
-extern crate allegro_dialog_sys;
 extern crate allegro;
+extern crate allegro_dialog_sys;
 #[macro_use]
 extern crate allegro_util;
 extern crate libc;
@@ -45,7 +45,7 @@ impl DialogAddon
 {
 	pub fn init(_: &Core) -> Result<DialogAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The dialog addon already initialized.".into());
@@ -70,12 +70,12 @@ impl DialogAddon
 	}
 }
 
-pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>,
-                               flags: MessageBoxFlags)
-                               -> MessageBoxResult
+pub fn show_native_message_box(
+	display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>, flags: MessageBoxFlags,
+) -> MessageBoxResult
 {
-	use std::ptr;
 	use libc::c_int;
+	use std::ptr;
 
 	let d = display.map_or(ptr::null_mut(), |d| d.get_allegro_display());
 	let title = CString::new(title.as_bytes()).unwrap();
@@ -88,9 +88,23 @@ pub fn show_native_message_box(display: Option<&Display>, title: &str, heading: 
 			Some(buttons) =>
 			{
 				let buttons = CString::new(buttons.as_bytes()).unwrap();
-				al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), buttons.as_ptr(), flags.get() as c_int)
+				al_show_native_message_box(
+					d,
+					title.as_ptr(),
+					heading.as_ptr(),
+					text.as_ptr(),
+					buttons.as_ptr(),
+					flags.get() as c_int,
+				)
 			}
-			None => al_show_native_message_box(d, title.as_ptr(), heading.as_ptr(), text.as_ptr(), ptr::null(), flags.get() as c_int),
+			None => al_show_native_message_box(
+				d,
+				title.as_ptr(),
+				heading.as_ptr(),
+				text.as_ptr(),
+				ptr::null(),
+				flags.get() as c_int,
+			),
 		}
 	};
 

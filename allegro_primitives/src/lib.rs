@@ -2,14 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_primitives"]
+#![crate_name = "allegro_primitives"]
 #![crate_type = "lib"]
 
 extern crate allegro;
-extern crate allegro_sys;
 extern crate allegro_primitives_sys;
+extern crate allegro_sys;
 extern crate libc;
-
 
 use allegro::{BitmapLike, Color, Core};
 use allegro_primitives_sys::*;
@@ -39,7 +38,8 @@ pub struct PrimitivesAddon
 fn check_valid_target_bitmap()
 {
 	unsafe {
-		if al_get_target_bitmap().is_null() {
+		if al_get_target_bitmap().is_null()
+		{
 			panic!("Target bitmap is null!");
 		}
 	}
@@ -49,7 +49,7 @@ impl PrimitivesAddon
 {
 	pub fn init(_: &Core) -> Result<PrimitivesAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The primitives addon already initialized.".into());
@@ -57,9 +57,7 @@ impl PrimitivesAddon
 			RUN_ONCE.call_once(|| {
 				res = if al_init_primitives_addon() != 0
 				{
-					Ok(PrimitivesAddon {
-						_dummy: (),
-					})
+					Ok(PrimitivesAddon { _dummy: () })
 				}
 				else
 				{
@@ -79,18 +77,33 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
-		unsafe { al_draw_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, start as c_int, end as c_int, type_ as c_int) as u32 }
+		unsafe {
+			al_draw_prim(
+				vtxs.get_ptr() as *const _,
+				vtxs.get_decl(),
+				tex,
+				start as c_int,
+				end as c_int,
+				type_ as c_int,
+			) as u32
+		}
 	}
 
-	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike>(&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32,
-	                                                         type_: PrimType)
-	                                                         -> u32
+	pub fn draw_indexed_prim<T: VertexVector, B: BitmapLike>(
+		&self, vtxs: &T, texture: Option<&B>, indices: &[i32], num_vtx: u32, type_: PrimType,
+	) -> u32
 	{
 		check_valid_target_bitmap();
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe {
-			al_draw_indexed_prim(vtxs.get_ptr() as *const _, vtxs.get_decl(), tex, indices.as_ptr(), num_vtx as c_int, type_ as c_int) as
-			u32
+			al_draw_indexed_prim(
+				vtxs.get_ptr() as *const _,
+				vtxs.get_decl(),
+				tex,
+				indices.as_ptr(),
+				num_vtx as c_int,
+				type_ as c_int,
+			) as u32
 		}
 	}
 
@@ -98,12 +111,14 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_line(x1 as c_float,
-			             y1 as c_float,
-			             x2 as c_float,
-			             y2 as c_float,
-			             color.get_allegro_color(),
-			             thickness as c_float)
+			al_draw_line(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			)
 		}
 	}
 
@@ -111,14 +126,16 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_triangle(x1 as c_float,
-			                 y1 as c_float,
-			                 x2 as c_float,
-			                 y2 as c_float,
-			                 x3 as c_float,
-			                 y3 as c_float,
-			                 color.get_allegro_color(),
-			                 thickness as c_float);
+			al_draw_triangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				x3 as c_float,
+				y3 as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -126,12 +143,14 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_rectangle(x1 as c_float,
-			                  y1 as c_float,
-			                  x2 as c_float,
-			                  y2 as c_float,
-			                  color.get_allegro_color(),
-			                  thickness as c_float);
+			al_draw_rectangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -139,14 +158,16 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_rounded_rectangle(x1 as c_float,
-			                          y1 as c_float,
-			                          x2 as c_float,
-			                          y2 as c_float,
-			                          rx as c_float,
-			                          ry as c_float,
-			                          color.get_allegro_color(),
-			                          thickness as c_float);
+			al_draw_rounded_rectangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				rx as c_float,
+				ry as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -154,7 +175,13 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_circle(cx as c_float, cy as c_float, r as c_float, color.get_allegro_color(), thickness as c_float);
+			al_draw_circle(
+				cx as c_float,
+				cy as c_float,
+				r as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -162,12 +189,14 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_ellipse(cx as c_float,
-			                cy as c_float,
-			                rx as c_float,
-			                ry as c_float,
-			                color.get_allegro_color(),
-			                thickness as c_float);
+			al_draw_ellipse(
+				cx as c_float,
+				cy as c_float,
+				rx as c_float,
+				ry as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -175,29 +204,32 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_arc(cx as c_float,
-			            cy as c_float,
-			            r as c_float,
-			            start_theta as c_float,
-			            delta_theta as c_float,
-			            color.get_allegro_color(),
-			            thickness as c_float);
+			al_draw_arc(
+				cx as c_float,
+				cy as c_float,
+				r as c_float,
+				start_theta as c_float,
+				delta_theta as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
-	pub fn draw_elliptical_arc(&self, cx: f32, cy: f32, rx: f32, ry: f32, start_theta: f32, delta_theta: f32, color: Color,
-	                           thickness: f32)
+	pub fn draw_elliptical_arc(&self, cx: f32, cy: f32, rx: f32, ry: f32, start_theta: f32, delta_theta: f32, color: Color, thickness: f32)
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_elliptical_arc(cx as c_float,
-			                       cy as c_float,
-			                       rx as c_float,
-			                       ry as c_float,
-			                       start_theta as c_float,
-			                       delta_theta as c_float,
-			                       color.get_allegro_color(),
-			                       thickness as c_float);
+			al_draw_elliptical_arc(
+				cx as c_float,
+				cy as c_float,
+				rx as c_float,
+				ry as c_float,
+				start_theta as c_float,
+				delta_theta as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -205,13 +237,15 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_pieslice(cx as c_float,
-			                 cy as c_float,
-			                 r as c_float,
-			                 start_theta as c_float,
-			                 delta_theta as c_float,
-			                 color.get_allegro_color(),
-			                 thickness as c_float);
+			al_draw_pieslice(
+				cx as c_float,
+				cy as c_float,
+				r as c_float,
+				start_theta as c_float,
+				delta_theta as c_float,
+				color.get_allegro_color(),
+				thickness as c_float,
+			);
 		}
 	}
 
@@ -241,13 +275,15 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_filled_triangle(x1 as c_float,
-			                        y1 as c_float,
-			                        x2 as c_float,
-			                        y2 as c_float,
-			                        x3 as c_float,
-			                        y3 as c_float,
-			                        color.get_allegro_color());
+			al_draw_filled_triangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				x3 as c_float,
+				y3 as c_float,
+				color.get_allegro_color(),
+			);
 		}
 	}
 
@@ -255,7 +291,13 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_filled_rectangle(x1 as c_float, y1 as c_float, x2 as c_float, y2 as c_float, color.get_allegro_color());
+			al_draw_filled_rectangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				color.get_allegro_color(),
+			);
 		}
 	}
 
@@ -263,7 +305,13 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_filled_ellipse(cx as c_float, cy as c_float, rx as c_float, ry as c_float, color.get_allegro_color());
+			al_draw_filled_ellipse(
+				cx as c_float,
+				cy as c_float,
+				rx as c_float,
+				ry as c_float,
+				color.get_allegro_color(),
+			);
 		}
 	}
 
@@ -279,12 +327,14 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_filled_pieslice(cx as c_float,
-			                        cy as c_float,
-			                        r as c_float,
-			                        start_theta as c_float,
-			                        delta_theta as c_float,
-			                        color.get_allegro_color());
+			al_draw_filled_pieslice(
+				cx as c_float,
+				cy as c_float,
+				r as c_float,
+				start_theta as c_float,
+				delta_theta as c_float,
+				color.get_allegro_color(),
+			);
 		}
 	}
 
@@ -292,13 +342,15 @@ impl PrimitivesAddon
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_filled_rounded_rectangle(x1 as c_float,
-			                                 y1 as c_float,
-			                                 x2 as c_float,
-			                                 y2 as c_float,
-			                                 rx as c_float,
-			                                 ry as c_float,
-			                                 color.get_allegro_color());
+			al_draw_filled_rounded_rectangle(
+				x1 as c_float,
+				y1 as c_float,
+				x2 as c_float,
+				y2 as c_float,
+				rx as c_float,
+				ry as c_float,
+				color.get_allegro_color(),
+			);
 		}
 	}
 }

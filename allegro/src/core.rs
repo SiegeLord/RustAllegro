@@ -31,7 +31,7 @@ struct ThreadState
 
 unsafe impl Send for ThreadState {}
 
-lazy_static!{
+lazy_static! {
 	static ref THREAD_STATE: Mutex<Vec<ThreadState>> = Mutex::new(vec![]);
 }
 
@@ -54,7 +54,11 @@ pub(crate) unsafe fn update_thread_state()
 	let pos = (*thread_state).iter().position(|s| s.id == cur_id).unwrap_or(thread_state.len());
 	if pos >= thread_state.len()
 	{
-		thread_state.push(ThreadState{ id: cur_id, cur_bitmap: ptr::null_mut(), cur_display: ptr::null_mut() });
+		thread_state.push(ThreadState {
+			id: cur_id,
+			cur_bitmap: ptr::null_mut(),
+			cur_display: ptr::null_mut(),
+		});
 	}
 	thread_state[pos].cur_bitmap = get_real_bitmap(al_get_target_bitmap());
 	thread_state[pos].cur_display = al_get_current_display();
@@ -64,14 +68,17 @@ pub(crate) unsafe fn check_bitmap_targeted_elsewhere(bmp: *mut ALLEGRO_BITMAP, a
 {
 	if bmp.is_null()
 	{
-		return
+		return;
 	}
 	let cur_id = thread::current().id();
 	let thread_state = THREAD_STATE.lock().unwrap();
 	let bmp = get_real_bitmap(bmp);
 	if let Some(s) = thread_state.iter().find(|s| s.cur_bitmap == bmp && s.id != cur_id)
 	{
-		panic!("Attempting to {} bitmap {:?} in thread {:?}, but it is still targeted in thread {:?}", action, s.cur_bitmap, cur_id, s.id);
+		panic!(
+			"Attempting to {} bitmap {:?} in thread {:?}, but it is still targeted in thread {:?}",
+			action, s.cur_bitmap, cur_id, s.id
+		);
 	}
 }
 
@@ -79,20 +86,24 @@ pub(crate) unsafe fn check_display_targeted_elsewhere(disp: *mut ALLEGRO_DISPLAY
 {
 	if disp.is_null()
 	{
-		return
+		return;
 	}
 	let cur_id = thread::current().id();
 	let thread_state = THREAD_STATE.lock().unwrap();
 	if let Some(s) = thread_state.iter().find(|s| s.cur_display == disp && s.id != cur_id)
 	{
-		panic!("Attempting to {} display {:?} in thread {:?}, but it is still targeted in thread {:?}", action, s.cur_display, cur_id, s.id);
+		panic!(
+			"Attempting to {} display {:?} in thread {:?}, but it is still targeted in thread {:?}",
+			action, s.cur_display, cur_id, s.id
+		);
 	}
 }
 
 fn check_valid_target_bitmap()
 {
 	unsafe {
-		if al_get_target_bitmap().is_null() {
+		if al_get_target_bitmap().is_null()
+		{
 			panic!("Target bitmap is null!");
 		}
 	}
@@ -180,14 +191,7 @@ impl Core
 
 					Err(format!(
 						"The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
-						major,
-						minor,
-						revision,
-						release,
-						ALLEGRO_VERSION,
-						ALLEGRO_SUB_VERSION,
-						ALLEGRO_WIP_VERSION,
-						ALLEGRO_RELEASE_NUMBER
+						major, minor, revision, release, ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER
 					))
 				};
 			});
@@ -215,7 +219,12 @@ impl Core
 	pub fn get_monitor_info(&self, adapter: i32) -> Result<MonitorInfo, ()>
 	{
 		unsafe {
-			let mut c_info = ALLEGRO_MONITOR_INFO { x1: 0, y1: 0, x2: 0, y2: 0 };
+			let mut c_info = ALLEGRO_MONITOR_INFO {
+				x1: 0,
+				y1: 0,
+				x2: 0,
+				y2: 0,
+			};
 			if al_get_monitor_info(adapter as c_int, &mut c_info as *mut _) != 0
 			{
 				Ok(MonitorInfo {
@@ -551,11 +560,18 @@ impl Core
 	{
 		check_valid_target_bitmap();
 		unsafe {
-			al_draw_bitmap(bitmap.get_allegro_bitmap(), dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
+			al_draw_bitmap(
+				bitmap.get_allegro_bitmap(),
+				dx as c_float,
+				dy as c_float,
+				(flags.get() >> 1) as c_int,
+			);
 		}
 	}
 
-	pub fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_bitmap_region<T: BitmapLike>(
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -572,7 +588,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	pub fn draw_scaled_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -607,7 +625,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -639,7 +659,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_bitmap_region<T: BitmapLike>(
+		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -657,7 +679,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -677,7 +701,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -694,7 +720,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -985,12 +1013,20 @@ impl Core
 	}
 
 	/// Set blender options, with alpha channel getting a separate setting.
-	pub fn set_separate_blender(&self, op: BlendOperation, source: BlendMode, dest: BlendMode,
-									   alpha_op: BlendOperation, alpha_source: BlendMode, alpha_dest: BlendMode)
+	pub fn set_separate_blender(
+		&self, op: BlendOperation, source: BlendMode, dest: BlendMode, alpha_op: BlendOperation, alpha_source: BlendMode,
+		alpha_dest: BlendMode,
+	)
 	{
 		unsafe {
-			al_set_separate_blender(op as c_int, source as c_int, dest as c_int,
-				alpha_op as c_int, alpha_source as c_int, alpha_dest as c_int);
+			al_set_separate_blender(
+				op as c_int,
+				source as c_int,
+				dest as c_int,
+				alpha_op as c_int,
+				alpha_source as c_int,
+				alpha_dest as c_int,
+			);
 		}
 	}
 }

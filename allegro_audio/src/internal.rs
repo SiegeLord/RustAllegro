@@ -6,9 +6,9 @@ use allegro_audio_sys::ALLEGRO_MIXER;
 use libc::c_void;
 use mixer::Mixer;
 
-use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering::SeqCst;
+use std::sync::Arc;
 
 #[doc(hidden)]
 pub trait AttachToMixerImpl
@@ -37,16 +37,18 @@ impl Connection
 	{
 		let active1 = Arc::new(AtomicBool::new(true));
 		let active2 = active1.clone();
-		(Connection {
-			 active: active1,
-			 payload: payload,
-			 callback: callback,
-		 },
-		 Connection {
-			 active: active2,
-			 payload: payload,
-			 callback: callback,
-		 })
+		(
+			Connection {
+				active: active1,
+				payload: payload,
+				callback: callback,
+			},
+			Connection {
+				active: active2,
+				payload: payload,
+				callback: callback,
+			},
+		)
 	}
 }
 

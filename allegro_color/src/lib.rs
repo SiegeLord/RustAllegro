@@ -2,13 +2,12 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_color"]
+#![crate_name = "allegro_color"]
 #![crate_type = "lib"]
-
 #![allow(non_upper_case_globals)]
 
-extern crate allegro_color_sys;
 extern crate allegro;
+extern crate allegro_color_sys;
 extern crate allegro_util;
 extern crate libc;
 
@@ -69,7 +68,15 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 
 		unsafe {
-			al_color_cmyk_to_rgb(cyan as c_float, magenta as c_float, yellow as c_float, key as c_float, &mut r, &mut g, &mut b);
+			al_color_cmyk_to_rgb(
+				cyan as c_float,
+				magenta as c_float,
+				yellow as c_float,
+				key as c_float,
+				&mut r,
+				&mut g,
+				&mut b,
+			);
 		}
 
 		Color::from_rgb_f(r as f32, g as f32, b as f32)

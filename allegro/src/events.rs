@@ -2,7 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 pub use self::Event::*;
 use core::Core;
 use ffi::*;
@@ -316,7 +315,10 @@ impl Event
 			let ts = (*e.any()).timestamp as f64;
 			match *e._type() as u32
 			{
-				ALLEGRO_EVENT_DISPLAY_CLOSE => DisplayClose { source: src, timestamp: ts },
+				ALLEGRO_EVENT_DISPLAY_CLOSE => DisplayClose {
+					source: src,
+					timestamp: ts,
+				},
 				ALLEGRO_EVENT_DISPLAY_RESIZE =>
 				{
 					let a = *e.display();
@@ -361,7 +363,10 @@ impl Event
 						button: a.button as i32,
 					}
 				}
-				ALLEGRO_EVENT_JOYSTICK_CONFIGURATION => JoystickConfiguration { source: src, timestamp: ts },
+				ALLEGRO_EVENT_JOYSTICK_CONFIGURATION => JoystickConfiguration {
+					source: src,
+					timestamp: ts,
+				},
 				ALLEGRO_EVENT_KEY_DOWN =>
 				{
 					let k = *e.keyboard();

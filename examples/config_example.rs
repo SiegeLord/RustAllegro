@@ -2,7 +2,6 @@
 #[macro_use]
 extern crate allegro;
 
-
 use allegro::*;
 use std::env;
 

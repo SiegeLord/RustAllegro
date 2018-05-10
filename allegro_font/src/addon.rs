@@ -14,14 +14,14 @@ impl FontAddon
 {
 	pub fn init(_: &Core) -> Result<FontAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The font addon already initialized.".into());
 		unsafe {
 			RUN_ONCE.call_once(|| {
 				al_init_font_addon();
-				res = Ok(FontAddon{ _dummy: () });
+				res = Ok(FontAddon { _dummy: () });
 			})
 		}
 		res

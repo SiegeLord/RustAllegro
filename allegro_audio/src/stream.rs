@@ -2,7 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 use addon::AudioAddon;
 use allegro::c_bool;
 use allegro_audio_sys::*;
@@ -23,28 +22,22 @@ macro_rules! set_impl
 	}
 }
 
-macro_rules! get_impl
-{
-	($self_: ident,$c_func: ident, $dest_ty: ty) =>
-	{
-		unsafe{ $c_func($self_.allegro_audio_stream as *const _) as $dest_ty }
-	}
+macro_rules! get_impl {
+	($self_:ident, $c_func:ident, $dest_ty:ty) => {
+		unsafe { $c_func($self_.allegro_audio_stream as *const _) as $dest_ty }
+	};
 }
 
-macro_rules! get_conv_impl
-{
-	($self_: ident,$c_func: ident, $conv: path) =>
-	{
-		unsafe{ $conv($c_func($self_.allegro_audio_stream as *const _)) }
-	}
+macro_rules! get_conv_impl {
+	($self_:ident, $c_func:ident, $conv:path) => {
+		unsafe { $conv($c_func($self_.allegro_audio_stream as *const _)) }
+	};
 }
 
-macro_rules! get_bool_impl
-{
-	($self_: ident,$c_func: ident) =>
-	{
-		unsafe{ $c_func($self_.allegro_audio_stream as *const _) != 0 }
-	}
+macro_rules! get_bool_impl {
+	($self_:ident, $c_func:ident) => {
+		unsafe { $c_func($self_.allegro_audio_stream as *const _) != 0 }
+	};
 }
 
 pub struct AudioStream
@@ -81,11 +74,19 @@ impl AudioStream
 		}
 	}
 
-	pub fn new(_: &AudioAddon, buffer_count: usize, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf)
-	           -> Result<AudioStream, ()>
+	pub fn new(
+		_: &AudioAddon, buffer_count: usize, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf,
+	) -> Result<AudioStream, ()>
 	{
-		let stream =
-			unsafe { al_create_audio_stream(buffer_count as size_t, samples as c_uint, frequency as c_uint, depth.get(), chan_conf.get()) };
+		let stream = unsafe {
+			al_create_audio_stream(
+				buffer_count as size_t,
+				samples as c_uint,
+				frequency as c_uint,
+				depth.get(),
+				chan_conf.get(),
+			)
+		};
 		if stream.is_null()
 		{
 			Err(())
@@ -125,13 +126,15 @@ impl AudioStream
 
 	pub fn set_pan(&self, pan: Option<f32>) -> Result<(), ()>
 	{
-		set_impl!(self,
-		          al_set_audio_stream_pan,
-		          match pan
-		          {
-			          Some(p) => p as c_float,
-			          None => ALLEGRO_AUDIO_PAN_NONE,
-		          })
+		set_impl!(
+			self,
+			al_set_audio_stream_pan,
+			match pan
+			{
+				Some(p) => p as c_float,
+				None => ALLEGRO_AUDIO_PAN_NONE,
+			}
+		)
 	}
 
 	pub fn set_speed(&self, speed: f32) -> Result<(), ()>
@@ -249,9 +252,7 @@ impl AudioStream
 		get_bool_impl!(self, al_get_audio_stream_attached)
 	}
 
-	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */
-	                                           &mut Write))
-	                      -> Result<bool, ()>
+	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */ &mut Write)) -> Result<bool, ()>
 	{
 		use std::slice::from_raw_parts_mut;
 		let fragment = unsafe { al_get_audio_stream_fragment(self.allegro_audio_stream as *const _) };

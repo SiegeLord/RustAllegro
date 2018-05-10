@@ -24,28 +24,22 @@ macro_rules! set_impl
 	}
 }
 
-macro_rules! get_impl
-{
-	($self_: ident,$c_func: ident, $dest_ty: ty) =>
-	{
-		unsafe{ $c_func($self_.get_mixer().allegro_mixer as *const _) as $dest_ty }
-	}
+macro_rules! get_impl {
+	($self_:ident, $c_func:ident, $dest_ty:ty) => {
+		unsafe { $c_func($self_.get_mixer().allegro_mixer as *const _) as $dest_ty }
+	};
 }
 
-macro_rules! get_conv_impl
-{
-	($self_: ident,$c_func: ident, $conv: path) =>
-	{
-		unsafe{ $conv($c_func($self_.get_mixer().allegro_mixer as *const _)) }
-	}
+macro_rules! get_conv_impl {
+	($self_:ident, $c_func:ident, $conv:path) => {
+		unsafe { $conv($c_func($self_.get_mixer().allegro_mixer as *const _)) }
+	};
 }
 
-macro_rules! get_bool_impl
-{
-	($self_: ident,$c_func: ident) =>
-	{
-		unsafe{ $c_func($self_.get_mixer().allegro_mixer as *const _) != 0 }
-	}
+macro_rules! get_bool_impl {
+	($self_:ident, $c_func:ident) => {
+		unsafe { $c_func($self_.get_mixer().allegro_mixer as *const _) != 0 }
+	};
 }
 
 pub trait AttachToMixer: AttachToMixerImpl
@@ -57,7 +51,9 @@ pub trait AttachToMixer: AttachToMixerImpl
 		self.detach();
 
 		let m = mixer.get_mixer_mut();
-		self.create_connection(m.allegro_mixer).map(|conn| { m.children.push(conn); })
+		self.create_connection(m.allegro_mixer).map(|conn| {
+			m.children.push(conn);
+		})
 	}
 }
 
@@ -215,9 +211,11 @@ pub trait MixerLike: HasMixer
 					sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size(),
 				});
 				let ret = unsafe {
-					al_set_mixer_postprocess_callback(allegro_mixer,
-					                                  Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)),
-					                                  &mut *cbh as *mut _ as *mut _)
+					al_set_mixer_postprocess_callback(
+						allegro_mixer,
+						Some(mixer_callback as extern "C" fn(*mut c_void, c_uint, *mut c_void)),
+						&mut *cbh as *mut _ as *mut _,
+					)
 				};
 				if ret == 0
 				{

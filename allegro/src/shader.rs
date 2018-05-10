@@ -154,10 +154,8 @@ pub trait ShaderUniform
 	unsafe fn set_self_for_shader(&self, name: &str) -> Result<(), ()>;
 }
 
-macro_rules! impl_shader_vector
-{
-	($rust_type: ty, $func: expr, $num_elems: expr, $c_type: ty) =>
-	{
+macro_rules! impl_shader_vector {
+	($rust_type:ty, $func:expr, $num_elems:expr, $c_type:ty) => {
 		impl ShaderUniform for $rust_type
 		{
 			unsafe fn set_self_for_shader(&self, name: &str) -> Result<(), ()>
@@ -175,7 +173,7 @@ macro_rules! impl_shader_vector
 				}
 			}
 		}
-	}
+	};
 }
 
 impl_shader_vector!([f32], al_set_shader_float_vector, 1, c_float);

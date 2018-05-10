@@ -2,7 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 use ffi::*;
 use libc::*;
 use std::process;
@@ -23,8 +22,9 @@ pub fn run(main_func: fn()) -> !
 extern "C" fn allegro_main(_: i32, _: *const *const i8) -> c_int
 {
 	unsafe {
-		let ok = spawn(move || { (GLOBAL_MAIN_FUNC.unwrap())(); })
-			.join()
+		let ok = spawn(move || {
+			(GLOBAL_MAIN_FUNC.unwrap())();
+		}).join()
 			.is_ok();
 		al_uninstall_system();
 		if ok

@@ -19,28 +19,22 @@ macro_rules! set_impl
 	}
 }
 
-macro_rules! get_impl
-{
-	($self_: ident,$c_func: ident, $dest_ty: ty) =>
-	{
-		unsafe{ $c_func($self_.allegro_voice as *const _) as $dest_ty }
-	}
+macro_rules! get_impl {
+	($self_:ident, $c_func:ident, $dest_ty:ty) => {
+		unsafe { $c_func($self_.allegro_voice as *const _) as $dest_ty }
+	};
 }
 
-macro_rules! get_conv_impl
-{
-	($self_: ident,$c_func: ident, $conv: path) =>
-	{
-		unsafe{ $conv($c_func($self_.allegro_voice as *const _)) }
-	}
+macro_rules! get_conv_impl {
+	($self_:ident, $c_func:ident, $conv:path) => {
+		unsafe { $conv($c_func($self_.allegro_voice as *const _)) }
+	};
 }
 
-macro_rules! get_bool_impl
-{
-	($self_: ident,$c_func: ident) =>
-	{
-		unsafe{ $c_func($self_.allegro_voice as *const _) != 0 }
-	}
+macro_rules! get_bool_impl {
+	($self_:ident, $c_func:ident) => {
+		unsafe { $c_func($self_.allegro_voice as *const _) != 0 }
+	};
 }
 
 pub struct Sink
@@ -53,12 +47,20 @@ impl Sink
 {
 	pub fn new(addon: &AudioAddon) -> Result<Sink, String>
 	{
-		Sink::new_custom(addon, 44100, AudioDepth::I16, ChannelConf::Conf2, AudioDepth::F32, ChannelConf::Conf2)
+		Sink::new_custom(
+			addon,
+			44100,
+			AudioDepth::I16,
+			ChannelConf::Conf2,
+			AudioDepth::F32,
+			ChannelConf::Conf2,
+		)
 	}
 
-	pub fn new_custom(addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf, mixer_depth: AudioDepth,
-	                  mixer_chan_conf: ChannelConf)
-	                  -> Result<Sink, String>
+	pub fn new_custom(
+		addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf, mixer_depth: AudioDepth,
+		mixer_chan_conf: ChannelConf,
+	) -> Result<Sink, String>
 	{
 		Mixer::new_custom(addon, frequency, mixer_depth, mixer_chan_conf)
 			.map_err(|_| "Could not create the mixer.".to_string())
@@ -76,7 +78,10 @@ impl Sink
 		{
 			if unsafe { al_attach_mixer_to_voice(mixer.get_allegro_mixer(), voice) != 0 }
 			{
-				Ok(Sink { allegro_voice: voice, mixer: mixer })
+				Ok(Sink {
+					allegro_voice: voice,
+					mixer: mixer,
+				})
 			}
 			else
 			{

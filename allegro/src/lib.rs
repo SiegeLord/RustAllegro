@@ -5,8 +5,8 @@
 #![crate_name = "allegro"]
 #![crate_type = "lib"]
 
-extern crate libc;
 extern crate allegro_sys as ffi;
+extern crate libc;
 #[macro_use]
 extern crate allegro_util;
 #[macro_use]
@@ -28,6 +28,7 @@ pub use shader::*;
 pub use timer::*;
 pub use transformations::*;
 
+pub mod allegro_main;
 pub mod bitmap;
 pub mod bitmap_like;
 pub mod color;
@@ -42,4 +43,3 @@ pub mod run;
 pub mod shader;
 pub mod timer;
 pub mod transformations;
-pub mod allegro_main;

@@ -2,7 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 use ffi::*;
 use libc::*;
 

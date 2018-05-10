@@ -2,16 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 use bitmap_like::BitmapLike;
 use core::Core;
 
+use core::{check_bitmap_targeted_elsewhere, update_thread_state};
 use ffi::*;
 use libc::*;
 use std::cell::RefCell;
 use std::ffi::CString;
 use std::rc::{Rc, Weak};
-use core::{update_thread_state, check_bitmap_targeted_elsewhere};
 
 pub struct Bitmap
 {
@@ -145,8 +144,9 @@ pub struct SubBitmap
 
 impl SubBitmap
 {
-	fn new(parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32)
-		-> Result<Weak<SubBitmap>, ()>
+	fn new(
+		parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32,
+	) -> Result<Weak<SubBitmap>, ()>
 	{
 		let b = unsafe { al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int) };
 		if b.is_null()

@@ -2,12 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-
 use allegro_util::Flag;
 use bitmap::Bitmap;
 use bitmap_like::BitmapLike;
 use color::PixelFormat;
-use core::{Core, update_thread_state, check_display_targeted_elsewhere};
+use core::{check_display_targeted_elsewhere, update_thread_state, Core};
 use events::EventSource;
 
 use ffi::*;

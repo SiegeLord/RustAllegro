@@ -8,8 +8,8 @@ use allegro::*;
 use allegro_font::*;
 use getopts::*;
 use std::env;
-use std::sync::Arc;
 use std::sync::mpsc;
+use std::sync::Arc;
 use std::thread::spawn;
 
 fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncSender<()>, init_only: bool)
@@ -111,7 +111,7 @@ allegro_main!
 
 	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title("Main Window");
-	
+
 	spawn(move ||
 	{
 		other_window(core2, font_addon2, sender, init_only);

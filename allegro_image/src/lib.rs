@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_image"]
+#![crate_name = "allegro_image"]
 #![crate_type = "lib"]
 
 extern crate allegro;
@@ -13,14 +13,17 @@ use allegro::Core;
 use ffi::allegro_image::*;
 
 #[cfg(not(manual_link))]
-mod link_name {
+mod link_name
+{
 	#[link(name = "allegro_image")]
 	extern "C" {}
 }
 
-pub mod ffi {
+pub mod ffi
+{
 	pub use self::allegro_image::*;
-	pub mod allegro_image {
+	pub mod allegro_image
+	{
 		use allegro::c_bool;
 		use libc::*;
 
@@ -41,7 +44,7 @@ impl ImageAddon
 {
 	pub fn init(_: &Core) -> Result<ImageAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The image addon already initialized.".into());

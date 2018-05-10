@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_ttf"]
+#![crate_name = "allegro_ttf"]
 #![crate_type = "lib"]
 
 extern crate allegro;
@@ -38,7 +38,7 @@ impl TtfAddon
 {
 	pub fn init(_: &FontAddon) -> Result<TtfAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The TTF addon already initialized.".into());
@@ -78,8 +78,12 @@ impl TtfAddon
 		{
 			let filename = CString::new(filename.as_bytes()).unwrap();
 			unsafe {
-				Font::wrap_allegro_font(al_load_ttf_font_stretch(filename.as_ptr(), width as c_int, height as c_int, flags.get() as c_int))
-					.map_err(|_| "Failed to load the ttf font.".to_string())
+				Font::wrap_allegro_font(al_load_ttf_font_stretch(
+					filename.as_ptr(),
+					width as c_int,
+					height as c_int,
+					flags.get() as c_int,
+				)).map_err(|_| "Failed to load the ttf font.".to_string())
 			}
 		}
 	}

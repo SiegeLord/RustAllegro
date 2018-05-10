@@ -2,26 +2,26 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_acodec"]
+#![crate_name = "allegro_acodec"]
 #![crate_type = "lib"]
 
 extern crate allegro;
-extern crate allegro_audio;
 extern crate allegro_acodec_sys;
+extern crate allegro_audio;
 
 use allegro_acodec_sys::*;
 use allegro_audio::AudioAddon;
 
 pub struct AcodecAddon
 {
-	_dummy: ()
+	_dummy: (),
 }
 
 impl AcodecAddon
 {
 	pub fn init(_: &AudioAddon) -> Result<AcodecAddon, String>
 	{
-		use std::sync::{ONCE_INIT, Once};
+		use std::sync::{Once, ONCE_INIT};
 		static mut RUN_ONCE: Once = ONCE_INIT;
 
 		let mut res = Err("The acodec addon already initialized.".into());

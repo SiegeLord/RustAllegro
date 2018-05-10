@@ -4,8 +4,7 @@
 
 use allegro_audio_sys::*;
 
-#[derive(PartialEq)]
-#[derive(Copy, Clone)]
+#[derive(PartialEq, Copy, Clone)]
 pub enum AudioDepth
 {
 	I8,
