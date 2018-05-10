@@ -334,9 +334,8 @@
 <span id="278">278</span>
 <span id="279">279</span>
 <span id="280">280</span>
+<span id="281">281</span>
 </pre><pre class="rust ">
-
-
 <span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::{<span class="ident">CStr</span>, <span class="ident">CString</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
@@ -362,7 +361,10 @@ Wraps ALLEGRO_CONFIG.
 
 	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">config</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>, <span class="ident">own</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">Config</span>
 	{
-		<span class="ident">Config</span> { <span class="ident">allegro_config</span>: <span class="ident">config</span>, <span class="ident">owned</span>: <span class="ident">own</span> }
+		<span class="ident">Config</span> {
+			<span class="ident">allegro_config</span>: <span class="ident">config</span>,
+			<span class="ident">owned</span>: <span class="ident">own</span>,
+		}
 	}
 
 	<span class="doccomment">/// Loads a config from a path.</span>

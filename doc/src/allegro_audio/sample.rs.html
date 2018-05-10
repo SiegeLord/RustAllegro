@@ -466,9 +466,6 @@
 <span id="410">410</span>
 <span id="411">411</span>
 <span id="412">412</span>
-<span id="413">413</span>
-<span id="414">414</span>
-<span id="415">415</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -491,15 +488,14 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Mutex</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DataSample</span>
-	<span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
+<span class="kw">where</span>
+	<span class="self">Self</span>: <span class="ident">Sized</span>,
 {
 	<span class="kw">fn</span> <span class="ident">get_depth</span>(_: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>;
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">data_sample_impl</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>: <span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>: <span class="ident">path</span>) <span class="op">=&gt;</span>
-	{
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">data_sample_impl</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>:<span class="ident">path</span>) <span class="op">=&gt;</span> {
 		<span class="kw">impl</span> <span class="ident">DataSample</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>
 		{
 			<span class="kw">fn</span> <span class="ident">get_depth</span>(_: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>
@@ -507,7 +503,7 @@
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>
 			}
 		}
-	}
+	};
 }
 
 <span class="macro">data_sample_impl</span><span class="macro">!</span>(<span class="ident">i8</span>, <span class="ident">AudioDepth</span>::<span class="ident">I8</span>);
@@ -643,57 +639,53 @@
 	<span class="ident">allegro_sample_instance</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE_INSTANCE</span>,
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">check_or_else</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>: <span class="ident">expr</span>) <span class="op">=&gt;</span>
-	{
-		{
-			<span class="kw">let</span> <span class="ident">valid</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">sample_valid</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-			<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">valid</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">check_or_else</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {{
+		<span class="kw">let</span> <span class="ident">valid</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">sample_valid</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
+		<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">valid</span>
 			{
-				<span class="kw">unsafe</span>
+			<span class="kw">unsafe</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span> }
+			}
+		<span class="kw">else</span>
+			{
+			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>
+			}
+		}};
+}
+
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">set_impl</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {
+		<span class="macro">check_or_else</span><span class="macro">!</span>(
+			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>,
+			<span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>) <span class="op">!=</span> <span class="number">0</span>
 				{
-					<span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span>
+				<span class="prelude-val">Ok</span>(())
 				}
-			}
 			<span class="kw">else</span>
-			{
-				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>
-			}
-		}
-	}
+				{
+				<span class="prelude-val">Err</span>(())
+				},
+			<span class="prelude-val">Err</span>(())
+			)
+	};
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">set_impl</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>: <span class="ident">expr</span>) <span class="op">=&gt;</span>
-	{
-		<span class="macro">check_or_else</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>, <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>) <span class="op">!=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) }, <span class="prelude-val">Err</span>(()))
-	}
-}
-
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_opt_impl</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>: <span class="ident">ty</span>) <span class="op">=&gt;</span>
-	{
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_opt_impl</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>:<span class="ident">ty</span>) <span class="op">=&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>, <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>), <span class="prelude-val">Err</span>(()))
-	}
+	};
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_conv_impl</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>: <span class="ident">path</span>) <span class="op">=&gt;</span>
-	{
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_conv_impl</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>:<span class="ident">path</span>) <span class="op">=&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>, <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _))), <span class="prelude-val">Err</span>(()))
-	}
+	};
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_bool_impl</span>
-{
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>,<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>) <span class="op">=&gt;</span>
-	{
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_bool_impl</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>, <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _) <span class="op">!=</span> <span class="number">0</span>), <span class="prelude-val">Err</span>(()))
-	}
+	};
 }
 
 <span class="kw">impl</span> <span class="ident">SampleInstance</span>
@@ -765,13 +757,15 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pan</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>,
-		          <span class="ident">al_set_sample_instance_pan</span>,
-		          <span class="kw">match</span> <span class="ident">pan</span>
-		          {
-			          <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=&gt;</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">c_float</span>,
-			          <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">ALLEGRO_AUDIO_PAN_NONE</span>,
-		          })
+		<span class="macro">set_impl</span><span class="macro">!</span>(
+			<span class="self">self</span>,
+			<span class="ident">al_set_sample_instance_pan</span>,
+			<span class="kw">match</span> <span class="ident">pan</span>
+			{
+				<span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=&gt;</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">ALLEGRO_AUDIO_PAN_NONE</span>,
+			}
+		)
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">speed</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>

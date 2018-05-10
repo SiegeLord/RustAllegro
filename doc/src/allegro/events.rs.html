@@ -553,11 +553,15 @@
 <span id="497">497</span>
 <span id="498">498</span>
 <span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
 <span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
-
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">Event</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">Core</span>;
@@ -872,7 +876,10 @@
 			<span class="kw">let</span> <span class="ident">ts</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">any</span>()).<span class="ident">timestamp</span> <span class="kw">as</span> <span class="ident">f64</span>;
 			<span class="kw">match</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">_type</span>() <span class="kw">as</span> <span class="ident">u32</span>
 			{
-				<span class="ident">ALLEGRO_EVENT_DISPLAY_CLOSE</span> <span class="op">=&gt;</span> <span class="ident">DisplayClose</span> { <span class="ident">source</span>: <span class="ident">src</span>, <span class="ident">timestamp</span>: <span class="ident">ts</span> },
+				<span class="ident">ALLEGRO_EVENT_DISPLAY_CLOSE</span> <span class="op">=&gt;</span> <span class="ident">DisplayClose</span> {
+					<span class="ident">source</span>: <span class="ident">src</span>,
+					<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+				},
 				<span class="ident">ALLEGRO_EVENT_DISPLAY_RESIZE</span> <span class="op">=&gt;</span>
 				{
 					<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">display</span>();
@@ -917,7 +924,10 @@
 						<span class="ident">button</span>: <span class="ident">a</span>.<span class="ident">button</span> <span class="kw">as</span> <span class="ident">i32</span>,
 					}
 				}
-				<span class="ident">ALLEGRO_EVENT_JOYSTICK_CONFIGURATION</span> <span class="op">=&gt;</span> <span class="ident">JoystickConfiguration</span> { <span class="ident">source</span>: <span class="ident">src</span>, <span class="ident">timestamp</span>: <span class="ident">ts</span> },
+				<span class="ident">ALLEGRO_EVENT_JOYSTICK_CONFIGURATION</span> <span class="op">=&gt;</span> <span class="ident">JoystickConfiguration</span> {
+					<span class="ident">source</span>: <span class="ident">src</span>,
+					<span class="ident">timestamp</span>: <span class="ident">ts</span>,
+				},
 				<span class="ident">ALLEGRO_EVENT_KEY_DOWN</span> <span class="op">=&gt;</span>
 				{
 					<span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">keyboard</span>();

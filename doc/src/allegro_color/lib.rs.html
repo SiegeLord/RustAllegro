@@ -238,18 +238,24 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
 <span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-<span class="attribute">#![<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;allegro_color&quot;</span>]</span>
+<span class="attribute">#![<span class="ident">crate_name</span> <span class="op">=</span> <span class="string">&quot;allegro_color&quot;</span>]</span>
 <span class="attribute">#![<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
-
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
 
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_color_sys</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_color_sys</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_util</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
 
@@ -310,7 +316,15 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">b</span>: <span class="ident">c_float</span> <span class="op">=</span> <span class="number">0.0</span>;
 
 		<span class="kw">unsafe</span> {
-			<span class="ident">al_color_cmyk_to_rgb</span>(<span class="ident">cyan</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">magenta</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">yellow</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="ident">key</span> <span class="kw">as</span> <span class="ident">c_float</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">r</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">g</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">b</span>);
+			<span class="ident">al_color_cmyk_to_rgb</span>(
+				<span class="ident">cyan</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="ident">magenta</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="ident">yellow</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="ident">key</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">r</span>,
+				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">g</span>,
+				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">b</span>,
+			);
 		}
 
 		<span class="ident">Color</span>::<span class="ident">from_rgb_f</span>(<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f32</span>, <span class="ident">g</span> <span class="kw">as</span> <span class="ident">f32</span>, <span class="ident">b</span> <span class="kw">as</span> <span class="ident">f32</span>)

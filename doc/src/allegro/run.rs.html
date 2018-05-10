@@ -98,7 +98,6 @@
 <span class="comment">//</span>
 <span class="comment">// All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.</span>
 
-
 <span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">process</span>;
@@ -119,8 +118,9 @@
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">allegro_main</span>(_: <span class="ident">i32</span>, _: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i8</span>) <span class="op">-&gt;</span> <span class="ident">c_int</span>
 {
 	<span class="kw">unsafe</span> {
-		<span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> { (<span class="ident">GLOBAL_MAIN_FUNC</span>.<span class="ident">unwrap</span>())(); })
-			.<span class="ident">join</span>()
+		<span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> {
+			(<span class="ident">GLOBAL_MAIN_FUNC</span>.<span class="ident">unwrap</span>())();
+		}).<span class="ident">join</span>()
 			.<span class="ident">is_ok</span>();
 		<span class="ident">al_uninstall_system</span>();
 		<span class="kw">if</span> <span class="ident">ok</span>

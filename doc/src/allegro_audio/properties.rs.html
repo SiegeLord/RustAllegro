@@ -236,7 +236,6 @@
 <span id="180">180</span>
 <span id="181">181</span>
 <span id="182">182</span>
-<span id="183">183</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -244,8 +243,7 @@
 
 <span class="kw">use</span> <span class="ident">allegro_audio_sys</span>::<span class="kw-2">*</span>;
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AudioDepth</span>
 {
 	<span class="ident">I8</span>,
