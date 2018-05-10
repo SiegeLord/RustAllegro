@@ -87,13 +87,13 @@ allegro_main!
 	{
 		if redraw && q.is_empty()
 		{
-			core.set_target_bitmap(&buffer);
+			core.set_target_bitmap(Some(&buffer));
 			core.clear_to_color(black);
 			core.use_shader(Some(&*shader.upgrade().unwrap())).unwrap();
 			core.set_shader_uniform("tint", &tint[..]).unwrap();
 			core.draw_bitmap(&bmp, 0.0, 0.0, Flag::zero());
 
-			core.set_target_bitmap(disp.get_backbuffer());
+			core.set_target_bitmap(Some(disp.get_backbuffer()));
 			core.draw_bitmap(&buffer, 0.0, 0.0, Flag::zero());
 
 			core.flip_display();

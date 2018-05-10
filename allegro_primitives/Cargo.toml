@@ -29,6 +29,11 @@ libc = "0.1"
 path = "../allegro"
 version = "=0.0.32" #auto
 
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.32" #auto
+
 [dependencies.allegro_primitives-sys]
 
 path = "../allegro_primitives-sys"

@@ -39,6 +39,7 @@ fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncS
 	{
 		if redraw && q.is_empty()
 		{
+			core.set_target_bitmap(Some(disp.get_backbuffer()));
 			core.clear_to_color(Color::from_rgb_f(0.0, 0.0, c));
 			core.draw_text(
 				&font,
@@ -102,10 +103,6 @@ allegro_main!
 
 	let core2 = core.clone();
 	let font_addon2 = font_addon.clone();
-	spawn(move ||
-	{
-		other_window(core2, font_addon2, sender, init_only);
-	});
 
 	if init_only
 	{
@@ -114,6 +111,11 @@ allegro_main!
 
 	let disp = Display::new(&core, 800, 600).unwrap();
 	disp.set_window_title("Main Window");
+	
+	spawn(move ||
+	{
+		other_window(core2, font_addon2, sender, init_only);
+	});
 
 	let timer = Timer::new(&core, 1.0 / 60.0).unwrap();
 
@@ -154,7 +156,7 @@ allegro_main!
 			{
 				match receiver.try_recv()
 				{
-					Err(mpsc::TryRecvError::Disconnected) | Ok(..) => text = "You closed my buddy!",
+					Err(mpsc::TryRecvError::Disconnected) => text = "You closed my buddy!",
 					_ => ()
 				}
 

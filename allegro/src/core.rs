@@ -7,6 +7,7 @@ use bitmap_like::{BitmapFlags, BitmapLike};
 use color::{Color, PixelFormat};
 use config::Config;
 use display::{Display, DisplayFlags, DisplayOption, DisplayOptionImportance};
+use std::sync::Mutex;
 
 use events::EventSource;
 
@@ -18,7 +19,84 @@ use shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
 use std::ffi::{CStr, CString};
 use std::mem;
 use std::ptr;
+use std::thread;
 use transformations::Transform;
+
+struct ThreadState
+{
+	id: thread::ThreadId,
+	cur_bitmap: *mut ALLEGRO_BITMAP,
+	cur_display: *mut ALLEGRO_DISPLAY,
+}
+
+unsafe impl Send for ThreadState {}
+
+lazy_static!{
+	static ref THREAD_STATE: Mutex<Vec<ThreadState>> = Mutex::new(vec![]);
+}
+
+unsafe fn get_real_bitmap(bmp: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP
+{
+	if bmp.is_null() || al_is_sub_bitmap(bmp) == 0
+	{
+		bmp
+	}
+	else
+	{
+		al_get_parent_bitmap(bmp)
+	}
+}
+
+pub(crate) unsafe fn update_thread_state()
+{
+	let cur_id = thread::current().id();
+	let mut thread_state = THREAD_STATE.lock().unwrap();
+	let pos = (*thread_state).iter().position(|s| s.id == cur_id).unwrap_or(thread_state.len());
+	if pos >= thread_state.len()
+	{
+		thread_state.push(ThreadState{ id: cur_id, cur_bitmap: ptr::null_mut(), cur_display: ptr::null_mut() });
+	}
+	thread_state[pos].cur_bitmap = get_real_bitmap(al_get_target_bitmap());
+	thread_state[pos].cur_display = al_get_current_display();
+}
+
+pub(crate) unsafe fn check_bitmap_targeted_elsewhere(bmp: *mut ALLEGRO_BITMAP, action: &str)
+{
+	if bmp.is_null()
+	{
+		return
+	}
+	let cur_id = thread::current().id();
+	let thread_state = THREAD_STATE.lock().unwrap();
+	let bmp = get_real_bitmap(bmp);
+	if let Some(s) = thread_state.iter().find(|s| s.cur_bitmap == bmp && s.id != cur_id)
+	{
+		panic!("Attempting to {} bitmap {:?} in thread {:?}, but it is still targeted in thread {:?}", action, s.cur_bitmap, cur_id, s.id);
+	}
+}
+
+pub(crate) unsafe fn check_display_targeted_elsewhere(disp: *mut ALLEGRO_DISPLAY, action: &str)
+{
+	if disp.is_null()
+	{
+		return
+	}
+	let cur_id = thread::current().id();
+	let thread_state = THREAD_STATE.lock().unwrap();
+	if let Some(s) = thread_state.iter().find(|s| s.cur_display == disp && s.id != cur_id)
+	{
+		panic!("Attempting to {} display {:?} in thread {:?}, but it is still targeted in thread {:?}", action, s.cur_display, cur_id, s.id);
+	}
+}
+
+fn check_valid_target_bitmap()
+{
+	unsafe {
+		if al_get_target_bitmap().is_null() {
+			panic!("Target bitmap is null!");
+		}
+	}
+}
 
 flag_type!{
 	BitmapDrawingFlags
@@ -54,8 +132,6 @@ pub enum BlendOperation
 	DestMinusSrc = ALLEGRO_DEST_MINUS_SRC,
 }
 
-pub(crate) static mut DUMMY_TARGET: *mut ALLEGRO_BITMAP = 0 as *mut ALLEGRO_BITMAP;
-
 /// Extents of a monitor.
 pub struct MonitorInfo
 {
@@ -90,21 +166,9 @@ impl Core
 			RUN_ONCE.call_once(|| {
 				res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
 				{
-					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP as i32);
-					DUMMY_TARGET = al_create_bitmap(1, 1);
-					al_set_new_bitmap_flags(0);
-					if DUMMY_TARGET.is_null()
-					{
-						Err("Failed to create the dummy target... something is very wrong!".to_string())
-					}
-					else
-					{
-						al_merge_config_into(al_get_system_config(), system_config.get_allegro_config() as *const _);
-
-						al_set_target_bitmap(DUMMY_TARGET);
-						let config = Config::wrap(al_get_system_config(), false);
-						Ok(Core { system_config: config })
-					}
+					al_merge_config_into(al_get_system_config(), system_config.get_allegro_config() as *const _);
+					let config = Config::wrap(al_get_system_config(), false);
+					Ok(Core { system_config: config })
 				}
 				else
 				{
@@ -441,15 +505,19 @@ impl Core
 		unsafe { mem::transmute(al_get_new_bitmap_format() as u32) }
 	}
 
-	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: &T)
+	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: Option<&T>)
 	{
 		unsafe {
-			al_set_target_bitmap(bmp.get_allegro_bitmap());
+			al_set_target_bitmap(bmp.map(|b| b.get_allegro_bitmap()).unwrap_or(ptr::null_mut()));
+			check_bitmap_targeted_elsewhere(al_get_target_bitmap(), "target");
+			check_display_targeted_elsewhere(al_get_current_display(), "target");
+			update_thread_state();
 		}
 	}
 
 	pub fn clear_to_color(&self, color: Color)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_clear_to_color(color.get_allegro_color());
 		}
@@ -457,6 +525,7 @@ impl Core
 
 	pub fn draw_pixel(&self, x: f32, y: f32, color: Color)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_pixel(x as c_float, y as c_float, color.get_allegro_color());
 		}
@@ -464,6 +533,7 @@ impl Core
 
 	pub fn put_pixel(&self, x: i32, y: i32, color: Color)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_put_pixel(x as c_int, y as c_int, color.get_allegro_color());
 		}
@@ -471,6 +541,7 @@ impl Core
 
 	pub fn put_blended_pixel(&self, x: i32, y: i32, color: Color)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_put_blended_pixel(x as c_int, y as c_int, color.get_allegro_color());
 		}
@@ -478,6 +549,7 @@ impl Core
 
 	pub fn draw_bitmap<T: BitmapLike>(&self, bitmap: &T, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_bitmap(bitmap.get_allegro_bitmap(), dx as c_float, dy as c_float, (flags.get() >> 1) as c_int);
 		}
@@ -485,6 +557,7 @@ impl Core
 
 	pub fn draw_bitmap_region<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_bitmap_region(
 				bitmap.get_allegro_bitmap(),
@@ -501,6 +574,7 @@ impl Core
 
 	pub fn draw_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_scaled_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -519,6 +593,7 @@ impl Core
 
 	pub fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_rotated_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -534,6 +609,7 @@ impl Core
 
 	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_scaled_rotated_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -551,6 +627,7 @@ impl Core
 
 	pub fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -564,6 +641,7 @@ impl Core
 
 	pub fn draw_tinted_bitmap_region<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_bitmap_region(
 				bitmap.get_allegro_bitmap(),
@@ -581,6 +659,7 @@ impl Core
 
 	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_scaled_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -600,6 +679,7 @@ impl Core
 
 	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_rotated_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -616,6 +696,7 @@ impl Core
 
 	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_scaled_rotated_bitmap(
 				bitmap.get_allegro_bitmap(),
@@ -637,6 +718,7 @@ impl Core
 		angle: f32, flags: BitmapDrawingFlags,
 	)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_draw_tinted_scaled_rotated_bitmap_region(
 				bitmap.get_allegro_bitmap(),
@@ -659,6 +741,7 @@ impl Core
 
 	pub fn set_clipping_rectangle(&self, x: i32, y: i32, width: i32, height: i32)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_set_clipping_rectangle(x as c_int, y as c_int, width as c_int, height as c_int);
 		}
@@ -666,6 +749,7 @@ impl Core
 
 	pub fn reset_clipping_rectangle(&self)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_reset_clipping_rectangle();
 		}
@@ -673,6 +757,7 @@ impl Core
 
 	pub fn get_clipping_rectangle(&self) -> (i32, i32, i32, i32)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			let mut x: c_int = 0;
 			let mut y: c_int = 0;
@@ -766,17 +851,14 @@ impl Core
 
 	pub fn get_current_transform(&self) -> Transform
 	{
+		check_valid_target_bitmap();
 		let t = unsafe { al_get_current_transform() };
-		if t.is_null()
-		{
-			/* We always have a valid target */
-			unreachable!();
-		}
 		unsafe { Transform::wrap(*t) }
 	}
 
 	pub fn use_transform(&self, trans: &Transform)
 	{
+		check_valid_target_bitmap();
 		unsafe {
 			al_use_transform(&trans.get_allegro_transform());
 		}
@@ -787,6 +869,7 @@ impl Core
 	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
 	pub fn use_shader(&self, shader: Option<&Shader>) -> Result<(), ()>
 	{
+		check_valid_target_bitmap();
 		match shader
 		{
 			Some(shader) =>

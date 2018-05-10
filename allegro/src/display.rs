@@ -7,7 +7,7 @@ use allegro_util::Flag;
 use bitmap::Bitmap;
 use bitmap_like::BitmapLike;
 use color::PixelFormat;
-use core::{Core, DUMMY_TARGET};
+use core::{Core, update_thread_state, check_display_targeted_elsewhere};
 use events::EventSource;
 
 use ffi::*;
@@ -130,6 +130,7 @@ impl Display
 			}
 			else
 			{
+				update_thread_state();
 				let backbuffer = Bitmap::wrap(al_get_backbuffer(d), false);
 				Ok(Display::new_impl(d, backbuffer))
 			}
@@ -334,11 +335,9 @@ impl Drop for Display
 			panic!("Display has outstanding shaders!");
 		}
 		unsafe {
+			check_display_targeted_elsewhere(self.allegro_display, "destroy");
 			al_destroy_display(self.allegro_display);
-			if al_get_target_bitmap().is_null()
-			{
-				al_set_target_bitmap(DUMMY_TARGET);
-			}
+			update_thread_state();
 		}
 	}
 }

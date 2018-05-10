@@ -9,6 +9,8 @@ extern crate libc;
 extern crate allegro_sys as ffi;
 #[macro_use]
 extern crate allegro_util;
+#[macro_use]
+extern crate lazy_static;
 
 pub use allegro_util::*;
 pub use bitmap::*;

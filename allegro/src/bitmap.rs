@@ -3,15 +3,15 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 
-use bitmap_like::{BitmapLike, MEMORY_BITMAP};
+use bitmap_like::BitmapLike;
 use core::Core;
 
 use ffi::*;
 use libc::*;
 use std::cell::RefCell;
 use std::ffi::CString;
-use std::mem;
 use std::rc::{Rc, Weak};
+use core::{update_thread_state, check_bitmap_targeted_elsewhere};
 
 pub struct Bitmap
 {
@@ -92,33 +92,10 @@ impl Bitmap
 	{
 		unsafe { Bitmap::clone_and_wrap(self.allegro_bitmap) }
 	}
-
-	/**
-	Converts a bitmap into a memory bitmap, if possible.
-
-	Panics if there are any outstanding sub-bitmaps.
-	*/
-	pub fn into_memory_bitmap(self) -> Result<MemoryBitmap, Bitmap>
-	{
-		if self.get_flags() & MEMORY_BITMAP && self.owned
-		{
-			let bmp = self.allegro_bitmap;
-			if self.has_outstanding_sub_bitmaps()
-			{
-				panic!("Bitmap has outstanding sub-bitmaps.");
-			}
-			// Clone the sub-bitmaps out, so we don't leak them.
-			let _ = self.sub_bitmaps.clone();
-			// Don't run Bitmap's destructor
-			mem::forget(self);
-			unsafe { Ok(MemoryBitmap::wrap(bmp)) }
-		}
-		else
-		{
-			Err(self)
-		}
-	}
 }
+
+unsafe impl Send for Bitmap {}
+unsafe impl Sync for Bitmap {}
 
 impl BitmapLike for Bitmap
 {
@@ -152,42 +129,10 @@ impl Drop for Bitmap
 		if self.owned
 		{
 			unsafe {
-				handle_bitmap_destruction(self.allegro_bitmap, false);
+				check_bitmap_targeted_elsewhere(self.allegro_bitmap, "destroy");
+				al_destroy_bitmap(self.allegro_bitmap);
+				update_thread_state();
 			}
-		}
-	}
-}
-
-/// A memory bitmap, unlike a regular bitmap, can be transferred between threads.
-pub struct MemoryBitmap
-{
-	allegro_bitmap: *mut ALLEGRO_BITMAP,
-}
-
-unsafe impl Send for MemoryBitmap {}
-
-impl MemoryBitmap
-{
-	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP) -> MemoryBitmap
-	{
-		MemoryBitmap { allegro_bitmap: bmp }
-	}
-
-	pub fn into_bitmap(self) -> Bitmap
-	{
-		let bmp = self.allegro_bitmap;
-		// Don't run MemoryBitmap's destructor
-		mem::forget(self);
-		unsafe { Bitmap::wrap(bmp, true) }
-	}
-}
-
-impl Drop for MemoryBitmap
-{
-	fn drop(&mut self)
-	{
-		unsafe {
-			handle_bitmap_destruction(self.allegro_bitmap, false);
 		}
 	}
 }
@@ -233,6 +178,9 @@ impl SubBitmap
 	}
 }
 
+unsafe impl Send for SubBitmap {}
+unsafe impl Sync for SubBitmap {}
+
 impl BitmapLike for SubBitmap
 {
 	fn get_allegro_bitmap(&self) -> *mut ALLEGRO_BITMAP
@@ -251,25 +199,9 @@ impl Drop for SubBitmap
 	fn drop(&mut self)
 	{
 		unsafe {
-			handle_bitmap_destruction(self.allegro_bitmap, true);
+			check_bitmap_targeted_elsewhere(self.allegro_bitmap, "destroy");
+			al_destroy_bitmap(self.allegro_bitmap);
+			update_thread_state();
 		}
 	}
-}
-
-unsafe fn handle_bitmap_destruction(bmp: *mut ALLEGRO_BITMAP, is_sub_bitmap: bool)
-{
-	use core::DUMMY_TARGET;
-
-	/* If this bitmap is the target or the parent of the target
-	 * then the target becomes invalid. Set it to the dummy target. */
-	let target = al_get_target_bitmap();
-	if target.is_null()
-	{
-		panic!("Null target bitmap!");
-	}
-	if target == bmp || (!is_sub_bitmap && al_get_parent_bitmap(target) == bmp)
-	{
-		al_set_target_bitmap(DUMMY_TARGET);
-	}
-	al_destroy_bitmap(bmp);
 }

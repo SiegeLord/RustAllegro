@@ -56,13 +56,13 @@ allegro_main!
 	let info = core.get_monitor_info(0).unwrap();
 	println!("{} {} {} {}", info.x1, info.y1, info.x2, info.y2);
 
-	core.set_target_bitmap(&bmp);
+	core.set_target_bitmap(Some(&bmp));
 	core.clear_to_color(Color::from_rgb_f(0.0, 0.0, 1.0));
 
 	let sub_bmp = bmp.create_sub_bitmap(64, 64, 64, 64).unwrap();
-	core.set_target_bitmap(&*sub_bmp.upgrade().unwrap());
+	core.set_target_bitmap(Some(&*sub_bmp.upgrade().unwrap()));
 	core.clear_to_color(Color::from_rgb_f(0.0, 1.0, 1.0));
-	core.set_target_bitmap(disp.get_backbuffer());
+	core.set_target_bitmap(Some(disp.get_backbuffer()));
 
 	let bkg = Bitmap::load(&core, "data/mysha.pcx").unwrap();
 	let font = Font::new_builtin(&font_addon).unwrap();

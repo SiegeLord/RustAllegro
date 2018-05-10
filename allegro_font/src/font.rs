@@ -38,10 +38,20 @@ pub trait FontDrawing
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str);
 }
 
+fn check_valid_target_bitmap()
+{
+	unsafe {
+		if al_get_target_bitmap().is_null() {
+			panic!("Target bitmap is null!");
+		}
+	}
+}
+
 impl FontDrawing for Core
 {
 	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str)
 	{
+		check_valid_target_bitmap();
 		if text.len() == 0
 		{
 			return;
@@ -63,6 +73,7 @@ impl FontDrawing for Core
 
 	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlign, text: &str)
 	{
+		check_valid_target_bitmap();
 		if text.len() == 0
 		{
 			return;
@@ -85,6 +96,9 @@ pub struct Font
 {
 	allegro_font: *mut ALLEGRO_FONT,
 }
+
+unsafe impl Send for Font {}
+unsafe impl Sync for Font {}
 
 impl Font
 {
