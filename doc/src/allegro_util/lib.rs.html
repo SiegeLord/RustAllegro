@@ -10,10 +10,11 @@
     <title>lib.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css"
+          id="mainThemeStyle">
     
     <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle">
     <script src="../../storage.js"></script>
     
 
@@ -212,7 +213,7 @@
 
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_c_str</span>(<span class="ident">c_str</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-&gt;</span> <span class="ident">String</span>
 {
-	<span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">c_str</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> _).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
+	<span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">c_str</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
 }
 
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>

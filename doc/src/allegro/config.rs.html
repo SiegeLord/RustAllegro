@@ -10,10 +10,11 @@
     <title>config.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css"
+          id="mainThemeStyle">
     
     <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle">
     <script src="../../storage.js"></script>
     
 
@@ -568,7 +569,7 @@ Configuration section. Used for iterating through all the sections of a configur
 		<span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_some</span>()
 		{
 			<span class="self">self</span>.<span class="ident">next_section</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-				<span class="kw">let</span> <span class="ident">next_section</span> <span class="op">=</span> <span class="ident">al_get_next_config_section</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">config_section</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> _);
+				<span class="kw">let</span> <span class="ident">next_section</span> <span class="op">=</span> <span class="ident">al_get_next_config_section</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">config_section</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">next_section</span>.<span class="ident">is_null</span>()
 				{
 					<span class="prelude-val">Some</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">next_section</span>).<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>())
@@ -603,7 +604,7 @@ Configuration entry. Used for iterating through all the entries of a configurati
 		<span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_some</span>()
 		{
 			<span class="self">self</span>.<span class="ident">next_key</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-				<span class="kw">let</span> <span class="ident">next_key</span> <span class="op">=</span> <span class="ident">al_get_next_config_entry</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">config_entry</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> _);
+				<span class="kw">let</span> <span class="ident">next_key</span> <span class="op">=</span> <span class="ident">al_get_next_config_entry</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">config_entry</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">next_key</span>.<span class="ident">is_null</span>()
 				{
 					<span class="prelude-val">Some</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">next_key</span>).<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>())

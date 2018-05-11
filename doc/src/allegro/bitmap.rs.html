@@ -10,10 +10,11 @@
     <title>bitmap.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css"
+          id="mainThemeStyle">
     
     <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle">
     <script src="../../storage.js"></script>
     
 
@@ -285,7 +286,7 @@
 
 <span class="kw">impl</span> <span class="ident">Bitmap</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(_: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">al_create_bitmap</span>(<span class="ident">w</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">h</span> <span class="kw">as</span> <span class="ident">c_int</span>);
@@ -300,7 +301,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(_: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">filename</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();

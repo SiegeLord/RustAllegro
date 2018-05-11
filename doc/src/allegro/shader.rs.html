@@ -10,10 +10,11 @@
     <title>shader.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css"
+          id="mainThemeStyle">
     
     <link rel="stylesheet" type="text/css" href="../../dark.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle">
     <script src="../../storage.js"></script>
     
 
@@ -271,7 +272,7 @@
 			<span class="ident">ALLEGRO_SHADER_AUTO</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">Auto</span>,
 			<span class="ident">ALLEGRO_SHADER_GLSL</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">GLSL</span>,
 			<span class="ident">ALLEGRO_SHADER_HLSL</span> <span class="op">=&gt;</span> <span class="ident">ShaderPlatform</span>::<span class="ident">HLSL</span>,
-			_ <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Malformed platform: {}&quot;</span>, <span class="ident">platform</span>),
+			<span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Malformed platform: {}&quot;</span>, <span class="ident">platform</span>),
 		}
 	}
 }
