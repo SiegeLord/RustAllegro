@@ -23,5 +23,4 @@ script:
   - cd ..
 after_success:
   - cd doc/target
-  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
   - ../gh_pages_upload.sh
