@@ -12,13 +12,6 @@ extern crate libc;
 use allegro::Core;
 use ffi::allegro_image::*;
 
-#[cfg(not(manual_link))]
-mod link_name
-{
-	#[link(name = "allegro_image")]
-	extern "C" {}
-}
-
 pub mod ffi
 {
 	pub use self::allegro_image::*;
