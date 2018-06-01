@@ -134,7 +134,7 @@ following from the RustAllegro's `examples` directory:
 
 ```
 export ALLEGRO_INCLUDE_DIR=C:/allegro/include
-export RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+export ALLEGRO_LINK_DIR=C:/allegro/lib
 cargo build
 ```
 
@@ -142,7 +142,7 @@ cargo build
 
 ```
 set ALLEGRO_INCLUDE_DIR=C:/allegro/include
-set RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+set ALLEGRO_LINK_DIR=C:/allegro/lib
 cargo build
 ```
 
