@@ -117,6 +117,8 @@ There are a few features that might come in useful:
                   Note that you'll have to link the various dependency
                   libraries yourself. Can be combined with `link_debug`.
 
+Additionally, you can specify a link directory by setting a `ALLEGRO_LINK_DIR`.
+
 ## Windows notes
 
 RustAllegro works well with the official pre-compiled binaries. First,

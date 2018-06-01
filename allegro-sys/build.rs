@@ -150,4 +150,8 @@ pub const ALLEGRO_DATE: u32                 = {};
 		Ok(_) => "-static"
 	};
 	println!("cargo:rustc-flags=-l allegro{}{}", debug, static_);
+	if let Ok(link_dir) = var("ALLEGRO_LINK_DIR")
+	{
+		println!("cargo:rustc-flags=-L {}", link_dir);
+	}
 }
