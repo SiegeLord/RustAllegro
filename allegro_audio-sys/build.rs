@@ -23,5 +23,5 @@ fn main()
 		Ok(_) => "-static"
 	};
 
-	println!("cargo:rustc-flags=-l allegro_audio{}{}", static_, debug);
+	println!("cargo:rustc-flags=-l allegro_audio{}{}", debug, static_);
 }

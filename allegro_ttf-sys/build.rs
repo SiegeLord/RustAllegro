@@ -23,5 +23,5 @@ fn main()
 		Ok(_) => "-static"
 	};
 
-	println!("cargo:rustc-flags=-l allegro_ttf{}{}", static_, debug);
+	println!("cargo:rustc-flags=-l allegro_ttf{}{}", debug, static_);
 }

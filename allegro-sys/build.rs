@@ -149,5 +149,5 @@ pub const ALLEGRO_DATE: u32                 = {};
 		Err(_) => "",
 		Ok(_) => "-static"
 	};
-	println!("cargo:rustc-flags=-l allegro{}{}", static_, debug);
+	println!("cargo:rustc-flags=-l allegro{}{}", debug, static_);
 }
