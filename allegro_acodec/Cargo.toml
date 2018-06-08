@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_acodec/index
 keywords = ["audio"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 acodec addon Rust wrapper"
+categories = ["multimedia::audio"]
 
 [lib]
 

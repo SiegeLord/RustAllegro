@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 font addon Rust binding"
 build = "build.rs"
 links = "allegro_font"
+categories = ["rendering::data-formats", "external-ffi-bindings"]
 
 [lib]
 

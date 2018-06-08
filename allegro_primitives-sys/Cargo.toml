@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 primitives addon Rust binding"
 build = "build.rs"
 links = "allegro_primitives"
+categories = ["rendering", "external-ffi-bindings"]
 
 [lib]
 

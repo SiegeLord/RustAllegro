@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_ttf/index.ht
 keywords = ["text", "graphics", "ttf", "font"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 ttf addon Rust wrapper"
+categories = ["rendering::data-formats"]
 
 [lib]
 

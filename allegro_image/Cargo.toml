@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_image/index.
 keywords = ["image", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 image addon Rust wrapper"
+categories = ["rendering::data-formats"]
 
 [lib]
 

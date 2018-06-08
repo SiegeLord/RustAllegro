@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_primitives/i
 keywords = ["primitives", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 primitives addon Rust wrapper"
+categories = ["rendering"]
 
 [lib]
 

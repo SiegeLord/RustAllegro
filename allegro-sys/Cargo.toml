@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 core library Rust binding"
 build = "build.rs"
 links = "allegro"
+categories = ["multimedia", "rendering::graphics-api", "external-ffi-bindings"]
 
 [lib]
 

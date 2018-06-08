@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_dialog/index
 keywords = ["dialogs"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 dialog addon Rust wrapper"
+categories = ["gui"]
 
 [lib]
 

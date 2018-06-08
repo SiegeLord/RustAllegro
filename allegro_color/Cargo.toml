@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_color/index.
 keywords = ["colors"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 color addon Rust wrapper"
+categories = ["multimedia"]
 
 [lib]
 

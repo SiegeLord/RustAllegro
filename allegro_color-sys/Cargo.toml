@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 color addon Rust binding"
 build = "build.rs"
 links = "allegro_color"
+categories = ["multimedia", "external-ffi-bindings"]
 
 [lib]
 

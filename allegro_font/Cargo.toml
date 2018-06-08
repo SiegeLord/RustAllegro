@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_font/index.h
 keywords = ["text", "font", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 font addon Rust wrapper"
+categories = ["rendering::data-formats"]
 
 [lib]
 

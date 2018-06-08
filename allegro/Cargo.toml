@@ -9,6 +9,7 @@ keywords = ["input", "windowing", "opengl", "direct3d", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 core library Rust wrapper"
 build = "build.rs"
+categories = ["multimedia", "rendering::graphics-api"]
 
 [lib]
 
