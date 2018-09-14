@@ -1030,6 +1030,7 @@
 <span id="1030">1030</span>
 <span id="1031">1031</span>
 <span id="1032">1032</span>
+<span id="1033">1033</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -1152,7 +1153,7 @@
 }
 
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BlendMode</span>
 {
 	<span class="ident">Zero</span> <span class="op">=</span> <span class="ident">ALLEGRO_ZERO</span>,
@@ -1168,7 +1169,7 @@
 }
 
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BlendOperation</span>
 {
 	<span class="ident">Add</span> <span class="op">=</span> <span class="ident">ALLEGRO_ADD</span>,
@@ -1177,6 +1178,7 @@
 }
 
 <span class="doccomment">/// Extents of a monitor.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MonitorInfo</span>
 {
 	<span class="kw">pub</span> <span class="ident">x1</span>: <span class="ident">i32</span>,

@@ -34,7 +34,7 @@
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ALLEGRO_TRANSFORM</span>
 {
 	<span class="kw">pub</span> <span class="ident">m</span>: [[<span class="ident">c_float</span>; <span class="number">4</span>]; <span class="number">4</span>],
