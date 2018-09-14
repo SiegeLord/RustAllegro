@@ -5,7 +5,7 @@
 use ffi::*;
 use libc::*;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Color(ALLEGRO_COLOR);
 
 impl Color
@@ -67,7 +67,7 @@ impl Color
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum PixelFormat
 {
 	PixelFormatAny = ALLEGRO_PIXEL_FORMAT_ANY,

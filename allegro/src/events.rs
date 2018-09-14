@@ -158,7 +158,7 @@ impl<'m> EventSource<'m>
 	}
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum Event
 {
 	NoEvent,

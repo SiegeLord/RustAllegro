@@ -66,7 +66,7 @@ macro_rules! flag_type
 {
 	($f: ident { $($n: ident = $v: expr),*}) =>
 	{
-		#[derive(Copy, Clone)]
+		#[derive(Copy, Clone, Debug)]
 		pub struct $f
 		{
 			bits: u32

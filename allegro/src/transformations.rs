@@ -6,7 +6,7 @@ use ffi::*;
 use libc::*;
 use std::mem;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Transform(ALLEGRO_TRANSFORM);
 
 unsafe impl Send for Transform {}

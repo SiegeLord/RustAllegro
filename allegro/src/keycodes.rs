@@ -7,8 +7,8 @@ use ffi::*;
 use libc::*;
 use std::mem;
 
-#[derive(Copy, Clone, PartialEq)]
 #[repr(u32)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum KeyCode
 {
 	A = 1,

@@ -119,7 +119,7 @@ flag_type!{
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum BlendMode
 {
 	Zero = ALLEGRO_ZERO,
@@ -135,7 +135,7 @@ pub enum BlendMode
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum BlendOperation
 {
 	Add = ALLEGRO_ADD,
@@ -144,6 +144,7 @@ pub enum BlendOperation
 }
 
 /// Extents of a monitor.
+#[derive(Copy, Clone, Debug)]
 pub struct MonitorInfo
 {
 	pub x1: i32,
