@@ -1,0 +1,33 @@
+[package]
+
+name = "allegro_memfile-sys"
+version = "0.0.33" #auto
+license = "Zlib"
+repository = "https://github.com/SiegeLord/RustAllegro"
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_memfile-sys/index.html"
+keywords = ["text", "graphics", "ttf", "font"]
+authors = [ "SiegeLord <slabode@aim.com>" ]
+description = "Allegro 5 memfile addon Rust binding"
+build = "build.rs"
+links = "allegro_memfile"
+categories = ["external-ffi-bindings"]
+
+[lib]
+
+name = "allegro_memfile_sys"
+path = "src/lib.rs"
+
+[features]
+
+link_none = []
+link_debug = []
+link_static = []
+
+[dependencies]
+
+libc = "0.1"
+
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.33" #auto

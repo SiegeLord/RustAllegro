@@ -22,6 +22,7 @@ allegro_dialog-sys
 allegro_primitives-sys
 allegro_font-sys
 allegro_ttf-sys
+allegro_memfile-sys
 allegro_color-sys""")
 
 crate_list_wrapper = split("""
