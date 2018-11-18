@@ -12,6 +12,7 @@ ALIASES['allegro_font'] = {};
 ALIASES['allegro_font_sys'] = {};
 ALIASES['allegro_image'] = {};
 ALIASES['allegro_image_sys'] = {};
+ALIASES['allegro_memfile_sys'] = {};
 ALIASES['allegro_primitives'] = {};
 ALIASES['allegro_primitives_sys'] = {};
 ALIASES['allegro_sys'] = {};
