@@ -32,6 +32,8 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -40,6 +42,7 @@
 <span class="attribute">#![<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;allegro_ttf_sys&quot;</span>]</span>
 <span class="attribute">#![<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
 
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_sys</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_font_sys</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">allegro_util</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
@@ -51,6 +54,7 @@
 	<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 	<span class="kw">use</span> <span class="ident">allegro_font_sys</span>::<span class="ident">ALLEGRO_FONT</span>;
+	<span class="kw">use</span> <span class="ident">allegro_sys</span>::<span class="kw-2">*</span>;
 
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_TTF_NO_KERNING</span>: <span class="ident">u32</span>  <span class="op">=</span> <span class="number">1</span>;
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_TTF_MONOCHROME</span>: <span class="ident">u32</span>  <span class="op">=</span> <span class="number">2</span>;
@@ -59,9 +63,9 @@
 	<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 	{
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_ttf_font</span>(<span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">size</span>: <span class="ident">c_int</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FONT</span>;
-		<span class="comment">//~ pub fn al_load_ttf_font_f(file: *mut ALLEGRO_FILE, filename: *const c_char, size: c_int, flags: c_int) -&gt; *mut ALLEGRO_FONT;</span>
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_ttf_font_f</span>(<span class="ident">file</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILE</span>, <span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">size</span>: <span class="ident">c_int</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FONT</span>;
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_ttf_font_stretch</span>(<span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">w</span>: <span class="ident">c_int</span>, <span class="ident">h</span>: <span class="ident">c_int</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FONT</span>;
-		<span class="comment">//~ pub fn al_load_ttf_font_stretch_f(file: *mut ALLEGRO_FILE, filename: *const c_char, w: c_int, h: c_int, flags: c_int) -&gt; *mut ALLEGRO_FONT;</span>
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_ttf_font_stretch_f</span>(<span class="ident">file</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILE</span>, <span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">w</span>: <span class="ident">c_int</span>, <span class="ident">h</span>: <span class="ident">c_int</span>, <span class="ident">flags</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FONT</span>;
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_init_ttf_addon</span>() <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_shutdown_ttf_addon</span>();
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_allegro_ttf_version</span>() <span class="op">-&gt;</span> <span class="ident">uint32_t</span>;

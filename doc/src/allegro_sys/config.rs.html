@@ -54,6 +54,7 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
+<span id="57">57</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -61,6 +62,7 @@
 
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 
+<span class="kw">use</span> <span class="ident">file</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
 <span class="macro">opaque</span><span class="macro">!</span>(<span class="ident">ALLEGRO_CONFIG_SECTION</span>);
@@ -84,11 +86,11 @@
 	                           <span class="ident">key</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>)
 	                           <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>;
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_config_file</span>(<span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>;
-	<span class="comment">//~ pub fn al_load_config_file_f(filename: *mut ALLEGRO_FILE) -&gt; *mut ALLEGRO_CONFIG;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_load_config_file_f</span>(<span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILE</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>;
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_save_config_file</span>(<span class="ident">filename</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="ident">config</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_CONFIG</span>) <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
-	<span class="comment">//~ pub fn al_save_config_file_f(file: *mut ALLEGRO_FILE,</span>
-	                             <span class="comment">//~ config: *const ALLEGRO_CONFIG)</span>
-	                             <span class="comment">//~ -&gt; c_bool;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_save_config_file_f</span>(<span class="ident">file</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_FILE</span>,
+	                             <span class="ident">config</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_CONFIG</span>)
+	                             <span class="op">-&gt;</span> <span class="ident">c_bool</span>;
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_merge_config_into</span>(<span class="ident">master</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>, <span class="ident">add</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_CONFIG</span>) <span class="op">-&gt;</span> ();
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_merge_config</span>(<span class="ident">cfg1</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_CONFIG</span>,
 	                       <span class="ident">cfg2</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_CONFIG</span>)
