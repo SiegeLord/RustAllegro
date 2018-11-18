@@ -5,7 +5,6 @@ version = "0.0.33" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_memfile-sys/index.html"
-keywords = ["text", "graphics", "ttf", "font"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 memfile addon Rust binding"
 build = "build.rs"
