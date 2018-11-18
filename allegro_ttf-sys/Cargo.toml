@@ -32,6 +32,11 @@ libc = "0.1"
 path = "../allegro_font-sys"
 version = "=0.0.33" #auto
 
+[dependencies.allegro-sys]
+
+path = "../allegro-sys"
+version = "=0.0.33" #auto
+
 [dependencies.allegro_util]
 
 path = "../allegro_util"
