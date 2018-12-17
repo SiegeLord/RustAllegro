@@ -145,6 +145,9 @@ impl Drop for Sink
 	}
 }
 
+unsafe impl Send for Sink {}
+unsafe impl Sync for Sink {}
+
 impl HasMixer for Sink
 {
 	fn get_mixer<'l>(&'l self) -> &'l Mixer

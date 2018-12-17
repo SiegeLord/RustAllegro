@@ -121,6 +121,9 @@ impl Drop for Mixer
 	}
 }
 
+unsafe impl Send for Mixer {}
+unsafe impl Sync for Mixer {}
+
 pub trait MixerLike: HasMixer
 {
 	fn get_allegro_mixer(&self) -> *mut ALLEGRO_MIXER

@@ -162,6 +162,9 @@ impl Drop for Sample
 	}
 }
 
+unsafe impl Send for Sample {}
+unsafe impl Sync for Sample {}
+
 pub struct SampleInstance
 {
 	parent: Option<Connection>,
@@ -385,6 +388,9 @@ impl Drop for SampleInstance
 		}
 	}
 }
+
+unsafe impl Send for SampleInstance {}
+unsafe impl Sync for SampleInstance {}
 
 impl AttachToMixerImpl for SampleInstance
 {

@@ -294,6 +294,9 @@ impl Drop for AudioStream
 	}
 }
 
+unsafe impl Send for AudioStream {}
+unsafe impl Sync for AudioStream {}
+
 impl AttachToMixerImpl for AudioStream
 {
 	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
