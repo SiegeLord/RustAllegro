@@ -184,6 +184,9 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -334,6 +337,9 @@
 		}
 	}
 }
+
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">Shader</span> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">Shader</span> {}
 
 <span class="doccomment">/// Trait implemented by types that can be used to set uniforms in shaders.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ShaderUniform</span>
