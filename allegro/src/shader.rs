@@ -148,6 +148,9 @@ impl Drop for Shader
 	}
 }
 
+unsafe impl Send for Shader {}
+unsafe impl Sync for Shader {}
+
 /// Trait implemented by types that can be used to set uniforms in shaders.
 pub trait ShaderUniform
 {

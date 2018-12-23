@@ -15,7 +15,7 @@ use libc::*;
 use shader::{Shader, ShaderPlatform};
 use std::ffi::CString;
 use std::mem;
-use std::rc::{Rc, Weak};
+use std::sync::{Arc, Weak};
 
 flag_type!
 {
@@ -114,7 +114,7 @@ pub struct Display
 	allegro_display: *mut ALLEGRO_DISPLAY,
 	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	shaders: Vec<Rc<Shader>>,
+	shaders: Vec<Arc<Shader>>,
 }
 
 impl Display
@@ -294,8 +294,8 @@ impl Display
 		};
 		if !shader.is_null()
 		{
-			let shader = unsafe { Rc::new(Shader::wrap(shader)) };
-			let ret = Rc::downgrade(&shader);
+			let shader = unsafe { Arc::new(Shader::wrap(shader)) };
+			let ret = Arc::downgrade(&shader);
 			self.shaders.push(shader);
 			Ok(ret)
 		}
@@ -310,7 +310,7 @@ impl Display
 	{
 		for shader in &self.shaders
 		{
-			if Rc::strong_count(&shader) != 1
+			if Arc::strong_count(&shader) != 1
 			{
 				return true;
 			}
@@ -324,6 +324,9 @@ impl Display
 		false
 	}
 }
+
+unsafe impl Send for Display {}
+unsafe impl Sync for Display {}
 
 impl Drop for Display
 {
