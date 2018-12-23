@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_memfile-sys"
-version = "0.0.34" #auto
+version = "0.0.35" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_memfile-sys/index.html"
@@ -29,4 +29,4 @@ libc = "0.1"
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.34" #auto
+version = "=0.0.35" #auto
