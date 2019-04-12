@@ -22,3 +22,4 @@ sourcesIndex["allegro_util"] = {"name":"","dirs":[],"files":["lib.rs"]};
 sourcesIndex["delete_me"] = {"name":"","dirs":[],"files":["dummy.rs"]};
 sourcesIndex["lazy_static"] = {"name":"","dirs":[],"files":["lazy.rs","lib.rs"]};
 sourcesIndex["libc"] = {"name":"","dirs":[],"files":["lib.rs"]};
+createSourceSidebar();
