@@ -5,6 +5,7 @@ import fileinput
 import re
 import os
 import glob
+import time
 from shutil import copy, rmtree
 from subprocess import check_call
 
@@ -70,6 +71,7 @@ if args.publish:
 	for crate in crate_list:
 		print 'Publishing', crate
 		check_call(cargo_cmd('publish'), cwd=crate)
+		time.sleep(15)
 
 if args.build:
 	check_call(cargo_cmd('build'), cwd='doc')
