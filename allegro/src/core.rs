@@ -170,8 +170,8 @@ impl Core
 	/// Initializes Allegro while merging in the system_config into the system configuration.
 	pub fn init_with_config(system_config: &Config) -> Result<Core, String>
 	{
-		use std::sync::{Once, ONCE_INIT};
-		static mut RUN_ONCE: Once = ONCE_INIT;
+		use std::sync::Once;
+		static mut RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("Already initialized.".to_string());
 		unsafe {
@@ -843,12 +843,12 @@ impl Core
 	pub fn get_new_window_position(&self) -> (i32, i32)
 	{
 		unsafe {
-			use std::mem::uninitialized;
+			use std::mem::MaybeUninit;
 
-			let mut x: c_int = uninitialized();
-			let mut y: c_int = uninitialized();
-			al_get_new_window_position(&mut x, &mut y);
-			(x as i32, y as i32)
+			let mut x = MaybeUninit::uninit();
+			let mut y = MaybeUninit::uninit();
+			al_get_new_window_position(x.as_mut_ptr(), y.as_mut_ptr());
+			(x.assume_init() as i32, y.assume_init() as i32)
 		}
 	}
 
@@ -869,12 +869,12 @@ impl Core
 	pub fn get_new_display_option(&self, option: DisplayOption) -> (i32, DisplayOptionImportance)
 	{
 		unsafe {
-			use std::mem::uninitialized;
+			use std::mem::MaybeUninit;
 
-			let mut imp: c_int = uninitialized();
+			let mut imp = MaybeUninit::uninit();
 
-			let val = al_get_new_display_option(option as c_int, &mut imp);
-			(val as i32, mem::transmute(imp))
+			let val = al_get_new_display_option(option as c_int, imp.as_mut_ptr());
+			(val as i32, mem::transmute(imp.assume_init()))
 		}
 	}
 

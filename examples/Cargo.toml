@@ -41,7 +41,7 @@ path = "shaders.rs"
 
 [dependencies]
 
-getopts = "=0.2.11"
+getopts = "=0.2.21"
 
 [dependencies.allegro]
 

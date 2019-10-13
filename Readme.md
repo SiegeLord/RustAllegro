@@ -8,7 +8,6 @@ A thin [Rust](http://www.rust-lang.org/) wrapper of [Allegro 5](http://liballeg.
 ## Game loop example
 
 ```rust
-#[macro_use]
 extern crate allegro;
 extern crate allegro_font;
 

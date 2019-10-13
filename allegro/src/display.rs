@@ -225,7 +225,7 @@ impl Display
 		}
 	}
 
-	pub fn set_icons<'l, U: Iterator<Item = &'l (BitmapLike + 'l)>>(&self, icons: U)
+	pub fn set_icons<'l, U: Iterator<Item = &'l (dyn BitmapLike + 'l)>>(&self, icons: U)
 	{
 		let mut c_icons: Vec<_> = icons.map(|b| b.get_allegro_bitmap()).collect();
 		unsafe {

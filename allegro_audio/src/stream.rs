@@ -252,7 +252,7 @@ impl AudioStream
 		get_bool_impl!(self, al_get_audio_stream_attached)
 	}
 
-	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */ &mut Write)) -> Result<bool, ()>
+	pub fn write_fragment(&self, write_cb: &mut dyn FnMut(/*writer: */ &mut dyn Write)) -> Result<bool, ()>
 	{
 		use std::slice::from_raw_parts_mut;
 		let fragment = unsafe { al_get_audio_stream_fragment(self.allegro_audio_stream as *const _) };

@@ -1,5 +1,4 @@
 // This file is released into Public Domain.
-#[macro_use]
 extern crate allegro;
 
 use allegro::*;

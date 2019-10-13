@@ -58,8 +58,8 @@ impl FontDrawing for Core
 			return;
 		}
 		unsafe {
-			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
+			let mut info = mem::MaybeUninit::uninit();
+			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
 
 			al_draw_justified_ustr(
 				mem::transmute(font.get_font()),
@@ -82,8 +82,8 @@ impl FontDrawing for Core
 			return;
 		}
 		unsafe {
-			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
+			let mut info = mem::MaybeUninit::uninit();
+			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
 
 			al_draw_ustr(
 				mem::transmute(font.get_font()),
@@ -149,8 +149,8 @@ impl Font
 	pub fn get_text_width(&self, text: &str) -> i32
 	{
 		unsafe {
-			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
+			let mut info = mem::MaybeUninit::uninit();
+			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
 			al_get_ustr_width(self.get_font() as *const _, ustr) as i32
 		}
 	}
@@ -173,11 +173,14 @@ impl Font
 	pub fn get_text_dimensions(&self, text: &str) -> (i32, i32, i32, i32)
 	{
 		unsafe {
-			let (mut x, mut y, mut w, mut h): (c_int, c_int, c_int, c_int) = mem::uninitialized();
-			let mut info: ALLEGRO_USTR_INFO = mem::uninitialized();
-			let ustr = al_ref_buffer(&mut info, text.as_ptr() as *const i8, text.len() as size_t);
-			al_get_ustr_dimensions(self.get_font() as *const _, ustr, &mut x, &mut y, &mut w, &mut h);
-			(x as i32, y as i32, w as i32, h as i32)
+			let mut x = mem::MaybeUninit::uninit();
+			let mut y = mem::MaybeUninit::uninit();
+			let mut w = mem::MaybeUninit::uninit();
+			let mut h = mem::MaybeUninit::uninit();
+			let mut info = mem::MaybeUninit::uninit();
+			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
+			al_get_ustr_dimensions(self.get_font() as *const _, ustr, x.as_mut_ptr(), y.as_mut_ptr(), w.as_mut_ptr(), h.as_mut_ptr());
+			(x.assume_init(), y.assume_init(), w.assume_init(), h.assume_init())
 		}
 	}
 }

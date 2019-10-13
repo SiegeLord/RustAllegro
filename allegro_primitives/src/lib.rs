@@ -49,8 +49,8 @@ impl PrimitivesAddon
 {
 	pub fn init(_: &Core) -> Result<PrimitivesAddon, String>
 	{
-		use std::sync::{Once, ONCE_INIT};
-		static mut RUN_ONCE: Once = ONCE_INIT;
+		use std::sync::Once;
+		static mut RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The primitives addon already initialized.".into());
 		unsafe {

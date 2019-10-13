@@ -59,7 +59,7 @@ pub trait AttachToMixer: AttachToMixerImpl
 
 struct CallbackHolder
 {
-	cb: Box<PostProcessCallback + Send>,
+	cb: Box<dyn PostProcessCallback + Send>,
 	sample_size: usize,
 }
 
@@ -201,7 +201,7 @@ pub trait MixerLike: HasMixer
 		set_impl!(self, al_set_mixer_quality, quality.get())
 	}
 
-	fn set_postprocess_callback(&mut self, cb: Option<Box<PostProcessCallback + Send>>) -> Result<(), ()>
+	fn set_postprocess_callback(&mut self, cb: Option<Box<dyn PostProcessCallback + Send>>) -> Result<(), ()>
 	{
 		let allegro_mixer = self.get_mixer().allegro_mixer;
 
