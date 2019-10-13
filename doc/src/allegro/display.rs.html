@@ -343,6 +343,7 @@
 <span id="343">343</span>
 <span id="344">344</span>
 <span id="345">345</span>
+<span id="346">346</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -363,8 +364,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Weak</span>};
 
-<span class="macro">flag_type</span><span class="macro">!</span>
-{
+<span class="macro">flag_type</span><span class="macro">!</span> {
 	<span class="ident">DisplayFlags</span>
 	{
 		<span class="ident">WINDOWED</span>                  <span class="op">=</span> <span class="ident">ALLEGRO_WINDOWED</span>,
@@ -381,16 +381,14 @@
 	}
 }
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_6</span>))]</span>
-<span class="macro">flags</span><span class="macro">!</span>
-{
+<span class="macro">flags</span><span class="macro">!</span> {
 	<span class="ident">DisplayFlags</span>
 	{
 		<span class="ident">PROGRAMMABLE_PIPELINE</span> <span class="op">=</span> <span class="ident">ALLEGRO_PROGRAMMABLE_PIPELINE</span>
 	}
 }
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_12</span>))]</span>
-<span class="macro">flags</span><span class="macro">!</span>
-{
+<span class="macro">flags</span><span class="macro">!</span> {
 	<span class="ident">DisplayFlags</span>
 	{
 		<span class="ident">MAXIMIZED</span> <span class="op">=</span> <span class="ident">ALLEGRO_MAXIMIZED</span>
@@ -571,11 +569,15 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_icons</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">U</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> (<span class="ident">BitmapLike</span> <span class="op">+</span> <span class="lifetime">&#39;l</span>)<span class="op">&gt;&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icons</span>: <span class="ident">U</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_icons</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">U</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> (<span class="ident">dyn</span> <span class="ident">BitmapLike</span> <span class="op">+</span> <span class="lifetime">&#39;l</span>)<span class="op">&gt;&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icons</span>: <span class="ident">U</span>)
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c_icons</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">icons</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">get_allegro_bitmap</span>()).<span class="ident">collect</span>();
 		<span class="kw">unsafe</span> {
-			<span class="ident">al_set_display_icons</span>(<span class="self">self</span>.<span class="ident">allegro_display</span>, <span class="ident">c_icons</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">c_icons</span>.<span class="ident">as_mut_ptr</span>());
+			<span class="ident">al_set_display_icons</span>(
+				<span class="self">self</span>.<span class="ident">allegro_display</span>,
+				<span class="ident">c_icons</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
+				<span class="ident">c_icons</span>.<span class="ident">as_mut_ptr</span>(),
+			);
 		}
 	}
 

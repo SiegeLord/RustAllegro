@@ -298,6 +298,16 @@
 <span id="298">298</span>
 <span id="299">299</span>
 <span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -360,7 +370,7 @@
 
 <span class="kw">struct</span> <span class="ident">CallbackHolder</span>
 {
-	<span class="ident">cb</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>,
+	<span class="ident">cb</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>,
 	<span class="ident">sample_size</span>: <span class="ident">usize</span>,
 }
 
@@ -379,7 +389,9 @@
 		<span class="ident">Mixer</span>::<span class="ident">new_custom</span>(<span class="ident">addon</span>, <span class="number">44100</span>, <span class="ident">AudioDepth</span>::<span class="ident">F32</span>, <span class="ident">ChannelConf</span>::<span class="ident">Conf2</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_custom</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>, <span class="ident">depth</span>: <span class="ident">AudioDepth</span>, <span class="ident">chan_conf</span>: <span class="ident">ChannelConf</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_custom</span>(
+		<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>, <span class="ident">depth</span>: <span class="ident">AudioDepth</span>, <span class="ident">chan_conf</span>: <span class="ident">ChannelConf</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">mixer</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_create_mixer</span>(<span class="ident">frequency</span> <span class="kw">as</span> <span class="ident">c_uint</span>, <span class="ident">depth</span>.<span class="ident">get</span>(), <span class="ident">chan_conf</span>.<span class="ident">get</span>()) };
 		<span class="kw">if</span> <span class="ident">mixer</span>.<span class="ident">is_null</span>()
@@ -432,7 +444,9 @@
 		<span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">play_sample</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>, <span class="ident">gain</span>: <span class="ident">f32</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>, <span class="ident">speed</span>: <span class="ident">f32</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">play_sample</span>(
+		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>, <span class="ident">gain</span>: <span class="ident">f32</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>, <span class="ident">speed</span>: <span class="ident">f32</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">inst</span> <span class="op">=</span> <span class="ident">sample</span>.<span class="ident">create_instance</span>();
 		<span class="ident">inst</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">inst</span><span class="op">|</span> {
@@ -502,7 +516,9 @@
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_quality</span>, <span class="ident">quality</span>.<span class="ident">get</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_postprocess_callback</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cb</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_postprocess_callback</span>(
+		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cb</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;&gt;</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">allegro_mixer</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>;
 
@@ -512,7 +528,8 @@
 			{
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cbh</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">CallbackHolder</span> {
 					<span class="ident">cb</span>: <span class="ident">cb</span>,
-					<span class="ident">sample_size</span>: <span class="self">self</span>.<span class="ident">get_channels</span>().<span class="ident">get_num_channels</span>() <span class="op">*</span> <span class="self">self</span>.<span class="ident">get_depth</span>().<span class="ident">get_byte_size</span>(),
+					<span class="ident">sample_size</span>: <span class="self">self</span>.<span class="ident">get_channels</span>().<span class="ident">get_num_channels</span>()
+						<span class="op">*</span> <span class="self">self</span>.<span class="ident">get_depth</span>().<span class="ident">get_byte_size</span>(),
 				});
 				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
 					<span class="ident">al_set_mixer_postprocess_callback</span>(
@@ -529,7 +546,9 @@
 			}
 			<span class="prelude-val">None</span> <span class="op">=&gt;</span>
 			{
-				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_set_mixer_postprocess_callback</span>(<span class="ident">allegro_mixer</span>, <span class="prelude-val">None</span>, <span class="ident">ptr</span>::<span class="ident">null_mut</span>()) };
+				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+					<span class="ident">al_set_mixer_postprocess_callback</span>(<span class="ident">allegro_mixer</span>, <span class="prelude-val">None</span>, <span class="ident">ptr</span>::<span class="ident">null_mut</span>())
+				};
 				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">==</span> <span class="number">0</span>
 				{
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(());
@@ -570,7 +589,8 @@
 		}
 		<span class="kw">else</span>
 		{
-			<span class="kw">let</span> (<span class="ident">c1</span>, <span class="ident">c2</span>) <span class="op">=</span> <span class="ident">Connection</span>::<span class="ident">new</span>(<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>) }, <span class="ident">Mixer</span>::<span class="ident">detach</span>);
+			<span class="kw">let</span> (<span class="ident">c1</span>, <span class="ident">c2</span>) <span class="op">=</span>
+				<span class="ident">Connection</span>::<span class="ident">new</span>(<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>) }, <span class="ident">Mixer</span>::<span class="ident">detach</span>);
 			<span class="self">self</span>.<span class="ident">parent</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">c1</span>);
 			<span class="prelude-val">Ok</span>(<span class="ident">c2</span>)
 		}

@@ -1031,6 +1031,43 @@
 <span id="1031">1031</span>
 <span id="1032">1032</span>
 <span id="1033">1033</span>
+<span id="1034">1034</span>
+<span id="1035">1035</span>
+<span id="1036">1036</span>
+<span id="1037">1037</span>
+<span id="1038">1038</span>
+<span id="1039">1039</span>
+<span id="1040">1040</span>
+<span id="1041">1041</span>
+<span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
+<span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
+<span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
+<span id="1066">1066</span>
+<span id="1067">1067</span>
+<span id="1068">1068</span>
+<span id="1069">1069</span>
+<span id="1070">1070</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -1085,7 +1122,10 @@
 {
 	<span class="kw">let</span> <span class="ident">cur_id</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">current</span>().<span class="ident">id</span>();
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">thread_state</span> <span class="op">=</span> <span class="ident">THREAD_STATE</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-	<span class="kw">let</span> <span class="ident">pos</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">thread_state</span>).<span class="ident">iter</span>().<span class="ident">position</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">==</span> <span class="ident">cur_id</span>).<span class="ident">unwrap_or</span>(<span class="ident">thread_state</span>.<span class="ident">len</span>());
+	<span class="kw">let</span> <span class="ident">pos</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">thread_state</span>)
+		.<span class="ident">iter</span>()
+		.<span class="ident">position</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">==</span> <span class="ident">cur_id</span>)
+		.<span class="ident">unwrap_or</span>(<span class="ident">thread_state</span>.<span class="ident">len</span>());
 	<span class="kw">if</span> <span class="ident">pos</span> <span class="op">&gt;=</span> <span class="ident">thread_state</span>.<span class="ident">len</span>()
 	{
 		<span class="ident">thread_state</span>.<span class="ident">push</span>(<span class="ident">ThreadState</span> {
@@ -1107,7 +1147,9 @@
 	<span class="kw">let</span> <span class="ident">cur_id</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">current</span>().<span class="ident">id</span>();
 	<span class="kw">let</span> <span class="ident">thread_state</span> <span class="op">=</span> <span class="ident">THREAD_STATE</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
 	<span class="kw">let</span> <span class="ident">bmp</span> <span class="op">=</span> <span class="ident">get_real_bitmap</span>(<span class="ident">bmp</span>);
-	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span> <span class="ident">thread_state</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">cur_bitmap</span> <span class="op">==</span> <span class="ident">bmp</span> <span class="op">&amp;&amp;</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">!=</span> <span class="ident">cur_id</span>)
+	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span> <span class="ident">thread_state</span>
+		.<span class="ident">iter</span>()
+		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">cur_bitmap</span> <span class="op">==</span> <span class="ident">bmp</span> <span class="op">&amp;&amp;</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">!=</span> <span class="ident">cur_id</span>)
 	{
 		<span class="macro">panic</span><span class="macro">!</span>(
 			<span class="string">&quot;Attempting to {} bitmap {:?} in thread {:?}, but it is still targeted in thread {:?}&quot;</span>,
@@ -1124,7 +1166,9 @@
 	}
 	<span class="kw">let</span> <span class="ident">cur_id</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">current</span>().<span class="ident">id</span>();
 	<span class="kw">let</span> <span class="ident">thread_state</span> <span class="op">=</span> <span class="ident">THREAD_STATE</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span> <span class="ident">thread_state</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">cur_display</span> <span class="op">==</span> <span class="ident">disp</span> <span class="op">&amp;&amp;</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">!=</span> <span class="ident">cur_id</span>)
+	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span> <span class="ident">thread_state</span>
+		.<span class="ident">iter</span>()
+		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">cur_display</span> <span class="op">==</span> <span class="ident">disp</span> <span class="op">&amp;&amp;</span> <span class="ident">s</span>.<span class="ident">id</span> <span class="op">!=</span> <span class="ident">cur_id</span>)
 	{
 		<span class="macro">panic</span><span class="macro">!</span>(
 			<span class="string">&quot;Attempting to {} display {:?} in thread {:?}, but it is still targeted in thread {:?}&quot;</span>,
@@ -1143,7 +1187,7 @@
 	}
 }
 
-<span class="macro">flag_type</span><span class="macro">!</span>{
+<span class="macro">flag_type</span><span class="macro">!</span> {
 	<span class="ident">BitmapDrawingFlags</span>
 	{
 		<span class="ident">FLIP_NONE</span> <span class="op">=</span> <span class="number">0x1</span>,
@@ -1204,8 +1248,8 @@
 	<span class="doccomment">/// Initializes Allegro while merging in the system_config into the system configuration.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_with_config</span>(<span class="ident">system_config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Core</span>, <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Once</span>, <span class="ident">ONCE_INIT</span>};
-		<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">RUN_ONCE</span>: <span class="ident">Once</span> <span class="op">=</span> <span class="ident">ONCE_INIT</span>;
+		<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span>;
+		<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">RUN_ONCE</span>: <span class="ident">Once</span> <span class="op">=</span> <span class="ident">Once</span>::<span class="ident">new</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Already initialized.&quot;</span>.<span class="ident">to_string</span>());
 		<span class="kw">unsafe</span> {
@@ -1552,7 +1596,10 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_target_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bmp</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">T</span><span class="op">&gt;</span>)
 	{
 		<span class="kw">unsafe</span> {
-			<span class="ident">al_set_target_bitmap</span>(<span class="ident">bmp</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">get_allegro_bitmap</span>()).<span class="ident">unwrap_or</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>()));
+			<span class="ident">al_set_target_bitmap</span>(
+				<span class="ident">bmp</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">get_allegro_bitmap</span>())
+					.<span class="ident">unwrap_or</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>()),
+			);
 			<span class="ident">check_bitmap_targeted_elsewhere</span>(<span class="ident">al_get_target_bitmap</span>(), <span class="string">&quot;target&quot;</span>);
 			<span class="ident">check_display_targeted_elsewhere</span>(<span class="ident">al_get_current_display</span>(), <span class="string">&quot;target&quot;</span>);
 			<span class="ident">update_thread_state</span>();
@@ -1591,7 +1638,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
 		<span class="kw">unsafe</span> {
@@ -1605,7 +1654,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+		<span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1624,7 +1674,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_scaled_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>,
+		<span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1644,7 +1695,10 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>,
+		<span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
 		<span class="kw">unsafe</span> {
@@ -1661,7 +1715,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_scaled_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>,
+		<span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1680,7 +1735,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
 		<span class="kw">unsafe</span> {
@@ -1695,7 +1752,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+		<span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1715,7 +1773,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>,
+		<span class="ident">dw</span>: <span class="ident">f32</span>, <span class="ident">dh</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1737,7 +1796,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>,
+		<span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1756,7 +1816,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_rotated_bitmap</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>,
+		<span class="ident">yscale</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1777,8 +1838,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_tinted_scaled_rotated_bitmap_region</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>, <span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>,
-		<span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bitmap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">sw</span>: <span class="ident">f32</span>, <span class="ident">sh</span>: <span class="ident">f32</span>, <span class="ident">tint</span>: <span class="ident">Color</span>, <span class="ident">cx</span>: <span class="ident">f32</span>, <span class="ident">cy</span>: <span class="ident">f32</span>,
+		<span class="ident">dx</span>: <span class="ident">f32</span>, <span class="ident">dy</span>: <span class="ident">f32</span>, <span class="ident">xscale</span>: <span class="ident">f32</span>, <span class="ident">yscale</span>: <span class="ident">f32</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">flags</span>: <span class="ident">BitmapDrawingFlags</span>,
 	)
 	{
 		<span class="ident">check_valid_target_bitmap</span>();
@@ -1877,12 +1938,12 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_window_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>)
 	{
 		<span class="kw">unsafe</span> {
-			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>;
+			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">MaybeUninit</span>;
 
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
-			<span class="ident">al_get_new_window_position</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
-			(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">i32</span>)
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
+			<span class="ident">al_get_new_window_position</span>(<span class="ident">x</span>.<span class="ident">as_mut_ptr</span>(), <span class="ident">y</span>.<span class="ident">as_mut_ptr</span>());
+			(<span class="ident">x</span>.<span class="ident">assume_init</span>() <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">y</span>.<span class="ident">assume_init</span>() <span class="kw">as</span> <span class="ident">i32</span>)
 		}
 	}
 
@@ -1893,7 +1954,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">option</span>: <span class="ident">DisplayOption</span>, <span class="ident">value</span>: <span class="ident">i32</span>, <span class="ident">importance</span>: <span class="ident">DisplayOptionImportance</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_new_display_option</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">option</span>: <span class="ident">DisplayOption</span>, <span class="ident">value</span>: <span class="ident">i32</span>, <span class="ident">importance</span>: <span class="ident">DisplayOptionImportance</span>,
+	)
 	{
 		<span class="kw">unsafe</span> {
 			<span class="ident">al_set_new_display_option</span>(<span class="ident">option</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">value</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">importance</span> <span class="kw">as</span> <span class="ident">c_int</span>);
@@ -1903,12 +1966,12 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_new_display_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">option</span>: <span class="ident">DisplayOption</span>) <span class="op">-&gt;</span> (<span class="ident">i32</span>, <span class="ident">DisplayOptionImportance</span>)
 	{
 		<span class="kw">unsafe</span> {
-			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>;
+			<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">MaybeUninit</span>;
 
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">imp</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="ident">uninitialized</span>();
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
 
-			<span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">al_get_new_display_option</span>(<span class="ident">option</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">imp</span>);
-			(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">imp</span>))
+			<span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">al_get_new_display_option</span>(<span class="ident">option</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">imp</span>.<span class="ident">as_mut_ptr</span>());
+			(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">i32</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">imp</span>.<span class="ident">assume_init</span>()))
 		}
 	}
 
@@ -1959,10 +2022,15 @@
 
 	<span class="doccomment">/// Returns the source of the shader that Allegro uses by default.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_6</span>))]</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default_shader_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">platform</span>: <span class="ident">ShaderPlatform</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default_shader_source</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">platform</span>: <span class="ident">ShaderPlatform</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
-			<span class="kw">let</span> <span class="ident">src</span> <span class="op">=</span> <span class="ident">al_get_default_shader_source</span>(<span class="ident">platform</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_PLATFORM</span>, <span class="ident">shader_type</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_TYPE</span>);
+			<span class="kw">let</span> <span class="ident">src</span> <span class="op">=</span> <span class="ident">al_get_default_shader_source</span>(
+				<span class="ident">platform</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_PLATFORM</span>,
+				<span class="ident">shader_type</span> <span class="kw">as</span> <span class="ident">ALLEGRO_SHADER_TYPE</span>,
+			);
 			<span class="kw">if</span> <span class="ident">src</span>.<span class="ident">is_null</span>()
 			{
 				<span class="prelude-val">None</span>
@@ -2018,10 +2086,14 @@
 	<span class="doccomment">/// Different uniforms should be set to different units.</span>
 	<span class="doccomment">/// Pass None to bmp to clear the sampler.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_sampler</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">bmp</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">unit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_sampler</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">BitmapLike</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">bmp</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">unit</span>: <span class="ident">i32</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">c_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">name</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
-		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_set_shader_sampler</span>(<span class="ident">c_name</span>.<span class="ident">as_ptr</span>(), <span class="ident">bmp</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">unit</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span> };
+		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+			<span class="ident">al_set_shader_sampler</span>(<span class="ident">c_name</span>.<span class="ident">as_ptr</span>(), <span class="ident">bmp</span>.<span class="ident">get_allegro_bitmap</span>(), <span class="ident">unit</span> <span class="kw">as</span> <span class="ident">c_int</span>) <span class="op">!=</span> <span class="number">0</span>
+		};
 		<span class="kw">if</span> <span class="ident">ret</span>
 		{
 			<span class="prelude-val">Ok</span>(())
@@ -2034,7 +2106,9 @@
 
 	<span class="doccomment">/// Sets a shader uniform to a value.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_uniform</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ShaderUniform</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_shader_uniform</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ShaderUniform</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">val</span>.<span class="ident">set_self_for_shader</span>(<span class="ident">name</span>) }
 	}
@@ -2049,8 +2123,8 @@
 
 	<span class="doccomment">/// Set blender options, with alpha channel getting a separate setting.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_separate_blender</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">op</span>: <span class="ident">BlendOperation</span>, <span class="ident">source</span>: <span class="ident">BlendMode</span>, <span class="ident">dest</span>: <span class="ident">BlendMode</span>, <span class="ident">alpha_op</span>: <span class="ident">BlendOperation</span>, <span class="ident">alpha_source</span>: <span class="ident">BlendMode</span>,
-		<span class="ident">alpha_dest</span>: <span class="ident">BlendMode</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">op</span>: <span class="ident">BlendOperation</span>, <span class="ident">source</span>: <span class="ident">BlendMode</span>, <span class="ident">dest</span>: <span class="ident">BlendMode</span>, <span class="ident">alpha_op</span>: <span class="ident">BlendOperation</span>,
+		<span class="ident">alpha_source</span>: <span class="ident">BlendMode</span>, <span class="ident">alpha_dest</span>: <span class="ident">BlendMode</span>,
 	)
 	{
 		<span class="kw">unsafe</span> {

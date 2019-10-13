@@ -20,6 +20,6 @@ sourcesIndex["allegro_ttf"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["allegro_ttf_sys"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["allegro_util"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["delete_me"] = {"name":"","files":["dummy.rs"]};
-sourcesIndex["lazy_static"] = {"name":"","files":["lazy.rs","lib.rs"]};
+sourcesIndex["lazy_static"] = {"name":"","files":["inline_lazy.rs","lib.rs"]};
 sourcesIndex["libc"] = {"name":"","files":["lib.rs"]};
 createSourceSidebar();
