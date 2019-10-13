@@ -19,8 +19,7 @@ use libc::*;
 
 use std::ffi::CString;
 
-flag_type!
-{
+flag_type! {
 	TtfFlags
 	{
 		TTF_NO_KERNING = ALLEGRO_TTF_NO_KERNING,
@@ -65,10 +64,18 @@ impl TtfAddon
 	pub fn load_ttf_font(&self, filename: &str, size: i32, flags: TtfFlags) -> Result<Font, ()>
 	{
 		let filename = CString::new(filename.as_bytes()).unwrap();
-		unsafe { Font::wrap_allegro_font(al_load_ttf_font(filename.as_ptr(), size as c_int, flags.get() as c_int)) }
+		unsafe {
+			Font::wrap_allegro_font(al_load_ttf_font(
+				filename.as_ptr(),
+				size as c_int,
+				flags.get() as c_int,
+			))
+		}
 	}
 
-	pub fn load_ttf_font_stretch(&self, filename: &str, width: i32, height: i32, flags: TtfFlags) -> Result<Font, String>
+	pub fn load_ttf_font_stretch(
+		&self, filename: &str, width: i32, height: i32, flags: TtfFlags,
+	) -> Result<Font, String>
 	{
 		if width < 0 && height >= 0 || width >= 0 && height < 0
 		{
@@ -83,7 +90,8 @@ impl TtfAddon
 					width as c_int,
 					height as c_int,
 					flags.get() as c_int,
-				)).map_err(|_| "Failed to load the ttf font.".to_string())
+				))
+				.map_err(|_| "Failed to load the ttf font.".to_string())
 			}
 		}
 	}

@@ -35,7 +35,10 @@ impl FontAlign
 pub trait FontDrawing
 {
 	fn draw_text(&self, font: &Font, color: Color, x: f32, y: f32, align: FontAlign, text: &str);
-	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str);
+	fn draw_justified_text(
+		&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign,
+		text: &str,
+	);
 }
 
 fn check_valid_target_bitmap()
@@ -50,7 +53,10 @@ fn check_valid_target_bitmap()
 
 impl FontDrawing for Core
 {
-	fn draw_justified_text(&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign, text: &str)
+	fn draw_justified_text(
+		&self, font: &Font, color: Color, x1: f32, x2: f32, y: f32, diff: f32, align: FontAlign,
+		text: &str,
+	)
 	{
 		check_valid_target_bitmap();
 		if text.len() == 0
@@ -59,7 +65,11 @@ impl FontDrawing for Core
 		}
 		unsafe {
 			let mut info = mem::MaybeUninit::uninit();
-			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
+			let ustr = al_ref_buffer(
+				info.as_mut_ptr(),
+				text.as_ptr() as *const i8,
+				text.len() as size_t,
+			);
 
 			al_draw_justified_ustr(
 				mem::transmute(font.get_font()),
@@ -83,7 +93,11 @@ impl FontDrawing for Core
 		}
 		unsafe {
 			let mut info = mem::MaybeUninit::uninit();
-			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
+			let ustr = al_ref_buffer(
+				info.as_mut_ptr(),
+				text.as_ptr() as *const i8,
+				text.len() as size_t,
+			);
 
 			al_draw_ustr(
 				mem::transmute(font.get_font()),
@@ -121,10 +135,16 @@ impl Font
 		}
 	}
 
-	pub fn grab_from_bitmap(_: &FontAddon, bmp: &Bitmap, ranges: &[(c_int, c_int)]) -> Result<Font, ()>
+	pub fn grab_from_bitmap(
+		_: &FontAddon, bmp: &Bitmap, ranges: &[(c_int, c_int)],
+	) -> Result<Font, ()>
 	{
 		unsafe {
-			let font = al_grab_font_from_bitmap(bmp.get_allegro_bitmap(), ranges.len() as c_int, ranges.as_ptr() as *const c_int);
+			let font = al_grab_font_from_bitmap(
+				bmp.get_allegro_bitmap(),
+				ranges.len() as c_int,
+				ranges.as_ptr() as *const c_int,
+			);
 			Font::wrap_allegro_font(font)
 		}
 	}
@@ -150,7 +170,11 @@ impl Font
 	{
 		unsafe {
 			let mut info = mem::MaybeUninit::uninit();
-			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
+			let ustr = al_ref_buffer(
+				info.as_mut_ptr(),
+				text.as_ptr() as *const i8,
+				text.len() as size_t,
+			);
 			al_get_ustr_width(self.get_font() as *const _, ustr) as i32
 		}
 	}
@@ -178,9 +202,25 @@ impl Font
 			let mut w = mem::MaybeUninit::uninit();
 			let mut h = mem::MaybeUninit::uninit();
 			let mut info = mem::MaybeUninit::uninit();
-			let ustr = al_ref_buffer(info.as_mut_ptr(), text.as_ptr() as *const i8, text.len() as size_t);
-			al_get_ustr_dimensions(self.get_font() as *const _, ustr, x.as_mut_ptr(), y.as_mut_ptr(), w.as_mut_ptr(), h.as_mut_ptr());
-			(x.assume_init(), y.assume_init(), w.assume_init(), h.assume_init())
+			let ustr = al_ref_buffer(
+				info.as_mut_ptr(),
+				text.as_ptr() as *const i8,
+				text.len() as size_t,
+			);
+			al_get_ustr_dimensions(
+				self.get_font() as *const _,
+				ustr,
+				x.as_mut_ptr(),
+				y.as_mut_ptr(),
+				w.as_mut_ptr(),
+				h.as_mut_ptr(),
+			);
+			(
+				x.assume_init(),
+				y.assume_init(),
+				w.assume_init(),
+				h.assume_init(),
+			)
 		}
 	}
 }

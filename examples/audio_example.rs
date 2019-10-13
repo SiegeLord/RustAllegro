@@ -31,8 +31,7 @@ impl PostProcessCallback for AudioCallback
 	}
 }
 
-allegro_main!
-{
+allegro_main! {
 	let args = env::args().collect::<Vec<_>>();
 
 	let mut opts = Options::new();

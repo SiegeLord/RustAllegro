@@ -17,8 +17,7 @@ use std::ffi::CString;
 use std::mem;
 use std::sync::{Arc, Weak};
 
-flag_type!
-{
+flag_type! {
 	DisplayFlags
 	{
 		WINDOWED                  = ALLEGRO_WINDOWED,
@@ -35,16 +34,14 @@ flag_type!
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_6))]
-flags!
-{
+flags! {
 	DisplayFlags
 	{
 		PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_12))]
-flags!
-{
+flags! {
 	DisplayFlags
 	{
 		MAXIMIZED = ALLEGRO_MAXIMIZED
@@ -229,7 +226,11 @@ impl Display
 	{
 		let mut c_icons: Vec<_> = icons.map(|b| b.get_allegro_bitmap()).collect();
 		unsafe {
-			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, c_icons.as_mut_ptr());
+			al_set_display_icons(
+				self.allegro_display,
+				c_icons.len() as c_int,
+				c_icons.as_mut_ptr(),
+			);
 		}
 	}
 

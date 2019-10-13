@@ -78,7 +78,9 @@ impl Mixer
 		Mixer::new_custom(addon, 44100, AudioDepth::F32, ChannelConf::Conf2)
 	}
 
-	pub fn new_custom(_: &AudioAddon, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf) -> Result<Mixer, ()>
+	pub fn new_custom(
+		_: &AudioAddon, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf,
+	) -> Result<Mixer, ()>
 	{
 		let mixer = unsafe { al_create_mixer(frequency as c_uint, depth.get(), chan_conf.get()) };
 		if mixer.is_null()
@@ -131,7 +133,9 @@ pub trait MixerLike: HasMixer
 		self.get_mixer().allegro_mixer
 	}
 
-	fn play_sample(&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode) -> Result<SampleInstance, ()>
+	fn play_sample(
+		&mut self, sample: &Sample, gain: f32, pan: Option<f32>, speed: f32, playmode: Playmode,
+	) -> Result<SampleInstance, ()>
 	{
 		let inst = sample.create_instance();
 		inst.and_then(|mut inst| {
@@ -201,7 +205,9 @@ pub trait MixerLike: HasMixer
 		set_impl!(self, al_set_mixer_quality, quality.get())
 	}
 
-	fn set_postprocess_callback(&mut self, cb: Option<Box<dyn PostProcessCallback + Send>>) -> Result<(), ()>
+	fn set_postprocess_callback(
+		&mut self, cb: Option<Box<dyn PostProcessCallback + Send>>,
+	) -> Result<(), ()>
 	{
 		let allegro_mixer = self.get_mixer().allegro_mixer;
 
@@ -211,7 +217,8 @@ pub trait MixerLike: HasMixer
 			{
 				let mut cbh = Box::new(CallbackHolder {
 					cb: cb,
-					sample_size: self.get_channels().get_num_channels() * self.get_depth().get_byte_size(),
+					sample_size: self.get_channels().get_num_channels()
+						* self.get_depth().get_byte_size(),
 				});
 				let ret = unsafe {
 					al_set_mixer_postprocess_callback(
@@ -228,7 +235,9 @@ pub trait MixerLike: HasMixer
 			}
 			None =>
 			{
-				let ret = unsafe { al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::null_mut()) };
+				let ret = unsafe {
+					al_set_mixer_postprocess_callback(allegro_mixer, None, ptr::null_mut())
+				};
 				if ret == 0
 				{
 					return Err(());
@@ -269,7 +278,8 @@ impl AttachToMixerImpl for Mixer
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe { mem::transmute(self.allegro_mixer) }, Mixer::detach);
+			let (c1, c2) =
+				Connection::new(unsafe { mem::transmute(self.allegro_mixer) }, Mixer::detach);
 			self.parent = Some(c1);
 			Ok(c2)
 		}

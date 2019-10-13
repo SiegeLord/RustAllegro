@@ -16,8 +16,7 @@ use allegro_dialog_sys::*;
 
 use std::ffi::CString;
 
-flag_type!
-{
+flag_type! {
 	MessageBoxFlags
 	{
 		MESSAGEBOX_WARN =      ALLEGRO_MESSAGEBOX_WARN,
@@ -71,7 +70,8 @@ impl DialogAddon
 }
 
 pub fn show_native_message_box(
-	display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>, flags: MessageBoxFlags,
+	display: Option<&Display>, title: &str, heading: &str, text: &str, buttons: Option<&str>,
+	flags: MessageBoxFlags,
 ) -> MessageBoxResult
 {
 	use libc::c_int;

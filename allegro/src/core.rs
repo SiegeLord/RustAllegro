@@ -51,7 +51,10 @@ pub(crate) unsafe fn update_thread_state()
 {
 	let cur_id = thread::current().id();
 	let mut thread_state = THREAD_STATE.lock().unwrap();
-	let pos = (*thread_state).iter().position(|s| s.id == cur_id).unwrap_or(thread_state.len());
+	let pos = (*thread_state)
+		.iter()
+		.position(|s| s.id == cur_id)
+		.unwrap_or(thread_state.len());
 	if pos >= thread_state.len()
 	{
 		thread_state.push(ThreadState {
@@ -73,7 +76,9 @@ pub(crate) unsafe fn check_bitmap_targeted_elsewhere(bmp: *mut ALLEGRO_BITMAP, a
 	let cur_id = thread::current().id();
 	let thread_state = THREAD_STATE.lock().unwrap();
 	let bmp = get_real_bitmap(bmp);
-	if let Some(s) = thread_state.iter().find(|s| s.cur_bitmap == bmp && s.id != cur_id)
+	if let Some(s) = thread_state
+		.iter()
+		.find(|s| s.cur_bitmap == bmp && s.id != cur_id)
 	{
 		panic!(
 			"Attempting to {} bitmap {:?} in thread {:?}, but it is still targeted in thread {:?}",
@@ -90,7 +95,9 @@ pub(crate) unsafe fn check_display_targeted_elsewhere(disp: *mut ALLEGRO_DISPLAY
 	}
 	let cur_id = thread::current().id();
 	let thread_state = THREAD_STATE.lock().unwrap();
-	if let Some(s) = thread_state.iter().find(|s| s.cur_display == disp && s.id != cur_id)
+	if let Some(s) = thread_state
+		.iter()
+		.find(|s| s.cur_display == disp && s.id != cur_id)
 	{
 		panic!(
 			"Attempting to {} display {:?} in thread {:?}, but it is still targeted in thread {:?}",
@@ -109,7 +116,7 @@ fn check_valid_target_bitmap()
 	}
 }
 
-flag_type!{
+flag_type! {
 	BitmapDrawingFlags
 	{
 		FLIP_NONE = 0x1,
@@ -518,7 +525,10 @@ impl Core
 	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: Option<&T>)
 	{
 		unsafe {
-			al_set_target_bitmap(bmp.map(|b| b.get_allegro_bitmap()).unwrap_or(ptr::null_mut()));
+			al_set_target_bitmap(
+				bmp.map(|b| b.get_allegro_bitmap())
+					.unwrap_or(ptr::null_mut()),
+			);
 			check_bitmap_targeted_elsewhere(al_get_target_bitmap(), "target");
 			check_display_targeted_elsewhere(al_get_current_display(), "target");
 			update_thread_state();
@@ -557,7 +567,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_bitmap<T: BitmapLike>(&self, bitmap: &T, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -571,7 +583,8 @@ impl Core
 	}
 
 	pub fn draw_bitmap_region<T: BitmapLike>(
-		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
+		flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -590,7 +603,8 @@ impl Core
 	}
 
 	pub fn draw_scaled_bitmap<T: BitmapLike>(
-		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32,
+		flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -610,7 +624,10 @@ impl Core
 		}
 	}
 
-	pub fn draw_rotated_bitmap<T: BitmapLike>(&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags)
+	pub fn draw_rotated_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32,
+		flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -627,7 +644,8 @@ impl Core
 	}
 
 	pub fn draw_scaled_rotated_bitmap<T: BitmapLike>(
-		&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32,
+		angle: f32, flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -646,7 +664,9 @@ impl Core
 		}
 	}
 
-	pub fn draw_tinted_bitmap<T: BitmapLike>(&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags)
+	pub fn draw_tinted_bitmap<T: BitmapLike>(
+		&self, bitmap: &T, tint: Color, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+	)
 	{
 		check_valid_target_bitmap();
 		unsafe {
@@ -661,7 +681,8 @@ impl Core
 	}
 
 	pub fn draw_tinted_bitmap_region<T: BitmapLike>(
-		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
+		flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -681,7 +702,8 @@ impl Core
 	}
 
 	pub fn draw_tinted_scaled_bitmap<T: BitmapLike>(
-		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32, dw: f32, dh: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, tint: Color, sx: f32, sy: f32, sw: f32, sh: f32, dx: f32, dy: f32,
+		dw: f32, dh: f32, flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -703,7 +725,8 @@ impl Core
 	}
 
 	pub fn draw_tinted_rotated_bitmap<T: BitmapLike>(
-		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, angle: f32,
+		flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -722,7 +745,8 @@ impl Core
 	}
 
 	pub fn draw_tinted_scaled_rotated_bitmap<T: BitmapLike>(
-		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32,
+		yscale: f32, angle: f32, flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -743,8 +767,8 @@ impl Core
 	}
 
 	pub fn draw_tinted_scaled_rotated_bitmap_region<T: BitmapLike>(
-		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32, dx: f32, dy: f32, xscale: f32, yscale: f32,
-		angle: f32, flags: BitmapDrawingFlags,
+		&self, bitmap: &T, sx: f32, sy: f32, sw: f32, sh: f32, tint: Color, cx: f32, cy: f32,
+		dx: f32, dy: f32, xscale: f32, yscale: f32, angle: f32, flags: BitmapDrawingFlags,
 	)
 	{
 		check_valid_target_bitmap();
@@ -859,7 +883,9 @@ impl Core
 		}
 	}
 
-	pub fn set_new_display_option(&self, option: DisplayOption, value: i32, importance: DisplayOptionImportance)
+	pub fn set_new_display_option(
+		&self, option: DisplayOption, value: i32, importance: DisplayOptionImportance,
+	)
 	{
 		unsafe {
 			al_set_new_display_option(option as c_int, value as c_int, importance as c_int);
@@ -925,10 +951,15 @@ impl Core
 
 	/// Returns the source of the shader that Allegro uses by default.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]
-	pub fn get_default_shader_source(&self, platform: ShaderPlatform, shader_type: ShaderType) -> Option<String>
+	pub fn get_default_shader_source(
+		&self, platform: ShaderPlatform, shader_type: ShaderType,
+	) -> Option<String>
 	{
 		unsafe {
-			let src = al_get_default_shader_source(platform as ALLEGRO_SHADER_PLATFORM, shader_type as ALLEGRO_SHADER_TYPE);
+			let src = al_get_default_shader_source(
+				platform as ALLEGRO_SHADER_PLATFORM,
+				shader_type as ALLEGRO_SHADER_TYPE,
+			);
 			if src.is_null()
 			{
 				None
@@ -984,10 +1015,14 @@ impl Core
 	/// Different uniforms should be set to different units.
 	/// Pass None to bmp to clear the sampler.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	pub fn set_shader_sampler<T: BitmapLike>(&mut self, name: &str, bmp: &T, unit: i32) -> Result<(), ()>
+	pub fn set_shader_sampler<T: BitmapLike>(
+		&mut self, name: &str, bmp: &T, unit: i32,
+	) -> Result<(), ()>
 	{
 		let c_name = CString::new(name.as_bytes()).unwrap();
-		let ret = unsafe { al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0 };
+		let ret = unsafe {
+			al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0
+		};
 		if ret
 		{
 			Ok(())
@@ -1000,7 +1035,9 @@ impl Core
 
 	/// Sets a shader uniform to a value.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	pub fn set_shader_uniform<T: ShaderUniform + ?Sized>(&self, name: &str, val: &T) -> Result<(), ()>
+	pub fn set_shader_uniform<T: ShaderUniform + ?Sized>(
+		&self, name: &str, val: &T,
+	) -> Result<(), ()>
 	{
 		unsafe { val.set_self_for_shader(name) }
 	}
@@ -1015,8 +1052,8 @@ impl Core
 
 	/// Set blender options, with alpha channel getting a separate setting.
 	pub fn set_separate_blender(
-		&self, op: BlendOperation, source: BlendMode, dest: BlendMode, alpha_op: BlendOperation, alpha_source: BlendMode,
-		alpha_dest: BlendMode,
+		&self, op: BlendOperation, source: BlendMode, dest: BlendMode, alpha_op: BlendOperation,
+		alpha_source: BlendMode, alpha_dest: BlendMode,
 	)
 	{
 		unsafe {

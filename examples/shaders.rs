@@ -9,8 +9,7 @@ use getopts::*;
 use std::env;
 
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-allegro_main!
-{
+allegro_main! {
 	let args = env::args().collect::<Vec<_>>();
 
 	let mut opts = Options::new();

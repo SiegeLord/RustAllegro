@@ -6,7 +6,6 @@ extern crate allegro;
 
 use allegro::*;
 
-allegro_main!
-{
+allegro_main! {
 	Core::init().unwrap();
 }

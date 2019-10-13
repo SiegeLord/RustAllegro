@@ -9,7 +9,7 @@ use ffi::*;
 use libc::*;
 use std::mem;
 
-flag_type!{
+flag_type! {
 	StickFlags
 	{
 		DIGITAL = ALLEGRO_JOYFLAG_DIGITAL,
@@ -27,11 +27,16 @@ impl Joystick
 {
 	pub fn new(core: &Core, idx: i32) -> Result<Joystick, ()>
 	{
-		assert!(core.is_joystick_installed(), "Joystick support not installed!");
+		assert!(
+			core.is_joystick_installed(),
+			"Joystick support not installed!"
+		);
 		let ptr = unsafe { al_get_joystick(idx as i32) };
 		if !ptr.is_null()
 		{
-			Ok(Joystick { allegro_joystick: ptr })
+			Ok(Joystick {
+				allegro_joystick: ptr,
+			})
 		}
 		else
 		{
@@ -66,7 +71,12 @@ impl Joystick
 
 	pub fn get_stick_flags(&self, stick: i32) -> StickFlags
 	{
-		unsafe { mem::transmute(al_get_joystick_stick_flags(self.allegro_joystick, stick as c_int)) }
+		unsafe {
+			mem::transmute(al_get_joystick_stick_flags(
+				self.allegro_joystick,
+				stick as c_int,
+			))
+		}
 	}
 
 	pub fn get_stick_name(&self, stick: i32) -> Result<String, ()>
@@ -92,7 +102,8 @@ impl Joystick
 	pub fn get_axis_name(&self, stick: i32, axis: i32) -> Result<String, ()>
 	{
 		unsafe {
-			let ptr = al_get_joystick_axis_name(self.allegro_joystick, stick as c_int, axis as c_int);
+			let ptr =
+				al_get_joystick_axis_name(self.allegro_joystick, stick as c_int, axis as c_int);
 			if !ptr.is_null()
 			{
 				Ok(from_c_str(ptr))

@@ -5,8 +5,7 @@ extern crate allegro_font;
 use allegro::*;
 use allegro_font::*;
 
-allegro_main!
-{
+allegro_main! {
 	let core = Core::init().unwrap();
 	let font_addon = FontAddon::init(&core).unwrap();
 

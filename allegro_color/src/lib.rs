@@ -28,7 +28,14 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 
 		unsafe {
-			al_color_hsv_to_rgb(hue as c_float, saturation as c_float, value as c_float, &mut r, &mut g, &mut b);
+			al_color_hsv_to_rgb(
+				hue as c_float,
+				saturation as c_float,
+				value as c_float,
+				&mut r,
+				&mut g,
+				&mut b,
+			);
 		}
 
 		Color::from_rgb_f(r as f32, g as f32, b as f32)
@@ -41,7 +48,14 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 
 		unsafe {
-			al_color_hsl_to_rgb(hue as c_float, saturation as c_float, lightness as c_float, &mut r, &mut g, &mut b);
+			al_color_hsl_to_rgb(
+				hue as c_float,
+				saturation as c_float,
+				lightness as c_float,
+				&mut r,
+				&mut g,
+				&mut b,
+			);
 		}
 
 		Color::from_rgb_f(r as f32, g as f32, b as f32)
@@ -89,7 +103,14 @@ pub trait ColorAddonExtensions
 		let mut b: c_float = 0.0;
 
 		unsafe {
-			al_color_yuv_to_rgb(y as c_float, u as c_float, v as c_float, &mut r, &mut g, &mut b);
+			al_color_yuv_to_rgb(
+				y as c_float,
+				u as c_float,
+				v as c_float,
+				&mut r,
+				&mut g,
+				&mut b,
+			);
 		}
 
 		Color::from_rgb_f(r as f32, g as f32, b as f32)
@@ -117,7 +138,14 @@ pub trait ColorAddonExtensions
 		let (r, g, b) = self.get_color().to_rgb_f();
 
 		unsafe {
-			al_color_rgb_to_hsv(r as c_float, g as c_float, b as c_float, &mut h, &mut s, &mut v);
+			al_color_rgb_to_hsv(
+				r as c_float,
+				g as c_float,
+				b as c_float,
+				&mut h,
+				&mut s,
+				&mut v,
+			);
 		}
 
 		(h as f32, s as f32, v as f32)
@@ -131,7 +159,14 @@ pub trait ColorAddonExtensions
 		let (r, g, b) = self.get_color().to_rgb_f();
 
 		unsafe {
-			al_color_rgb_to_hsl(r as c_float, g as c_float, b as c_float, &mut h, &mut s, &mut l);
+			al_color_rgb_to_hsl(
+				r as c_float,
+				g as c_float,
+				b as c_float,
+				&mut h,
+				&mut s,
+				&mut l,
+			);
 		}
 
 		(h as f32, s as f32, l as f32)
@@ -156,7 +191,15 @@ pub trait ColorAddonExtensions
 		let (r, g, b) = self.get_color().to_rgb_f();
 
 		unsafe {
-			al_color_rgb_to_cmyk(r as c_float, g as c_float, b as c_float, &mut c, &mut y, &mut m, &mut k);
+			al_color_rgb_to_cmyk(
+				r as c_float,
+				g as c_float,
+				b as c_float,
+				&mut c,
+				&mut y,
+				&mut m,
+				&mut k,
+			);
 		}
 
 		(c as f32, y as f32, m as f32, k as f32)
@@ -170,7 +213,14 @@ pub trait ColorAddonExtensions
 		let (r, g, b) = self.get_color().to_rgb_f();
 
 		unsafe {
-			al_color_rgb_to_yuv(r as c_float, g as c_float, b as c_float, &mut y, &mut u, &mut v);
+			al_color_rgb_to_yuv(
+				r as c_float,
+				g as c_float,
+				b as c_float,
+				&mut y,
+				&mut u,
+				&mut v,
+			);
 		}
 
 		(y as f32, u as f32, v as f32)

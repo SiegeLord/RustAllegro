@@ -14,8 +14,7 @@ use allegro_ttf::*;
 use getopts::*;
 use std::env;
 
-allegro_main!
-{
+allegro_main! {
 	let args = env::args().collect::<Vec<_>>();
 
 	let mut opts = Options::new();

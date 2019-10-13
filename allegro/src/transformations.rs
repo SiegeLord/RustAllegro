@@ -31,7 +31,14 @@ impl Transform
 	{
 		Transform(unsafe {
 			let mut t = mem::MaybeUninit::uninit();
-			al_build_transform(t.as_mut_ptr(), x as c_float, y as c_float, sx as c_float, sy as c_float, theta as c_float);
+			al_build_transform(
+				t.as_mut_ptr(),
+				x as c_float,
+				y as c_float,
+				sx as c_float,
+				sy as c_float,
+				theta as c_float,
+			);
 			t.assume_init()
 		})
 	}

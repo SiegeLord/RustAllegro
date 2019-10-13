@@ -20,7 +20,9 @@ impl EventQueue
 {
 	pub unsafe fn wrap(queue: *mut ALLEGRO_EVENT_QUEUE) -> EventQueue
 	{
-		EventQueue { allegro_queue: queue }
+		EventQueue {
+			allegro_queue: queue,
+		}
 	}
 
 	pub fn new(_: &Core) -> Result<EventQueue, ()>

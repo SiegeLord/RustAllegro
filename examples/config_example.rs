@@ -4,8 +4,7 @@ extern crate allegro;
 use allegro::*;
 use std::env;
 
-allegro_main!
-{
+allegro_main! {
 	let args = env::args().collect::<Vec<_>>();
 
 	if args.len() < 2

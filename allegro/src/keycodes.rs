@@ -141,7 +141,7 @@ impl KeyCode
 	}
 }
 
-flag_type!{
+flag_type! {
 	KeyModifier
 	{
 		SHIFT = ALLEGRO_KEYMOD_SHIFT,

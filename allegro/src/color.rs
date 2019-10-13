@@ -17,7 +17,12 @@ impl Color
 
 	pub fn from_rgba(r: u8, g: u8, b: u8, a: u8) -> Color
 	{
-		Color::from_rgba_f(r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0, a as f32 / 255.0)
+		Color::from_rgba_f(
+			r as f32 / 255.0,
+			g as f32 / 255.0,
+			b as f32 / 255.0,
+			a as f32 / 255.0,
+		)
 	}
 
 	pub fn from_rgb_f(r: f32, g: f32, b: f32) -> Color
@@ -27,7 +32,12 @@ impl Color
 
 	pub fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color
 	{
-		Color(ALLEGRO_COLOR { r: r, g: g, b: b, a: a })
+		Color(ALLEGRO_COLOR {
+			r: r,
+			g: g,
+			b: b,
+			a: a,
+		})
 	}
 
 	pub fn from_allegro_color(c: ALLEGRO_COLOR) -> Color
@@ -42,7 +52,11 @@ impl Color
 
 	pub fn to_rgb(&self) -> (u8, u8, u8)
 	{
-		((self.0.r * 255.0) as u8, (self.0.g * 255.0) as u8, (self.0.b * 255.0) as u8)
+		(
+			(self.0.r * 255.0) as u8,
+			(self.0.g * 255.0) as u8,
+			(self.0.b * 255.0) as u8,
+		)
 	}
 
 	pub fn to_rgba(&self) -> (u8, u8, u8, u8)

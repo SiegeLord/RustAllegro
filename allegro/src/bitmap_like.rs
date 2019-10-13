@@ -12,7 +12,7 @@ use libc::*;
 use std::mem;
 use std::rc::Weak;
 
-flag_type!{
+flag_type! {
 	BitmapFlags
 	{
 		MEMORY_BITMAP = ALLEGRO_MEMORY_BITMAP,
@@ -64,7 +64,13 @@ pub trait BitmapLike
 
 	fn get_pixel(&self, x: i32, y: i32) -> Color
 	{
-		unsafe { Color::from_allegro_color(al_get_pixel(self.get_allegro_bitmap(), x as c_int, y as c_int)) }
+		unsafe {
+			Color::from_allegro_color(al_get_pixel(
+				self.get_allegro_bitmap(),
+				x as c_int,
+				y as c_int,
+			))
+		}
 	}
 
 	fn convert_mask_to_alpha(&self, mask_color: Color)
