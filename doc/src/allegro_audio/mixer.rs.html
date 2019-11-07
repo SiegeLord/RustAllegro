@@ -329,27 +329,27 @@
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">set_impl</span>
 {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>: <span class="ident">expr</span>),<span class="op">+</span>) <span class="op">=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>: <span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>: <span class="ident">expr</span>),<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
-		<span class="kw">unsafe</span>{ <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>),<span class="op">+</span>) <span class="op">!=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) } }
+		<span class="kw">unsafe</span>{ <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>),<span class="op">+</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> { <span class="prelude-val">Ok</span>(()) } <span class="kw">else</span> { <span class="prelude-val">Err</span>(()) } }
 	}
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>:<span class="ident">ty</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">unsafe</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span> }
 	};
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_conv_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>:<span class="ident">path</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>:<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">unsafe</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>)) }
 	};
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_bool_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
-		<span class="kw">unsafe</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="op">!=</span> <span class="number">0</span> }
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
+		<span class="kw">unsafe</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	};
 }
 
@@ -357,7 +357,7 @@
 {
 	<span class="kw">fn</span> <span class="ident">detach</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>);
 
-	<span class="kw">fn</span> <span class="ident">attach</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">HasMixer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mixer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">attach</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">HasMixer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mixer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="self">self</span>.<span class="ident">detach</span>();
 
@@ -379,19 +379,19 @@
 	<span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>,
 	<span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Connection</span><span class="op">&gt;</span>,
 	<span class="ident">children</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Connection</span><span class="op">&gt;</span>,
-	<span class="ident">callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">CallbackHolder</span><span class="op">&gt;&gt;</span>,
+	<span class="ident">callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">CallbackHolder</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Mixer</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">addon</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">addon</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="ident">Mixer</span>::<span class="ident">new_custom</span>(<span class="ident">addon</span>, <span class="number">44100</span>, <span class="ident">AudioDepth</span>::<span class="ident">F32</span>, <span class="ident">ChannelConf</span>::<span class="ident">Conf2</span>)
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_custom</span>(
 		<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>, <span class="ident">depth</span>: <span class="ident">AudioDepth</span>, <span class="ident">chan_conf</span>: <span class="ident">ChannelConf</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mixer</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">mixer</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_create_mixer</span>(<span class="ident">frequency</span> <span class="kw">as</span> <span class="ident">c_uint</span>, <span class="ident">depth</span>.<span class="ident">get</span>(), <span class="ident">chan_conf</span>.<span class="ident">get</span>()) };
 		<span class="kw">if</span> <span class="ident">mixer</span>.<span class="ident">is_null</span>()
@@ -409,7 +409,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_mixer</span>
 	}
@@ -439,14 +439,14 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MixerLike</span>: <span class="ident">HasMixer</span>
 {
-	<span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
+	<span class="kw">fn</span> <span class="ident">get_allegro_mixer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>
 	{
 		<span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>
 	}
 
 	<span class="kw">fn</span> <span class="ident">play_sample</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>, <span class="ident">gain</span>: <span class="ident">f32</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>, <span class="ident">speed</span>: <span class="ident">f32</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">inst</span> <span class="op">=</span> <span class="ident">sample</span>.<span class="ident">create_instance</span>();
 		<span class="ident">inst</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">inst</span><span class="op">|</span> {
@@ -461,70 +461,70 @@
 		})
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span>
+	<span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>
 	{
 		<span class="macro">get_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_frequency</span>, <span class="ident">u32</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">f32</span>
+	<span class="kw">fn</span> <span class="ident">get_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span>
 	{
 		<span class="macro">get_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_gain</span>, <span class="ident">f32</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MixerQuality</span>
+	<span class="kw">fn</span> <span class="ident">get_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MixerQuality</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_quality</span>, <span class="ident">MixerQuality</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ChannelConf</span>
+	<span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ChannelConf</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_channels</span>, <span class="ident">ChannelConf</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>
+	<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AudioDepth</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_depth</span>, <span class="ident">AudioDepth</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">get_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
 		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_playing</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_attached</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">get_attached</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
 		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_mixer_attached</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playing</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_playing</span>, <span class="ident">playing</span> <span class="kw">as</span> <span class="ident">c_bool</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gain</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gain</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_gain</span>, <span class="ident">gain</span> <span class="kw">as</span> <span class="ident">c_float</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">freq</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">freq</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_frequency</span>, <span class="ident">freq</span> <span class="kw">as</span> <span class="ident">u32</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">quality</span>: <span class="ident">MixerQuality</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">set_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">quality</span>: <span class="ident">MixerQuality</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_mixer_quality</span>, <span class="ident">quality</span>.<span class="ident">get</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">set_postprocess_callback</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cb</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;&gt;</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cb</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">PostProcessCallback</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">allegro_mixer</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_mixer</span>().<span class="ident">allegro_mixer</span>;
 
 		<span class="kw">match</span> <span class="ident">cb</span>
 		{
-			<span class="prelude-val">Some</span>(<span class="ident">cb</span>) <span class="op">=&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">cb</span>) <span class="op">=</span><span class="op">&gt;</span>
 			{
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cbh</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">CallbackHolder</span> {
 					<span class="ident">cb</span>: <span class="ident">cb</span>,
@@ -538,18 +538,18 @@
 						<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">cbh</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
 					)
 				};
-				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">==</span> <span class="number">0</span>
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>
 				{
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(());
 				}
 				<span class="self">self</span>.<span class="ident">get_mixer_mut</span>().<span class="ident">callback</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">cbh</span>);
 			}
-			<span class="prelude-val">None</span> <span class="op">=&gt;</span>
+			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span>
 			{
 				<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
 					<span class="ident">al_set_mixer_postprocess_callback</span>(<span class="ident">allegro_mixer</span>, <span class="prelude-val">None</span>, <span class="ident">ptr</span>::<span class="ident">null_mut</span>())
 				};
-				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">==</span> <span class="number">0</span>
+				<span class="kw">if</span> <span class="ident">ret</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>
 				{
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(());
 				}
@@ -577,13 +577,13 @@
 
 <span class="kw">impl</span> <span class="ident">AttachToMixerImpl</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class="kw">fn</span> <span class="ident">create_connection</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Connection</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">create_connection</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Connection</span>, ()<span class="op">&gt;</span>
 	{
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">allegro_mixer</span> <span class="op">==</span> <span class="ident">allegro_mixer</span>
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">allegro_mixer</span> <span class="op">=</span><span class="op">=</span> <span class="ident">allegro_mixer</span>
 		{
 			<span class="prelude-val">Err</span>(())
 		}
-		<span class="kw">else</span> <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">al_attach_mixer_to_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>, <span class="ident">allegro_mixer</span>) <span class="op">==</span> <span class="number">0</span> }
+		<span class="kw">else</span> <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">al_attach_mixer_to_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_mixer</span>, <span class="ident">allegro_mixer</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span> }
 		{
 			<span class="prelude-val">Err</span>(())
 		}
@@ -607,12 +607,12 @@
 
 <span class="kw">impl</span> <span class="ident">HasMixer</span> <span class="kw">for</span> <span class="ident">Mixer</span>
 {
-	<span class="kw">fn</span> <span class="ident">get_mixer</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Mixer</span>
+	<span class="kw">fn</span> <span class="ident">get_mixer</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Mixer</span>
 	{
 		<span class="self">self</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_mixer_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="ident">Mixer</span>
+	<span class="kw">fn</span> <span class="ident">get_mixer_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="ident">Mixer</span>
 	{
 		<span class="self">self</span>
 	}

@@ -317,12 +317,12 @@ Wraps ALLEGRO_CONFIG.
 <span class="kw">impl</span> <span class="ident">Config</span>
 {
 	<span class="doccomment">/// Creates an empty configuration.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">Config</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Config</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">Config</span>::<span class="ident">wrap</span>(<span class="ident">al_create_config</span>(), <span class="bool-val">true</span>) }
 	}
 
-	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">config</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>, <span class="ident">own</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">Config</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">config</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>, <span class="ident">own</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Config</span>
 	{
 		<span class="ident">Config</span> {
 			<span class="ident">allegro_config</span>: <span class="ident">config</span>,
@@ -331,7 +331,7 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Loads a config from a path.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Config</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Config</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">path</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">unsafe</span> {
@@ -348,7 +348,7 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Merge two configs into 1.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">merge</span>(<span class="ident">cfg1</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">cfg2</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="ident">Config</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">merge</span>(<span class="ident">cfg1</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">cfg2</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Config</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="ident">Config</span>::<span class="ident">wrap</span>(
@@ -359,17 +359,17 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Returns the wrapped ALLEGRO_CONFIG.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_CONFIG</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_config</span>
 	}
 
 	<span class="doccomment">/// Loads a config from a path.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">save</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">save</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">path</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_save_config_file</span>(<span class="ident">path</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>.<span class="ident">allegro_config</span>) };
-		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!=</span> <span class="number">0</span>
+		<span class="kw">if</span> <span class="ident">ret</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
 		{
 			<span class="prelude-val">Ok</span>(())
 		}
@@ -389,10 +389,10 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Removes a section with the specified name.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_section</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_section</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
 		<span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">name</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
-		<span class="kw">unsafe</span> { <span class="ident">al_remove_config_section</span>(<span class="self">self</span>.<span class="ident">allegro_config</span>, <span class="ident">name</span>.<span class="ident">as_ptr</span>()) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_remove_config_section</span>(<span class="self">self</span>.<span class="ident">allegro_config</span>, <span class="ident">name</span>.<span class="ident">as_ptr</span>()) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	}
 
 	<span class="doccomment">/// Sets the value of a key in a section.</span>
@@ -412,11 +412,11 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Removes a key with the specified name.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_key</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_key</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
 		<span class="kw">let</span> <span class="ident">section</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">section</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">key</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
-		<span class="kw">unsafe</span> { <span class="ident">al_remove_config_key</span>(<span class="self">self</span>.<span class="ident">allegro_config</span>, <span class="ident">section</span>.<span class="ident">as_ptr</span>(), <span class="ident">key</span>.<span class="ident">as_ptr</span>()) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_remove_config_key</span>(<span class="self">self</span>.<span class="ident">allegro_config</span>, <span class="ident">section</span>.<span class="ident">as_ptr</span>(), <span class="ident">key</span>.<span class="ident">as_ptr</span>()) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	}
 
 	<span class="doccomment">/// Adds a comment to a section.</span>
@@ -430,7 +430,7 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Gets a value from a section.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">section</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">section</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">key</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
@@ -457,7 +457,7 @@ Wraps ALLEGRO_CONFIG.
 
 	<span class="doccomment">/// Returns an iterator over all the sections in the config. The first</span>
 	<span class="doccomment">/// returned section will typically be the root section, even if it&#39;s empty.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sections</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ConfigSection</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sections</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ConfigSection</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config_section</span> <span class="op">=</span> <span class="ident">ConfigSection</span> {
 			<span class="ident">_config</span>: <span class="self">self</span>,
@@ -479,7 +479,7 @@ Wraps ALLEGRO_CONFIG.
 	}
 
 	<span class="doccomment">/// Returns an iterator over all the entries in a particular section.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keys</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">ConfigEntry</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keys</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ConfigEntry</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">section</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">section</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config_entry</span> <span class="op">=</span> <span class="ident">ConfigEntry</span> {
@@ -506,7 +506,7 @@ Wraps ALLEGRO_CONFIG.
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Config</span>
 {
 	<span class="comment">// Sadly this nukes the comments.</span>
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Config</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Config</span>
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">Config</span>::<span class="ident">new</span>();
 		<span class="ident">ret</span>.<span class="ident">merge_from</span>(<span class="self">self</span>);
@@ -544,7 +544,7 @@ Configuration section. Used for iterating through all the sections of a configur
 {
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">String</span>;
 
-	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">next_section</span>.<span class="ident">take</span>();
 		<span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_some</span>()
@@ -579,7 +579,7 @@ Configuration entry. Used for iterating through all the entries of a configurati
 {
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">String</span>;
 
-	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">next_key</span>.<span class="ident">take</span>();
 		<span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_some</span>()

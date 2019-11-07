@@ -124,7 +124,7 @@
 
 <span class="kw">impl</span> <span class="ident">Transform</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">identity</span>() <span class="op">-&gt;</span> <span class="ident">Transform</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">identity</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Transform</span>
 	{
 		<span class="ident">Transform</span>(<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -133,12 +133,12 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">t</span>: <span class="ident">ALLEGRO_TRANSFORM</span>) <span class="op">-&gt;</span> <span class="ident">Transform</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">t</span>: <span class="ident">ALLEGRO_TRANSFORM</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Transform</span>
 	{
 		<span class="ident">Transform</span>(<span class="ident">t</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">theta</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="ident">Transform</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>, <span class="ident">sx</span>: <span class="ident">f32</span>, <span class="ident">sy</span>: <span class="ident">f32</span>, <span class="ident">theta</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Transform</span>
 	{
 		<span class="ident">Transform</span>(<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -154,17 +154,17 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_transform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ALLEGRO_TRANSFORM</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_transform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ALLEGRO_TRANSFORM</span>
 	{
 		<span class="self">self</span>.<span class="number">0</span>
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>]
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>]
 	{
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">m</span>
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>]
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>]
 	{
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">m</span>
 	}
@@ -190,7 +190,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_coordinates</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> (<span class="ident">f32</span>, <span class="ident">f32</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_coordinates</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f32</span>, <span class="ident">f32</span>)
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_float</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_float</span>;
@@ -214,9 +214,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tol</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tol</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="kw">unsafe</span> { <span class="ident">al_check_inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">tol</span> <span class="kw">as</span> <span class="ident">c_float</span>) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_check_inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">tol</span> <span class="kw">as</span> <span class="ident">c_float</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	}
 }
 </pre></div>

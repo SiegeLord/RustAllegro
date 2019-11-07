@@ -6,5 +6,4 @@ implementors["allegro"] = [{text:"impl&lt;'l&gt; <a class=\"trait\" href=\"https
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

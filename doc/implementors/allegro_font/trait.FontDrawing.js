@@ -6,5 +6,4 @@ implementors["allegro_font"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

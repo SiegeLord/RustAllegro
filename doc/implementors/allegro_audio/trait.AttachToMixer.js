@@ -6,5 +6,4 @@ implementors["allegro_audio"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

@@ -7,5 +7,4 @@ implementors["allegro_ttf"] = [{text:"impl <a class=\"trait\" href=\"allegro_uti
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

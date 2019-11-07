@@ -19,5 +19,4 @@ implementors["libc"] = [{text:"impl Freeze for <a class=\"enum\" href=\"libc/typ
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

@@ -115,7 +115,7 @@
 
 <span class="kw">impl</span> <span class="ident">Timer</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">speed_secs</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Timer</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">speed_secs</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Timer</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">al_create_timer</span>(<span class="ident">speed_secs</span> <span class="kw">as</span> <span class="ident">c_double</span>);
@@ -144,12 +144,12 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_started</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_started</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="kw">unsafe</span> { <span class="ident">al_get_timer_started</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>)) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_get_timer_started</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>)) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_timer_speed</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>)) <span class="kw">as</span> <span class="ident">f64</span> }
 	}
@@ -161,7 +161,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_timer_count</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>)) <span class="kw">as</span> <span class="ident">i64</span> }
 	}
@@ -180,7 +180,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">EventSource</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_event_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventSource</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">EventSource</span>::<span class="ident">wrap</span>(<span class="ident">al_get_timer_event_source</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>)) }
 	}

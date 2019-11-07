@@ -128,36 +128,36 @@ A trait implemented by types that behave like bitmaps.
 */</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">BitmapLike</span>
 {
-	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
+	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>;
 
 	<span class="doccomment">/**
 	Creates a sub-bitmap of the current bitmap. Note that the parent bitmap
 	will panic upon destruction if any strong references to its sub-bitmaps are
 	held at that time.
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>;
 
-	<span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
+	<span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_bitmap_width</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>
+	<span class="kw">fn</span> <span class="ident">get_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_bitmap_height</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">PixelFormat</span>
+	<span class="kw">fn</span> <span class="ident">get_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PixelFormat</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_bitmap_format</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">u32</span>) }
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">BitmapFlags</span>
+	<span class="kw">fn</span> <span class="ident">get_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BitmapFlags</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">al_get_bitmap_flags</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="kw">as</span> <span class="ident">u32</span>) }
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">Color</span>
+	<span class="kw">fn</span> <span class="ident">get_pixel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Color</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="ident">Color</span>::<span class="ident">from_allegro_color</span>(<span class="ident">al_get_pixel</span>(
@@ -182,9 +182,9 @@ A trait implemented by types that behave like bitmaps.
 	may or may not be compatible with the other display. If the bitmap is not
 	compatible, drawing it will be slow.
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">is_compatible_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">is_compatible_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="kw">unsafe</span> { <span class="ident">al_is_compatible_bitmap</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">unsafe</span> { <span class="ident">al_is_compatible_bitmap</span>(<span class="self">self</span>.<span class="ident">get_allegro_bitmap</span>()) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 	}
 }
 </pre></div>

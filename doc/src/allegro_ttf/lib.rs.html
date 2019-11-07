@@ -134,15 +134,15 @@
 
 <span class="kw">impl</span> <span class="ident">TtfAddon</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">FontAddon</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TtfAddon</span>, <span class="ident">String</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">FontAddon</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TtfAddon</span>, <span class="ident">String</span><span class="op">&gt;</span>
 	{
 		<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span>;
 		<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">RUN_ONCE</span>: <span class="ident">Once</span> <span class="op">=</span> <span class="ident">Once</span>::<span class="ident">new</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="prelude-val">Err</span>(<span class="string">&quot;The TTF addon already initialized.&quot;</span>.<span class="ident">into</span>());
 		<span class="kw">unsafe</span> {
-			<span class="ident">RUN_ONCE</span>.<span class="ident">call_once</span>(<span class="op">||</span> {
-				<span class="ident">res</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">al_init_ttf_addon</span>() <span class="op">!=</span> <span class="number">0</span>
+			<span class="ident">RUN_ONCE</span>.<span class="ident">call_once</span>(<span class="op">|</span><span class="op">|</span> {
+				<span class="ident">res</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">al_init_ttf_addon</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
 				{
 					<span class="prelude-val">Ok</span>(<span class="ident">TtfAddon</span> { <span class="ident">_dummy</span>: () })
 				}
@@ -155,12 +155,12 @@
 		<span class="ident">res</span>
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_version</span>() <span class="op">-&gt;</span> <span class="ident">i32</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_allegro_ttf_version</span>() <span class="kw">as</span> <span class="ident">i32</span> }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_ttf_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">size</span>: <span class="ident">i32</span>, <span class="ident">flags</span>: <span class="ident">TtfFlags</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Font</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_ttf_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">size</span>: <span class="ident">i32</span>, <span class="ident">flags</span>: <span class="ident">TtfFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Font</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">filename</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">unsafe</span> {
@@ -174,9 +174,9 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_ttf_font_stretch</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>, <span class="ident">flags</span>: <span class="ident">TtfFlags</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Font</span>, <span class="ident">String</span><span class="op">&gt;</span>
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Font</span>, <span class="ident">String</span><span class="op">&gt;</span>
 	{
-		<span class="kw">if</span> <span class="ident">width</span> <span class="op">&lt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">height</span> <span class="op">&gt;=</span> <span class="number">0</span> <span class="op">||</span> <span class="ident">width</span> <span class="op">&gt;=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">height</span> <span class="op">&lt;</span> <span class="number">0</span>
+		<span class="kw">if</span> <span class="ident">width</span> <span class="op">&lt;</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">height</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">width</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">height</span> <span class="op">&lt;</span> <span class="number">0</span>
 		{
 			<span class="prelude-val">Err</span>(<span class="string">&quot;Invalid dimension combination.&quot;</span>.<span class="ident">to_string</span>())
 		}

@@ -6,5 +6,4 @@ implementors["allegro"] = [{text:"impl <a class=\"trait\" href=\"allegro/trait.F
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

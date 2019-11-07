@@ -233,12 +233,12 @@
 {
 	<span class="ident">allegro_bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>,
 	<span class="ident">owned</span>: <span class="ident">bool</span>,
-	<span class="ident">sub_bitmaps</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
+	<span class="ident">sub_bitmaps</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Bitmap</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">al_create_bitmap</span>(<span class="ident">w</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">h</span> <span class="kw">as</span> <span class="ident">c_int</span>);
@@ -253,7 +253,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Core</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">filename</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
@@ -270,7 +270,7 @@
 	}
 
 	<span class="doccomment">/// Wraps an Allegro bitmap.</span>
-	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">bmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>, <span class="ident">own</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">Bitmap</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">wrap</span>(<span class="ident">bmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>, <span class="ident">own</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bitmap</span>
 	{
 		<span class="ident">Bitmap</span> {
 			<span class="ident">allegro_bitmap</span>: <span class="ident">bmp</span>,
@@ -279,7 +279,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_and_wrap</span>(<span class="ident">bmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_and_wrap</span>(<span class="ident">bmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">al_clone_bitmap</span>(<span class="ident">bmp</span>);
 		<span class="kw">if</span> <span class="ident">b</span>.<span class="ident">is_null</span>()
@@ -292,11 +292,11 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">has_outstanding_sub_bitmaps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">has_outstanding_sub_bitmaps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
 		<span class="kw">for</span> <span class="ident">bmp</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">sub_bitmaps</span>.<span class="ident">borrow</span>()
 		{
-			<span class="kw">if</span> <span class="ident">Rc</span>::<span class="ident">strong_count</span>(<span class="kw-2">&amp;</span><span class="ident">bmp</span>) <span class="op">!=</span> <span class="number">1</span>
+			<span class="kw">if</span> <span class="ident">Rc</span>::<span class="ident">strong_count</span>(<span class="kw-2">&amp;</span><span class="ident">bmp</span>) <span class="op">!</span><span class="op">=</span> <span class="number">1</span>
 			{
 				<span class="kw">return</span> <span class="bool-val">true</span>;
 			}
@@ -304,7 +304,7 @@
 		<span class="bool-val">false</span>
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">maybe_clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">maybe_clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">Bitmap</span>::<span class="ident">clone_and_wrap</span>(<span class="self">self</span>.<span class="ident">allegro_bitmap</span>) }
 	}
@@ -315,12 +315,12 @@
 
 <span class="kw">impl</span> <span class="ident">BitmapLike</span> <span class="kw">for</span> <span class="ident">Bitmap</span>
 {
-	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>
+	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_bitmap</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="ident">SubBitmap</span>::<span class="ident">new</span>(
 			<span class="self">self</span>.<span class="ident">allegro_bitmap</span>,
@@ -335,7 +335,7 @@
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Bitmap</span>
 {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Bitmap</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bitmap</span>
 	{
 		<span class="self">self</span>.<span class="ident">maybe_clone</span>().<span class="ident">unwrap</span>()
 	}
@@ -363,15 +363,15 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubBitmap</span>
 {
 	<span class="ident">allegro_bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>,
-	<span class="ident">siblings</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
+	<span class="ident">siblings</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">SubBitmap</span>
 {
 	<span class="kw">fn</span> <span class="ident">new</span>(
-		<span class="ident">parent</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>, <span class="ident">siblings</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>,
+		<span class="ident">parent</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>, <span class="ident">siblings</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>,
 		<span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span>
 			<span class="kw">unsafe</span> { <span class="ident">al_create_sub_bitmap</span>(<span class="ident">parent</span>, <span class="ident">x</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">y</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">w</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="ident">h</span> <span class="kw">as</span> <span class="ident">c_int</span>) };
@@ -398,7 +398,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bitmap</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">Bitmap</span>::<span class="ident">clone_and_wrap</span>(<span class="self">self</span>.<span class="ident">allegro_bitmap</span>) }
 	}
@@ -409,12 +409,12 @@
 
 <span class="kw">impl</span> <span class="ident">BitmapLike</span> <span class="kw">for</span> <span class="ident">SubBitmap</span>
 {
-	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>
+	<span class="kw">fn</span> <span class="ident">get_allegro_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_BITMAP</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_bitmap</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">create_sub_bitmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">w</span>: <span class="ident">i32</span>, <span class="ident">h</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SubBitmap</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="ident">SubBitmap</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">allegro_bitmap</span>, <span class="self">self</span>.<span class="ident">siblings</span>.<span class="ident">clone</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">w</span>, <span class="ident">h</span>)
 	}

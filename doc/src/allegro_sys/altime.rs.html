@@ -35,7 +35,7 @@
 
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_time</span>() <span class="op">-&gt;</span> <span class="ident">c_double</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_time</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_double</span>;
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_rest</span>(<span class="ident">seconds</span>: <span class="ident">c_double</span>);
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_init_timeout</span>(<span class="ident">timeout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TIMEOUT</span>, <span class="ident">seconds</span>: <span class="ident">c_double</span>);
 }

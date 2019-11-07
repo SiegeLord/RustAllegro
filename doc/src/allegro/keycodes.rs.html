@@ -300,7 +300,7 @@
 
 <span class="kw">impl</span> <span class="ident">KeyCode</span>
 {
-	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_allegro_key</span>(<span class="ident">k</span>: <span class="ident">c_int</span>) <span class="op">-&gt;</span> <span class="ident">KeyCode</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_allegro_key</span>(<span class="ident">k</span>: <span class="ident">c_int</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KeyCode</span>
 	{
 		<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">k</span> <span class="kw">as</span> <span class="ident">u32</span>)
 	}
