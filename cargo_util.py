@@ -92,6 +92,7 @@ if args.publish:
 		old_version = search_result[crate_name]
 		if old_version == new_version:
 			print(f'Version {new_version} already published, skipping.')
+			continue
 
 		for i in range(args.num_retries):
 			try:
