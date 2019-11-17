@@ -22,7 +22,7 @@ link_static = ["allegro_audio-sys/link_static"]
 
 [dependencies]
 
-libc = "0.1"
+libc = "0.2"
 
 [dependencies.allegro]
 

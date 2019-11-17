@@ -30,7 +30,7 @@ link_static = ["allegro-sys/link_static"]
 
 [dependencies]
 
-libc = "0.1"
+libc = "0.2"
 lazy_static = "=1.4.0"
 
 [dependencies.allegro-sys]

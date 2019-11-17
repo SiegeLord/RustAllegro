@@ -16,7 +16,7 @@ pub mod allegro_memfile
 	use libc::*;
 
 	extern "C" {
-		pub fn al_open_memfile(mem: *mut c_void, size: int64_t, mode: *const c_char) -> *mut ALLEGRO_FILE;
-		pub fn al_get_allegro_memfile_version() -> uint32_t;
+		pub fn al_open_memfile(mem: *mut c_void, size: i64, mode: *const c_char) -> *mut ALLEGRO_FILE;
+		pub fn al_get_allegro_memfile_version() -> u32;
 	}
 }

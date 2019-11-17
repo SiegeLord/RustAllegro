@@ -8,8 +8,8 @@ use libc::*;
 #[derive(Copy, Clone)]
 pub struct ALLEGRO_TIMEOUT
 {
-	pub __pad1__: uint64_t,
-	pub __pad2__: uint64_t,
+	pub __pad1__: u64,
+	pub __pad2__: u64,
 }
 
 extern "C"

@@ -10,7 +10,7 @@ pub const ALLEGRO_VERSION_INT: u32          = ((ALLEGRO_VERSION << 24) | (ALLEGR
 
 extern "C"
 {
-	pub fn al_get_allegro_version() -> uint32_t;
+	pub fn al_get_allegro_version() -> u32;
 	pub fn al_run_main(argc: c_int, argv: *const *const c_char, user_main: extern "C" fn(argc: c_int, argv: *const *const c_char) -> c_int) -> c_int;
 }
 

@@ -70,14 +70,14 @@ impl Timer
 	pub fn set_count(&self, count: i64)
 	{
 		unsafe {
-			al_set_timer_count(self.allegro_timer, count as int64_t);
+			al_set_timer_count(self.allegro_timer, count);
 		}
 	}
 
 	pub fn add_count(&self, diff: i64)
 	{
 		unsafe {
-			al_add_timer_count(self.allegro_timer, diff as int64_t);
+			al_add_timer_count(self.allegro_timer, diff);
 		}
 	}
 

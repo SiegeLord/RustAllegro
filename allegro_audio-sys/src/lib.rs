@@ -196,7 +196,7 @@ pub mod allegro_audio
 		pub fn al_install_audio() -> c_bool;
 		pub fn al_uninstall_audio();
 		pub fn al_is_audio_installed() -> c_bool;
-		pub fn al_get_allegro_audio_version() -> uint32_t;
+		pub fn al_get_allegro_audio_version() -> u32;
 
 		pub fn al_get_channel_count(conf: ALLEGRO_CHANNEL_CONF) -> size_t;
 		pub fn al_get_audio_depth_size(conf: ALLEGRO_AUDIO_DEPTH) -> size_t;

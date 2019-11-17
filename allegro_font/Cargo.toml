@@ -23,7 +23,7 @@ link_static = ["allegro_font-sys/link_static"]
 
 [dependencies]
 
-libc = "0.1"
+libc = "0.2"
 
 [dependencies.allegro]
 

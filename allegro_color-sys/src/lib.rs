@@ -21,7 +21,7 @@ pub mod allegro_color
 
 	extern "C"
 	{
-		pub fn al_get_allegro_color_version() -> uint32_t;
+		pub fn al_get_allegro_color_version() -> u32;
 		pub fn al_color_hsv_to_rgb(hue: c_float, saturation: c_float, value: c_float, red: *mut c_float, green: *mut c_float, blue: *mut c_float) -> ();
 		pub fn al_color_rgb_to_hsl(red: c_float, green: c_float, blue: c_float, hue: *mut c_float, saturation: *mut c_float, lightness: *mut c_float) -> ();
 		pub fn al_color_rgb_to_hsv(red: c_float, green: c_float, blue: c_float, hue: *mut c_float, saturation: *mut c_float, value: *mut c_float) -> ();

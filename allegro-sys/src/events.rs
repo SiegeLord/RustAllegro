@@ -126,7 +126,7 @@ pub struct ALLEGRO_TIMER_EVENT
 	pub _type: ALLEGRO_EVENT_TYPE,
 	pub source: *mut ALLEGRO_TIMER,
 	pub timestamp: c_double,
-	pub count: int64_t,
+	pub count: i64,
 	pub error: c_double,
 }
 
