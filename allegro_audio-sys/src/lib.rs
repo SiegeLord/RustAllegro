@@ -196,7 +196,7 @@ pub mod allegro_audio
 		pub fn al_install_audio() -> c_bool;
 		pub fn al_uninstall_audio();
 		pub fn al_is_audio_installed() -> c_bool;
-		pub fn al_get_allegro_audio_version() -> uint32_t;
+		pub fn al_get_allegro_audio_version() -> u32;
 
 		pub fn al_get_channel_count(conf: ALLEGRO_CHANNEL_CONF) -> size_t;
 		pub fn al_get_audio_depth_size(conf: ALLEGRO_AUDIO_DEPTH) -> size_t;
@@ -213,14 +213,14 @@ pub mod allegro_audio
 		pub fn al_register_sample_loader(ext: *const c_char, loader: Option<extern "C" fn(arg1: *const c_char) -> *mut ALLEGRO_SAMPLE>) -> c_bool;
 		pub fn al_register_sample_saver(ext: *const c_char, saver: Option<extern "C" fn(arg1: *const c_char, arg2: *mut ALLEGRO_SAMPLE) -> c_bool>) -> c_bool;
 		pub fn al_register_audio_stream_loader(ext: *const c_char, stream_loader: Option<extern "C" fn(arg1: *const c_char, arg2: size_t, arg3: c_uint) -> *mut ALLEGRO_AUDIO_STREAM>) -> c_bool;
-		//~ pub fn al_register_sample_loader_f(ext: *const c_char, loader: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE) -> *mut ALLEGRO_SAMPLE>) -> c_bool;
-		//~ pub fn al_register_sample_saver_f(ext: *const c_char, saver: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE, arg2: *mut ALLEGRO_SAMPLE) -> c_bool>) -> c_bool;
-		//~ pub fn al_register_audio_stream_loader_f(ext: *const c_char, stream_loader: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE, arg2: size_t, arg3: c_uint) -> *mut ALLEGRO_AUDIO_STREAM>) -> c_bool;
+		pub fn al_register_sample_loader_f(ext: *const c_char, loader: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE) -> *mut ALLEGRO_SAMPLE>) -> c_bool;
+		pub fn al_register_sample_saver_f(ext: *const c_char, saver: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE, arg2: *mut ALLEGRO_SAMPLE) -> c_bool>) -> c_bool;
+		pub fn al_register_audio_stream_loader_f(ext: *const c_char, stream_loader: Option<extern "C" fn(arg1: *mut ALLEGRO_FILE, arg2: size_t, arg3: c_uint) -> *mut ALLEGRO_AUDIO_STREAM>) -> c_bool;
 		pub fn al_load_sample(filename: *const c_char) -> *mut ALLEGRO_SAMPLE;
 		pub fn al_save_sample(filename: *const c_char, spl: *mut ALLEGRO_SAMPLE) -> c_bool;
 		pub fn al_load_audio_stream(filename: *const c_char, buffer_count: size_t, samples: c_uint) -> *mut ALLEGRO_AUDIO_STREAM;
-		//~ pub fn al_load_sample_f(fp: *mut ALLEGRO_FILE, ident: *const c_char) -> *mut ALLEGRO_SAMPLE;
-		//~ pub fn al_save_sample_f(fp: *mut ALLEGRO_FILE, ident: *const c_char, spl: *mut ALLEGRO_SAMPLE) -> c_bool;
-		//~ pub fn al_load_audio_stream_f(fp: *mut ALLEGRO_FILE, ident: *const c_char, buffer_count: size_t, samples: c_uint) -> *mut ALLEGRO_AUDIO_STREAM;
+		pub fn al_load_sample_f(fp: *mut ALLEGRO_FILE, ident: *const c_char) -> *mut ALLEGRO_SAMPLE;
+		pub fn al_save_sample_f(fp: *mut ALLEGRO_FILE, ident: *const c_char, spl: *mut ALLEGRO_SAMPLE) -> c_bool;
+		pub fn al_load_audio_stream_f(fp: *mut ALLEGRO_FILE, ident: *const c_char, buffer_count: size_t, samples: c_uint) -> *mut ALLEGRO_AUDIO_STREAM;
 	}
 }

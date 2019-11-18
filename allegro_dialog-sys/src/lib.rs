@@ -55,6 +55,6 @@ pub mod allegro_dialog
 		pub fn al_close_native_text_log(textlog: *mut ALLEGRO_TEXTLOG);
 		pub fn al_append_native_text_log(textlog: *mut ALLEGRO_TEXTLOG, format: *const c_char, ...);
 		pub fn al_get_native_text_log_event_source(textlog: *mut ALLEGRO_TEXTLOG) -> *mut ALLEGRO_EVENT_SOURCE;
-		pub fn al_get_allegro_native_dialog_version() -> uint32_t;
+		pub fn al_get_allegro_native_dialog_version() -> u32;
 	}
 }

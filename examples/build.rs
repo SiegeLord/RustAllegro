@@ -7,11 +7,6 @@ use std::str::FromStr;
 
 fn main()
 {
-	if let Ok(path) = var("RUSTALLEGRO_EXAMPLE_LINK_PATH")
-	{
-		println!("cargo:rustc-flags=-L {}", path);
-	}
-
 	let allegro_sub_version = u32::from_str(&var("DEP_ALLEGRO_SUB_VERSION").unwrap()).unwrap();
 	let allegro_wip_version = u32::from_str(&var("DEP_ALLEGRO_WIP_VERSION").unwrap()).unwrap();
 

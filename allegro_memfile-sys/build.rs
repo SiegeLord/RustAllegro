@@ -1,4 +1,4 @@
-// Copyright (c) 2014 by SiegeLord
+// Copyright (c) 2018 by RustAllegro contributors.
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
@@ -23,5 +23,5 @@ fn main()
 		Ok(_) => "-static"
 	};
 
-	println!("cargo:rustc-flags=-l allegro_acodec{}{}", debug, static_);
+	println!("cargo:rustc-flags=-l allegro_memfile{}{}", debug, static_);
 }

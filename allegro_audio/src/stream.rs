@@ -55,10 +55,14 @@ impl AudioStream
 		AudioStream::load_custom(addon, filename, 4, 2048)
 	}
 
-	pub fn load_custom(_: &AudioAddon, filename: &str, buffer_count: usize, samples: u32) -> Result<AudioStream, ()>
+	pub fn load_custom(
+		_: &AudioAddon, filename: &str, buffer_count: usize, samples: u32,
+	) -> Result<AudioStream, ()>
 	{
 		let filename = CString::new(filename.as_bytes()).unwrap();
-		let stream = unsafe { al_load_audio_stream(filename.as_ptr(), buffer_count as size_t, samples as c_uint) };
+		let stream = unsafe {
+			al_load_audio_stream(filename.as_ptr(), buffer_count as size_t, samples as c_uint)
+		};
 		if stream.is_null()
 		{
 			Err(())
@@ -75,7 +79,8 @@ impl AudioStream
 	}
 
 	pub fn new(
-		_: &AudioAddon, buffer_count: usize, samples: u32, frequency: u32, depth: AudioDepth, chan_conf: ChannelConf,
+		_: &AudioAddon, buffer_count: usize, samples: u32, frequency: u32, depth: AudioDepth,
+		chan_conf: ChannelConf,
 	) -> Result<AudioStream, ()>
 	{
 		let stream = unsafe {
@@ -111,7 +116,12 @@ impl AudioStream
 
 	pub fn set_loop_secs(&self, start: f64, end: f64) -> Result<(), ()>
 	{
-		set_impl!(self, al_set_audio_stream_loop_secs, start as c_double, end as c_double)
+		set_impl!(
+			self,
+			al_set_audio_stream_loop_secs,
+			start as c_double,
+			end as c_double
+		)
 	}
 
 	pub fn set_playing(&self, playing: bool) -> Result<(), ()>
@@ -234,7 +244,11 @@ impl AudioStream
 
 	pub fn get_channels(&self) -> ChannelConf
 	{
-		get_conv_impl!(self, al_get_audio_stream_channels, ChannelConf::from_allegro)
+		get_conv_impl!(
+			self,
+			al_get_audio_stream_channels,
+			ChannelConf::from_allegro
+		)
 	}
 
 	pub fn get_depth(&self) -> AudioDepth
@@ -252,16 +266,21 @@ impl AudioStream
 		get_bool_impl!(self, al_get_audio_stream_attached)
 	}
 
-	pub fn write_fragment(&self, write_cb: &mut FnMut(/*writer: */ &mut Write)) -> Result<bool, ()>
+	pub fn write_fragment(
+		&self, write_cb: &mut dyn FnMut(/*writer: */ &mut dyn Write),
+	) -> Result<bool, ()>
 	{
 		use std::slice::from_raw_parts_mut;
-		let fragment = unsafe { al_get_audio_stream_fragment(self.allegro_audio_stream as *const _) };
+		let fragment =
+			unsafe { al_get_audio_stream_fragment(self.allegro_audio_stream as *const _) };
 		if fragment.is_null()
 		{
 			return Ok(false);
 		}
 
-		let frag_size = self.get_channels().get_num_channels() * self.get_depth().get_byte_size() * self.fragment_samples;
+		let frag_size = self.get_channels().get_num_channels()
+			* self.get_depth().get_byte_size()
+			* self.fragment_samples;
 		unsafe {
 			let mut buf = from_raw_parts_mut(fragment as *mut u8, frag_size);
 			{
@@ -294,6 +313,9 @@ impl Drop for AudioStream
 	}
 }
 
+unsafe impl Send for AudioStream {}
+unsafe impl Sync for AudioStream {}
+
 impl AttachToMixerImpl for AudioStream
 {
 	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
@@ -304,7 +326,10 @@ impl AttachToMixerImpl for AudioStream
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe { mem::transmute(self.allegro_audio_stream) }, AudioStream::detach);
+			let (c1, c2) = Connection::new(
+				unsafe { mem::transmute(self.allegro_audio_stream) },
+				AudioStream::detach,
+			);
 			self.parent = Some(c1);
 			Ok(c2)
 		}

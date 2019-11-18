@@ -49,7 +49,12 @@ impl Config
 	/// Merge two configs into 1.
 	pub fn merge(cfg1: &Config, cfg2: &Config) -> Config
 	{
-		unsafe { Config::wrap(al_merge_config(cfg1.allegro_config, cfg2.allegro_config), true) }
+		unsafe {
+			Config::wrap(
+				al_merge_config(cfg1.allegro_config, cfg2.allegro_config),
+				true,
+			)
+		}
 	}
 
 	/// Returns the wrapped ALLEGRO_CONFIG.
@@ -96,7 +101,12 @@ impl Config
 		let key = CString::new(key.as_bytes()).unwrap();
 		let value = CString::new(value.as_bytes()).unwrap();
 		unsafe {
-			al_set_config_value(self.allegro_config, section.as_ptr(), key.as_ptr(), value.as_ptr());
+			al_set_config_value(
+				self.allegro_config,
+				section.as_ptr(),
+				key.as_ptr(),
+				value.as_ptr(),
+			);
 		}
 	}
 
@@ -154,10 +164,14 @@ impl Config
 			next_section: None,
 		};
 		unsafe {
-			let next_section = al_get_first_config_section(self.allegro_config, &mut config_section.config_section);
+			let next_section = al_get_first_config_section(
+				self.allegro_config,
+				&mut config_section.config_section,
+			);
 			if !next_section.is_null()
 			{
-				config_section.next_section = Some(CStr::from_ptr(next_section).to_string_lossy().into_owned());
+				config_section.next_section =
+					Some(CStr::from_ptr(next_section).to_string_lossy().into_owned());
 			}
 		}
 		config_section
@@ -173,10 +187,15 @@ impl Config
 			next_key: None,
 		};
 		unsafe {
-			let next_key = al_get_first_config_entry(self.allegro_config, section.as_ptr(), &mut config_entry.config_entry);
+			let next_key = al_get_first_config_entry(
+				self.allegro_config,
+				section.as_ptr(),
+				&mut config_entry.config_entry,
+			);
 			if !next_key.is_null()
 			{
-				config_entry.next_key = Some(CStr::from_ptr(next_key).to_string_lossy().into_owned());
+				config_entry.next_key =
+					Some(CStr::from_ptr(next_key).to_string_lossy().into_owned());
 			}
 		};
 		config_entry

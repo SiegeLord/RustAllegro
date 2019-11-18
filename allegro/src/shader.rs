@@ -53,7 +53,9 @@ impl Shader
 {
 	pub unsafe fn wrap(shader: *mut ALLEGRO_SHADER) -> Shader
 	{
-		Shader { allegro_shader: shader }
+		Shader {
+			allegro_shader: shader,
+		}
 	}
 
 	/// Return the wrapped Allegro shader pointer.
@@ -65,7 +67,9 @@ impl Shader
 	/// Attach a source to the shader. Passing None clears the source.
 	///
 	/// Returns the log if there was an error.
-	pub fn attach_shader_source(&self, shader_type: ShaderType, source: Option<&str>) -> Result<(), String>
+	pub fn attach_shader_source(
+		&self, shader_type: ShaderType, source: Option<&str>,
+	) -> Result<(), String>
 	{
 		let shader_type = shader_type as ALLEGRO_SHADER_TYPE;
 		let ret = unsafe {
@@ -92,10 +96,18 @@ impl Shader
 	/// Attach a source to the shader that is loaded from a file.
 	///
 	/// Returns the log if there was an error.
-	pub fn attach_shader_source_file(&self, shader_type: ShaderType, filename: &str) -> Result<(), String>
+	pub fn attach_shader_source_file(
+		&self, shader_type: ShaderType, filename: &str,
+	) -> Result<(), String>
 	{
 		let filename = CString::new(filename.as_bytes()).unwrap();
-		let ret = unsafe { al_attach_shader_source_file(self.allegro_shader, shader_type as ALLEGRO_SHADER_TYPE, filename.as_ptr()) };
+		let ret = unsafe {
+			al_attach_shader_source_file(
+				self.allegro_shader,
+				shader_type as ALLEGRO_SHADER_TYPE,
+				filename.as_ptr(),
+			)
+		};
 		if ret != 0
 		{
 			Ok(())
@@ -148,6 +160,9 @@ impl Drop for Shader
 	}
 }
 
+unsafe impl Send for Shader {}
+unsafe impl Sync for Shader {}
+
 /// Trait implemented by types that can be used to set uniforms in shaders.
 pub trait ShaderUniform
 {
@@ -162,7 +177,12 @@ macro_rules! impl_shader_vector {
 			{
 				let c_name = CString::new(name.as_bytes()).unwrap();
 				//~ println!("{} {} {} {}", name, $num_elems, self.len(), stringify!($func));
-				let ret = $func(c_name.as_ptr(), $num_elems, self.as_ptr() as *mut $c_type, self.len() as i32);
+				let ret = $func(
+					c_name.as_ptr(),
+					$num_elems,
+					self.as_ptr() as *mut $c_type,
+					self.len() as i32,
+				);
 				if ret != 0
 				{
 					Ok(())

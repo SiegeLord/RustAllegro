@@ -1,5 +1,4 @@
 // This file is released into Public Domain.
-#[macro_use]
 extern crate allegro;
 extern crate allegro_font;
 extern crate getopts;
@@ -12,7 +11,9 @@ use std::sync::mpsc;
 use std::sync::Arc;
 use std::thread::spawn;
 
-fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncSender<()>, init_only: bool)
+fn other_window(
+	core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncSender<()>, init_only: bool,
+)
 {
 	if init_only
 	{
@@ -85,8 +86,7 @@ fn other_window(core: Arc<Core>, font_addon: Arc<FontAddon>, sender: mpsc::SyncS
 	sender.send(()).ok();
 }
 
-allegro_main!
-{
+allegro_main! {
 	let args = env::args().collect::<Vec<_>>();
 
 	let mut opts = Options::new();

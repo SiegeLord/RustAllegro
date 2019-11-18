@@ -6,7 +6,7 @@ use ffi::*;
 use libc::*;
 use std::mem;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Transform(ALLEGRO_TRANSFORM);
 
 unsafe impl Send for Transform {}
@@ -16,9 +16,9 @@ impl Transform
 	pub fn identity() -> Transform
 	{
 		Transform(unsafe {
-			let mut t = mem::uninitialized();
-			al_identity_transform(&mut t);
-			t
+			let mut t = mem::MaybeUninit::uninit();
+			al_identity_transform(t.as_mut_ptr());
+			t.assume_init()
 		})
 	}
 
@@ -30,9 +30,16 @@ impl Transform
 	pub fn build(x: f32, y: f32, sx: f32, sy: f32, theta: f32) -> Transform
 	{
 		Transform(unsafe {
-			let mut t = mem::uninitialized();
-			al_build_transform(&mut t, x as c_float, y as c_float, sx as c_float, sy as c_float, theta as c_float);
-			t
+			let mut t = mem::MaybeUninit::uninit();
+			al_build_transform(
+				t.as_mut_ptr(),
+				x as c_float,
+				y as c_float,
+				sx as c_float,
+				sy as c_float,
+				theta as c_float,
+			);
+			t.assume_init()
 		})
 	}
 

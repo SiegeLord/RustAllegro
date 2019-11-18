@@ -1,13 +1,14 @@
 [package]
 
 name = "allegro_color"
-version = "0.0.32" #auto
+version = "0.0.37" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_color/index.html"
 keywords = ["colors"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 color addon Rust wrapper"
+categories = ["multimedia"]
 
 [lib]
 
@@ -22,19 +23,19 @@ link_static = ["allegro_color-sys/link_static"]
 
 [dependencies]
 
-libc = "0.1"
+libc = "0.2"
 
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.32" #auto
+version = "=0.0.37" #auto
 
 [dependencies.allegro_color-sys]
 
 path = "../allegro_color-sys"
-version = "=0.0.32" #auto
+version = "=0.0.37" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.32" #auto
+version = "=0.0.37" #auto

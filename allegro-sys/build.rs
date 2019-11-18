@@ -13,7 +13,7 @@ fn get_define_value<'l>(line: &'l str, key: &'l str) -> Option<&'l str>
 	{
 		return None;
 	}
-	let s = &line[key.len()..].trim_left();
+	let s = &line[key.len()..].trim_start();
 	let value_offset = if s.starts_with('"')
 	{
 		match s[1..].find('"')
@@ -71,12 +71,12 @@ fn main()
 
 	for line in header_contents.lines()
 	{
-		let line = line.trim_left();
+		let line = line.trim_start();
 		if !line.starts_with("#define")
 		{
 			continue;
 		}
-		let line = line["#define".len()..].trim_left();
+		let line = line["#define".len()..].trim_start();
 		if let Some(val) = get_define_value(line, "ALLEGRO_VERSION")
 		{
 			allegro_version = val.parse().unwrap();
@@ -149,5 +149,9 @@ pub const ALLEGRO_DATE: u32                 = {};
 		Err(_) => "",
 		Ok(_) => "-static"
 	};
-	println!("cargo:rustc-flags=-l allegro{}{}", static_, debug);
+	println!("cargo:rustc-flags=-l allegro{}{}", debug, static_);
+	if let Ok(link_dir) = var("ALLEGRO_LINK_DIR")
+	{
+		println!("cargo:rustc-flags=-L {}", link_dir);
+	}
 }

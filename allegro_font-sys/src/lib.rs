@@ -72,6 +72,6 @@ pub mod allegro_font
 		pub fn al_get_text_dimensions(f: *const ALLEGRO_FONT, text: *const c_char, bbx: *mut c_int, bby: *mut c_int, bbw: *mut c_int, bbh: *mut c_int);
 		pub fn al_init_font_addon();
 		pub fn al_shutdown_font_addon();
-		pub fn al_get_allegro_font_version() -> uint32_t;
+		pub fn al_get_allegro_font_version() -> u32;
 	}
 }

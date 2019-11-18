@@ -4,6 +4,7 @@
 
 use libc::*;
 
+use file::*;
 use allegro_util::c_bool;
 
 opaque!(ALLEGRO_CONFIG_SECTION);
@@ -27,11 +28,11 @@ extern {
 	                           key: *const c_char)
 	                           -> *const c_char;
 	pub fn al_load_config_file(filename: *const c_char) -> *mut ALLEGRO_CONFIG;
-	//~ pub fn al_load_config_file_f(filename: *mut ALLEGRO_FILE) -> *mut ALLEGRO_CONFIG;
+	pub fn al_load_config_file_f(filename: *mut ALLEGRO_FILE) -> *mut ALLEGRO_CONFIG;
 	pub fn al_save_config_file(filename: *const c_char, config: *const ALLEGRO_CONFIG) -> c_bool;
-	//~ pub fn al_save_config_file_f(file: *mut ALLEGRO_FILE,
-	                             //~ config: *const ALLEGRO_CONFIG)
-	                             //~ -> c_bool;
+	pub fn al_save_config_file_f(file: *mut ALLEGRO_FILE,
+	                             config: *const ALLEGRO_CONFIG)
+	                             -> c_bool;
 	pub fn al_merge_config_into(master: *mut ALLEGRO_CONFIG, add: *const ALLEGRO_CONFIG) -> ();
 	pub fn al_merge_config(cfg1: *const ALLEGRO_CONFIG,
 	                       cfg2: *const ALLEGRO_CONFIG)

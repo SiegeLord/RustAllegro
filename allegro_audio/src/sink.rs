@@ -58,8 +58,8 @@ impl Sink
 	}
 
 	pub fn new_custom(
-		addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf, mixer_depth: AudioDepth,
-		mixer_chan_conf: ChannelConf,
+		addon: &AudioAddon, frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf,
+		mixer_depth: AudioDepth, mixer_chan_conf: ChannelConf,
 	) -> Result<Sink, String>
 	{
 		Mixer::new_custom(addon, frequency, mixer_depth, mixer_chan_conf)
@@ -67,9 +67,17 @@ impl Sink
 			.and_then(|mixer| Sink::new_with_mixer(frequency, voice_depth, voice_chan_conf, mixer))
 	}
 
-	pub fn new_with_mixer(frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf, mixer: Mixer) -> Result<Sink, String>
+	pub fn new_with_mixer(
+		frequency: u32, voice_depth: AudioDepth, voice_chan_conf: ChannelConf, mixer: Mixer,
+	) -> Result<Sink, String>
 	{
-		let voice = unsafe { al_create_voice(frequency as c_uint, voice_depth.get(), voice_chan_conf.get()) };
+		let voice = unsafe {
+			al_create_voice(
+				frequency as c_uint,
+				voice_depth.get(),
+				voice_chan_conf.get(),
+			)
+		};
 		if voice.is_null()
 		{
 			Err("Could not create the voice".to_string())
@@ -144,6 +152,9 @@ impl Drop for Sink
 		}
 	}
 }
+
+unsafe impl Send for Sink {}
+unsafe impl Sync for Sink {}
 
 impl HasMixer for Sink
 {

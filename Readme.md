@@ -8,7 +8,6 @@ A thin [Rust](http://www.rust-lang.org/) wrapper of [Allegro 5](http://liballeg.
 ## Game loop example
 
 ```rust
-#[macro_use]
 extern crate allegro;
 extern crate allegro_font;
 
@@ -117,6 +116,8 @@ There are a few features that might come in useful:
                   Note that you'll have to link the various dependency
                   libraries yourself. Can be combined with `link_debug`.
 
+Additionally, you can specify a link directory by setting a `ALLEGRO_LINK_DIR`.
+
 ## Windows notes
 
 RustAllegro works well with the official pre-compiled binaries. First,
@@ -132,7 +133,7 @@ following from the RustAllegro's `examples` directory:
 
 ```
 export ALLEGRO_INCLUDE_DIR=C:/allegro/include
-export RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+export ALLEGRO_LINK_DIR=C:/allegro/lib
 cargo build
 ```
 
@@ -140,7 +141,7 @@ cargo build
 
 ```
 set ALLEGRO_INCLUDE_DIR=C:/allegro/include
-set RUST_ALLEGRO_EXAMPLE_LINK_PATH=C:/allegro/lib
+set ALLEGRO_LINK_DIR=C:/allegro/lib
 cargo build
 ```
 

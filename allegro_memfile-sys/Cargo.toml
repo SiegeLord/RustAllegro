@@ -1,19 +1,19 @@
 [package]
 
-name = "allegro_audio-sys"
+name = "allegro_memfile-sys"
 version = "0.0.37" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
-documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_audio-sys/index.html"
-keywords = ["audio"]
+documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_memfile-sys/index.html"
 authors = [ "SiegeLord <slabode@aim.com>" ]
-description = "Allegro 5 audio addon Rust binding"
+description = "Allegro 5 memfile addon Rust binding"
 build = "build.rs"
-links = "allegro_audio"
+links = "allegro_memfile"
+categories = ["external-ffi-bindings"]
 
 [lib]
 
-name = "allegro_audio_sys"
+name = "allegro_memfile_sys"
 path = "src/lib.rs"
 
 [features]
@@ -29,9 +29,4 @@ libc = "0.2"
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.37" #auto
-
-[dependencies.allegro_util]
-
-path = "../allegro_util"
 version = "=0.0.37" #auto

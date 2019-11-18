@@ -21,8 +21,8 @@ impl AcodecAddon
 {
 	pub fn init(_: &AudioAddon) -> Result<AcodecAddon, String>
 	{
-		use std::sync::{Once, ONCE_INIT};
-		static mut RUN_ONCE: Once = ONCE_INIT;
+		use std::sync::Once;
+		static mut RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The acodec addon already initialized.".into());
 		unsafe {

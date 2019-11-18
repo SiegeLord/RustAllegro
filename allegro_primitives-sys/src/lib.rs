@@ -66,7 +66,7 @@ pub mod allegro_primitives
 
 	extern "C"
 	{
-		pub fn al_get_allegro_primitives_version() -> uint32_t;
+		pub fn al_get_allegro_primitives_version() -> u32;
 		pub fn al_init_primitives_addon() -> c_bool;
 		pub fn al_shutdown_primitives_addon();
 

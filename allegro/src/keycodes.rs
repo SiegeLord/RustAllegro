@@ -7,8 +7,8 @@ use ffi::*;
 use libc::*;
 use std::mem;
 
-#[derive(Copy, Clone, PartialEq)]
 #[repr(u32)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum KeyCode
 {
 	A = 1,
@@ -141,7 +141,7 @@ impl KeyCode
 	}
 }
 
-flag_type!{
+flag_type! {
 	KeyModifier
 	{
 		SHIFT = ALLEGRO_KEYMOD_SHIFT,

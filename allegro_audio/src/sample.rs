@@ -93,7 +93,9 @@ impl Sample
 
 	pub fn get_byte_length(&self) -> usize
 	{
-		self.get_length() * self.get_channels().get_num_channels() * self.get_depth().get_byte_size()
+		self.get_length()
+			* self.get_channels().get_num_channels()
+			* self.get_depth().get_byte_size()
 	}
 
 	pub fn get_depth(&self) -> AudioDepth
@@ -103,13 +105,20 @@ impl Sample
 
 	pub fn get_channels(&self) -> ChannelConf
 	{
-		unsafe { ChannelConf::from_allegro(al_get_sample_channels(self.allegro_sample as *const _)) }
+		unsafe {
+			ChannelConf::from_allegro(al_get_sample_channels(self.allegro_sample as *const _))
+		}
 	}
 
 	pub fn get_raw_data<'l>(&'l self) -> &'l [u8]
 	{
 		let len = self.get_byte_length();
-		unsafe { from_raw_parts(al_get_sample_data(self.allegro_sample as *const _) as *const _, len) }
+		unsafe {
+			from_raw_parts(
+				al_get_sample_data(self.allegro_sample as *const _) as *const _,
+				len,
+			)
+		}
 	}
 
 	pub fn get_data<'l, T: DataSample>(&'l self) -> Result<&'l [T], ()>
@@ -117,7 +126,12 @@ impl Sample
 		if self.get_depth() == DataSample::get_depth(None::<T>)
 		{
 			let len = self.get_byte_length() / mem::size_of::<T>();
-			Ok(unsafe { from_raw_parts(al_get_sample_data(self.allegro_sample as *const _) as *const _, len) })
+			Ok(unsafe {
+				from_raw_parts(
+					al_get_sample_data(self.allegro_sample as *const _) as *const _,
+					len,
+				)
+			})
 		}
 		else
 		{
@@ -130,7 +144,12 @@ impl Sample
 		if self.get_depth() == DataSample::get_depth(None::<T>)
 		{
 			let len = self.get_byte_length() / mem::size_of::<T>();
-			Ok(unsafe { from_raw_parts_mut(al_get_sample_data(self.allegro_sample as *const _) as *mut _, len) })
+			Ok(unsafe {
+				from_raw_parts_mut(
+					al_get_sample_data(self.allegro_sample as *const _) as *mut _,
+					len,
+				)
+			})
 		}
 		else
 		{
@@ -141,7 +160,12 @@ impl Sample
 	pub fn get_raw_data_mut<'l>(&'l mut self) -> &'l mut [u8]
 	{
 		let len = self.get_byte_length();
-		unsafe { from_raw_parts_mut(al_get_sample_data(self.allegro_sample as *const _) as *mut _, len) }
+		unsafe {
+			from_raw_parts_mut(
+				al_get_sample_data(self.allegro_sample as *const _) as *mut _,
+				len,
+			)
+		}
 	}
 
 	pub fn get_allegro_sample(&self) -> *mut ALLEGRO_SAMPLE
@@ -161,6 +185,9 @@ impl Drop for Sample
 		}
 	}
 }
+
+unsafe impl Send for Sample {}
+unsafe impl Sync for Sample {}
 
 pub struct SampleInstance
 {
@@ -203,19 +230,31 @@ macro_rules! set_impl {
 
 macro_rules! get_opt_impl {
 	($self_:ident, $c_func:ident, $dest_ty:ty) => {
-		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const _) as $dest_ty), Err(()))
+		check_or_else!(
+			$self_,
+			Ok($c_func($self_.allegro_sample_instance as *const _) as $dest_ty),
+			Err(())
+			)
 	};
 }
 
 macro_rules! get_conv_impl {
 	($self_:ident, $c_func:ident, $conv:path) => {
-		check_or_else!($self_, Ok($conv($c_func($self_.allegro_sample_instance as *const _))), Err(()))
+		check_or_else!(
+			$self_,
+			Ok($conv($c_func($self_.allegro_sample_instance as *const _))),
+			Err(())
+			)
 	};
 }
 
 macro_rules! get_bool_impl {
 	($self_:ident, $c_func:ident) => {
-		check_or_else!($self_, Ok($c_func($self_.allegro_sample_instance as *const _) != 0), Err(()))
+		check_or_else!(
+			$self_,
+			Ok($c_func($self_.allegro_sample_instance as *const _) != 0),
+			Err(())
+			)
 	};
 }
 
@@ -346,12 +385,20 @@ impl SampleInstance
 
 	pub fn get_playmode(&self) -> Result<Playmode, ()>
 	{
-		get_conv_impl!(self, al_get_sample_instance_playmode, Playmode::from_allegro)
+		get_conv_impl!(
+			self,
+			al_get_sample_instance_playmode,
+			Playmode::from_allegro
+		)
 	}
 
 	pub fn get_channels(&self) -> Result<ChannelConf, ()>
 	{
-		get_conv_impl!(self, al_get_sample_instance_channels, ChannelConf::from_allegro)
+		get_conv_impl!(
+			self,
+			al_get_sample_instance_channels,
+			ChannelConf::from_allegro
+		)
 	}
 
 	pub fn get_depth(&self) -> Result<AudioDepth, ()>
@@ -386,17 +433,25 @@ impl Drop for SampleInstance
 	}
 }
 
+unsafe impl Send for SampleInstance {}
+unsafe impl Sync for SampleInstance {}
+
 impl AttachToMixerImpl for SampleInstance
 {
 	fn create_connection(&mut self, allegro_mixer: *mut ALLEGRO_MIXER) -> Result<Connection, ()>
 	{
-		if unsafe { al_attach_sample_instance_to_mixer(self.allegro_sample_instance, allegro_mixer) == 0 }
+		if unsafe {
+			al_attach_sample_instance_to_mixer(self.allegro_sample_instance, allegro_mixer) == 0
+		}
 		{
 			Err(())
 		}
 		else
 		{
-			let (c1, c2) = Connection::new(unsafe { mem::transmute(self.allegro_sample_instance) }, SampleInstance::detach);
+			let (c1, c2) = Connection::new(
+				unsafe { mem::transmute(self.allegro_sample_instance) },
+				SampleInstance::detach,
+			);
 			self.parent = Some(c1);
 			Ok(c2)
 		}

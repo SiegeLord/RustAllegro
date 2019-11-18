@@ -15,10 +15,9 @@ use libc::*;
 use shader::{Shader, ShaderPlatform};
 use std::ffi::CString;
 use std::mem;
-use std::rc::{Rc, Weak};
+use std::sync::{Arc, Weak};
 
-flag_type!
-{
+flag_type! {
 	DisplayFlags
 	{
 		WINDOWED                  = ALLEGRO_WINDOWED,
@@ -35,16 +34,14 @@ flag_type!
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_6))]
-flags!
-{
+flags! {
 	DisplayFlags
 	{
 		PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_12))]
-flags!
-{
+flags! {
 	DisplayFlags
 	{
 		MAXIMIZED = ALLEGRO_MAXIMIZED
@@ -52,7 +49,7 @@ flags!
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum DisplayOption
 {
 	RedSize = ALLEGRO_RED_SIZE,
@@ -89,7 +86,7 @@ pub enum DisplayOption
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum DisplayOptionImportance
 {
 	DontCare = ALLEGRO_DONTCARE,
@@ -98,7 +95,7 @@ pub enum DisplayOptionImportance
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum DisplayOrientation
 {
 	DisplayOrientation0Degrees = ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES,
@@ -114,7 +111,7 @@ pub struct Display
 	allegro_display: *mut ALLEGRO_DISPLAY,
 	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	shaders: Vec<Rc<Shader>>,
+	shaders: Vec<Arc<Shader>>,
 }
 
 impl Display
@@ -225,11 +222,15 @@ impl Display
 		}
 	}
 
-	pub fn set_icons<'l, U: Iterator<Item = &'l (BitmapLike + 'l)>>(&self, icons: U)
+	pub fn set_icons<'l, U: Iterator<Item = &'l (dyn BitmapLike + 'l)>>(&self, icons: U)
 	{
 		let mut c_icons: Vec<_> = icons.map(|b| b.get_allegro_bitmap()).collect();
 		unsafe {
-			al_set_display_icons(self.allegro_display, c_icons.len() as c_int, c_icons.as_mut_ptr());
+			al_set_display_icons(
+				self.allegro_display,
+				c_icons.len() as c_int,
+				c_icons.as_mut_ptr(),
+			);
 		}
 	}
 
@@ -294,8 +295,8 @@ impl Display
 		};
 		if !shader.is_null()
 		{
-			let shader = unsafe { Rc::new(Shader::wrap(shader)) };
-			let ret = Rc::downgrade(&shader);
+			let shader = unsafe { Arc::new(Shader::wrap(shader)) };
+			let ret = Arc::downgrade(&shader);
 			self.shaders.push(shader);
 			Ok(ret)
 		}
@@ -310,7 +311,7 @@ impl Display
 	{
 		for shader in &self.shaders
 		{
-			if Rc::strong_count(&shader) != 1
+			if Arc::strong_count(&shader) != 1
 			{
 				return true;
 			}
@@ -324,6 +325,9 @@ impl Display
 		false
 	}
 }
+
+unsafe impl Send for Display {}
+unsafe impl Sync for Display {}
 
 impl Drop for Display
 {

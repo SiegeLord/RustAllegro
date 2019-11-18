@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro"
-version = "0.0.32" #auto
+version = "0.0.37" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro/index.html"
@@ -9,6 +9,7 @@ keywords = ["input", "windowing", "opengl", "direct3d", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 core library Rust wrapper"
 build = "build.rs"
+categories = ["multimedia", "rendering::graphics-api"]
 
 [lib]
 
@@ -29,15 +30,15 @@ link_static = ["allegro-sys/link_static"]
 
 [dependencies]
 
-libc = "0.1"
-lazy_static = "=1.0.0"
+libc = "0.2"
+lazy_static = "=1.4.0"
 
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.32" #auto
+version = "=0.0.37" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.32" #auto
+version = "=0.0.37" #auto

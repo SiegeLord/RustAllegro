@@ -105,7 +105,14 @@ impl BitmapLike for Bitmap
 
 	fn create_sub_bitmap(&self, x: i32, y: i32, w: i32, h: i32) -> Result<Weak<SubBitmap>, ()>
 	{
-		SubBitmap::new(self.allegro_bitmap, Rc::downgrade(&self.sub_bitmaps), x, y, w, h)
+		SubBitmap::new(
+			self.allegro_bitmap,
+			Rc::downgrade(&self.sub_bitmaps),
+			x,
+			y,
+			w,
+			h,
+		)
 	}
 }
 
@@ -145,10 +152,12 @@ pub struct SubBitmap
 impl SubBitmap
 {
 	fn new(
-		parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32, w: i32, h: i32,
+		parent: *mut ALLEGRO_BITMAP, siblings: Weak<RefCell<Vec<Rc<SubBitmap>>>>, x: i32, y: i32,
+		w: i32, h: i32,
 	) -> Result<Weak<SubBitmap>, ()>
 	{
-		let b = unsafe { al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int) };
+		let b =
+			unsafe { al_create_sub_bitmap(parent, x as c_int, y as c_int, w as c_int, h as c_int) };
 		if b.is_null()
 		{
 			Err(())
