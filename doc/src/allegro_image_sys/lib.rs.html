@@ -21,7 +21,6 @@
 <span id="21">21</span>
 <span id="22">22</span>
 <span id="23">23</span>
-<span id="24">24</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -37,14 +36,13 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">allegro_image</span>
 {
-	<span class="kw">use</span> <span class="ident">libc</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident">allegro_util</span>::<span class="ident">c_bool</span>;
 
 	<span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 	{
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_init_image_addon</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_bool</span>;
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_shutdown_image_addon</span>();
-		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_allegro_image_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">uint32_t</span>;
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_get_allegro_image_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 	}
 }
 </pre></div>

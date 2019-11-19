@@ -169,14 +169,14 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">i64</span>)
 	{
 		<span class="kw">unsafe</span> {
-			<span class="ident">al_set_timer_count</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>, <span class="ident">count</span> <span class="kw">as</span> <span class="ident">int64_t</span>);
+			<span class="ident">al_set_timer_count</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>, <span class="ident">count</span>);
 		}
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">diff</span>: <span class="ident">i64</span>)
 	{
 		<span class="kw">unsafe</span> {
-			<span class="ident">al_add_timer_count</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>, <span class="ident">diff</span> <span class="kw">as</span> <span class="ident">int64_t</span>);
+			<span class="ident">al_add_timer_count</span>(<span class="self">self</span>.<span class="ident">allegro_timer</span>, <span class="ident">diff</span>);
 		}
 	}
 
