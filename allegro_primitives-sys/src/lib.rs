@@ -29,15 +29,27 @@ pub mod allegro_primitives
 	pub const ALLEGRO_PRIM_POINT_LIST: c_uint = 6;
 	pub const ALLEGRO_PRIM_NUM_TYPES: c_uint = 7;
 
-	pub const ALLEGRO_PRIM_POSITION: c_uint = 1;
-	pub const ALLEGRO_PRIM_COLOR_ATTR: c_uint = 2;
-	pub const ALLEGRO_PRIM_TEX_COORD: c_uint = 3;
-	pub const ALLEGRO_PRIM_TEX_COORD_PIXEL: c_uint = 4;
-	pub const ALLEGRO_PRIM_ATTR_NUM: c_uint = 5;
+	pub const ALLEGRO_PRIM_POSITION: c_int = 1;
+	pub const ALLEGRO_PRIM_COLOR_ATTR: c_int = 2;
+	pub const ALLEGRO_PRIM_TEX_COORD: c_int = 3;
+	pub const ALLEGRO_PRIM_TEX_COORD_PIXEL: c_int = 4;
+	pub const ALLEGRO_PRIM_USER_ATTR: c_int = 5;
+	pub const ALLEGRO_PRIM_MAX_USER_ATTR: c_int = 10;
 
-	pub const ALLEGRO_PRIM_FLOAT_2: c_uint = 0;
-	pub const ALLEGRO_PRIM_FLOAT_3: c_uint = 1;
-	pub const ALLEGRO_PRIM_SHORT_2: c_uint = 2;
+	pub const ALLEGRO_PRIM_FLOAT_2: c_int = 0;
+	pub const ALLEGRO_PRIM_FLOAT_3: c_int = 1;
+	pub const ALLEGRO_PRIM_SHORT_2: c_int = 2;
+	pub const ALLEGRO_PRIM_FLOAT_1: c_int = 3;
+	pub const ALLEGRO_PRIM_FLOAT_4: c_int = 4;
+	pub const ALLEGRO_PRIM_UBYTE_4: c_int = 5;
+	pub const ALLEGRO_PRIM_SHORT_4: c_int = 6;
+	pub const ALLEGRO_PRIM_NORMALIZED_UBYTE_4: c_int = 7;
+	pub const ALLEGRO_PRIM_NORMALIZED_SHORT_2: c_int = 8;
+	pub const ALLEGRO_PRIM_NORMALIZED_SHORT_4: c_int = 9;
+	pub const ALLEGRO_PRIM_NORMALIZED_USHORT_2: c_int = 10;
+	pub const ALLEGRO_PRIM_NORMALIZED_USHORT_4: c_int = 11;
+	pub const ALLEGRO_PRIM_HALF_FLOAT_2: c_int = 12;
+	pub const ALLEGRO_PRIM_HALF_FLOAT_4: c_int = 13;
 
 	#[repr(C)]
 	#[derive(Copy, Clone)]
@@ -89,8 +101,8 @@ pub mod allegro_primitives
 		pub fn al_draw_arc(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_draw_elliptical_arc(cx: c_float, cy: c_float, rx: c_float, ry: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_draw_pieslice(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR, thickness: c_float);
-		pub fn al_calculate_spline(dest: *mut c_float, stride: c_int, points: [c_float; 8], thickness: c_float, num_segments: c_int);
-		pub fn al_draw_spline(points: [c_float; 8], color: ALLEGRO_COLOR, thickness: c_float);
+		pub fn al_calculate_spline(dest: *mut c_float, stride: c_int, points: *const [c_float; 8], thickness: c_float, num_segments: c_int);
+		pub fn al_draw_spline(points: *const [c_float; 8], color: ALLEGRO_COLOR, thickness: c_float);
 		pub fn al_calculate_ribbon(dest: *mut c_float, dest_stride: c_int, points: *const c_float, points_stride: c_int, thickness: c_float, num_segments: c_int);
 		pub fn al_draw_ribbon(points: *const c_float, points_stride: c_int, color: ALLEGRO_COLOR, thickness: c_float, num_segments: c_int);
 		pub fn al_draw_filled_triangle(x1: c_float, y1: c_float, x2: c_float, y2: c_float, x3: c_float, y3: c_float, color: ALLEGRO_COLOR);
