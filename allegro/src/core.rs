@@ -1064,6 +1064,27 @@ impl Core
 	{
 		unsafe { val.set_self_for_shader(name) }
 	}
+	
+	/// Sets a shader uniform to a value.
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn set_shader_transform(
+		&self, name: &str, val: &Transform,
+	) -> Result<(), ()>
+	{
+		
+		let ret = unsafe {
+			let name = CString::new(name.as_bytes()).unwrap();
+			al_set_shader_matrix(name.as_ptr(), &val.get_allegro_transform())
+		};
+		if ret != 0
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
+		}
+	}
 
 	/// Set blender options.
 	pub fn set_blender(&self, op: BlendOperation, source: BlendMode, dest: BlendMode)

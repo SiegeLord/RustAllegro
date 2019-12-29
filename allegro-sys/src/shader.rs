@@ -39,7 +39,7 @@ extern
 	                             bitmap: *mut ALLEGRO_BITMAP,
 	                             unit: c_int)
 	                             -> c_bool;
-	pub fn al_set_shader_matrix(name: *const c_char, matrix: *mut ALLEGRO_TRANSFORM) -> c_bool;
+	pub fn al_set_shader_matrix(name: *const c_char, matrix: *const ALLEGRO_TRANSFORM) -> c_bool;
 	pub fn al_set_shader_int(name: *const c_char, i: c_int) -> c_bool;
 	pub fn al_set_shader_float(name: *const c_char, f: c_float) -> c_bool;
 	pub fn al_set_shader_int_vector(name: *const c_char,
