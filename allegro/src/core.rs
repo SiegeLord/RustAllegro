@@ -543,6 +543,15 @@ impl Core
 		}
 	}
 
+	#[cfg(any(allegro_5_2_0, allegro_5_1_2))]
+	pub fn clear_depth_buffer(&self, z: f32)
+	{
+		check_valid_target_bitmap();
+		unsafe {
+			al_clear_depth_buffer(z);
+		}
+	}
+
 	pub fn draw_pixel(&self, x: f32, y: f32, color: Color)
 	{
 		check_valid_target_bitmap();
