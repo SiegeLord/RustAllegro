@@ -11,6 +11,7 @@
 <span id="11">11</span>
 <span id="12">12</span>
 <span id="13">13</span>
+<span id="14">14</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -23,6 +24,7 @@
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_clear_to_color</span>(<span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_clear_depth_buffer</span>(<span class="ident">z</span>: <span class="ident">f32</span>);
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_pixel</span>(<span class="ident">x</span>: <span class="ident">c_float</span>, <span class="ident">y</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
 }
 </pre></div>

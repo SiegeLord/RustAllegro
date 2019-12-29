@@ -26,6 +26,7 @@
 <span id="26">26</span>
 <span id="27">27</span>
 <span id="28">28</span>
+<span id="29">29</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -43,6 +44,7 @@
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span>
 {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_use_transform</span>(<span class="ident">trans</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TRANSFORM</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_use_projection_transform</span>(<span class="ident">trans</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TRANSFORM</span>);
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_copy_transform</span>(<span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TRANSFORM</span>, <span class="ident">src</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ALLEGRO_TRANSFORM</span>);
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_identity_transform</span>(<span class="ident">trans</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TRANSFORM</span>);
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_build_transform</span>(<span class="ident">trans</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_TRANSFORM</span>, <span class="ident">x</span>: <span class="ident">c_float</span>, <span class="ident">y</span>: <span class="ident">c_float</span>, <span class="ident">sx</span>: <span class="ident">c_float</span>, <span class="ident">sy</span>: <span class="ident">c_float</span>, <span class="ident">theta</span>: <span class="ident">c_float</span>);

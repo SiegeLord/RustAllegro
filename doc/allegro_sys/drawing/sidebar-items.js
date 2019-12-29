@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["al_clear_to_color",""],["al_draw_pixel",""]]});
+initSidebarItems({"fn":[["al_clear_depth_buffer",""],["al_clear_to_color",""],["al_draw_pixel",""]]});

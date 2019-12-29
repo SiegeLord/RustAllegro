@@ -101,6 +101,18 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -133,15 +145,27 @@
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_POINT_LIST</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">6</span>;
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NUM_TYPES</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">7</span>;
 
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_POSITION</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">1</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_COLOR_ATTR</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">2</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_TEX_COORD</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">3</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_TEX_COORD_PIXEL</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">4</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_ATTR_NUM</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">5</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_POSITION</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_COLOR_ATTR</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_TEX_COORD</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">3</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_TEX_COORD_PIXEL</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">4</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_USER_ATTR</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">5</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_MAX_USER_ATTR</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">10</span>;
 
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_2</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">0</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_3</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">1</span>;
-	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_SHORT_2</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_3</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_SHORT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_1</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">3</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_FLOAT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">4</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_UBYTE_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">5</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_SHORT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">6</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_UBYTE_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">7</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_SHORT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">8</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_SHORT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">9</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_USHORT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">10</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_USHORT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">11</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_HALF_FLOAT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">12</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_HALF_FLOAT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">13</span>;
 
 	<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
@@ -193,8 +217,8 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_arc</span>(<span class="ident">cx</span>: <span class="ident">c_float</span>, <span class="ident">cy</span>: <span class="ident">c_float</span>, <span class="ident">r</span>: <span class="ident">c_float</span>, <span class="ident">start_theta</span>: <span class="ident">c_float</span>, <span class="ident">delta_theta</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_elliptical_arc</span>(<span class="ident">cx</span>: <span class="ident">c_float</span>, <span class="ident">cy</span>: <span class="ident">c_float</span>, <span class="ident">rx</span>: <span class="ident">c_float</span>, <span class="ident">ry</span>: <span class="ident">c_float</span>, <span class="ident">start_theta</span>: <span class="ident">c_float</span>, <span class="ident">delta_theta</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_pieslice</span>(<span class="ident">cx</span>: <span class="ident">c_float</span>, <span class="ident">cy</span>: <span class="ident">c_float</span>, <span class="ident">r</span>: <span class="ident">c_float</span>, <span class="ident">start_theta</span>: <span class="ident">c_float</span>, <span class="ident">delta_theta</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>);
-		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_calculate_spline</span>(<span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_float</span>, <span class="ident">stride</span>: <span class="ident">c_int</span>, <span class="ident">points</span>: [<span class="ident">c_float</span>; <span class="number">8</span>], <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">num_segments</span>: <span class="ident">c_int</span>);
-		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_spline</span>(<span class="ident">points</span>: [<span class="ident">c_float</span>; <span class="number">8</span>], <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_calculate_spline</span>(<span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_float</span>, <span class="ident">stride</span>: <span class="ident">c_int</span>, <span class="ident">points</span>: <span class="kw-2">*</span><span class="kw">const</span> [<span class="ident">c_float</span>; <span class="number">8</span>], <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">num_segments</span>: <span class="ident">c_int</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_spline</span>(<span class="ident">points</span>: <span class="kw-2">*</span><span class="kw">const</span> [<span class="ident">c_float</span>; <span class="number">8</span>], <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_calculate_ribbon</span>(<span class="ident">dest</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_float</span>, <span class="ident">dest_stride</span>: <span class="ident">c_int</span>, <span class="ident">points</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">points_stride</span>: <span class="ident">c_int</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">num_segments</span>: <span class="ident">c_int</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_ribbon</span>(<span class="ident">points</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">points_stride</span>: <span class="ident">c_int</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">num_segments</span>: <span class="ident">c_int</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_triangle</span>(<span class="ident">x1</span>: <span class="ident">c_float</span>, <span class="ident">y1</span>: <span class="ident">c_float</span>, <span class="ident">x2</span>: <span class="ident">c_float</span>, <span class="ident">y2</span>: <span class="ident">c_float</span>, <span class="ident">x3</span>: <span class="ident">c_float</span>, <span class="ident">y3</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
