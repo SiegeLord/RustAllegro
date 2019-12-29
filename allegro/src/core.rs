@@ -160,6 +160,20 @@ pub struct MonitorInfo
 	pub y2: i32,
 }
 
+#[repr(u32)]
+#[derive(Copy, Clone, Debug)]
+pub enum DepthFunction
+{
+	Never = ALLEGRO_RENDER_NEVER as u32,
+	Always = ALLEGRO_RENDER_ALWAYS as u32,
+	Less = ALLEGRO_RENDER_LESS as u32,
+	Equal = ALLEGRO_RENDER_EQUAL as u32,
+	LessEqual = ALLEGRO_RENDER_LESS_EQUAL as u32,
+	Greater = ALLEGRO_RENDER_GREATER as u32,
+	NotEqual = ALLEGRO_RENDER_NOT_EQUAL as u32,
+	GreaterEqual = ALLEGRO_RENDER_GREATER_EQUAL as u32,
+}
+
 /// Type through which you'll be doing most your interaction with Allegro.
 pub struct Core
 {
@@ -1074,6 +1088,23 @@ impl Core
 				alpha_source as c_int,
 				alpha_dest as c_int,
 			);
+		}
+	}
+
+	pub fn set_depth_test(&self, function: Option<DepthFunction>)
+	{
+		if let Some(function) = function
+		{
+			unsafe {
+				al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+				al_set_render_state(ALLEGRO_DEPTH_FUNCTION, function as c_int);
+			}
+		}
+		else
+		{
+			unsafe {
+				al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+			}
 		}
 	}
 }
