@@ -13,7 +13,7 @@ from subprocess import check_call, check_output, CalledProcessError
 
 def split(s):
 	ret = s.split('\n')
-	return filter(lambda v: v, ret)
+	return list(filter(lambda v: v, ret))
 
 crate_list_sys = split("""
 allegro_util

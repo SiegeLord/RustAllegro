@@ -494,8 +494,7 @@ impl VertexDeclBuilder
 		Ok(self)
 	}
 
-	pub fn user_attr(mut self, storage: VertexAttrStorage, offset: usize)
-		-> Result<Self, ()>
+	pub fn user_attr(mut self, storage: VertexAttrStorage, offset: usize) -> Result<Self, ()>
 	{
 		if self.user_attrs.len() == ALLEGRO_PRIM_MAX_USER_ATTR as usize
 		{
