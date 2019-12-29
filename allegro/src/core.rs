@@ -942,6 +942,15 @@ impl Core
 		}
 	}
 
+	#[cfg(any(allegro_5_2_0, allegro_5_1_9))]
+	pub fn use_projection_transform(&self, trans: &Transform)
+	{
+		check_valid_target_bitmap();
+		unsafe {
+			al_use_projection_transform(&trans.get_allegro_transform());
+		}
+	}
+
 	/// Set the shader as current for the current bitmap. Pass None to stop using this shader.
 	/// Returns an error if the shader isn't compatible with the bitmap.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_6))]

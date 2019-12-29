@@ -14,6 +14,7 @@ pub struct ALLEGRO_TRANSFORM
 extern "C"
 {
 	pub fn al_use_transform(trans: *const ALLEGRO_TRANSFORM);
+	pub fn al_use_projection_transform(trans: *const ALLEGRO_TRANSFORM);
 	pub fn al_copy_transform(dest: *mut ALLEGRO_TRANSFORM, src: *const ALLEGRO_TRANSFORM);
 	pub fn al_identity_transform(trans: *mut ALLEGRO_TRANSFORM);
 	pub fn al_build_transform(trans: *mut ALLEGRO_TRANSFORM, x: c_float, y: c_float, sx: c_float, sy: c_float, theta: c_float);
