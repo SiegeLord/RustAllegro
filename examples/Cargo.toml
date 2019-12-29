@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_examples"
-version = "0.0.37" #auto
+version = "0.0.38" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 keywords = ["examples"]
@@ -46,39 +46,39 @@ getopts = "=0.2.21"
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_font]
 
 path = "../allegro_font"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_ttf]
 
 path = "../allegro_ttf"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_image]
 
 path = "../allegro_image"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_acodec]
 
 path = "../allegro_acodec"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_audio]
 
 path = "../allegro_audio"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_primitives]
 
 path = "../allegro_primitives"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto

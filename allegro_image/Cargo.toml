@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_image"
-version = "0.0.37" #auto
+version = "0.0.38" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_image/index.html"
@@ -28,14 +28,14 @@ libc = "0.2"
 [dependencies.allegro]
 
 path = "../allegro"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_image-sys]
 
 path = "../allegro_image-sys"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto

@@ -1,7 +1,7 @@
 [package]
 
 name = "allegro_font-sys"
-version = "0.0.37" #auto
+version = "0.0.38" #auto
 license = "Zlib"
 repository = "https://github.com/SiegeLord/RustAllegro"
 documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_font-sys/index.html"
@@ -30,9 +30,9 @@ libc = "0.2"
 [dependencies.allegro-sys]
 
 path = "../allegro-sys"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
 
 [dependencies.allegro_util]
 
 path = "../allegro_util"
-version = "=0.0.37" #auto
+version = "=0.0.38" #auto
