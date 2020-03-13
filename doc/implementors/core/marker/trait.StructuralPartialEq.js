@@ -2,10 +2,4 @@
 implementors["allegro"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html\" title=\"trait core::marker::StructuralPartialEq\">StructuralPartialEq</a> for <a class=\"enum\" href=\"allegro/keycodes/enum.KeyCode.html\" title=\"enum allegro::keycodes::KeyCode\">KeyCode</a>","synthetic":false,"types":["allegro::keycodes::KeyCode"]}];
 implementors["allegro_audio"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html\" title=\"trait core::marker::StructuralPartialEq\">StructuralPartialEq</a> for <a class=\"enum\" href=\"allegro_audio/enum.AudioDepth.html\" title=\"enum allegro_audio::AudioDepth\">AudioDepth</a>","synthetic":false,"types":["allegro_audio::properties::AudioDepth"]}];
 implementors["allegro_primitives"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html\" title=\"trait core::marker::StructuralPartialEq\">StructuralPartialEq</a> for <a class=\"enum\" href=\"allegro_primitives/enum.VertexAttrStorage.html\" title=\"enum allegro_primitives::VertexAttrStorage\">VertexAttrStorage</a>","synthetic":false,"types":["allegro_primitives::VertexAttrStorage"]}];
-
-            if (window.register_implementors) {
-                window.register_implementors(implementors);
-            } else {
-                window.pending_implementors = implementors;
-            }
-        })()
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
