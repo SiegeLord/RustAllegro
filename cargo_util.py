@@ -132,12 +132,22 @@ if args.doc:
 	print('Fixing up the search index')
 	found = False
 	for line in fileinput.input('doc/target/doc/search-index.js', inplace=1):
-		new_line = re.sub(r'searchIndex\["delete_me"\].*', '', line)
+		new_line = re.sub(r'"delete_me".*', r'\\', line)
 		if new_line != line:
 			found = True
-		print(new_line, end='')
+		else:
+			print(new_line, end='')
 	if not found:
 		raise Exception("Couldn't find the line in search-index.js!")
+	found = False
+	for line in fileinput.input('doc/target/doc/source-files.js', inplace=1):
+		new_line = re.sub(r'sourcesIndex\["delete_me"\].*', r'', line)
+		if new_line != line:
+			found = True
+		else:
+			print(new_line, end='')
+	if not found:
+		raise Exception("Couldn't find the line in source-files.js!")
 	print('Copying new CSS')
 	copy('doc/rustdoc.css', 'doc/target/doc/rustdoc.css')
 	copy('doc/light.css', 'doc/target/doc/light.css')
