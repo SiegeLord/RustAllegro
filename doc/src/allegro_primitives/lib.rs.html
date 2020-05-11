@@ -608,6 +608,55 @@
 <span id="608">608</span>
 <span id="609">609</span>
 <span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -639,6 +688,29 @@
 	<span class="ident">TriangleStrip</span> <span class="op">=</span> <span class="ident">ALLEGRO_PRIM_TRIANGLE_STRIP</span>,
 	<span class="ident">TriangleFan</span> <span class="op">=</span> <span class="ident">ALLEGRO_PRIM_TRIANGLE_FAN</span>,
 	<span class="ident">PointList</span> <span class="op">=</span> <span class="ident">ALLEGRO_PRIM_POINT_LIST</span>,
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">LineJoinType</span>
+{
+	<span class="prelude-val">None</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_JOIN_NONE</span>,
+	<span class="ident">Bevel</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_JOIN_BEVEL</span>,
+	<span class="ident">Round</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_JOIN_ROUND</span>,
+	<span class="ident">Mitre</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_JOIN_MITRE</span>,
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">LineCapType</span>
+{
+	<span class="prelude-val">None</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_CAP_NONE</span>,
+	<span class="ident">Squared</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_CAP_SQUARE</span>,
+	<span class="ident">Round</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_CAP_ROUND</span>,
+	<span class="ident">Triangle</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_CAP_TRIANGLE</span>,
+	<span class="ident">Closed</span> <span class="op">=</span> <span class="ident">ALLEGRO_LINE_CAP_CLOSED</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrimitivesAddon</span>
@@ -990,6 +1062,32 @@
 				<span class="ident">rx</span> <span class="kw">as</span> <span class="ident">c_float</span>,
 				<span class="ident">ry</span> <span class="kw">as</span> <span class="ident">c_float</span>,
 				<span class="ident">color</span>.<span class="ident">get_allegro_color</span>(),
+			);
+		}
+	}
+
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">allegro_5_2_0</span>, <span class="ident">allegro_5_1_0</span>))]</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw_polygon</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vertices</span>: <span class="kw-2">&amp;</span>[(<span class="ident">f32</span>, <span class="ident">f32</span>)], <span class="ident">join_style</span>: <span class="ident">LineCapType</span>, <span class="ident">color</span>: <span class="ident">Color</span>, <span class="ident">thickness</span>: <span class="ident">f32</span>,
+		<span class="ident">miter_limit</span>: <span class="ident">f32</span>,
+	)
+	{
+		<span class="ident">check_valid_target_bitmap</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c_vertices</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="number">2</span> <span class="op">*</span> <span class="ident">vertices</span>.<span class="ident">len</span>());
+		<span class="kw">for</span> <span class="kw-2">&amp;</span>(<span class="ident">x</span>, <span class="ident">y</span>) <span class="kw">in</span> <span class="ident">vertices</span>
+		{
+			<span class="ident">c_vertices</span>.<span class="ident">push</span>(<span class="ident">x</span>);
+			<span class="ident">c_vertices</span>.<span class="ident">push</span>(<span class="ident">y</span>);
+		}
+
+		<span class="kw">unsafe</span> {
+			<span class="ident">al_draw_polygon</span>(
+				<span class="ident">c_vertices</span>.<span class="ident">as_ptr</span>(),
+				<span class="ident">vertices</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
+				<span class="ident">join_style</span> <span class="kw">as</span> <span class="ident">c_int</span>,
+				<span class="ident">color</span>.<span class="ident">get_allegro_color</span>(),
+				<span class="ident">thickness</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="ident">miter_limit</span> <span class="kw">as</span> <span class="ident">c_float</span>,
 			);
 		}
 	}

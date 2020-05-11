@@ -113,6 +113,22 @@
 <span id="113">113</span>
 <span id="114">114</span>
 <span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2014 by SiegeLord</span>
 <span class="comment">//</span>
@@ -166,6 +182,17 @@
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_NORMALIZED_USHORT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">11</span>;
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_HALF_FLOAT_2</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">12</span>;
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_PRIM_HALF_FLOAT_4</span>: <span class="ident">c_int</span> <span class="op">=</span> <span class="number">13</span>;
+
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_JOIN_NONE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">0</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_JOIN_BEVEL</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_JOIN_ROUND</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_JOIN_MITRE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">3</span>;
+
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_CAP_NONE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">0</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_CAP_SQUARE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">1</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_CAP_ROUND</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_CAP_TRIANGLE</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">3</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ALLEGRO_LINE_CAP_CLOSED</span>: <span class="ident">c_uint</span> <span class="op">=</span> <span class="number">4</span>;
 
 	<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
@@ -227,6 +254,11 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_circle</span>(<span class="ident">cx</span>: <span class="ident">c_float</span>, <span class="ident">cy</span>: <span class="ident">c_float</span>, <span class="ident">r</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_pieslice</span>(<span class="ident">cx</span>: <span class="ident">c_float</span>, <span class="ident">cy</span>: <span class="ident">c_float</span>, <span class="ident">r</span>: <span class="ident">c_float</span>, <span class="ident">start_theta</span>: <span class="ident">c_float</span>, <span class="ident">delta_theta</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_rounded_rectangle</span>(<span class="ident">x1</span>: <span class="ident">c_float</span>, <span class="ident">y1</span>: <span class="ident">c_float</span>, <span class="ident">x2</span>: <span class="ident">c_float</span>, <span class="ident">y2</span>: <span class="ident">c_float</span>, <span class="ident">rx</span>: <span class="ident">c_float</span>, <span class="ident">ry</span>: <span class="ident">c_float</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
+
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_polyline</span>(<span class="ident">vertices</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">vertex_stride</span>: <span class="ident">c_int</span>, <span class="ident">vertex_count</span>: <span class="ident">c_int</span>, <span class="ident">join_style</span>: <span class="ident">c_int</span>, <span class="ident">cap_style</span>: <span class="ident">c_int</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">miter_limit</span>: <span class="ident">c_float</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_polygon</span>(<span class="ident">vertices</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">vertex_count</span>: <span class="ident">c_int</span>, <span class="ident">join_style</span>: <span class="ident">c_int</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>, <span class="ident">thickness</span>: <span class="ident">c_float</span>, <span class="ident">miter_limit</span>: <span class="ident">c_float</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_polygon</span>(<span class="ident">vertices</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">vertex_count</span>: <span class="ident">c_int</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">al_draw_filled_polygon_with_holes</span>(<span class="ident">vertices</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_float</span>, <span class="ident">vertex_counts</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_int</span>, <span class="ident">color</span>: <span class="ident">ALLEGRO_COLOR</span>);
 	}
 }
 </pre></div>
