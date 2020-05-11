@@ -30,6 +30,29 @@ pub enum PrimType
 	PointList = ALLEGRO_PRIM_POINT_LIST,
 }
 
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+#[repr(u32)]
+#[derive(Copy, Clone)]
+pub enum LineJoinType
+{
+	None = ALLEGRO_LINE_JOIN_NONE,
+	Bevel = ALLEGRO_LINE_JOIN_BEVEL,
+	Round = ALLEGRO_LINE_JOIN_ROUND,
+	Mitre = ALLEGRO_LINE_JOIN_MITRE,
+}
+
+#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+#[repr(u32)]
+#[derive(Copy, Clone)]
+pub enum LineCapType
+{
+	None = ALLEGRO_LINE_CAP_NONE,
+	Squared = ALLEGRO_LINE_CAP_SQUARE,
+	Round = ALLEGRO_LINE_CAP_ROUND,
+	Triangle = ALLEGRO_LINE_CAP_TRIANGLE,
+	Closed = ALLEGRO_LINE_CAP_CLOSED,
+}
+
 pub struct PrimitivesAddon
 {
 	_dummy: (),
@@ -379,6 +402,32 @@ impl PrimitivesAddon
 				rx as c_float,
 				ry as c_float,
 				color.get_allegro_color(),
+			);
+		}
+	}
+
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn draw_polygon(
+		&self, vertices: &[(f32, f32)], join_style: LineCapType, color: Color, thickness: f32,
+		miter_limit: f32,
+	)
+	{
+		check_valid_target_bitmap();
+		let mut c_vertices = Vec::with_capacity(2 * vertices.len());
+		for &(x, y) in vertices
+		{
+			c_vertices.push(x);
+			c_vertices.push(y);
+		}
+
+		unsafe {
+			al_draw_polygon(
+				c_vertices.as_ptr(),
+				vertices.len() as c_int,
+				join_style as c_int,
+				color.get_allegro_color(),
+				thickness as c_float,
+				miter_limit as c_float,
 			);
 		}
 	}

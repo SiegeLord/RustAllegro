@@ -51,6 +51,17 @@ pub mod allegro_primitives
 	pub const ALLEGRO_PRIM_HALF_FLOAT_2: c_int = 12;
 	pub const ALLEGRO_PRIM_HALF_FLOAT_4: c_int = 13;
 
+	pub const ALLEGRO_LINE_JOIN_NONE: c_uint = 0;
+	pub const ALLEGRO_LINE_JOIN_BEVEL: c_uint = 1;
+	pub const ALLEGRO_LINE_JOIN_ROUND: c_uint = 2;
+	pub const ALLEGRO_LINE_JOIN_MITRE: c_uint = 3;
+
+	pub const ALLEGRO_LINE_CAP_NONE: c_uint = 0;
+	pub const ALLEGRO_LINE_CAP_SQUARE: c_uint = 1;
+	pub const ALLEGRO_LINE_CAP_ROUND: c_uint = 2;
+	pub const ALLEGRO_LINE_CAP_TRIANGLE: c_uint = 3;
+	pub const ALLEGRO_LINE_CAP_CLOSED: c_uint = 4;
+
 	#[repr(C)]
 	#[derive(Copy, Clone)]
 	pub struct ALLEGRO_VERTEX_ELEMENT
@@ -111,5 +122,10 @@ pub mod allegro_primitives
 		pub fn al_draw_filled_circle(cx: c_float, cy: c_float, r: c_float, color: ALLEGRO_COLOR);
 		pub fn al_draw_filled_pieslice(cx: c_float, cy: c_float, r: c_float, start_theta: c_float, delta_theta: c_float, color: ALLEGRO_COLOR);
 		pub fn al_draw_filled_rounded_rectangle(x1: c_float, y1: c_float, x2: c_float, y2: c_float, rx: c_float, ry: c_float, color: ALLEGRO_COLOR);
+
+		pub fn al_draw_polyline(vertices: *const c_float, vertex_stride: c_int, vertex_count: c_int, join_style: c_int, cap_style: c_int, color: ALLEGRO_COLOR, thickness: c_float, miter_limit: c_float);
+		pub fn al_draw_polygon(vertices: *const c_float, vertex_count: c_int, join_style: c_int, color: ALLEGRO_COLOR, thickness: c_float, miter_limit: c_float);
+		pub fn al_draw_filled_polygon(vertices: *const c_float, vertex_count: c_int, color: ALLEGRO_COLOR);
+		pub fn al_draw_filled_polygon_with_holes(vertices: *const c_float, vertex_counts: *const c_int, color: ALLEGRO_COLOR);
 	}
 }
