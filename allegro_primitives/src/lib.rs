@@ -407,8 +407,36 @@ impl PrimitivesAddon
 	}
 
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn draw_polyline(
+		&self, vertices: &[(f32, f32)], join_style: LineJoinType, cap_style: LineCapType,
+		color: Color, thickness: f32, miter_limit: f32,
+	)
+	{
+		check_valid_target_bitmap();
+		let mut c_vertices = Vec::with_capacity(2 * vertices.len());
+		for &(x, y) in vertices
+		{
+			c_vertices.push(x);
+			c_vertices.push(y);
+		}
+
+		unsafe {
+			al_draw_polyline(
+				c_vertices.as_ptr(),
+				(std::mem::size_of::<c_float>() * 2) as c_int,
+				vertices.len() as c_int,
+				join_style as c_int,
+				cap_style as c_int,
+				color.get_allegro_color(),
+				thickness as c_float,
+				miter_limit as c_float,
+			);
+		}
+	}
+
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	pub fn draw_polygon(
-		&self, vertices: &[(f32, f32)], join_style: LineCapType, color: Color, thickness: f32,
+		&self, vertices: &[(f32, f32)], join_style: LineJoinType, color: Color, thickness: f32,
 		miter_limit: f32,
 	)
 	{
@@ -428,6 +456,64 @@ impl PrimitivesAddon
 				color.get_allegro_color(),
 				thickness as c_float,
 				miter_limit as c_float,
+			);
+		}
+	}
+
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn draw_filled_polygon(&self, vertices: &[(f32, f32)], color: Color)
+	{
+		check_valid_target_bitmap();
+		let mut c_vertices = Vec::with_capacity(2 * vertices.len());
+		for &(x, y) in vertices
+		{
+			c_vertices.push(x);
+			c_vertices.push(y);
+		}
+
+		unsafe {
+			al_draw_filled_polygon(
+				c_vertices.as_ptr(),
+				vertices.len() as c_int,
+				color.get_allegro_color(),
+			);
+		}
+	}
+
+	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
+	pub fn draw_filled_polygon_with_holes(
+		&self, vertices: &[(f32, f32)], holes: &[&[(f32, f32)]], color: Color,
+	)
+	{
+		let mut counts = Vec::with_capacity(2 + holes.len());
+		counts.push(vertices.len() as c_int);
+		for hole in holes
+		{
+			counts.push(hole.len() as c_int);
+		}
+		counts.push(0);
+
+		check_valid_target_bitmap();
+		let mut c_vertices = Vec::with_capacity(2 * counts.iter().sum::<c_int>() as usize);
+		for &(x, y) in vertices
+		{
+			c_vertices.push(x);
+			c_vertices.push(y);
+		}
+		for hole in holes
+		{
+			for &(x, y) in *hole
+			{
+				c_vertices.push(x);
+				c_vertices.push(y);
+			}
+		}
+
+		unsafe {
+			al_draw_filled_polygon_with_holes(
+				c_vertices.as_ptr(),
+				counts.as_ptr(),
+				color.get_allegro_color(),
 			);
 		}
 	}
