@@ -6,7 +6,7 @@ use libc::*;
 
 include!(concat!(env!("OUT_DIR"), "/versions.rs"));
 
-pub const ALLEGRO_VERSION_INT: u32          = ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) | (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER);
+pub const ALLEGRO_VERSION_INT: u32 = (ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) | (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER;
 
 extern "C"
 {
