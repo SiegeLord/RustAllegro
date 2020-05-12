@@ -51,7 +51,7 @@ parser.add_argument('--clean', action='store_true', help='clean the crates')
 parser.add_argument('--doc', action='store_true', help='build the documentation')
 parser.add_argument('--format', action='store_true', help='format all the non-sys crates')
 parser.add_argument('--verbose', action='store_true', help='pass --verbose to cargo')
-parser.add_argument('--num_retries', type=float, default=5, help='number of retries when publishing')
+parser.add_argument('--num_retries', type=int, default=5, help='number of retries when publishing')
 
 args = parser.parse_args()
 
