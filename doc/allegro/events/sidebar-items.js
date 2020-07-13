@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Event",""]],"struct":[["EventQueue",""],["EventSource",""]]});
+initSidebarItems({"enum":[["Event",""]],"struct":[["EventQueue",""],["EventSource",""],["UserEventSource",""]],"trait":[["EventSourceLike",""]]});
