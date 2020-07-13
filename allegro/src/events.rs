@@ -8,8 +8,13 @@ use ffi::*;
 
 use keycodes::{KeyCode, KeyModifier};
 use libc::*;
+use std::any::Any;
 use std::marker::PhantomData;
 use std::mem;
+use std::ptr;
+use std::rc::Rc;
+
+const USER_EVENT_TYPE: u32 = 10556114;
 
 pub struct EventQueue
 {
@@ -40,10 +45,10 @@ impl EventQueue
 		}
 	}
 
-	pub fn register_event_source(&self, src: EventSource)
+	pub fn register_event_source<E: EventSourceLike>(&self, mut src: E)
 	{
 		unsafe {
-			al_register_event_source(self.allegro_queue, src.allegro_source);
+			al_register_event_source(self.allegro_queue, src.get_event_source());
 		}
 	}
 
@@ -137,6 +142,11 @@ impl Drop for EventQueue
 	}
 }
 
+pub trait EventSourceLike
+{
+	fn get_event_source(&mut self) -> *mut ALLEGRO_EVENT_SOURCE;
+}
+
 #[derive(Copy, Clone)]
 pub struct EventSource<'l>
 {
@@ -153,14 +163,88 @@ impl<'m> EventSource<'m>
 			marker: PhantomData,
 		}
 	}
+}
 
-	pub fn get_event_source(&self) -> *mut ALLEGRO_EVENT_SOURCE
+impl<'m> EventSourceLike for EventSource<'m>
+{
+	fn get_event_source(&mut self) -> *mut ALLEGRO_EVENT_SOURCE
 	{
 		self.allegro_source
 	}
 }
 
-#[derive(Copy, Clone, Debug)]
+pub struct UserEventSource
+{
+	allegro_source: ALLEGRO_EVENT_SOURCE,
+}
+
+impl UserEventSource
+{
+	pub fn new(_: &Core) -> UserEventSource
+	{
+		let mut ret = UserEventSource {
+			allegro_source: ALLEGRO_EVENT_SOURCE { __pad: [0; 32] },
+		};
+		unsafe {
+			al_init_user_event_source(&mut ret.allegro_source);
+		}
+		return ret;
+	}
+
+	pub fn emit<T: Send + 'static>(&mut self, data: T) -> bool
+	{
+		let rc: Rc<dyn Any> = Rc::new(data);
+		let data = Box::into_raw(Box::new(rc));
+		let e = ALLEGRO_USER_EVENT {
+			_type: USER_EVENT_TYPE,
+			source: &mut self.allegro_source,
+			timestamp: 0.,
+			_internal__descr: ptr::null_mut(),
+			data1: unsafe { mem::transmute(data) },
+			data2: 0,
+			data3: 0,
+			data4: 0,
+		};
+		unsafe {
+			al_emit_user_event(
+				&mut self.allegro_source,
+				mem::transmute(&e),
+				event_destructor,
+			) != 0
+		}
+	}
+}
+
+impl<'m> EventSourceLike for &mut UserEventSource
+{
+	fn get_event_source(&mut self) -> *mut ALLEGRO_EVENT_SOURCE
+	{
+		&mut self.allegro_source
+	}
+}
+
+extern "C" fn event_destructor(event: *mut ALLEGRO_USER_EVENT)
+{
+	unsafe {
+		std::panic::catch_unwind(|| {
+			let ptr: *mut Rc<dyn Any> = mem::transmute((*event).data1 as *mut c_void);
+			Box::from_raw(ptr);
+		})
+		.ok();
+	}
+}
+
+impl Drop for UserEventSource
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_destroy_user_event_source(&mut self.allegro_source);
+		}
+	}
+}
+
+#[derive(Debug)]
 pub enum Event
 {
 	NoEvent,
@@ -305,6 +389,12 @@ pub enum Event
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
 		count: i64,
+	},
+	User
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+		data: Rc<dyn Any>,
 	},
 }
 
@@ -497,6 +587,18 @@ impl Event
 						source: src,
 						timestamp: ts,
 						count: t.count as i64,
+					}
+				}
+				USER_EVENT_TYPE =>
+				{
+					let mut u = *e.user();
+					let ptr: *mut Rc<dyn Any> = mem::transmute(u.data1 as *mut c_void);
+					let data = (*ptr).clone();
+					al_unref_user_event(&mut u);
+					User {
+						source: src,
+						timestamp: ts,
+						data: data,
 					}
 				}
 				_ => NoEvent,

@@ -39,6 +39,11 @@ path = "multiple_windows.rs"
 name = "shaders"
 path = "shaders.rs"
 
+[[bin]]
+
+name = "user_events"
+path = "user_events.rs"
+
 [dependencies]
 
 getopts = "=0.2.21"
