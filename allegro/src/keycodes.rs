@@ -8,7 +8,7 @@ use libc::*;
 use std::mem;
 
 #[repr(u32)]
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 pub enum KeyCode
 {
 	A = 1,
