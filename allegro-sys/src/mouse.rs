@@ -43,4 +43,6 @@ extern "C"
 	pub fn al_grab_mouse(display: *mut ALLEGRO_DISPLAY) -> c_bool;
 	pub fn al_ungrab_mouse() -> c_bool;
 	pub fn al_get_mouse_event_source() -> *mut ALLEGRO_EVENT_SOURCE;
+	pub fn al_hide_mouse_cursor(display: *mut ALLEGRO_DISPLAY) -> c_bool;
+	pub fn al_show_mouse_cursor(display: *mut ALLEGRO_DISPLAY) -> c_bool;
 }

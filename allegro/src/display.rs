@@ -324,6 +324,28 @@ impl Display
 	{
 		false
 	}
+
+	pub fn show_cursor(&self, show: bool) -> Result<(), ()>
+	{
+		let ret = unsafe {
+			if show
+			{
+				al_show_mouse_cursor(self.allegro_display)
+			}
+			else
+			{
+				al_hide_mouse_cursor(self.allegro_display)
+			}
+		};
+		if ret != 0
+		{
+			Ok(())
+		}
+		else
+		{
+			Err(())
+		}
+	}
 }
 
 unsafe impl Send for Display {}
