@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_audio/src/sample.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sample.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../allegro_audio/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/build/SiegeLord/RustAllegro/allegro_audio/src/sample.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sample.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../allegro_audio/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -491,14 +493,14 @@
 <span class="kw">where</span>
 	<span class="self">Self</span>: <span class="ident">Sized</span>,
 {
-	<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>;
+	<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AudioDepth</span>;
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">data_sample_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>:<span class="ident">path</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>:<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">impl</span> <span class="ident">DataSample</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>
 		{
-			<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>
+			<span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AudioDepth</span>
 			{
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">d</span>
 			}
@@ -519,12 +521,12 @@
 {
 	<span class="ident">allegro_sample</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE</span>,
 	<span class="comment">// This will inform sample instances that this sample got dropped</span>
-	<span class="ident">sample_valid</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;&gt;</span>,
+	<span class="ident">sample_valid</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Sample</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Sample</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>, <span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Sample</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">filename</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">samp</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_load_sample</span>(<span class="ident">filename</span>.<span class="ident">as_ptr</span>()) };
@@ -541,7 +543,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">inst</span> <span class="op">=</span> <span class="ident">SampleInstance</span>::<span class="ident">new_raw</span>();
 		<span class="ident">inst</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">inst</span><span class="op">|</span> {
@@ -550,36 +552,36 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_sample_frequency</span>(<span class="self">self</span>.<span class="ident">allegro_sample</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="ident">usize</span> }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">al_get_sample_length</span>(<span class="self">self</span>.<span class="ident">allegro_sample</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="ident">usize</span> }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_byte_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_byte_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">get_length</span>()
 			<span class="op">*</span> <span class="self">self</span>.<span class="ident">get_channels</span>().<span class="ident">get_num_channels</span>()
 			<span class="op">*</span> <span class="self">self</span>.<span class="ident">get_depth</span>().<span class="ident">get_byte_size</span>()
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AudioDepth</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AudioDepth</span>
 	{
 		<span class="kw">unsafe</span> { <span class="ident">AudioDepth</span>::<span class="ident">from_allegro</span>(<span class="ident">al_get_sample_depth</span>(<span class="self">self</span>.<span class="ident">allegro_sample</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>)) }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ChannelConf</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ChannelConf</span>
 	{
 		<span class="kw">unsafe</span> {
 			<span class="ident">ChannelConf</span>::<span class="ident">from_allegro</span>(<span class="ident">al_get_sample_channels</span>(<span class="self">self</span>.<span class="ident">allegro_sample</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_raw_data</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> [<span class="ident">u8</span>]
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_raw_data</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> [<span class="ident">u8</span>]
 	{
 		<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_byte_length</span>();
 		<span class="kw">unsafe</span> {
@@ -590,9 +592,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">T</span>: <span class="ident">DataSample</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> [<span class="ident">T</span>], ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">T</span>: <span class="ident">DataSample</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> [<span class="ident">T</span>], ()<span class="op">&gt;</span>
 	{
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">get_depth</span>() <span class="op">==</span> <span class="ident">DataSample</span>::<span class="ident">get_depth</span>(<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>)
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">get_depth</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">DataSample</span>::<span class="ident">get_depth</span>(<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>)
 		{
 			<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_byte_length</span>() <span class="op">/</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
 			<span class="prelude-val">Ok</span>(<span class="kw">unsafe</span> {
@@ -608,9 +610,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">T</span>: <span class="ident">DataSample</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> [<span class="ident">T</span>], ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span>, <span class="ident">T</span>: <span class="ident">DataSample</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> [<span class="ident">T</span>], ()<span class="op">&gt;</span>
 	{
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">get_depth</span>() <span class="op">==</span> <span class="ident">DataSample</span>::<span class="ident">get_depth</span>(<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>)
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">get_depth</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">DataSample</span>::<span class="ident">get_depth</span>(<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>)
 		{
 			<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_byte_length</span>() <span class="op">/</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
 			<span class="prelude-val">Ok</span>(<span class="kw">unsafe</span> {
@@ -626,7 +628,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_raw_data_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_raw_data_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]
 	{
 		<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_byte_length</span>();
 		<span class="kw">unsafe</span> {
@@ -637,7 +639,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_sample</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_sample</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_sample</span>
 	}
@@ -662,12 +664,12 @@
 {
 	<span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Connection</span><span class="op">&gt;</span>,
 	<span class="comment">// I think when the sample is invalid, it is unsafe to resume it</span>
-	<span class="ident">sample_valid</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;&gt;</span>,
+	<span class="ident">sample_valid</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="ident">allegro_sample_instance</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE_INSTANCE</span>,
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">check_or_else</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {{
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">valid</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">invalid</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {{
 		<span class="kw">let</span> <span class="ident">valid</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">sample_valid</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
 		<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">valid</span>
 			{
@@ -681,10 +683,10 @@
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">set_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>,
-			<span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>) <span class="op">!=</span> <span class="number">0</span>
+			<span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">var</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
 				{
 				<span class="prelude-val">Ok</span>(())
 				}
@@ -698,7 +700,7 @@
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_opt_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>:<span class="ident">ty</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>,
 			<span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">dest_ty</span>),
@@ -708,7 +710,7 @@
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_conv_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>:<span class="ident">path</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>:<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>,
 			<span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">conv</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))),
@@ -718,10 +720,10 @@
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">get_bool_impl</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="macro">check_or_else</span><span class="macro">!</span>(
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>,
-			<span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="op">!=</span> <span class="number">0</span>),
+			<span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c_func</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">self_</span>.<span class="ident">allegro_sample_instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>),
 			<span class="prelude-val">Err</span>(())
 			)
 	};
@@ -729,12 +731,12 @@
 
 <span class="kw">impl</span> <span class="ident">SampleInstance</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">AudioAddon</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="ident">SampleInstance</span>::<span class="ident">new_raw</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">new_raw</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">new_raw</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SampleInstance</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">inst</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">al_create_sample_instance</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>()) };
 		<span class="kw">if</span> <span class="ident">inst</span>.<span class="ident">is_null</span>()
@@ -758,9 +760,9 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_sample</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_sample</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sample</span>: <span class="kw-2">&amp;</span><span class="ident">Sample</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
-		<span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">al_set_sample</span>(<span class="self">self</span>.<span class="ident">allegro_sample_instance</span>, <span class="ident">sample</span>.<span class="ident">allegro_sample</span>) <span class="op">!=</span> <span class="number">0</span> }
+		<span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">al_set_sample</span>(<span class="self">self</span>.<span class="ident">allegro_sample_instance</span>, <span class="ident">sample</span>.<span class="ident">allegro_sample</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> }
 		{
 			<span class="self">self</span>.<span class="ident">sample_valid</span> <span class="op">=</span> <span class="ident">sample</span>.<span class="ident">sample_valid</span>.<span class="ident">clone</span>();
 			<span class="prelude-val">Ok</span>(())
@@ -774,85 +776,85 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_position</span>, <span class="ident">position</span> <span class="kw">as</span> <span class="ident">c_uint</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">length</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">length</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_length</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">c_uint</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playing</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_playing</span>, <span class="ident">playing</span> <span class="kw">as</span> <span class="ident">c_bool</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gain</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gain</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_gain</span>, <span class="ident">gain</span> <span class="kw">as</span> <span class="ident">c_float</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pan</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pan</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pan</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(
 			<span class="self">self</span>,
 			<span class="ident">al_set_sample_instance_pan</span>,
 			<span class="kw">match</span> <span class="ident">pan</span>
 			{
-				<span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=&gt;</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">c_float</span>,
-				<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">ALLEGRO_AUDIO_PAN_NONE</span>,
+				<span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">c_float</span>,
+				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ALLEGRO_AUDIO_PAN_NONE</span>,
 			}
 		)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">speed</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">speed</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_speed</span>, <span class="ident">speed</span> <span class="kw">as</span> <span class="ident">c_float</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_playmode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_playmode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">playmode</span>: <span class="ident">Playmode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>
 	{
 		<span class="macro">set_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_set_sample_instance_playmode</span>, <span class="ident">playmode</span>.<span class="ident">get</span>())
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_frequency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_frequency</span>, <span class="ident">u32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_length</span>, <span class="ident">u32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_position</span>, <span class="ident">u32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_speed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_speed</span>, <span class="ident">f32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_gain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_gain</span>, <span class="ident">f32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pan</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pan</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_pan</span>, <span class="ident">f32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">f32</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_opt_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_time</span>, <span class="ident">f32</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_playmode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Playmode</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_playmode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Playmode</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(
 			<span class="self">self</span>,
@@ -861,7 +863,7 @@
 		)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ChannelConf</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ChannelConf</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(
 			<span class="self">self</span>,
@@ -870,22 +872,22 @@
 		)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AudioDepth</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AudioDepth</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_conv_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_depth</span>, <span class="ident">AudioDepth</span>::<span class="ident">from_allegro</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_playing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_playing</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attached</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, ()<span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attached</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="macro">get_bool_impl</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">al_get_sample_instance_attached</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_sample_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE_INSTANCE</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_allegro_sample_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_SAMPLE_INSTANCE</span>
 	{
 		<span class="self">self</span>.<span class="ident">allegro_sample_instance</span>
 	}
@@ -907,10 +909,10 @@
 
 <span class="kw">impl</span> <span class="ident">AttachToMixerImpl</span> <span class="kw">for</span> <span class="ident">SampleInstance</span>
 {
-	<span class="kw">fn</span> <span class="ident">create_connection</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Connection</span>, ()<span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">create_connection</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allegro_mixer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ALLEGRO_MIXER</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Connection</span>, ()<span class="op">&gt;</span>
 	{
 		<span class="kw">if</span> <span class="kw">unsafe</span> {
-			<span class="ident">al_attach_sample_instance_to_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_sample_instance</span>, <span class="ident">allegro_mixer</span>) <span class="op">==</span> <span class="number">0</span>
+			<span class="ident">al_attach_sample_instance_to_mixer</span>(<span class="self">self</span>.<span class="ident">allegro_sample_instance</span>, <span class="ident">allegro_mixer</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span>
 		}
 		{
 			<span class="prelude-val">Err</span>(())
