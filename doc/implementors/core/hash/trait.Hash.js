@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["allegro"] = [{"text":"impl Hash for KeyCode","synthetic":false,"types":[]}];
+implementors["allegro"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html\" title=\"trait core::hash::Hash\">Hash</a> for <a class=\"enum\" href=\"allegro/keycodes/enum.KeyCode.html\" title=\"enum allegro::keycodes::KeyCode\">KeyCode</a>","synthetic":false,"types":["allegro::keycodes::KeyCode"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
