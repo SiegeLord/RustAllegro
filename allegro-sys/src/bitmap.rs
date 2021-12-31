@@ -37,8 +37,10 @@ pub const ALLEGRO_LOCK_WRITEONLY: u32 = 2;
 extern "C"
 {
 	pub fn al_set_new_bitmap_format(format: c_int);
+	pub fn al_set_new_bitmap_depth(depth: c_int);
 	pub fn al_set_new_bitmap_flags(flags: c_int);
 	pub fn al_get_new_bitmap_format() -> c_int;
+	pub fn al_get_new_bitmap_depth() -> c_int;
 	pub fn al_get_new_bitmap_flags() -> c_int;
 	pub fn al_add_new_bitmap_flag(flag: c_int);
 

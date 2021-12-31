@@ -524,6 +524,20 @@ impl Core
 		unsafe { mem::transmute(al_get_new_bitmap_flags() as u32) }
 	}
 
+	pub fn set_new_bitmap_depth(&self, depth: i32)
+	{
+		unsafe {
+			al_set_new_bitmap_depth(depth as c_int);
+		}
+	}
+
+	pub fn get_new_bitmap_depth(&self) -> i32
+	{
+		unsafe {
+			al_get_new_bitmap_depth() as i32
+		}
+	}
+
 	pub fn set_new_bitmap_format(&self, format: PixelFormat)
 	{
 		unsafe {

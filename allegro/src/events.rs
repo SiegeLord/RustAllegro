@@ -253,6 +253,16 @@ pub enum Event
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
 	},
+	DisplaySwitchIn
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+	},
+	DisplaySwitchOut
+	{
+		source: *mut ALLEGRO_EVENT_SOURCE,
+		timestamp: f64,
+	},
 	DisplayResize
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
@@ -408,6 +418,14 @@ impl Event
 			match *e._type() as u32
 			{
 				ALLEGRO_EVENT_DISPLAY_CLOSE => DisplayClose {
+					source: src,
+					timestamp: ts,
+				},
+				ALLEGRO_EVENT_DISPLAY_SWITCH_IN => DisplaySwitchIn {
+					source: src,
+					timestamp: ts,
+				},
+				ALLEGRO_EVENT_DISPLAY_SWITCH_OUT => DisplaySwitchOut {
 					source: src,
 					timestamp: ts,
 				},
