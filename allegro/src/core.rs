@@ -126,7 +126,7 @@ flag_type! {
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum BlendMode
 {
 	Zero = ALLEGRO_ZERO,
@@ -142,7 +142,7 @@ pub enum BlendMode
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum BlendOperation
 {
 	Add = ALLEGRO_ADD,
@@ -151,7 +151,7 @@ pub enum BlendOperation
 }
 
 /// Extents of a monitor.
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub struct MonitorInfo
 {
 	pub x1: i32,
@@ -161,7 +161,7 @@ pub struct MonitorInfo
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum DepthFunction
 {
 	Never = ALLEGRO_RENDER_NEVER as u32,
@@ -533,9 +533,7 @@ impl Core
 
 	pub fn get_new_bitmap_depth(&self) -> i32
 	{
-		unsafe {
-			al_get_new_bitmap_depth() as i32
-		}
+		unsafe { al_get_new_bitmap_depth() as i32 }
 	}
 
 	pub fn set_new_bitmap_format(&self, format: PixelFormat)

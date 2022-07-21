@@ -14,8 +14,7 @@ impl Drop for Foo
 	}
 }
 
-allegro_main!
-{
+allegro_main! {
 	let core = Core::init().unwrap();
 
 	let mut source = UserEventSource::new(&core);
@@ -24,7 +23,7 @@ allegro_main!
 	source.emit(1i32);
 	source.emit(2f32);
 	source.emit(Foo);
-	
+
 	'exit: loop
 	{
 		let e = q.get_next_event();

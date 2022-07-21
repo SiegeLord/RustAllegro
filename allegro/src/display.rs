@@ -49,7 +49,7 @@ flags! {
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum DisplayOption
 {
 	RedSize = ALLEGRO_RED_SIZE,
@@ -86,7 +86,7 @@ pub enum DisplayOption
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum DisplayOptionImportance
 {
 	DontCare = ALLEGRO_DONTCARE,
@@ -95,7 +95,7 @@ pub enum DisplayOptionImportance
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum DisplayOrientation
 {
 	DisplayOrientation0Degrees = ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES,

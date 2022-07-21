@@ -10,7 +10,7 @@ use std::ptr;
 
 /// Shader platform.
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum ShaderPlatform
 {
 	/// Automatically detect the platform, only appropriate for shader creation.
@@ -35,7 +35,7 @@ impl ShaderPlatform
 
 /// Shader type.
 #[repr(u32)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
 pub enum ShaderType
 {
 	Pixel = ALLEGRO_PIXEL_SHADER,

@@ -201,14 +201,14 @@ macro_rules! check_or_else {
 	($self_:ident, $valid:expr, $invalid:expr) => {{
 		let valid = $self_.sample_valid.lock().unwrap();
 		if *valid
-			{
+		{
 			unsafe { $valid }
-			}
+		}
 		else
-			{
+		{
 			$invalid
-			}
-		}};
+		}
+	}};
 }
 
 macro_rules! set_impl {
@@ -216,15 +216,15 @@ macro_rules! set_impl {
 		check_or_else!(
 			$self_,
 			if $c_func($self_.allegro_sample_instance, $var) != 0
-				{
+			{
 				Ok(())
-				}
+			}
 			else
-				{
+			{
 				Err(())
-				},
+			},
 			Err(())
-			)
+		)
 	};
 }
 
@@ -234,7 +234,7 @@ macro_rules! get_opt_impl {
 			$self_,
 			Ok($c_func($self_.allegro_sample_instance as *const _) as $dest_ty),
 			Err(())
-			)
+		)
 	};
 }
 
@@ -244,7 +244,7 @@ macro_rules! get_conv_impl {
 			$self_,
 			Ok($conv($c_func($self_.allegro_sample_instance as *const _))),
 			Err(())
-			)
+		)
 	};
 }
 
@@ -254,7 +254,7 @@ macro_rules! get_bool_impl {
 			$self_,
 			Ok($c_func($self_.allegro_sample_instance as *const _) != 0),
 			Err(())
-			)
+		)
 	};
 }
 
