@@ -29,6 +29,7 @@ pub use keycodes::*;
 pub use monitor::*;
 pub use mouse::*;
 pub use utf8::*;
+pub use path::*;
 pub use render_state::*;
 pub use shader::*;
 pub use system::*;

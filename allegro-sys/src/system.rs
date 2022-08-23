@@ -19,14 +19,14 @@ extern "C"
 	pub fn al_get_system_config() -> *mut ALLEGRO_CONFIG;
 }
 
-pub const ALLEGRO_RESOURCES_PATH: i32 = 0;
-pub const ALLEGRO_TEMP_PATH: i32 = 1;
-pub const ALLEGRO_USER_DATA_PATH: i32 = 2;
-pub const ALLEGRO_USER_HOME_PATH: i32 = 3;
-pub const ALLEGRO_USER_SETTINGS_PATH: i32 = 4;
-pub const ALLEGRO_USER_DOCUMENTS_PATH: i32 = 5;
-pub const ALLEGRO_EXENAME_PATH: i32 = 6;
-pub const ALLEGRO_LAST_PATH: i32 = 7;
+pub const ALLEGRO_RESOURCES_PATH: u32 = 0;
+pub const ALLEGRO_TEMP_PATH: u32 = 1;
+pub const ALLEGRO_USER_DATA_PATH: u32 = 2;
+pub const ALLEGRO_USER_HOME_PATH: u32 = 3;
+pub const ALLEGRO_USER_SETTINGS_PATH: u32 = 4;
+pub const ALLEGRO_USER_DOCUMENTS_PATH: u32 = 5;
+pub const ALLEGRO_EXENAME_PATH: u32 = 6;
+pub const ALLEGRO_LAST_PATH: u32 = 7;
 
 extern "C"
 {

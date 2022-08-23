@@ -7,6 +7,7 @@ use bitmap_like::{BitmapFlags, BitmapLike};
 use color::{Color, PixelFormat};
 use config::Config;
 use display::{Display, DisplayFlags, DisplayOption, DisplayOptionImportance};
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
 use events::EventSource;
@@ -123,6 +124,19 @@ flag_type! {
 		FLIP_HORIZONTAL = ALLEGRO_FLIP_HORIZONTAL << 1,
 		FLIP_VERTICAL = ALLEGRO_FLIP_VERTICAL << 1
 	}
+}
+
+#[repr(u32)]
+#[derive(Hash, PartialEq, Eq, Copy, Clone, Debug, PartialOrd, Ord)]
+pub enum StandardPath
+{
+	Resources = ALLEGRO_RESOURCES_PATH,
+	Temp = ALLEGRO_TEMP_PATH,
+	UserData = ALLEGRO_USER_DATA_PATH,
+	UserHome = ALLEGRO_USER_HOME_PATH,
+	UserSettings = ALLEGRO_USER_SETTINGS_PATH,
+	UserDocuments = ALLEGRO_USER_DOCUMENTS_PATH,
+	ExeName = ALLEGRO_EXENAME_PATH,
 }
 
 #[repr(u32)]
@@ -1144,6 +1158,55 @@ impl Core
 			unsafe {
 				al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
 			}
+		}
+	}
+
+	pub fn set_app_name(&self, name: &str)
+	{
+		unsafe {
+			let name = CString::new(name.as_bytes()).unwrap();
+			al_set_app_name(name.as_ptr())
+		};
+	}
+
+	pub fn get_app_name(&self) -> &str
+	{
+		unsafe {
+			let name = al_get_app_name();
+			CStr::from_ptr(name).to_str().unwrap()
+		}
+	}
+
+	pub fn set_org_name(&self, name: &str)
+	{
+		unsafe {
+			let name = CString::new(name.as_bytes()).unwrap();
+			al_set_org_name(name.as_ptr())
+		};
+	}
+
+	pub fn get_org_name(&self) -> &str
+	{
+		unsafe {
+			let name = al_get_org_name();
+			CStr::from_ptr(name).to_str().unwrap()
+		}
+	}
+
+	pub fn get_standard_path(&self, path_id: StandardPath) -> Result<PathBuf, ()>
+	{
+		unsafe {
+			let path = al_get_standard_path(path_id as c_int);
+			if path.is_null()
+			{
+				return Err(());
+			}
+			// Figure out how to use OsStr here.
+			let path_cstr = al_path_cstr(path, b'/' as c_char);
+			let path_str = CStr::from_ptr(path_cstr).to_str().unwrap();
+			let res = Path::new(path_str).to_owned();
+			al_destroy_path(path);
+			Ok(res)
 		}
 	}
 }

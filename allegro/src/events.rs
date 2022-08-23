@@ -228,7 +228,7 @@ extern "C" fn event_destructor(event: *mut ALLEGRO_USER_EVENT)
 	unsafe {
 		std::panic::catch_unwind(|| {
 			let ptr: *mut Rc<dyn Any> = mem::transmute((*event).data1 as *mut c_void);
-			Box::from_raw(ptr);
+			let _ = Box::from_raw(ptr);
 		})
 		.ok();
 	}
