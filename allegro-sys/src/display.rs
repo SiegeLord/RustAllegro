@@ -4,25 +4,25 @@
 
 use libc::*;
 
-use events::ALLEGRO_EVENT_SOURCE;
-use bitmap::ALLEGRO_BITMAP;
 use allegro_util::c_bool;
+use bitmap::ALLEGRO_BITMAP;
+use events::ALLEGRO_EVENT_SOURCE;
 
-pub const ALLEGRO_WINDOWED: u32                  = 1 << 0;
-pub const ALLEGRO_FULLSCREEN: u32                = 1 << 1;
-pub const ALLEGRO_OPENGL: u32                    = 1 << 2;
-pub const ALLEGRO_DIRECT3D_INTERNAL: u32         = 1 << 3;
-pub const ALLEGRO_RESIZABLE: u32                 = 1 << 4;
-pub const ALLEGRO_FRAMELESS: u32                 = 1 << 5;
-pub const ALLEGRO_NOFRAME: u32                   = ALLEGRO_FRAMELESS;
-pub const ALLEGRO_GENERATE_EXPOSE_EVENTS: u32    = 1 << 6;
-pub const ALLEGRO_OPENGL_3_0: u32                = 1 << 7;
+pub const ALLEGRO_WINDOWED: u32 = 1 << 0;
+pub const ALLEGRO_FULLSCREEN: u32 = 1 << 1;
+pub const ALLEGRO_OPENGL: u32 = 1 << 2;
+pub const ALLEGRO_DIRECT3D_INTERNAL: u32 = 1 << 3;
+pub const ALLEGRO_RESIZABLE: u32 = 1 << 4;
+pub const ALLEGRO_FRAMELESS: u32 = 1 << 5;
+pub const ALLEGRO_NOFRAME: u32 = ALLEGRO_FRAMELESS;
+pub const ALLEGRO_GENERATE_EXPOSE_EVENTS: u32 = 1 << 6;
+pub const ALLEGRO_OPENGL_3_0: u32 = 1 << 7;
 pub const ALLEGRO_OPENGL_FORWARD_COMPATIBLE: u32 = 1 << 8;
-pub const ALLEGRO_FULLSCREEN_WINDOW: u32         = 1 << 9;
-pub const ALLEGRO_MINIMIZED: u32                 = 1 << 10;
-pub const ALLEGRO_PROGRAMMABLE_PIPELINE: u32     = 1 << 11;
-pub const ALLEGRO_MAXIMIZED: u32                 = 1 << 13;
-pub const ALLEGRO_OPENGL_ES_PROFILE: u32         = 1 << 14;
+pub const ALLEGRO_FULLSCREEN_WINDOW: u32 = 1 << 9;
+pub const ALLEGRO_MINIMIZED: u32 = 1 << 10;
+pub const ALLEGRO_PROGRAMMABLE_PIPELINE: u32 = 1 << 11;
+pub const ALLEGRO_MAXIMIZED: u32 = 1 << 13;
+pub const ALLEGRO_OPENGL_ES_PROFILE: u32 = 1 << 14;
 
 pub const ALLEGRO_RED_SIZE: u32 = 0;
 pub const ALLEGRO_GREEN_SIZE: u32 = 1;
@@ -70,8 +70,7 @@ pub const ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN: u32 = 5;
 
 opaque!(ALLEGRO_DISPLAY);
 
-extern "C"
-{
+extern "C" {
 	pub fn al_set_new_display_refresh_rate(refresh_rate: c_int);
 	pub fn al_set_new_display_flags(flags: c_int);
 	pub fn al_get_new_display_refresh_rate() -> c_int;
@@ -82,7 +81,9 @@ extern "C"
 	pub fn al_get_display_format(display: *mut ALLEGRO_DISPLAY) -> c_int;
 	pub fn al_get_display_refresh_rate(display: *mut ALLEGRO_DISPLAY) -> c_int;
 	pub fn al_get_display_flags(display: *mut ALLEGRO_DISPLAY) -> c_int;
-	pub fn al_set_display_flag(display: *mut ALLEGRO_DISPLAY, flag: c_uint, onoff: c_bool) -> c_bool;
+	pub fn al_set_display_flag(
+		display: *mut ALLEGRO_DISPLAY, flag: c_uint, onoff: c_bool,
+	) -> c_bool;
 
 	pub fn al_create_display(w: c_int, h: c_int) -> *mut ALLEGRO_DISPLAY;
 	pub fn al_destroy_display(display: *mut ALLEGRO_DISPLAY);
@@ -103,7 +104,9 @@ extern "C"
 	pub fn al_get_display_event_source(display: *mut ALLEGRO_DISPLAY) -> *mut ALLEGRO_EVENT_SOURCE;
 
 	pub fn al_set_display_icon(display: *mut ALLEGRO_DISPLAY, icon: *mut ALLEGRO_BITMAP);
-	pub fn al_set_display_icons(display: *mut ALLEGRO_DISPLAY, num_icons: c_int, icons: *mut *mut ALLEGRO_BITMAP);
+	pub fn al_set_display_icons(
+		display: *mut ALLEGRO_DISPLAY, num_icons: c_int, icons: *mut *mut ALLEGRO_BITMAP,
+	);
 
 	pub fn al_get_new_display_adapter() -> c_int;
 	pub fn al_set_new_display_adapter(adapter: c_int);

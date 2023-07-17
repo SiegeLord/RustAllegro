@@ -11,15 +11,15 @@ use allegro_util::c_bool;
 
 use altime::ALLEGRO_TIMEOUT;
 use display::ALLEGRO_DISPLAY;
+use joystick::ALLEGRO_JOYSTICK;
 use keyboard::ALLEGRO_KEYBOARD;
 use mouse::ALLEGRO_MOUSE;
-use joystick::ALLEGRO_JOYSTICK;
 use timer::ALLEGRO_TIMER;
 
 #[repr(C)]
 pub struct ALLEGRO_EVENT_SOURCE
 {
-	pub __pad: [c_int; 32]
+	pub __pad: [c_int; 32],
 }
 derive_copy_clone!(ALLEGRO_EVENT_SOURCE);
 
@@ -155,7 +155,7 @@ impl ALLEGRO_EVENT
 {
 	pub fn new() -> ALLEGRO_EVENT
 	{
-		ALLEGRO_EVENT{ data: [0; 72] }
+		ALLEGRO_EVENT { data: [0; 72] }
 	}
 
 	pub fn _type(&mut self) -> *mut ALLEGRO_EVENT_TYPE
@@ -201,24 +201,39 @@ impl ALLEGRO_EVENT
 
 opaque!(ALLEGRO_EVENT_QUEUE);
 
-extern "C"
-{
+extern "C" {
 	pub fn al_init_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
 	pub fn al_destroy_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
-	pub fn al_emit_user_event(arg1: *mut ALLEGRO_EVENT_SOURCE, arg2: *mut ALLEGRO_EVENT, dtor: extern "C" fn(arg1: *mut ALLEGRO_USER_EVENT)) -> c_bool;
+	pub fn al_emit_user_event(
+		arg1: *mut ALLEGRO_EVENT_SOURCE, arg2: *mut ALLEGRO_EVENT,
+		dtor: extern "C" fn(arg1: *mut ALLEGRO_USER_EVENT),
+	) -> c_bool;
 	pub fn al_unref_user_event(arg1: *mut ALLEGRO_USER_EVENT);
 	pub fn al_set_event_source_data(arg1: *mut ALLEGRO_EVENT_SOURCE, data: intptr_t);
 	pub fn al_get_event_source_data(arg1: *const ALLEGRO_EVENT_SOURCE) -> intptr_t;
 	pub fn al_create_event_queue() -> *mut ALLEGRO_EVENT_QUEUE;
 	pub fn al_destroy_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE);
-	pub fn al_register_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE);
-	pub fn al_unregister_event_source(arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE);
+	pub fn al_register_event_source(
+		arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE,
+	);
+	pub fn al_unregister_event_source(
+		arg1: *mut ALLEGRO_EVENT_QUEUE, arg2: *mut ALLEGRO_EVENT_SOURCE,
+	);
 	pub fn al_is_event_queue_empty(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool;
-	pub fn al_get_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool;
-	pub fn al_peek_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT) -> c_bool;
+	pub fn al_get_next_event(
+		arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT,
+	) -> c_bool;
+	pub fn al_peek_next_event(
+		arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT,
+	) -> c_bool;
 	pub fn al_drop_next_event(arg1: *mut ALLEGRO_EVENT_QUEUE) -> c_bool;
 	pub fn al_flush_event_queue(arg1: *mut ALLEGRO_EVENT_QUEUE);
 	pub fn al_wait_for_event(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT);
-	pub fn al_wait_for_event_timed(arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, secs: c_float) -> c_bool;
-	pub fn al_wait_for_event_until(queue: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, timeout: *mut ALLEGRO_TIMEOUT) -> c_bool;
+	pub fn al_wait_for_event_timed(
+		arg1: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT, secs: c_float,
+	) -> c_bool;
+	pub fn al_wait_for_event_until(
+		queue: *mut ALLEGRO_EVENT_QUEUE, ret_event: *mut ALLEGRO_EVENT,
+		timeout: *mut ALLEGRO_TIMEOUT,
+	) -> c_bool;
 }

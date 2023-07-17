@@ -20,24 +20,16 @@ pub const ALLEGRO_DEST_MINUS_SRC: u32 = 2;
 pub const ALLEGRO_NUM_BLEND_OPERATIONS: u32 = 3;
 
 extern "C" {
-    pub fn al_set_blender(op: c_int,
-                          source: c_int,
-                          dest: c_int);
-    pub fn al_set_blend_color(color: ALLEGRO_COLOR);
-    pub fn al_get_blender(op: *mut c_int,
-                          source: *mut c_int,
-                          dest: *mut c_int);
-    pub fn al_get_blend_color() -> ALLEGRO_COLOR;
-    pub fn al_set_separate_blender(op: c_int,
-                                   source: c_int,
-                                   dest: c_int,
-                                   alpha_op: c_int,
-                                   alpha_source: c_int,
-                                   alpha_dest: c_int);
-    pub fn al_get_separate_blender(op: *mut c_int,
-                                   source: *mut c_int,
-                                   dest: *mut c_int,
-                                   alpha_op: *mut c_int,
-                                   alpha_src: *mut c_int,
-                                   alpha_dest: *mut c_int);
+	pub fn al_set_blender(op: c_int, source: c_int, dest: c_int);
+	pub fn al_set_blend_color(color: ALLEGRO_COLOR);
+	pub fn al_get_blender(op: *mut c_int, source: *mut c_int, dest: *mut c_int);
+	pub fn al_get_blend_color() -> ALLEGRO_COLOR;
+	pub fn al_set_separate_blender(
+		op: c_int, source: c_int, dest: c_int, alpha_op: c_int, alpha_source: c_int,
+		alpha_dest: c_int,
+	);
+	pub fn al_get_separate_blender(
+		op: *mut c_int, source: *mut c_int, dest: *mut c_int, alpha_op: *mut c_int,
+		alpha_src: *mut c_int, alpha_dest: *mut c_int,
+	);
 }

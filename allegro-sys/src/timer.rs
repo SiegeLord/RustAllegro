@@ -2,15 +2,14 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
 use allegro_util::c_bool;
+use libc::*;
 
 use events::ALLEGRO_EVENT_SOURCE;
 
 opaque!(ALLEGRO_TIMER);
 
-extern "C"
-{
+extern "C" {
 	pub fn al_create_timer(speed_secs: c_double) -> *mut ALLEGRO_TIMER;
 	pub fn al_destroy_timer(timer: *mut ALLEGRO_TIMER);
 	pub fn al_start_timer(timer: *mut ALLEGRO_TIMER);

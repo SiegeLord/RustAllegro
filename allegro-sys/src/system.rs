@@ -4,15 +4,16 @@
 
 use libc::*;
 
+use allegro_util::c_bool;
 use config::*;
 use path::*;
-use allegro_util::c_bool;
 
 opaque!(ALLEGRO_SYSTEM);
 
-extern "C"
-{
-	pub fn al_install_system(version: c_int, atexit_ptr: Option<extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int>) -> c_bool;
+extern "C" {
+	pub fn al_install_system(
+		version: c_int, atexit_ptr: Option<extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int>,
+	) -> c_bool;
 	pub fn al_uninstall_system();
 	pub fn al_is_system_installed() -> c_bool;
 	pub fn al_get_system_driver() -> *mut ALLEGRO_SYSTEM;
@@ -28,8 +29,7 @@ pub const ALLEGRO_USER_DOCUMENTS_PATH: u32 = 5;
 pub const ALLEGRO_EXENAME_PATH: u32 = 6;
 pub const ALLEGRO_LAST_PATH: u32 = 7;
 
-extern "C"
-{
+extern "C" {
 	pub fn al_get_standard_path(id: c_int) -> *mut ALLEGRO_PATH;
 	pub fn al_set_exe_name(path: *const c_char);
 

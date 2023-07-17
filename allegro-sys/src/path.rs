@@ -18,8 +18,7 @@ pub const ALLEGRO_NATIVE_DRIVE_SEP: char = '\x00';
 
 opaque!(ALLEGRO_PATH);
 
-extern "C"
-{
+extern "C" {
 	pub fn al_create_path(str: *const c_char) -> *mut ALLEGRO_PATH;
 	pub fn al_create_path_for_directory(str: *const c_char) -> *mut ALLEGRO_PATH;
 	pub fn al_clone_path(path: *const ALLEGRO_PATH) -> *mut ALLEGRO_PATH;
@@ -44,7 +43,7 @@ extern "C"
 	pub fn al_get_path_filename(path: *const ALLEGRO_PATH) -> *const c_char;
 
 	pub fn al_get_path_extension(path: *const ALLEGRO_PATH) -> *const c_char;
-	pub fn al_set_path_extension(path: *mut ALLEGRO_PATH, extension: *const c_char) ->	c_bool;
+	pub fn al_set_path_extension(path: *mut ALLEGRO_PATH, extension: *const c_char) -> c_bool;
 	pub fn al_get_path_basename(path: *const ALLEGRO_PATH) -> *const c_char;
 
 	pub fn al_make_path_canonical(path: *mut ALLEGRO_PATH) -> c_bool;

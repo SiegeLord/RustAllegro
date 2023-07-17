@@ -2,10 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use allegro_util::c_bool;
 use display::ALLEGRO_DISPLAY;
 use events::ALLEGRO_EVENT_SOURCE;
-use allegro_util::c_bool;
+use libc::*;
 
 opaque!(ALLEGRO_MOUSE);
 
@@ -15,18 +15,17 @@ pub const ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 #[derive(Copy, Clone)]
 pub struct ALLEGRO_MOUSE_STATE
 {
-    pub x: c_int,
-    pub y: c_int,
-    pub z: c_int,
-    pub w: c_int,
-    pub more_axes: [c_int; ALLEGRO_MOUSE_MAX_EXTRA_AXES as usize],
-    pub buttons: c_int,
-    pub pressure: c_float,
-    pub display: *mut ALLEGRO_DISPLAY,
+	pub x: c_int,
+	pub y: c_int,
+	pub z: c_int,
+	pub w: c_int,
+	pub more_axes: [c_int; ALLEGRO_MOUSE_MAX_EXTRA_AXES as usize],
+	pub buttons: c_int,
+	pub pressure: c_float,
+	pub display: *mut ALLEGRO_DISPLAY,
 }
 
-extern "C"
-{
+extern "C" {
 	pub fn al_is_mouse_installed() -> c_bool;
 	pub fn al_install_mouse() -> c_bool;
 	pub fn al_uninstall_mouse();

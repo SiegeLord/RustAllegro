@@ -11,7 +11,7 @@ pub struct ALLEGRO_COLOR
 	pub r: f32,
 	pub g: f32,
 	pub b: f32,
-	pub a: f32
+	pub a: f32,
 }
 
 pub const ALLEGRO_PIXEL_FORMAT_ANY: u32 = 0;
@@ -43,17 +43,20 @@ pub const ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE: u32 = 25;
 pub const ALLEGRO_PIXEL_FORMAT_RGBA_4444: u32 = 26;
 pub const ALLEGRO_NUM_PIXEL_FORMATS: u32 = 27;
 
-extern "C"
-{
+extern "C" {
 	pub fn al_map_rgb(r: c_uchar, g: c_uchar, b: c_uchar) -> ALLEGRO_COLOR;
 	pub fn al_map_rgba(r: c_uchar, g: c_uchar, b: c_uchar, a: c_uchar) -> ALLEGRO_COLOR;
 	pub fn al_map_rgb_f(r: c_float, g: c_float, b: c_float) -> ALLEGRO_COLOR;
 	pub fn al_map_rgba_f(r: c_float, g: c_float, b: c_float, a: c_float) -> ALLEGRO_COLOR;
 
 	pub fn al_unmap_rgb(color: ALLEGRO_COLOR, r: *mut c_uchar, g: *mut c_uchar, b: *mut c_uchar);
-	pub fn al_unmap_rgba(color: ALLEGRO_COLOR, r: *mut c_uchar, g: *mut c_uchar, b: *mut c_uchar, a: *mut c_uchar);
+	pub fn al_unmap_rgba(
+		color: ALLEGRO_COLOR, r: *mut c_uchar, g: *mut c_uchar, b: *mut c_uchar, a: *mut c_uchar,
+	);
 	pub fn al_unmap_rgb_f(color: ALLEGRO_COLOR, r: *mut c_float, g: *mut c_float, b: *mut c_float);
-	pub fn al_unmap_rgba_f(color: ALLEGRO_COLOR, r: *mut c_float, g: *mut c_float, b: *mut c_float, a: *mut c_float);
+	pub fn al_unmap_rgba_f(
+		color: ALLEGRO_COLOR, r: *mut c_float, g: *mut c_float, b: *mut c_float, a: *mut c_float,
+	);
 
 	pub fn al_get_pixel_size(format: c_int) -> c_int;
 	pub fn al_get_pixel_format_bits(format: c_int) -> c_int;

@@ -21,35 +21,27 @@ pub unsafe fn from_c_str(c_str: *const c_char) -> String
 }
 
 #[macro_export]
-macro_rules! if_ok
-{
-	($e: expr) =>
-	{
+macro_rules! if_ok {
+	($e: expr) => {
 		if ($e).is_err()
 		{
 			return Err(());
 		}
-	}
+	};
 }
 
 #[macro_export]
-macro_rules! opaque
-{
-	($f: ident) =>
-	{
+macro_rules! opaque {
+	($f: ident) => {
 		/* Mimicking c_void */
 		#[allow(missing_copy_implementations)]
-		pub enum $f
-		{
-		}
-	}
+		pub enum $f {}
+	};
 }
 
 #[macro_export]
-macro_rules! derive_copy_clone
-{
-	($t: ty) =>
-	{
+macro_rules! derive_copy_clone {
+	($t: ty) => {
 		impl Copy for $t {}
 		impl Clone for $t
 		{
@@ -58,7 +50,7 @@ macro_rules! derive_copy_clone
 				*self
 			}
 		}
-	}
+	};
 }
 
 #[macro_export]
@@ -125,14 +117,11 @@ macro_rules! flags
 }
 
 #[macro_export]
-macro_rules! cast_to_c
-{
-	($p:ident, f32) =>
-	{
+macro_rules! cast_to_c {
+	($p:ident, f32) => {
 		$p as c_float
 	};
-	($p:ident, Color) =>
-	{
+	($p:ident, Color) => {
 		*$p
-	}
+	};
 }

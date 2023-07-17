@@ -47,7 +47,6 @@ pub enum ALLEGRO_WRITE_MASK_FLAGS
 	ALLEGRO_MASK_RGBA = ALLEGRO_MASK_RGB as u32 | ALLEGRO_MASK_ALPHA as u32,
 }
 
-extern "C"
-{
+extern "C" {
 	pub fn al_set_render_state(state: ALLEGRO_RENDER_STATE, value: c_int);
 }

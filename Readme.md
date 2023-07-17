@@ -1,6 +1,6 @@
 # RustAllegro
 
-[![Build Status](https://travis-ci.org/SiegeLord/RustAllegro.png)](https://travis-ci.org/SiegeLord/RustAllegro)
+![Build Status](https://github.com/SiegeLord/RustAllegro/actions/workflows/continuous-integration.yml/badge.svg)
 [![](http://meritbadge.herokuapp.com/allegro)](https://crates.io/crates/allegro)
 
 A thin [Rust](http://www.rust-lang.org/) wrapper of [Allegro 5](http://liballeg.org/).
@@ -53,8 +53,8 @@ allegro_main!
 
 ## Documentation
 
-See [here](http://siegelord.github.io/RustAllegro/doc/allegro/index.html). Note
-that it is very incomplete. You'll likely want to refer back to allegro's
+See [docs.rs](https://docs.rs/allegro/latest/allegro/). Note
+that it is very incomplete. You'll likely want to refer back to Allegro's
 [documentation](http://liballeg.org/api.html) somewhat heavily at this time.
 
 ## Packages
