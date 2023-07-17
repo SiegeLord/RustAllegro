@@ -12,8 +12,7 @@ pub struct ALLEGRO_TIMEOUT
 	pub __pad2__: u64,
 }
 
-extern "C"
-{
+extern "C" {
 	pub fn al_get_time() -> c_double;
 	pub fn al_rest(seconds: c_double);
 	pub fn al_init_timeout(timeout: *mut ALLEGRO_TIMEOUT, seconds: c_double);

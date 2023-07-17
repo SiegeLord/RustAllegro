@@ -2,9 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name="allegro_sys"]
+#![crate_name = "allegro_sys"]
 #![crate_type = "lib"]
-
 #![allow(non_camel_case_types)]
 
 extern crate libc;
@@ -28,13 +27,13 @@ pub use keyboard::*;
 pub use keycodes::*;
 pub use monitor::*;
 pub use mouse::*;
-pub use utf8::*;
 pub use path::*;
 pub use render_state::*;
 pub use shader::*;
 pub use system::*;
 pub use timer::*;
 pub use transformations::*;
+pub use utf8::*;
 
 pub mod altime;
 pub mod base;
@@ -54,9 +53,9 @@ pub mod keycodes;
 pub mod monitor;
 pub mod mouse;
 pub mod path;
-pub mod utf8;
 pub mod render_state;
 pub mod shader;
 pub mod system;
 pub mod timer;
 pub mod transformations;
+pub mod utf8;

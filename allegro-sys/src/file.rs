@@ -11,13 +11,19 @@ opaque!(ALLEGRO_FILE);
 #[derive(Copy, Clone, Debug)]
 pub struct ALLEGRO_FILE_INTERFACE
 {
-	pub fi_fopen: Option<unsafe extern "C" fn(path: *const c_char, mode: *const c_char) -> *mut c_void>,
+	pub fi_fopen:
+		Option<unsafe extern "C" fn(path: *const c_char, mode: *const c_char) -> *mut c_void>,
 	pub fi_fclose: Option<unsafe extern "C" fn(handle: *mut ALLEGRO_FILE) -> c_bool>,
-	pub fi_fread: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE, ptr: *mut c_void, size: c_ulong) -> c_ulong>,
-	pub fi_fwrite: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE, ptr: *const c_void, size: c_ulong) -> c_ulong>,
+	pub fi_fread: Option<
+		unsafe extern "C" fn(f: *mut ALLEGRO_FILE, ptr: *mut c_void, size: c_ulong) -> c_ulong,
+	>,
+	pub fi_fwrite: Option<
+		unsafe extern "C" fn(f: *mut ALLEGRO_FILE, ptr: *const c_void, size: c_ulong) -> c_ulong,
+	>,
 	pub fi_fflush: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE) -> c_bool>,
 	pub fi_ftell: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE) -> i64>,
-	pub fi_fseek: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE, offset: i64, whence: c_int) -> c_bool>,
+	pub fi_fseek:
+		Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE, offset: i64, whence: c_int) -> c_bool>,
 	pub fi_feof: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE) -> c_bool>,
 	pub fi_ferror: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE) -> c_int>,
 	pub fi_ferrmsg: Option<unsafe extern "C" fn(f: *mut ALLEGRO_FILE) -> *const c_char>,
@@ -38,8 +44,12 @@ pub enum ALLEGRO_SEEK
 
 extern "C" {
 	pub fn al_fopen(path: *const c_char, mode: *const c_char) -> *mut ALLEGRO_FILE;
-	pub fn al_fopen_interface(vt: *const ALLEGRO_FILE_INTERFACE, path: *const c_char, mode: *const c_char) -> *mut ALLEGRO_FILE;
-	pub fn al_create_file_handle(vt: *const ALLEGRO_FILE_INTERFACE, userdata: *mut c_void) -> *mut ALLEGRO_FILE;
+	pub fn al_fopen_interface(
+		vt: *const ALLEGRO_FILE_INTERFACE, path: *const c_char, mode: *const c_char,
+	) -> *mut ALLEGRO_FILE;
+	pub fn al_create_file_handle(
+		vt: *const ALLEGRO_FILE_INTERFACE, userdata: *mut c_void,
+	) -> *mut ALLEGRO_FILE;
 	pub fn al_fclose(f: *mut ALLEGRO_FILE) -> c_bool;
 	pub fn al_fread(f: *mut ALLEGRO_FILE, ptr: *mut c_void, size: c_ulong) -> c_ulong;
 	pub fn al_fwrite(f: *mut ALLEGRO_FILE, ptr: *const c_void, size: c_ulong) -> c_ulong;
@@ -67,8 +77,12 @@ extern "C" {
 	pub fn al_fputs(f: *mut ALLEGRO_FILE, p: *const c_char) -> c_int;
 	pub fn al_fprintf(f: *mut ALLEGRO_FILE, format: *const c_char, ...) -> c_int;
 	pub fn al_fopen_fd(fd: c_int, mode: *const c_char) -> *mut ALLEGRO_FILE;
-	pub fn al_make_temp_file(tmpl: *const c_char, ret_path: *mut *mut ALLEGRO_PATH) -> *mut ALLEGRO_FILE;
-	pub fn al_fopen_slice(fp: *mut ALLEGRO_FILE, initial_size: c_ulong, mode: *const c_char) -> *mut ALLEGRO_FILE;
+	pub fn al_make_temp_file(
+		tmpl: *const c_char, ret_path: *mut *mut ALLEGRO_PATH,
+	) -> *mut ALLEGRO_FILE;
+	pub fn al_fopen_slice(
+		fp: *mut ALLEGRO_FILE, initial_size: c_ulong, mode: *const c_char,
+	) -> *mut ALLEGRO_FILE;
 	pub fn al_get_new_file_interface() -> *const ALLEGRO_FILE_INTERFACE;
 	pub fn al_set_new_file_interface(file_interface: *const ALLEGRO_FILE_INTERFACE);
 	pub fn al_set_standard_file_interface();

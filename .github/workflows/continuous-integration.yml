@@ -1,0 +1,31 @@
+name: Tests
+on: [push, pull_request]
+jobs:
+    ubuntu_test:
+        name: Ubuntu tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
+            - name: Install Rust
+              run: |
+                   rustup toolchain install nightly
+                   rustup default nightly
+                   rustup component add rustfmt --toolchain nightly-x86_64-unknown-linux-gnu
+            - name: Install Deps
+              run: |
+                  sudo apt-get install python3-pip --force-yes
+                  sudo pip3 install toml
+                  yes | sudo add-apt-repository ppa:allegro/5.2
+                  sudo apt-get update
+                  sudo apt-get install liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev liballegro5-dev
+            - name: Tests
+              run: |
+                  cat /usr/include/allegro5/base.h
+                  ./cargo_util.py --build --verbose
+                  ./cargo_util.py --test
+                  cd examples
+                  ./target/debug/example --init-only
+                  ./target/debug/config_example Cargo.toml

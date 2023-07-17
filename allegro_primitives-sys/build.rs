@@ -14,14 +14,17 @@ fn main()
 	let debug = match var("CARGO_FEATURE_LINK_DEBUG")
 	{
 		Err(_) => "",
-		Ok(_) => "-debug"
+		Ok(_) => "-debug",
 	};
 
 	let static_ = match var("CARGO_FEATURE_LINK_STATIC")
 	{
 		Err(_) => "",
-		Ok(_) => "-static"
+		Ok(_) => "-static",
 	};
 
-	println!("cargo:rustc-flags=-l allegro_primitives{}{}", debug, static_);
+	println!(
+		"cargo:rustc-flags=-l allegro_primitives{}{}",
+		debug, static_
+	);
 }

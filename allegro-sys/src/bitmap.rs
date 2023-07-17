@@ -4,8 +4,8 @@
 
 use libc::*;
 
-use color::ALLEGRO_COLOR;
 use allegro_util::c_bool;
+use color::ALLEGRO_COLOR;
 
 opaque!(ALLEGRO_BITMAP);
 
@@ -23,7 +23,8 @@ pub const ALLEGRO_VIDEO_BITMAP: u32 = 1024;
 pub const ALLEGRO_CONVERT_BITMAP: u32 = 2048;
 
 #[repr(C)]
-pub struct ALLEGRO_LOCKED_REGION {
+pub struct ALLEGRO_LOCKED_REGION
+{
 	pub data: *const c_void,
 	pub format: c_int,
 	pub pitch: c_int,
@@ -34,8 +35,7 @@ pub const ALLEGRO_LOCK_READWRITE: u32 = 0;
 pub const ALLEGRO_LOCK_READONLY: u32 = 1;
 pub const ALLEGRO_LOCK_WRITEONLY: u32 = 2;
 
-extern "C"
-{
+extern "C" {
 	pub fn al_set_new_bitmap_format(format: c_int);
 	pub fn al_set_new_bitmap_depth(depth: c_int);
 	pub fn al_set_new_bitmap_flags(flags: c_int);
@@ -62,12 +62,16 @@ extern "C"
 	pub fn al_reset_clipping_rectangle();
 	pub fn al_get_clipping_rectangle(x: *mut c_int, y: *mut c_int, w: *mut c_int, h: *mut c_int);
 
-	pub fn al_create_sub_bitmap(parent: *mut ALLEGRO_BITMAP, x: c_int, y: c_int, w: c_int, h: c_int) -> *mut ALLEGRO_BITMAP;
+	pub fn al_create_sub_bitmap(
+		parent: *mut ALLEGRO_BITMAP, x: c_int, y: c_int, w: c_int, h: c_int,
+	) -> *mut ALLEGRO_BITMAP;
 	pub fn al_is_sub_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> c_bool;
 	pub fn al_get_parent_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP;
 
 	pub fn al_clone_bitmap(bitmap: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP;
 
-	pub fn al_lock_bitmap(bitmap: *mut ALLEGRO_BITMAP, format: c_int, flags: c_int) -> *mut ALLEGRO_LOCKED_REGION;
+	pub fn al_lock_bitmap(
+		bitmap: *mut ALLEGRO_BITMAP, format: c_int, flags: c_int,
+	) -> *mut ALLEGRO_LOCKED_REGION;
 	pub fn al_unlock_bitmap(bitmap: *mut ALLEGRO_BITMAP);
 }
