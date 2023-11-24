@@ -287,8 +287,20 @@ impl AudioStream
 				write_cb(&mut buf);
 			}
 			// Fill the rest with silence
-			while buf.write(&[0]).is_ok()
-			{}
+			loop
+			{
+				if let Ok(l) = buf.write(&[0])
+				{
+					if l == 0
+					{
+						break;
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
 
 			if al_set_audio_stream_fragment(self.allegro_audio_stream, fragment) != 0
 			{
