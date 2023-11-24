@@ -41,12 +41,18 @@ path = "shaders.rs"
 
 [[bin]]
 
+name = "synth_example"
+path = "synth_example.rs"
+
+[[bin]]
+
 name = "user_events"
 path = "user_events.rs"
 
 [dependencies]
 
 getopts = "=0.2.21"
+byteorder = "1.5"
 
 [dependencies.allegro]
 
