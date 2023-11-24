@@ -63,6 +63,7 @@ struct CallbackHolder
 	sample_size: usize,
 }
 
+///Mixes multiple sound sources into one.
 pub struct Mixer
 {
 	allegro_mixer: *mut ALLEGRO_MIXER,

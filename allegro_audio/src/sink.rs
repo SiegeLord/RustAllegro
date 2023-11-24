@@ -37,6 +37,7 @@ macro_rules! get_bool_impl {
 	};
 }
 
+/// Attach audio sources to this to make audio output.
 pub struct Sink
 {
 	allegro_voice: *mut ALLEGRO_VOICE,
