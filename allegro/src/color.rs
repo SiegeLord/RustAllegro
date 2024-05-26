@@ -26,12 +26,12 @@ impl Color
 		)
 	}
 
-	pub fn from_rgb_f(r: f32, g: f32, b: f32) -> Color
+	pub const fn from_rgb_f(r: f32, g: f32, b: f32) -> Color
 	{
 		Color::from_rgba_f(r, g, b, 1.0)
 	}
 
-	pub fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color
+	pub const fn from_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Color
 	{
 		Color(ALLEGRO_COLOR {
 			r: r,
@@ -41,12 +41,12 @@ impl Color
 		})
 	}
 
-	pub fn from_allegro_color(c: ALLEGRO_COLOR) -> Color
+	pub const fn from_allegro_color(c: ALLEGRO_COLOR) -> Color
 	{
 		Color(c)
 	}
 
-	pub fn get_allegro_color(&self) -> ALLEGRO_COLOR
+	pub const fn get_allegro_color(&self) -> ALLEGRO_COLOR
 	{
 		self.0
 	}
@@ -70,12 +70,12 @@ impl Color
 		)
 	}
 
-	pub fn to_rgb_f(&self) -> (f32, f32, f32)
+	pub const fn to_rgb_f(&self) -> (f32, f32, f32)
 	{
 		(self.0.r, self.0.g, self.0.b)
 	}
 
-	pub fn to_rgba_f(&self) -> (f32, f32, f32, f32)
+	pub const fn to_rgba_f(&self) -> (f32, f32, f32, f32)
 	{
 		(self.0.r, self.0.g, self.0.b, self.0.a)
 	}
