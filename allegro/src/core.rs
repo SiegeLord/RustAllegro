@@ -564,6 +564,7 @@ impl Core
 
 	 
 	/// This function is used to set the target bitmap that allegro draws to.
+	/// # Examples
 	/// ```
 	/// // How to set target bitmap similar to al_set_target_bitmap
 	/// // For a more complete example look at example/example.rs
