@@ -570,7 +570,7 @@ impl Core
 	/// use allegro::*;
 	/// let core = Core::init().unwrap();
 	/// let bmp = Bitmap::new(&core, 400, 400).unwrap();
-	/// core.set_target_bitmap(Some(&map));
+	/// core.set_target_bitmap(Some(&bmp));
 	/// ```
 	
 	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: Option<&T>)
