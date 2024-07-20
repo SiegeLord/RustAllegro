@@ -22,7 +22,7 @@ pub struct Bitmap
 impl Bitmap
 {
 
-	/// This method is used to create a new Bitmap object.
+	/// This function is used to create a new Bitmap object.
 	/// Can be used to create a bitmap of w width and h height.
 	/// 
 	/// # Examples
@@ -51,7 +51,7 @@ impl Bitmap
 		}
 	}
 
-	/// This method is used to load a bitmap file into a Bitmap object.
+	/// This function is used to load a bitmap file into a Bitmap object.
 	/// Takes a string path_to_map that points to a bitmap file.
 	/// # Examples
 	/// ```
