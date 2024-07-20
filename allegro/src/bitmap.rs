@@ -54,7 +54,7 @@ impl Bitmap
 	/// This method is used to load a bitmap file into a Bitmap object.
 	/// Takes a string path_to_map that points to a bitmap file.
 	/// # Examples
-	///  ```
+	/// ```
 	/// use allegro::*;
 	/// 
 	/// pub fn load_bitmap(core: &Core, path_to_map: &str) {
