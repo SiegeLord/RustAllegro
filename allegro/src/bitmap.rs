@@ -29,10 +29,10 @@ impl Bitmap
 	///  ```
 	/// use allegro::*;
 	/// 
-	/// pub fn blank_bitmap(core: &Core) {
-	/// 	let blank_bitmap: Bitmap = match Bitmap::new(&core, 400, 200) {
+	/// pub fn new_bitmap(core: &Core) {
+	/// 	let new_bitmap: Bitmap = match Bitmap::new(&core, 400, 200) {
 	/// 		Ok(v) => v,
-	/// 		Err(e) => panic!("Error loading blank_bitmap {e:?}"),
+	/// 		Err(e) => panic!("Error loading new_bitmap {e:?}"),
 	/// 	};
 	/// }
 	/// ```
