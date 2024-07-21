@@ -21,6 +21,21 @@ pub struct Bitmap
 
 impl Bitmap
 {
+
+	/// This function is used to create a new Bitmap object.
+	/// Can be used to create a bitmap of w width and h height.
+	/// 
+	/// # Examples
+	///  ```
+	/// use allegro::*;
+	/// 
+	/// pub fn new_bitmap(core: &Core) {
+	/// 	let new_bitmap: Bitmap = match Bitmap::new(&core, 400, 200) {
+	/// 		Ok(v) => v,
+	/// 		Err(e) => panic!("Error loading new_bitmap"),
+	/// 	};
+	/// }
+	/// ```
 	pub fn new(_: &Core, w: i32, h: i32) -> Result<Bitmap, ()>
 	{
 		unsafe {
@@ -36,6 +51,24 @@ impl Bitmap
 		}
 	}
 
+	/// This function is used to load a bitmap file into a Bitmap object.
+	/// Takes a string path_to_map that points to a bitmap file.
+	/// 
+	/// NOTE: Be sure to initialize image addon before running the 
+	/// load_bitmap function ex: ImageAddon::init(&core).unwrap();
+	/// 
+	/// // For a more complete example look at example/example.rs
+	/// # Examples
+	/// ```
+	/// use allegro::*;
+	/// 
+	/// pub fn load_bitmap(core: &Core, path_to_map: &str) {
+	/// 	let tileset_bitmap: Bitmap = match Bitmap::load(&core, path_to_map) {
+	/// 		Ok(v) => v,
+	/// 		Err(e) => panic!("Error loading tileset_bitmap"),
+	/// 	};
+	/// }
+	/// ```
 	pub fn load(_: &Core, filename: &str) -> Result<Bitmap, ()>
 	{
 		unsafe {
