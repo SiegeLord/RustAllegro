@@ -53,6 +53,11 @@ impl Bitmap
 
 	/// This function is used to load a bitmap file into a Bitmap object.
 	/// Takes a string path_to_map that points to a bitmap file.
+	/// 
+	/// NOTE: Be sure to initialize image addon before running the 
+	/// load_bitmap function ex: ImageAddon::init(&core).unwrap();
+	/// 
+	/// // For a more complete example look at example/example.rs
 	/// # Examples
 	/// ```
 	/// use allegro::*;
