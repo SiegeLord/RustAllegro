@@ -8,6 +8,8 @@ use allegro_util::c_bool;
 use bitmap::*;
 use file::*;
 
+pub const ALLEGRO_KEEP_INDEX: u32 = 0x0800;
+
 pub type ALLEGRO_IIO_LOADER_FUNCTION = extern "C" fn(arg1: *const c_char) -> *mut ALLEGRO_BITMAP;
 pub type ALLEGRO_IIO_FS_LOADER_FUNCTION =
 	extern "C" fn(arg1: *mut ALLEGRO_FILE) -> *mut ALLEGRO_BITMAP;
@@ -30,7 +32,11 @@ extern "C" {
 		ext: *const c_char, fs_saver: ALLEGRO_IIO_FS_SAVER_FUNCTION,
 	) -> c_bool;
 	pub fn al_load_bitmap(filename: *const c_char) -> *mut ALLEGRO_BITMAP;
+	pub fn al_load_bitmap_flags(filename: *const c_char, flags: c_int) -> *mut ALLEGRO_BITMAP;
 	pub fn al_load_bitmap_f(fp: *mut ALLEGRO_FILE, ident: *const c_char) -> *mut ALLEGRO_BITMAP;
+	pub fn al_load_bitmap_flags_f(
+		fp: *mut ALLEGRO_FILE, ident: *const c_char, flags: c_int,
+	) -> *mut ALLEGRO_BITMAP;
 	pub fn al_save_bitmap(filename: *const c_char, bitmap: *mut ALLEGRO_BITMAP) -> c_bool;
 	pub fn al_save_bitmap_f(
 		fp: *mut ALLEGRO_FILE, ident: *const c_char, bitmap: *mut ALLEGRO_BITMAP,
