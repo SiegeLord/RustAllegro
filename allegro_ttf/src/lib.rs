@@ -38,21 +38,19 @@ impl TtfAddon
 	pub fn init(_: &FontAddon) -> Result<TtfAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The TTF addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_init_ttf_addon() != 0
-				{
-					Ok(TtfAddon { _dummy: () })
-				}
-				else
-				{
-					Err("Could not initialize the TTF addon.".into())
-				}
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_init_ttf_addon() != 0
+			{
+				Ok(TtfAddon { _dummy: () })
+			}
+			else
+			{
+				Err("Could not initialize the TTF addon.".into())
+			}
+		});
 		res
 	}
 

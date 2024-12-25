@@ -22,21 +22,19 @@ impl AcodecAddon
 	pub fn init(_: &AudioAddon) -> Result<AcodecAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The acodec addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_init_acodec_addon() != 0
-				{
-					Ok(AcodecAddon { _dummy: () })
-				}
-				else
-				{
-					Err("Could not initialize the acodec addon.".into())
-				}
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_init_acodec_addon() != 0
+			{
+				Ok(AcodecAddon { _dummy: () })
+			}
+			else
+			{
+				Err("Could not initialize the acodec addon.".into())
+			}
+		});
 		res
 	}
 

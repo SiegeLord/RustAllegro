@@ -15,15 +15,13 @@ impl FontAddon
 	pub fn init(_: &Core) -> Result<FontAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The font addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				al_init_font_addon();
-				res = Ok(FontAddon { _dummy: () });
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			al_init_font_addon();
+			res = Ok(FontAddon { _dummy: () });
+		});
 		res
 	}
 

@@ -45,21 +45,19 @@ impl DialogAddon
 	pub fn init(_: &Core) -> Result<DialogAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The dialog addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_init_native_dialog_addon() != 0
-				{
-					Ok(DialogAddon { _dummy: () })
-				}
-				else
-				{
-					Err("Could not initialize the dialog addon.".into())
-				}
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_init_native_dialog_addon() != 0
+			{
+				Ok(DialogAddon { _dummy: () })
+			}
+			else
+			{
+				Err("Could not initialize the dialog addon.".into())
+			}
+		});
 		res
 	}
 

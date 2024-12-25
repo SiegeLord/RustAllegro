@@ -15,21 +15,19 @@ impl AudioAddon
 	pub fn init(_: &Core) -> Result<AudioAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The audio addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_install_audio() != 0
-				{
-					Ok(AudioAddon { _dummy: () })
-				}
-				else
-				{
-					Err("Could not initialize the audio addon.".into())
-				}
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_install_audio() != 0
+			{
+				Ok(AudioAddon { _dummy: () })
+			}
+			else
+			{
+				Err("Could not initialize the audio addon.".into())
+			}
+		});
 		res
 	}
 

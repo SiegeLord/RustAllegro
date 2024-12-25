@@ -52,6 +52,22 @@ impl Bitmap
 		}
 	}
 
+	pub fn load_indexed(_: &Core, filename: &str) -> Result<Bitmap, ()>
+	{
+		unsafe {
+			let filename = CString::new(filename.as_bytes()).unwrap();
+			let b = al_load_bitmap_flags(filename.as_ptr(), ALLEGRO_KEEP_INDEX as i32);
+			if b.is_null()
+			{
+				Err(())
+			}
+			else
+			{
+				Ok(Bitmap::wrap(b, true))
+			}
+		}
+	}
+
 	/// Wraps an Allegro bitmap.
 	pub unsafe fn wrap(bmp: *mut ALLEGRO_BITMAP, own: bool) -> Bitmap
 	{

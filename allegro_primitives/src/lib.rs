@@ -4,6 +4,7 @@
 
 #![crate_name = "allegro_primitives"]
 #![crate_type = "lib"]
+#![allow(unexpected_cfgs)]
 
 extern crate allegro;
 extern crate allegro_primitives_sys;
@@ -73,21 +74,19 @@ impl PrimitivesAddon
 	pub fn init(_: &Core) -> Result<PrimitivesAddon, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("The primitives addon already initialized.".into());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_init_primitives_addon() != 0
-				{
-					Ok(PrimitivesAddon { _dummy: () })
-				}
-				else
-				{
-					Err("Could not initialize the primitives addon.".into())
-				};
-			})
-		}
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_init_primitives_addon() != 0
+			{
+				Ok(PrimitivesAddon { _dummy: () })
+			}
+			else
+			{
+				Err("Could not initialize the primitives addon.".into())
+			};
+		});
 		res
 	}
 

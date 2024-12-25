@@ -206,32 +206,30 @@ impl Core
 	pub fn init_with_config(system_config: &Config) -> Result<Core, String>
 	{
 		use std::sync::Once;
-		static mut RUN_ONCE: Once = Once::new();
+		static RUN_ONCE: Once = Once::new();
 
 		let mut res = Err("Already initialized.".to_string());
-		unsafe {
-			RUN_ONCE.call_once(|| {
-				res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
-				{
-					al_merge_config_into(al_get_system_config(), system_config.get_allegro_config() as *const _);
-					let config = Config::wrap(al_get_system_config(), false);
-					Ok(Core { system_config: config })
-				}
-				else
-				{
-					let version = al_get_allegro_version();
-					let major = version >> 24;
-					let minor = (version >> 16) & 255;
-					let revision = (version >> 8) & 255;
-					let release = version & 255;
+		RUN_ONCE.call_once(|| unsafe {
+			res = if al_install_system(ALLEGRO_VERSION_INT as c_int, None) != 0
+			{
+				al_merge_config_into(al_get_system_config(), system_config.get_allegro_config() as *const _);
+				let config = Config::wrap(al_get_system_config(), false);
+				Ok(Core { system_config: config })
+			}
+			else
+			{
+				let version = al_get_allegro_version();
+				let major = version >> 24;
+				let minor = (version >> 16) & 255;
+				let revision = (version >> 8) & 255;
+				let release = version & 255;
 
-					Err(format!(
-						"The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
-						major, minor, revision, release, ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER
-					))
-				};
-			});
-		}
+				Err(format!(
+					"The system Allegro version ({}.{}.{}.{}) does not match the version of this binding ({}.{}.{}.{})",
+					major, minor, revision, release, ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION, ALLEGRO_RELEASE_NUMBER
+				))
+			}
+		});
 		res
 	}
 
@@ -1074,7 +1072,7 @@ impl Core
 	/// Pass None to bmp to clear the sampler.
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	pub fn set_shader_sampler<T: BitmapLike>(
-		&mut self, name: &str, bmp: &T, unit: i32,
+		&self, name: &str, bmp: &T, unit: i32,
 	) -> Result<(), ()>
 	{
 		let c_name = CString::new(name.as_bytes()).unwrap();

@@ -4,6 +4,7 @@
 
 #![crate_name = "allegro"]
 #![crate_type = "lib"]
+#![allow(unexpected_cfgs)]
 
 extern crate allegro_sys as ffi;
 extern crate libc;
