@@ -6,6 +6,8 @@ use allegro_util::c_bool;
 use libc::*;
 
 use events::ALLEGRO_EVENT_SOURCE;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+use file::ALLEGRO_FILE;
 
 opaque!(ALLEGRO_JOYSTICK);
 
@@ -24,8 +26,56 @@ pub struct Stick
 	pub axis: [c_float; 3],
 }
 
-pub const ALLEGRO_JOYFLAG_DIGITAL: c_uint = 1;
-pub const ALLEGRO_JOYFLAG_ANALOGUE: c_uint = 2;
+pub const ALLEGRO_JOYFLAG_DIGITAL: c_int = 1;
+pub const ALLEGRO_JOYFLAG_ANALOGUE: c_int = 2;
+
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_A: c_int = 0;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_B: c_int = 1;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_X: c_int = 2;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_Y: c_int = 3;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_LEFT_SHOULDER: c_int = 4;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_RIGHT_SHOULDER: c_int = 5;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_BACK: c_int = 6;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_START: c_int = 7;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_GUIDE: c_int = 8;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_LEFT_THUMB: c_int = 9;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_BUTTON_RIGHT_THUMB: c_int = 10;
+
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_STICK_DPAD: c_int = 0;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_STICK_LEFT_THUMB: c_int = 1;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_STICK_RIGHT_THUMB: c_int = 2;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_STICK_LEFT_TRIGGER: c_int = 3;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_GAMEPAD_STICK_RIGHT_TRIGGER: c_int = 4;
+
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_JOYSTICK_TYPE_UNKNOWN: c_int = 0;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+pub const ALLEGRO_JOYSTICK_TYPE_GAMEPAD: c_int = 1;
+
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+#[derive(Copy, Clone)]
+#[repr(C)]
+#[derive(Debug)]
+pub struct ALLEGRO_JOYSTICK_GUID
+{
+	pub val: [u8; 16],
+}
 
 extern "C" {
 	pub fn al_install_joystick() -> c_bool;
@@ -52,4 +102,12 @@ extern "C" {
 		arg1: *mut ALLEGRO_JOYSTICK, ret_state: *mut ALLEGRO_JOYSTICK_STATE,
 	);
 	pub fn al_get_joystick_event_source() -> *mut ALLEGRO_EVENT_SOURCE;
+}
+
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+extern "C" {
+	pub fn al_get_joystick_guid(joy: *mut ALLEGRO_JOYSTICK) -> ALLEGRO_JOYSTICK_GUID;
+	pub fn al_get_joystick_type(joy: *mut ALLEGRO_JOYSTICK) -> c_int;
+	pub fn al_set_joystick_mappings(filename: *const c_char) -> c_bool;
+	pub fn al_set_joystick_mappings_f(file: *mut ALLEGRO_FILE) -> c_bool;
 }

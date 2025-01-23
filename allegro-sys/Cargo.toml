@@ -22,6 +22,7 @@ path = "src/lib.rs"
 link_none = []
 link_debug = []
 link_static = []
+unstable = []
 
 [dependencies]
 

@@ -58,6 +58,7 @@ byteorder = "1.5"
 
 path = "../allegro"
 version = "=0.0.47" #auto
+features = ["unstable"]
 
 [dependencies.allegro_font]
 

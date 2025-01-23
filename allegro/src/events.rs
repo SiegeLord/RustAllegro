@@ -6,6 +6,7 @@ pub use self::Event::*;
 use core::Core;
 use ffi::*;
 
+use joystick::{Joystick, JoystickButton, JoystickStick};
 use keycodes::{KeyCode, KeyModifier};
 use libc::*;
 use std::any::Any;
@@ -276,8 +277,8 @@ pub enum Event
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		stick: i32,
+		joystick: Joystick,
+		stick: JoystickStick,
 		axis: i32,
 		pos: f32,
 	},
@@ -285,15 +286,15 @@ pub enum Event
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		button: i32,
+		joystick: Joystick,
+		button: JoystickButton,
 	},
 	JoystickButtonUp
 	{
 		source: *mut ALLEGRO_EVENT_SOURCE,
 		timestamp: f64,
-		id: *mut ALLEGRO_JOYSTICK,
-		button: i32,
+		joystick: Joystick,
+		button: JoystickButton,
 	},
 	JoystickConfiguration
 	{
@@ -444,11 +445,13 @@ impl Event
 				ALLEGRO_EVENT_JOYSTICK_AXIS =>
 				{
 					let a = *e.joystick();
+					let joystick = Joystick::wrap(a.id);
+					let stick = JoystickStick::from_allegro(&joystick, a.stick);
 					JoystickAxes {
 						source: src,
 						timestamp: ts,
-						id: a.id,
-						stick: a.stick as i32,
+						joystick: joystick,
+						stick: stick,
 						axis: a.axis as i32,
 						pos: a.pos as f32,
 					}
@@ -456,21 +459,25 @@ impl Event
 				ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN =>
 				{
 					let a = *e.joystick();
+					let joystick = Joystick::wrap(a.id);
+					let button = JoystickButton::from_allegro(&joystick, a.button);
 					JoystickButtonDown {
 						source: src,
 						timestamp: ts,
-						id: a.id,
-						button: a.button as i32,
+						joystick: joystick,
+						button: button,
 					}
 				}
 				ALLEGRO_EVENT_JOYSTICK_BUTTON_UP =>
 				{
 					let a = *e.joystick();
+					let joystick = Joystick::wrap(a.id);
+					let button = JoystickButton::from_allegro(&joystick, a.button);
 					JoystickButtonUp {
 						source: src,
 						timestamp: ts,
-						id: a.id,
-						button: a.button as i32,
+						joystick: joystick,
+						button: button,
 					}
 				}
 				ALLEGRO_EVENT_JOYSTICK_CONFIGURATION => JoystickConfiguration {

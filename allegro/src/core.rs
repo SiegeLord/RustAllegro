@@ -370,6 +370,22 @@ impl Core
 		}
 	}
 
+	#[cfg(all(feature = "unstable", allegro_5_2_11))]
+	pub fn set_joystick_mappings(&self, filename: &str) -> Result<(), ()>
+	{
+		let c_name = CString::new(filename.as_bytes()).unwrap();
+		unsafe {
+			if al_set_joystick_mappings(c_name.as_ptr()) != 0
+			{
+				Ok(())
+			}
+			else
+			{
+				Err(())
+			}
+		}
+	}
+
 	pub fn install_joystick(&self) -> Result<(), ()>
 	{
 		unsafe {
