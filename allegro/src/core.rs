@@ -576,6 +576,18 @@ impl Core
 		unsafe { mem::transmute(al_get_new_bitmap_format() as u32) }
 	}
 
+	 
+	/// This function is used to set the target bitmap that allegro draws to.
+	/// # Examples
+	/// ```
+	/// // How to set target bitmap similar to al_set_target_bitmap
+	/// // For a more complete example look at example/example.rs
+	/// use allegro::*;
+	/// let core = Core::init().unwrap();
+	/// let bmp = Bitmap::new(&core, 400, 400).unwrap();
+	/// core.set_target_bitmap(Some(&bmp));
+	/// ```
+	
 	pub fn set_target_bitmap<T: BitmapLike>(&self, bmp: Option<&T>)
 	{
 		unsafe {
