@@ -62,6 +62,11 @@ pub mod allegro_primitives
 	pub const ALLEGRO_LINE_CAP_TRIANGLE: c_uint = 3;
 	pub const ALLEGRO_LINE_CAP_CLOSED: c_uint = 4;
 
+	pub const ALLEGRO_PRIM_BUFFER_STREAM: c_uint = 0x01;
+	pub const ALLEGRO_PRIM_BUFFER_STATIC: c_uint = 0x02;
+	pub const ALLEGRO_PRIM_BUFFER_DYNAMIC: c_uint = 0x04;
+	pub const ALLEGRO_PRIM_BUFFER_READWRITE: c_uint = 0x08;
+
 	#[repr(C)]
 	#[derive(Copy, Clone)]
 	pub struct ALLEGRO_VERTEX_ELEMENT
@@ -86,6 +91,9 @@ pub mod allegro_primitives
 		pub v: c_float,
 		pub color: ALLEGRO_COLOR,
 	}
+
+	opaque!(ALLEGRO_VERTEX_BUFFER);
+	opaque!(ALLEGRO_INDEX_BUFFER);
 
 	extern "C" {
 		pub fn al_get_allegro_primitives_version() -> u32;
@@ -228,5 +236,34 @@ pub mod allegro_primitives
 		pub fn al_draw_filled_polygon_with_holes(
 			vertices: *const c_float, vertex_counts: *const c_int, color: ALLEGRO_COLOR,
 		);
+
+		pub fn al_create_vertex_buffer(
+			decl: *mut ALLEGRO_VERTEX_DECL, initial_data: *const c_void, num_vertices: c_int,
+			flags: c_int,
+		) -> *mut ALLEGRO_VERTEX_BUFFER;
+
+		pub fn al_destroy_vertex_buffer(buffer: *mut ALLEGRO_VERTEX_BUFFER);
+
+		pub fn al_lock_vertex_buffer(
+			buffer: *mut ALLEGRO_VERTEX_BUFFER, offset: c_int, length: c_int, flags: c_int,
+		) -> *mut c_void;
+
+		pub fn al_unlock_vertex_buffer(buffer: *mut ALLEGRO_VERTEX_BUFFER);
+
+		pub fn al_get_vertex_buffer_size(buffer: *mut ALLEGRO_VERTEX_BUFFER) -> c_int;
+
+		pub fn al_create_index_buffer(
+			index_size: c_int, initial_data: *const c_void, num_indices: c_int, flags: c_int,
+		) -> *mut ALLEGRO_INDEX_BUFFER;
+
+		pub fn al_destroy_index_buffer(buffer: *mut ALLEGRO_INDEX_BUFFER);
+
+		pub fn al_lock_index_buffer(
+			buffer: *mut ALLEGRO_INDEX_BUFFER, offset: c_int, length: c_int, flags: c_int,
+		) -> *mut c_void;
+
+		pub fn al_unlock_index_buffer(buffer: *mut ALLEGRO_INDEX_BUFFER);
+
+		pub fn al_get_index_buffer_size(buffer: *mut ALLEGRO_INDEX_BUFFER) -> c_int;
 	}
 }
