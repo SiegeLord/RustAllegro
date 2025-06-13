@@ -49,6 +49,11 @@ path = "synth_example.rs"
 name = "user_events"
 path = "user_events.rs"
 
+[[bin]]
+
+name = "vertex_buffer"
+path = "vertex_buffer.rs"
+
 [dependencies]
 
 getopts = "=0.2.21"

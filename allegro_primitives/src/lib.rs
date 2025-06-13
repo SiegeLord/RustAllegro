@@ -9,14 +9,20 @@
 extern crate allegro;
 extern crate allegro_primitives_sys;
 extern crate allegro_sys;
+#[macro_use]
+extern crate allegro_util;
 extern crate libc;
 
-use allegro::{BitmapLike, Color, Core};
+use allegro::{BitmapLike, Color, Core, Display};
 use allegro_primitives_sys::*;
 use allegro_sys::*;
+use allegro_util::Flag;
 use libc::*;
 
+use std::marker::PhantomData;
+use std::mem::MaybeUninit;
 use std::ptr;
+use std::sync::Arc;
 
 #[repr(u32)]
 #[derive(Copy, Clone)]
@@ -95,16 +101,16 @@ impl PrimitivesAddon
 		unsafe { al_get_allegro_primitives_version() as i32 }
 	}
 
-	pub fn draw_prim<T: VertexSource + ?Sized, B: BitmapLike>(
-		&self, vtxs: &T, texture: Option<&B>, start: u32, end: u32, type_: PrimType,
+	pub fn draw_prim<T: VertexType, B: BitmapLike>(
+		&self, vtxs: &[T], texture: Option<&B>, start: u32, end: u32, type_: PrimType,
 	) -> u32
 	{
 		check_valid_target_bitmap();
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe {
 			al_draw_prim(
-				vtxs.get_ptr() as *const _,
-				T::VertexType::get_decl(self).get_allegro_decl(),
+				vtxs.as_ptr() as *const _,
+				T::get_decl(self).get_allegro_decl(),
 				tex,
 				start as c_int,
 				end as c_int,
@@ -113,8 +119,8 @@ impl PrimitivesAddon
 		}
 	}
 
-	pub fn draw_indexed_prim<T: VertexSource + ?Sized, B: BitmapLike>(
-		&self, vtxs: &T, texture: Option<&B>, indices: &[i32], start: u32, end: u32,
+	pub fn draw_indexed_prim<T: VertexType, B: BitmapLike>(
+		&self, vtxs: &[T], texture: Option<&B>, indices: &[i32], start: u32, end: u32,
 		type_: PrimType,
 	) -> u32
 	{
@@ -122,11 +128,48 @@ impl PrimitivesAddon
 		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
 		unsafe {
 			al_draw_indexed_prim(
-				vtxs.get_ptr() as *const _,
-				T::VertexType::get_decl(self).get_allegro_decl(),
+				vtxs.as_ptr() as *const _,
+				T::get_decl(self).get_allegro_decl(),
 				tex,
 				indices[start as usize..].as_ptr(),
 				(end - start) as c_int,
+				type_ as c_int,
+			) as u32
+		}
+	}
+
+	pub fn draw_vertex_buffer<T: VertexType, B: BitmapLike>(
+		&self, vertex_buffer: &VertexBuffer<T>, texture: Option<&B>, start: u32, end: u32,
+		type_: PrimType,
+	) -> u32
+	{
+		check_valid_target_bitmap();
+		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
+		unsafe {
+			al_draw_vertex_buffer(
+				vertex_buffer.get_allegro_buffer(),
+				tex,
+				start as c_int,
+				end as c_int,
+				type_ as c_int,
+			) as u32
+		}
+	}
+
+	pub fn draw_indexed_buffer<V: VertexType, I: IndexType, B: BitmapLike>(
+		&self, vertex_buffer: &VertexBuffer<V>, texture: Option<&B>, index_buffer: &IndexBuffer<I>,
+		start: u32, end: u32, type_: PrimType,
+	) -> u32
+	{
+		check_valid_target_bitmap();
+		let tex = texture.map_or(ptr::null_mut(), |bmp| bmp.get_allegro_bitmap());
+		unsafe {
+			al_draw_indexed_buffer(
+				vertex_buffer.get_allegro_buffer(),
+				tex,
+				index_buffer.get_allegro_buffer(),
+				start as c_int,
+				end as c_int,
 				type_ as c_int,
 			) as u32
 		}
@@ -711,15 +754,6 @@ impl Drop for VertexDecl
 	}
 }
 
-pub trait VertexSource
-{
-	type VertexType: VertexType;
-	fn get_ptr(&self) -> *const u8
-	{
-		ptr::null()
-	}
-}
-
 pub unsafe trait VertexType
 {
 	fn get_decl(prim: &PrimitivesAddon) -> VertexDecl;
@@ -733,12 +767,350 @@ unsafe impl VertexType for Vertex
 	}
 }
 
-impl<T: VertexType> VertexSource for [T]
-{
-	type VertexType = T;
-
-	fn get_ptr(&self) -> *const u8
+flag_type! {
+	BufferFlags
 	{
-		self.as_ptr() as *const _
+		BUFFER_STREAM = ALLEGRO_PRIM_BUFFER_STREAM,
+		BUFFER_STATIC = ALLEGRO_PRIM_BUFFER_STATIC,
+		BUFFER_DYNAMIC = ALLEGRO_PRIM_BUFFER_DYNAMIC,
+		BUFFER_READWRITE = ALLEGRO_PRIM_BUFFER_READWRITE
+	}
+}
+
+pub struct VertexBufferLock<'l, T: VertexType, D>
+{
+	buffer: &'l mut VertexBuffer<T>,
+	data: *mut [D],
+}
+
+impl<'l, T: VertexType, D> VertexBufferLock<'l, T, D>
+{
+	pub fn as_mut(&mut self) -> &mut [D]
+	{
+		unsafe { self.data.as_mut().unwrap() }
+	}
+}
+
+impl<'l, T: VertexType + Copy> VertexBufferLock<'l, T, MaybeUninit<T>>
+{
+	pub fn copy_from_slice(&mut self, src: &[T])
+	{
+		for (d, s) in &mut self.as_mut().iter_mut().zip(src.iter())
+		{
+			d.write(*s);
+		}
+	}
+}
+
+impl<'l, T: VertexType, D> Drop for VertexBufferLock<'l, T, D>
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_unlock_vertex_buffer(self.buffer.vertex_buffer);
+		}
+	}
+}
+
+pub struct VertexBuffer<T: VertexType>
+{
+	vertex_buffer: *mut ALLEGRO_VERTEX_BUFFER,
+	#[allow(dead_code)]
+	vertex_decl: VertexDecl,  // Needs to be alive while the buffer is alive.
+	vertex_type: PhantomData<T>,
+	#[allow(dead_code)]
+	token: Arc<String>,
+}
+
+impl<T: VertexType> VertexBuffer<T>
+{
+	pub fn new(
+		display: &mut Display, prim: &PrimitivesAddon, init_data: Option<&[T]>, size: u32, flags: BufferFlags,
+	) -> Result<Self, ()>
+	{
+		let token = Arc::new("VertexBuffer".to_string());
+		display.add_dependency_token(token.clone());
+		let vertex_decl = T::get_decl(prim);
+		if let Some(init_data) = init_data
+		{
+			if init_data.len() as u32 != size
+			{
+				return Err(());
+			}
+		}
+		let vertex_buffer = unsafe {
+			al_create_vertex_buffer(
+				vertex_decl.get_allegro_decl() as *mut _,
+				init_data.map_or(ptr::null_mut(), |v| v.as_ptr() as *const _),
+				size as c_int,
+				flags.get() as c_int,
+			)
+		};
+
+		if vertex_buffer.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			Ok(VertexBuffer {
+				vertex_buffer: vertex_buffer,
+				vertex_decl: vertex_decl,
+				vertex_type: PhantomData,
+				token: token,
+			})
+		}
+	}
+
+	/// Locks the buffer for reading and optionally writing.
+	pub fn lock(&mut self, start: u32, len: u32, write: bool)
+		-> Result<VertexBufferLock<T, T>, ()>
+	{
+		let data = unsafe {
+			al_lock_vertex_buffer(
+				self.vertex_buffer,
+				start as c_int,
+				len as c_int,
+				if write
+				{
+					ALLEGRO_LOCK_READWRITE as c_int
+				}
+				else
+				{
+					ALLEGRO_LOCK_READONLY as c_int
+				},
+			)
+		};
+		if data.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			unsafe {
+				Ok(VertexBufferLock {
+					buffer: self,
+					data: std::slice::from_raw_parts_mut(data as *mut T, len as usize),
+				})
+			}
+		}
+	}
+
+	/// Locks the buffer for only writing.
+	///
+	/// This is unsafe because the contents of the lock are undefined.
+	pub fn lock_write_only(
+		&mut self, start: u32, len: u32,
+	) -> Result<VertexBufferLock<T, MaybeUninit<T>>, ()>
+	{
+		let data = unsafe {
+			al_lock_vertex_buffer(
+				self.vertex_buffer,
+				start as c_int,
+				len as c_int,
+				ALLEGRO_LOCK_WRITEONLY as c_int,
+			)
+		};
+		if data.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			unsafe {
+				Ok(VertexBufferLock {
+					buffer: self,
+					data: std::slice::from_raw_parts_mut(data as *mut MaybeUninit<T>, len as usize),
+				})
+			}
+		}
+	}
+
+	pub fn len(&mut self) -> u32
+	{
+		unsafe { al_get_vertex_buffer_size(self.vertex_buffer) as u32 }
+	}
+
+	pub fn get_allegro_buffer(&self) -> *mut ALLEGRO_VERTEX_BUFFER
+	{
+		self.vertex_buffer
+	}
+}
+
+impl<T: VertexType> Drop for VertexBuffer<T>
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_destroy_vertex_buffer(self.vertex_buffer);
+		}
+	}
+}
+
+pub unsafe trait IndexType {}
+
+unsafe impl IndexType for u16 {}
+unsafe impl IndexType for u32 {}
+
+pub struct IndexBufferLock<'l, T: IndexType, D>
+{
+	buffer: &'l mut IndexBuffer<T>,
+	data: *mut [D],
+}
+
+impl<'l, T: IndexType, D> IndexBufferLock<'l, T, D>
+{
+	pub fn as_mut(&mut self) -> &mut [D]
+	{
+		unsafe { self.data.as_mut().unwrap() }
+	}
+}
+
+impl<'l, T: IndexType + Copy> IndexBufferLock<'l, T, MaybeUninit<T>>
+{
+	pub fn copy_from_slice(&mut self, src: &[T])
+	{
+		for (d, s) in &mut self.as_mut().iter_mut().zip(src.iter())
+		{
+			d.write(*s);
+		}
+	}
+}
+
+impl<'l, T: IndexType, D> Drop for IndexBufferLock<'l, T, D>
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_unlock_index_buffer(self.buffer.index_buffer);
+		}
+	}
+}
+
+pub struct IndexBuffer<T: IndexType>
+{
+	index_buffer: *mut ALLEGRO_INDEX_BUFFER,
+	index_type: PhantomData<T>,
+	#[allow(dead_code)]
+	token: Arc<String>,
+}
+
+impl<T: IndexType> IndexBuffer<T>
+{
+	pub fn new(
+		display: &mut Display, _: &PrimitivesAddon, init_data: Option<&[T]>, size: u32, flags: BufferFlags,
+	) -> Result<Self, ()>
+	{
+		let token = Arc::new("IndexBuffer".to_string());
+		display.add_dependency_token(token.clone());
+		if let Some(init_data) = init_data
+		{
+			if init_data.len() as u32 != size
+			{
+				return Err(());
+			}
+		}
+		let index_buffer = unsafe {
+			al_create_index_buffer(
+				size_of::<T>() as c_int,
+				init_data.map_or(ptr::null_mut(), |v| v.as_ptr() as *const _),
+				size as c_int,
+				flags.get() as c_int,
+			)
+		};
+
+		if index_buffer.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			Ok(IndexBuffer {
+				index_buffer: index_buffer,
+				index_type: PhantomData,
+				token: token,
+			})
+		}
+	}
+
+	/// Locks the buffer for reading and optionally writing.
+	pub fn lock(&mut self, start: u32, len: u32, write: bool) -> Result<IndexBufferLock<T, T>, ()>
+	{
+		let data = unsafe {
+			al_lock_index_buffer(
+				self.index_buffer,
+				start as c_int,
+				len as c_int,
+				if write
+				{
+					ALLEGRO_LOCK_READWRITE as c_int
+				}
+				else
+				{
+					ALLEGRO_LOCK_READONLY as c_int
+				},
+			)
+		};
+		if data.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			unsafe {
+				Ok(IndexBufferLock {
+					buffer: self,
+					data: std::slice::from_raw_parts_mut(data as *mut T, len as usize),
+				})
+			}
+		}
+	}
+
+	/// Locks the buffer for only writing.
+	pub fn lock_write_only(
+		&mut self, start: u32, len: u32,
+	) -> Result<IndexBufferLock<T, MaybeUninit<T>>, ()>
+	{
+		let data = unsafe {
+			al_lock_index_buffer(
+				self.index_buffer,
+				start as c_int,
+				len as c_int,
+				ALLEGRO_LOCK_WRITEONLY as c_int,
+			)
+		};
+		if data.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			unsafe {
+				Ok(IndexBufferLock {
+					buffer: self,
+					data: std::slice::from_raw_parts_mut(data as *mut MaybeUninit<T>, len as usize),
+				})
+			}
+		}
+	}
+
+	pub fn len(&mut self) -> u32
+	{
+		unsafe { al_get_index_buffer_size(self.index_buffer) as u32 }
+	}
+
+	pub fn get_allegro_buffer(&self) -> *mut ALLEGRO_INDEX_BUFFER
+	{
+		self.index_buffer
+	}
+}
+
+impl<T: IndexType> Drop for IndexBuffer<T>
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_destroy_index_buffer(self.index_buffer);
+		}
 	}
 }

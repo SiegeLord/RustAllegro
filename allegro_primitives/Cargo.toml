@@ -40,3 +40,8 @@ version = "=0.0.48" #auto
 
 path = "../allegro_primitives-sys"
 version = "=0.0.48" #auto
+
+[dependencies.allegro_util]
+
+path = "../allegro_util"
+version = "=0.0.48" #auto

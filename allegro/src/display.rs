@@ -112,6 +112,7 @@ pub struct Display
 	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 	shaders: Vec<Arc<Shader>>,
+	tokens: Vec<Arc<String>>,
 }
 
 impl Display
@@ -139,6 +140,7 @@ impl Display
 		Display {
 			allegro_display: d,
 			backbuffer: backbuffer,
+			tokens: vec![],
 		}
 	}
 
@@ -149,6 +151,7 @@ impl Display
 			allegro_display: d,
 			backbuffer: backbuffer,
 			shaders: vec![],
+			tokens: vec![],
 		}
 	}
 
@@ -346,6 +349,11 @@ impl Display
 			Err(())
 		}
 	}
+
+	pub fn add_dependency_token(&mut self, token: Arc<String>)
+	{
+		self.tokens.push(token);
+	}
 }
 
 unsafe impl Send for Display {}
@@ -355,6 +363,13 @@ impl Drop for Display
 {
 	fn drop(&mut self)
 	{
+		for token in &self.tokens
+		{
+			if Arc::strong_count(&token) != 1
+			{
+				panic!("Have an outstanding dependency token! Token name: {}", token);
+			}
+		}
 		if self.has_outstanding_shaders()
 		{
 			panic!("Display has outstanding shaders!");

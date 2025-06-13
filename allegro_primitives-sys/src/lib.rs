@@ -108,6 +108,15 @@ pub mod allegro_primitives
 			vtxs: *const c_void, decl: *const ALLEGRO_VERTEX_DECL, texture: *mut ALLEGRO_BITMAP,
 			indices: *const c_int, num_vtx: c_int, _type: c_int,
 		) -> c_int;
+		pub fn al_draw_vertex_buffer(
+			vertex_buffer: *mut ALLEGRO_VERTEX_BUFFER, texture: *mut ALLEGRO_BITMAP, start: c_int,
+			end: c_int, type_: c_int,
+		) -> c_int;
+
+		pub fn al_draw_indexed_buffer(
+			vertex_buffer: *mut ALLEGRO_VERTEX_BUFFER, texture: *mut ALLEGRO_BITMAP,
+			index_buffer: *mut ALLEGRO_INDEX_BUFFER, start: c_int, end: c_int, type_: c_int,
+		) -> c_int;
 
 		pub fn al_create_vertex_decl(
 			elements: *const ALLEGRO_VERTEX_ELEMENT, stride: c_int,
