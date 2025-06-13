@@ -2,11 +2,14 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use bitmap_like::BitmapLike;
+use display::Display;
 use ffi::*;
 
 use libc::*;
 use std::ffi::{CStr, CString};
 use std::ptr;
+use std::sync::Arc;
 
 /// Shader platform.
 #[repr(u32)]
@@ -47,14 +50,36 @@ pub enum ShaderType
 pub struct Shader
 {
 	allegro_shader: *mut ALLEGRO_SHADER,
+	#[allow(dead_code)]
+	token: Arc<String>,
 }
 
 impl Shader
 {
-	pub unsafe fn wrap(shader: *mut ALLEGRO_SHADER) -> Shader
+	/// Create a new shader associated with this display.
+	///
+	/// Note that display destruction will panic if a shader remains alive at that time.
+	pub fn new(display: &mut Display, platform: ShaderPlatform) -> Result<Self, ()>
 	{
-		Shader {
-			allegro_shader: shader,
+		let shader;
+		unsafe {
+			let old_target = al_get_target_bitmap();
+			al_set_target_bitmap(display.get_backbuffer().get_allegro_bitmap());
+			shader = al_create_shader(platform as ALLEGRO_SHADER_PLATFORM);
+			al_set_target_bitmap(old_target);
+		};
+		if !shader.is_null()
+		{
+			let token = Arc::new("Shader".to_string());
+			display.add_dependency_token(token.clone());
+			Ok(Shader {
+				allegro_shader: shader,
+				token: token,
+			})
+		}
+		else
+		{
+			Err(())
 		}
 	}
 

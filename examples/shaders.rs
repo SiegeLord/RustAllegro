@@ -40,9 +40,9 @@ allegro_main! {
 	let bmp = Bitmap::load(&core, "data/mysha.pcx").unwrap();
 	let black = Color::from_rgb_f(0.0, 0.0, 0.0);
 
-	let shader = disp.create_shader(ShaderPlatform::GLSL).unwrap();
+	let shader = Shader::new(&mut disp, ShaderPlatform::GLSL).unwrap();
 
-	shader.upgrade().unwrap().attach_shader_source(ShaderType::Vertex, Some(
+	shader.attach_shader_source(ShaderType::Vertex, Some(
 	"
 	attribute vec4 al_pos;
 	attribute vec4 al_color;
@@ -57,7 +57,7 @@ allegro_main! {
 		gl_Position = al_projview_matrix * al_pos;
 	}
 	")).unwrap();
-	shader.upgrade().unwrap().attach_shader_source(ShaderType::Pixel, Some(
+	shader.attach_shader_source(ShaderType::Pixel, Some(
 	"
 	#ifdef GL_ES
 	precision mediump float;
@@ -75,7 +75,7 @@ allegro_main! {
 		gl_FragColor = tmp;
 	}
 	")).unwrap();
-	shader.upgrade().unwrap().build().unwrap();
+	shader.build().unwrap();
 
 	let tint = vec![[1.0f32, 0.0, 0.0]];
 	let mut redraw = true;
@@ -86,7 +86,7 @@ allegro_main! {
 		{
 			core.set_target_bitmap(Some(&buffer));
 			core.clear_to_color(black);
-			core.use_shader(Some(&*shader.upgrade().unwrap())).unwrap();
+			core.use_shader(Some(&shader)).unwrap();
 			core.set_shader_uniform("tint", &tint[..]).unwrap();
 			core.draw_bitmap(&bmp, 0.0, 0.0, Flag::zero());
 

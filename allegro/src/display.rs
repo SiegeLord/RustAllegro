@@ -12,10 +12,9 @@ use events::EventSource;
 use ffi::*;
 use libc::*;
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-use shader::{Shader, ShaderPlatform};
 use std::ffi::CString;
 use std::mem;
-use std::sync::{Arc, Weak};
+use std::sync::Arc;
 
 flag_type! {
 	DisplayFlags
@@ -111,7 +110,6 @@ pub struct Display
 	allegro_display: *mut ALLEGRO_DISPLAY,
 	backbuffer: Bitmap,
 	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	shaders: Vec<Arc<Shader>>,
 	tokens: Vec<Arc<String>>,
 }
 
@@ -150,7 +148,6 @@ impl Display
 		Display {
 			allegro_display: d,
 			backbuffer: backbuffer,
-			shaders: vec![],
 			tokens: vec![],
 		}
 	}
@@ -282,52 +279,6 @@ impl Display
 		self.allegro_display
 	}
 
-	/// Create a new shader associated with this display.
-	///
-	/// Note that display destruction will panic if a strong reference is held
-	/// to a shader at that time.
-	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	pub fn create_shader(&mut self, platform: ShaderPlatform) -> Result<Weak<Shader>, ()>
-	{
-		let shader;
-		unsafe {
-			let old_target = al_get_target_bitmap();
-			al_set_target_bitmap(self.get_backbuffer().get_allegro_bitmap());
-			shader = al_create_shader(platform as ALLEGRO_SHADER_PLATFORM);
-			al_set_target_bitmap(old_target);
-		};
-		if !shader.is_null()
-		{
-			let shader = unsafe { Arc::new(Shader::wrap(shader)) };
-			let ret = Arc::downgrade(&shader);
-			self.shaders.push(shader);
-			Ok(ret)
-		}
-		else
-		{
-			Err(())
-		}
-	}
-
-	#[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-	fn has_outstanding_shaders(&self) -> bool
-	{
-		for shader in &self.shaders
-		{
-			if Arc::strong_count(&shader) != 1
-			{
-				return true;
-			}
-		}
-		false
-	}
-
-	#[cfg(not(any(allegro_5_2_0, allegro_5_1_0)))]
-	fn has_outstanding_shaders(&self) -> bool
-	{
-		false
-	}
-
 	pub fn show_cursor(&self, show: bool) -> Result<(), ()>
 	{
 		let ret = unsafe {
@@ -369,10 +320,6 @@ impl Drop for Display
 			{
 				panic!("Have an outstanding dependency token! Token name: {}", token);
 			}
-		}
-		if self.has_outstanding_shaders()
-		{
-			panic!("Display has outstanding shaders!");
 		}
 		unsafe {
 			check_display_targeted_elsewhere(self.allegro_display, "destroy");
