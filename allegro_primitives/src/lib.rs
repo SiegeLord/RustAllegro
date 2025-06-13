@@ -816,7 +816,7 @@ pub struct VertexBuffer<T: VertexType>
 {
 	vertex_buffer: *mut ALLEGRO_VERTEX_BUFFER,
 	#[allow(dead_code)]
-	vertex_decl: VertexDecl,  // Needs to be alive while the buffer is alive.
+	vertex_decl: VertexDecl, // Needs to be alive while the buffer is alive.
 	vertex_type: PhantomData<T>,
 	#[allow(dead_code)]
 	token: Arc<String>,
@@ -825,7 +825,8 @@ pub struct VertexBuffer<T: VertexType>
 impl<T: VertexType> VertexBuffer<T>
 {
 	pub fn new(
-		display: &mut Display, prim: &PrimitivesAddon, init_data: Option<&[T]>, size: u32, flags: BufferFlags,
+		display: &mut Display, prim: &PrimitivesAddon, init_data: Option<&[T]>, size: u32,
+		flags: BufferFlags,
 	) -> Result<Self, ()>
 	{
 		let token = Arc::new("VertexBuffer".to_string());
@@ -998,7 +999,8 @@ pub struct IndexBuffer<T: IndexType>
 impl<T: IndexType> IndexBuffer<T>
 {
 	pub fn new(
-		display: &mut Display, _: &PrimitivesAddon, init_data: Option<&[T]>, size: u32, flags: BufferFlags,
+		display: &mut Display, _: &PrimitivesAddon, init_data: Option<&[T]>, size: u32,
+		flags: BufferFlags,
 	) -> Result<Self, ()>
 	{
 		let token = Arc::new("IndexBuffer".to_string());

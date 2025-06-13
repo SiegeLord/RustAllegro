@@ -318,7 +318,10 @@ impl Drop for Display
 		{
 			if Arc::strong_count(&token) != 1
 			{
-				panic!("Have an outstanding dependency token! Token name: {}", token);
+				panic!(
+					"Have an outstanding dependency token! Token name: {}",
+					token
+				);
 			}
 		}
 		unsafe {
