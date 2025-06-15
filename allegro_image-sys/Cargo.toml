@@ -11,6 +11,7 @@ description = "Allegro 5 image addon Rust binding"
 build = "build.rs"
 links = "allegro_image"
 categories = ["rendering::data-formats", "external-ffi-bindings"]
+edition = "2024"
 
 [lib]
 

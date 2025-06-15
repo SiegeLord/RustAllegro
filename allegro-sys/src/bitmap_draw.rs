@@ -2,15 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::bitmap::*;
+use crate::color::*;
 
-use bitmap::*;
-use color::*;
+use libc::*;
 
 pub const ALLEGRO_FLIP_HORIZONTAL: u32 = 1;
 pub const ALLEGRO_FLIP_VERTICAL: u32 = 2;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_draw_bitmap(bitmap: *mut ALLEGRO_BITMAP, dx: c_float, dy: c_float, flags: c_int);
 	pub fn al_draw_bitmap_region(
 		bitmap: *mut ALLEGRO_BITMAP, sx: c_float, sy: c_float, sw: c_float, sh: c_float,

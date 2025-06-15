@@ -2,14 +2,14 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use addon::AudioAddon;
+use crate::addon::AudioAddon;
+use crate::internal::HasMixer;
+use crate::mixer::{Mixer, MixerLike};
+use crate::properties::*;
+
 use allegro::c_bool;
 use allegro_audio_sys::*;
-use internal::HasMixer;
-
 use libc::*;
-use mixer::{Mixer, MixerLike};
-use properties::*;
 
 macro_rules! set_impl
 {

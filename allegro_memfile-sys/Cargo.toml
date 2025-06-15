@@ -10,6 +10,7 @@ description = "Allegro 5 memfile addon Rust binding"
 build = "build.rs"
 links = "allegro_memfile"
 categories = ["external-ffi-bindings"]
+edition = "2024"
 
 [lib]
 

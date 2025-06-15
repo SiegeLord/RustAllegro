@@ -2,17 +2,16 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use crate::bitmap::SubBitmap;
+use crate::color::{Color, PixelFormat};
+
+use allegro_sys::*;
 use allegro_util::Flag;
-use bitmap::SubBitmap;
-
-use color::{Color, PixelFormat};
-
-use ffi::*;
 use libc::*;
 use std::mem;
 use std::rc::Weak;
 
-flag_type! {
+allegro_util::flag_type! {
 	BitmapFlags
 	{
 		MEMORY_BITMAP = ALLEGRO_MEMORY_BITMAP,

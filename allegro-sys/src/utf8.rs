@@ -17,7 +17,7 @@ pub struct __al_tagbstring
 	pub data: *mut c_uchar,
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_ustr_new(s: *const c_char) -> *mut ALLEGRO_USTR;
 	pub fn al_ustr_new_from_buffer(s: *const c_char, size: size_t) -> *mut ALLEGRO_USTR;
 	pub fn al_ustr_free(us: *mut ALLEGRO_USTR);

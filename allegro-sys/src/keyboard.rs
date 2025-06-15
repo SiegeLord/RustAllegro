@@ -4,13 +4,13 @@
 
 #![allow(non_snake_case)]
 
-use libc::*;
+use crate::display::ALLEGRO_DISPLAY;
+use crate::events::ALLEGRO_EVENT_SOURCE;
 
 use allegro_util::c_bool;
-use display::ALLEGRO_DISPLAY;
-use events::ALLEGRO_EVENT_SOURCE;
+use libc::*;
 
-opaque!(ALLEGRO_KEYBOARD);
+allegro_util::opaque!(ALLEGRO_KEYBOARD);
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20,7 +20,7 @@ pub struct ALLEGRO_KEYBOARD_STATE
 	pub __key_down__internal__: [c_uint; 8],
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_is_keyboard_installed() -> c_bool;
 	pub fn al_install_keyboard() -> c_bool;
 	pub fn al_uninstall_keyboard();

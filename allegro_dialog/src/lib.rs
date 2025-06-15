@@ -2,21 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_dialog"]
-#![crate_type = "lib"]
-
-extern crate allegro;
-extern crate allegro_dialog_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 use allegro::{Core, Display, Flag};
 use allegro_dialog_sys::*;
-
+use libc::c_int;
 use std::ffi::CString;
+use std::ptr;
 
-flag_type! {
+allegro_util::flag_type! {
 	MessageBoxFlags
 	{
 		MESSAGEBOX_WARN =      ALLEGRO_MESSAGEBOX_WARN,
@@ -72,9 +64,6 @@ pub fn show_native_message_box(
 	flags: MessageBoxFlags,
 ) -> MessageBoxResult
 {
-	use libc::c_int;
-	use std::ptr;
-
 	let d = display.map_or(ptr::null_mut(), |d| d.get_allegro_display());
 	let title = CString::new(title.as_bytes()).unwrap();
 	let heading = CString::new(heading.as_bytes()).unwrap();

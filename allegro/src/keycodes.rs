@@ -2,8 +2,9 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use allegro_sys::*;
 use allegro_util::Flag;
-use ffi::*;
+
 use libc::*;
 use std::mem;
 
@@ -137,11 +138,11 @@ impl KeyCode
 {
 	pub unsafe fn from_allegro_key(k: c_int) -> KeyCode
 	{
-		mem::transmute(k as u32)
+		unsafe { mem::transmute(k as u32) }
 	}
 }
 
-flag_type! {
+allegro_util::flag_type! {
 	KeyModifier
 	{
 		SHIFT = ALLEGRO_KEYMOD_SHIFT,

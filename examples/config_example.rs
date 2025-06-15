@@ -1,6 +1,4 @@
 // This file is released into Public Domain.
-extern crate allegro;
-
 use allegro::*;
 use std::env;
 

@@ -2,11 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use bitmap_like::BitmapLike;
-use core::Core;
+use crate::bitmap_like::BitmapLike;
+use crate::core::{Core, check_bitmap_targeted_elsewhere, update_thread_state};
 
-use core::{check_bitmap_targeted_elsewhere, update_thread_state};
-use ffi::*;
+use allegro_sys::*;
 use libc::*;
 use std::cell::RefCell;
 use std::ffi::CString;
@@ -80,14 +79,16 @@ impl Bitmap
 
 	pub unsafe fn clone_and_wrap(bmp: *mut ALLEGRO_BITMAP) -> Result<Bitmap, ()>
 	{
-		let b = al_clone_bitmap(bmp);
-		if b.is_null()
-		{
-			Err(())
-		}
-		else
-		{
-			Ok(Bitmap::wrap(b, true))
+		unsafe {
+			let b = al_clone_bitmap(bmp);
+			if b.is_null()
+			{
+				Err(())
+			}
+			else
+			{
+				Ok(Bitmap::wrap(b, true))
+			}
 		}
 	}
 

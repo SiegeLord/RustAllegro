@@ -2,11 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use addon::FontAddon;
+use crate::addon::FontAddon;
+
 use allegro::{Bitmap, BitmapLike, Color, Core};
 use allegro_font_sys::*;
 use allegro_sys::*;
-
 use libc::*;
 use std::ffi::CString;
 use std::mem;

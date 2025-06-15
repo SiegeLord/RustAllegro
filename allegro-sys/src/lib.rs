@@ -2,14 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_sys"]
-#![crate_type = "lib"]
 #![allow(non_camel_case_types)]
 #![allow(unexpected_cfgs)]
-
-extern crate libc;
-#[macro_use]
-extern crate allegro_util;
 
 pub use altime::*;
 pub use base::*;

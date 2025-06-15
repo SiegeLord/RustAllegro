@@ -2,9 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
-
 use allegro_util::c_bool;
+use libc::*;
 
 #[cfg(windows)]
 pub const ALLEGRO_NATIVE_PATH_SEP: char = '\\';
@@ -16,9 +15,9 @@ pub const ALLEGRO_NATIVE_PATH_SEP: char = '/';
 #[cfg(not(windows))]
 pub const ALLEGRO_NATIVE_DRIVE_SEP: char = '\x00';
 
-opaque!(ALLEGRO_PATH);
+allegro_util::opaque!(ALLEGRO_PATH);
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_create_path(str: *const c_char) -> *mut ALLEGRO_PATH;
 	pub fn al_create_path_for_directory(str: *const c_char) -> *mut ALLEGRO_PATH;
 	pub fn al_clone_path(path: *const ALLEGRO_PATH) -> *mut ALLEGRO_PATH;

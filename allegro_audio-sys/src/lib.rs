@@ -1,15 +1,6 @@
 // Copyright (c) 2014 by SiegeLord
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
-
-#![crate_name = "allegro_audio_sys"]
-#![crate_type = "lib"]
-
-extern crate allegro_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 pub use allegro_audio::*;
 
 pub mod allegro_audio
@@ -78,7 +69,7 @@ pub mod allegro_audio
 		ALLEGRO_MIXER_QUALITY_CUBIC = 274,
 	}
 
-	opaque!(ALLEGRO_SAMPLE);
+	allegro_util::opaque!(ALLEGRO_SAMPLE);
 
 	#[repr(C)]
 	#[derive(Copy, Clone)]
@@ -88,19 +79,19 @@ pub mod allegro_audio
 		pub _id: c_int,
 	}
 
-	opaque!(ALLEGRO_SAMPLE_INSTANCE);
-	opaque!(ALLEGRO_AUDIO_STREAM);
-	opaque!(ALLEGRO_MIXER);
-	opaque!(ALLEGRO_VOICE);
+	allegro_util::opaque!(ALLEGRO_SAMPLE_INSTANCE);
+	allegro_util::opaque!(ALLEGRO_AUDIO_STREAM);
+	allegro_util::opaque!(ALLEGRO_MIXER);
+	allegro_util::opaque!(ALLEGRO_VOICE);
 
-	extern "C" {
+	unsafe extern "C" {
 		pub fn al_create_sample(
 			buf: *mut c_void, samples: c_uint, freq: c_uint, depth: ALLEGRO_AUDIO_DEPTH,
 			chan_conf: ALLEGRO_CHANNEL_CONF, free_buf: c_bool,
 		) -> *mut ALLEGRO_SAMPLE;
 		pub fn al_destroy_sample(spl: *mut ALLEGRO_SAMPLE);
 		pub fn al_create_sample_instance(data: *mut ALLEGRO_SAMPLE)
-			-> *mut ALLEGRO_SAMPLE_INSTANCE;
+		-> *mut ALLEGRO_SAMPLE_INSTANCE;
 		pub fn al_destroy_sample_instance(spl: *mut ALLEGRO_SAMPLE_INSTANCE);
 		pub fn al_get_sample_frequency(spl: *const ALLEGRO_SAMPLE) -> c_uint;
 		pub fn al_get_sample_length(spl: *const ALLEGRO_SAMPLE) -> c_uint;
@@ -183,7 +174,7 @@ pub mod allegro_audio
 		pub fn al_get_audio_stream_attached(spl: *const ALLEGRO_AUDIO_STREAM) -> c_bool;
 		pub fn al_get_audio_stream_fragment(stream: *const ALLEGRO_AUDIO_STREAM) -> *mut c_void;
 		pub fn al_set_audio_stream_speed(stream: *mut ALLEGRO_AUDIO_STREAM, val: c_float)
-			-> c_bool;
+		-> c_bool;
 		pub fn al_set_audio_stream_gain(stream: *mut ALLEGRO_AUDIO_STREAM, val: c_float) -> c_bool;
 		pub fn al_set_audio_stream_pan(stream: *mut ALLEGRO_AUDIO_STREAM, val: c_float) -> c_bool;
 		pub fn al_set_audio_stream_playmode(
@@ -328,7 +319,7 @@ pub mod allegro_audio
 			filename: *const c_char, buffer_count: size_t, samples: c_uint,
 		) -> *mut ALLEGRO_AUDIO_STREAM;
 		pub fn al_load_sample_f(fp: *mut ALLEGRO_FILE, ident: *const c_char)
-			-> *mut ALLEGRO_SAMPLE;
+		-> *mut ALLEGRO_SAMPLE;
 		pub fn al_save_sample_f(
 			fp: *mut ALLEGRO_FILE, ident: *const c_char, spl: *mut ALLEGRO_SAMPLE,
 		) -> c_bool;

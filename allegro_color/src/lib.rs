@@ -2,15 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_color"]
-#![crate_type = "lib"]
-#![allow(non_upper_case_globals)]
-
-extern crate allegro;
-extern crate allegro_color_sys;
-extern crate allegro_util;
-extern crate libc;
-
 use allegro::Color;
 use allegro_color_sys::*;
 use libc::*;

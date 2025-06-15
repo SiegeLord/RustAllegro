@@ -2,13 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use crate::mixer::Mixer;
+
 use allegro_audio_sys::ALLEGRO_MIXER;
 use libc::c_void;
-use mixer::Mixer;
-
+use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering::SeqCst;
-use std::sync::Arc;
 
 #[doc(hidden)]
 pub trait AttachToMixerImpl

@@ -11,6 +11,7 @@ description = "Allegro 5 ttf addon Rust binding"
 build = "build.rs"
 links = "allegro_ttf"
 categories = ["rendering::data-formats", "external-ffi-bindings"]
+edition = "2024"
 
 [lib]
 

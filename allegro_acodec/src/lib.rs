@@ -2,13 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_acodec"]
-#![crate_type = "lib"]
-
-extern crate allegro;
-extern crate allegro_acodec_sys;
-extern crate allegro_audio;
-
 use allegro_acodec_sys::*;
 use allegro_audio::AudioAddon;
 

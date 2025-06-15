@@ -2,14 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_primitives_sys"]
-#![crate_type = "lib"]
-
-extern crate allegro_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 pub use allegro_primitives::*;
 
 pub mod allegro_primitives
@@ -78,7 +70,7 @@ pub mod allegro_primitives
 
 	pub type Struct_ALLEGRO_VERTEX_DECL = c_void;
 
-	opaque!(ALLEGRO_VERTEX_DECL);
+	allegro_util::opaque!(ALLEGRO_VERTEX_DECL);
 
 	#[repr(C)]
 	#[derive(Copy, Clone)]
@@ -92,10 +84,10 @@ pub mod allegro_primitives
 		pub color: ALLEGRO_COLOR,
 	}
 
-	opaque!(ALLEGRO_VERTEX_BUFFER);
-	opaque!(ALLEGRO_INDEX_BUFFER);
+	allegro_util::opaque!(ALLEGRO_VERTEX_BUFFER);
+	allegro_util::opaque!(ALLEGRO_INDEX_BUFFER);
 
-	extern "C" {
+	unsafe extern "C" {
 		pub fn al_get_allegro_primitives_version() -> u32;
 		pub fn al_init_primitives_addon() -> c_bool;
 		pub fn al_shutdown_primitives_addon();

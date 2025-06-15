@@ -2,15 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use addon::AudioAddon;
+use crate::addon::AudioAddon;
+use crate::internal::{AttachToMixerImpl, Connection};
+use crate::mixer::AttachToMixer;
+use crate::properties::*;
+
 use allegro::c_bool;
 use allegro_audio_sys::*;
-use internal::{AttachToMixerImpl, Connection};
-
+use allegro_util::if_ok;
 use libc::*;
-
-use mixer::AttachToMixer;
-use properties::*;
 use std::ffi::CString;
 use std::mem;
 use std::ptr;
@@ -200,14 +200,7 @@ pub struct SampleInstance
 macro_rules! check_or_else {
 	($self_:ident, $valid:expr, $invalid:expr) => {{
 		let valid = $self_.sample_valid.lock().unwrap();
-		if *valid
-		{
-			unsafe { $valid }
-		}
-		else
-		{
-			$invalid
-		}
+		if *valid { unsafe { $valid } } else { $invalid }
 	}};
 }
 

@@ -2,13 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_color_sys"]
-#![crate_type = "lib"]
-
-extern crate allegro_sys;
-extern crate allegro_util;
-extern crate libc;
-
 pub use allegro_color::*;
 
 pub mod allegro_color
@@ -19,7 +12,7 @@ pub mod allegro_color
 	use allegro_util::c_bool;
 	use libc::*;
 
-	extern "C" {
+	unsafe extern "C" {
 		pub fn al_get_allegro_color_version() -> u32;
 		pub fn al_color_hsv_to_rgb(
 			hue: c_float, saturation: c_float, value: c_float, red: *mut c_float,

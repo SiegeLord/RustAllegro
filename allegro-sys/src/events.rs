@@ -4,24 +4,23 @@
 
 #![allow(non_snake_case)]
 
-use libc::*;
-use std::mem;
+use crate::altime::ALLEGRO_TIMEOUT;
+use crate::display::ALLEGRO_DISPLAY;
+use crate::joystick::ALLEGRO_JOYSTICK;
+use crate::keyboard::ALLEGRO_KEYBOARD;
+use crate::mouse::ALLEGRO_MOUSE;
+use crate::timer::ALLEGRO_TIMER;
 
 use allegro_util::c_bool;
-
-use altime::ALLEGRO_TIMEOUT;
-use display::ALLEGRO_DISPLAY;
-use joystick::ALLEGRO_JOYSTICK;
-use keyboard::ALLEGRO_KEYBOARD;
-use mouse::ALLEGRO_MOUSE;
-use timer::ALLEGRO_TIMER;
+use libc::*;
+use std::mem;
 
 #[repr(C)]
 pub struct ALLEGRO_EVENT_SOURCE
 {
 	pub __pad: [c_int; 32],
 }
-derive_copy_clone!(ALLEGRO_EVENT_SOURCE);
+allegro_util::derive_copy_clone!(ALLEGRO_EVENT_SOURCE);
 
 pub type ALLEGRO_EVENT_TYPE = c_uint;
 
@@ -149,7 +148,7 @@ pub struct ALLEGRO_EVENT
 {
 	pub data: [u8; 72],
 }
-derive_copy_clone!(ALLEGRO_EVENT);
+allegro_util::derive_copy_clone!(ALLEGRO_EVENT);
 
 impl ALLEGRO_EVENT
 {
@@ -199,9 +198,9 @@ impl ALLEGRO_EVENT
 	}
 }
 
-opaque!(ALLEGRO_EVENT_QUEUE);
+allegro_util::opaque!(ALLEGRO_EVENT_QUEUE);
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_init_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
 	pub fn al_destroy_user_event_source(arg1: *mut ALLEGRO_EVENT_SOURCE);
 	pub fn al_emit_user_event(

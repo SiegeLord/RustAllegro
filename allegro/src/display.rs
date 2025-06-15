@@ -2,21 +2,21 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use allegro_util::Flag;
-use bitmap::Bitmap;
-use bitmap_like::BitmapLike;
-use color::PixelFormat;
-use core::{check_display_targeted_elsewhere, update_thread_state, Core};
-use events::EventSource;
+use crate::bitmap::Bitmap;
+use crate::bitmap_like::BitmapLike;
+use crate::color::PixelFormat;
+use crate::core::{Core, check_display_targeted_elsewhere, update_thread_state};
+use crate::events::EventSource;
 
-use ffi::*;
+use allegro_sys::*;
+use allegro_util::Flag;
 use libc::*;
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
 use std::ffi::CString;
 use std::mem;
 use std::sync::Arc;
 
-flag_type! {
+allegro_util::flag_type! {
 	DisplayFlags
 	{
 		WINDOWED                  = ALLEGRO_WINDOWED,
@@ -33,14 +33,14 @@ flag_type! {
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_6))]
-flags! {
+allegro_util::flags! {
 	DisplayFlags
 	{
 		PROGRAMMABLE_PIPELINE = ALLEGRO_PROGRAMMABLE_PIPELINE
 	}
 }
 #[cfg(any(allegro_5_2_0, allegro_5_1_12))]
-flags! {
+allegro_util::flags! {
 	DisplayFlags
 	{
 		MAXIMIZED = ALLEGRO_MAXIMIZED
@@ -291,14 +291,7 @@ impl Display
 				al_hide_mouse_cursor(self.allegro_display)
 			}
 		};
-		if ret != 0
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
-		}
+		if ret != 0 { Ok(()) } else { Err(()) }
 	}
 
 	pub fn add_dependency_token(&mut self, token: Arc<String>)

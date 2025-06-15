@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 core library Rust wrapper"
 build = "build.rs"
 categories = ["multimedia", "rendering::graphics-api"]
+edition = "2024"
 
 [lib]
 

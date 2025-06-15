@@ -3,11 +3,11 @@
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
 pub use self::Event::*;
-use core::Core;
-use ffi::*;
+use crate::core::Core;
+use crate::joystick::{Joystick, JoystickButton, JoystickStick};
+use crate::keycodes::{KeyCode, KeyModifier};
 
-use joystick::{Joystick, JoystickButton, JoystickStick};
-use keycodes::{KeyCode, KeyModifier};
+use allegro_sys::*;
 use libc::*;
 use std::any::Any;
 use std::marker::PhantomData;

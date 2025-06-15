@@ -2,12 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use crate::display::ALLEGRO_DISPLAY;
+use crate::events::ALLEGRO_EVENT_SOURCE;
+
 use allegro_util::c_bool;
-use display::ALLEGRO_DISPLAY;
-use events::ALLEGRO_EVENT_SOURCE;
 use libc::*;
 
-opaque!(ALLEGRO_MOUSE);
+allegro_util::opaque!(ALLEGRO_MOUSE);
 
 pub const ALLEGRO_MOUSE_MAX_EXTRA_AXES: u32 = 4;
 
@@ -25,7 +26,7 @@ pub struct ALLEGRO_MOUSE_STATE
 	pub display: *mut ALLEGRO_DISPLAY,
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_is_mouse_installed() -> c_bool;
 	pub fn al_install_mouse() -> c_bool;
 	pub fn al_uninstall_mouse();

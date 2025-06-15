@@ -1,7 +1,4 @@
 // This file is released into Public Domain.
-extern crate allegro;
-extern crate allegro_font;
-
 use allegro::*;
 use allegro_font::*;
 

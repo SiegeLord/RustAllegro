@@ -2,12 +2,12 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::color::ALLEGRO_COLOR;
 
 use allegro_util::c_bool;
-use color::ALLEGRO_COLOR;
+use libc::*;
 
-opaque!(ALLEGRO_BITMAP);
+allegro_util::opaque!(ALLEGRO_BITMAP);
 
 pub const ALLEGRO_MEMORY_BITMAP: u32 = 1;
 pub const ALLEGRO_KEEP_BITMAP_FORMAT: u32 = 2;
@@ -35,7 +35,7 @@ pub const ALLEGRO_LOCK_READWRITE: u32 = 0;
 pub const ALLEGRO_LOCK_READONLY: u32 = 1;
 pub const ALLEGRO_LOCK_WRITEONLY: u32 = 2;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_set_new_bitmap_format(format: c_int);
 	pub fn al_set_new_bitmap_depth(depth: c_int);
 	pub fn al_set_new_bitmap_flags(flags: c_int);

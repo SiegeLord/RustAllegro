@@ -1,6 +1,6 @@
 use libc::*;
 
-use color::ALLEGRO_COLOR;
+use crate::color::ALLEGRO_COLOR;
 
 pub const ALLEGRO_ZERO: u32 = 0;
 pub const ALLEGRO_ONE: u32 = 1;
@@ -19,7 +19,7 @@ pub const ALLEGRO_SRC_MINUS_DEST: u32 = 1;
 pub const ALLEGRO_DEST_MINUS_SRC: u32 = 2;
 pub const ALLEGRO_NUM_BLEND_OPERATIONS: u32 = 3;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_set_blender(op: c_int, source: c_int, dest: c_int);
 	pub fn al_set_blend_color(color: ALLEGRO_COLOR);
 	pub fn al_get_blender(op: *mut c_int, source: *mut c_int, dest: *mut c_int);

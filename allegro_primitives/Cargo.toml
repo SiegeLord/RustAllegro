@@ -10,6 +10,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 primitives addon Rust wrapper"
 categories = ["rendering"]
 build = "build.rs"
+edition = "2024"
 
 [lib]
 

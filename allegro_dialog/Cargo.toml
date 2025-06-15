@@ -9,6 +9,7 @@ keywords = ["dialogs"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 dialog addon Rust wrapper"
 categories = ["gui"]
+edition = "2024"
 
 [lib]
 

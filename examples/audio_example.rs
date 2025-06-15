@@ -1,10 +1,4 @@
 // This file is released into Public Domain.
-extern crate allegro;
-extern crate allegro_acodec;
-extern crate allegro_audio;
-extern crate allegro_font;
-extern crate getopts;
-
 use allegro::*;
 use allegro_acodec::*;
 use allegro_audio::*;

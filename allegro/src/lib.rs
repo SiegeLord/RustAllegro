@@ -2,16 +2,7 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro"]
-#![crate_type = "lib"]
 #![allow(unexpected_cfgs)]
-
-extern crate allegro_sys as ffi;
-extern crate libc;
-#[macro_use]
-extern crate allegro_util;
-#[macro_use]
-extern crate lazy_static;
 
 pub use allegro_util::*;
 pub use bitmap::*;

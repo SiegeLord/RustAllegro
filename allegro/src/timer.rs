@@ -2,10 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use core::Core;
+use crate::core::Core;
+use crate::events::EventSource;
 
-use events::EventSource;
-use ffi::*;
+use allegro_sys::*;
 use libc::*;
 use std::mem;
 

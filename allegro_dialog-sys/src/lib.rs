@@ -2,26 +2,17 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_dialog_sys"]
-#![crate_type = "lib"]
-
-extern crate allegro_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 pub use allegro_dialog::*;
 
 pub mod allegro_dialog
 {
 	#![allow(non_camel_case_types)]
-
 	use allegro_sys::{ALLEGRO_DISPLAY, ALLEGRO_EVENT_SOURCE};
 	use allegro_util::c_bool;
 	use libc::*;
 
-	opaque!(ALLEGRO_FILECHOOSER);
-	opaque!(ALLEGRO_TEXTLOG);
+	allegro_util::opaque!(ALLEGRO_FILECHOOSER);
+	allegro_util::opaque!(ALLEGRO_TEXTLOG);
 
 	pub const ALLEGRO_FILECHOOSER_FILE_MUST_EXIST: u32 = 1;
 	pub const ALLEGRO_FILECHOOSER_SAVE: u32 = 2;
@@ -41,7 +32,7 @@ pub mod allegro_dialog
 
 	pub const ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE: c_uint = 600;
 
-	extern "C" {
+	unsafe extern "C" {
 		pub fn al_init_native_dialog_addon() -> c_bool;
 		pub fn al_shutdown_native_dialog_addon();
 		pub fn al_create_native_file_dialog(

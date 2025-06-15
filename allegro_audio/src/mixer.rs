@@ -2,17 +2,17 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use addon::AudioAddon;
+use crate::addon::AudioAddon;
+use crate::internal::AttachToMixerImpl;
+use crate::internal::Connection;
+use crate::internal::HasMixer;
+use crate::properties::*;
+use crate::sample::{Sample, SampleInstance};
+
 use allegro::c_bool;
-
 use allegro_audio_sys::*;
-use internal::AttachToMixerImpl;
-use internal::Connection;
-use internal::HasMixer;
-
+use allegro_util::if_ok;
 use libc::*;
-use properties::*;
-use sample::{Sample, SampleInstance};
 use std::mem;
 use std::ptr;
 

@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_util/index.h
 keywords = []
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Rust Allegro 5 wrapper utilities"
+edition = "2024"
 
 [lib]
 

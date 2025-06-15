@@ -9,6 +9,7 @@ keywords = ["colors"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 color addon Rust wrapper"
 categories = ["multimedia"]
+edition = "2024"
 
 [lib]
 

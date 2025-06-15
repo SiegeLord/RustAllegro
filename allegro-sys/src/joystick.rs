@@ -2,14 +2,14 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+use crate::events::ALLEGRO_EVENT_SOURCE;
+#[cfg(all(feature = "unstable", allegro_5_2_11))]
+use crate::file::ALLEGRO_FILE;
+
 use allegro_util::c_bool;
 use libc::*;
 
-use events::ALLEGRO_EVENT_SOURCE;
-#[cfg(all(feature = "unstable", allegro_5_2_11))]
-use file::ALLEGRO_FILE;
-
-opaque!(ALLEGRO_JOYSTICK);
+allegro_util::opaque!(ALLEGRO_JOYSTICK);
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -77,7 +77,7 @@ pub struct ALLEGRO_JOYSTICK_GUID
 	pub val: [u8; 16],
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_install_joystick() -> c_bool;
 	pub fn al_uninstall_joystick();
 	pub fn al_is_joystick_installed() -> c_bool;
@@ -105,7 +105,7 @@ extern "C" {
 }
 
 #[cfg(all(feature = "unstable", allegro_5_2_11))]
-extern "C" {
+unsafe extern "C" {
 	pub fn al_get_joystick_guid(joy: *mut ALLEGRO_JOYSTICK) -> ALLEGRO_JOYSTICK_GUID;
 	pub fn al_get_joystick_type(joy: *mut ALLEGRO_JOYSTICK) -> c_int;
 	pub fn al_set_joystick_mappings(filename: *const c_char) -> c_bool;

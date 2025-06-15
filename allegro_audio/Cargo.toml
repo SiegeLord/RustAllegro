@@ -8,6 +8,7 @@ documentation = "http://siegelord.github.io/RustAllegro/doc/allegro_audio/index.
 keywords = ["audio"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 audio addon Rust wrapper"
+edition = "2024"
 
 [lib]
 

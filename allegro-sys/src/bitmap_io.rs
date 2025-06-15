@@ -2,11 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::bitmap::*;
+use crate::file::*;
 
 use allegro_util::c_bool;
-use bitmap::*;
-use file::*;
+use libc::*;
 
 pub const ALLEGRO_KEEP_INDEX: u32 = 0x0800;
 
@@ -18,7 +18,7 @@ pub type ALLEGRO_IIO_SAVER_FUNCTION =
 pub type ALLEGRO_IIO_FS_SAVER_FUNCTION =
 	extern "C" fn(arg1: *mut ALLEGRO_FILE, arg2: *mut ALLEGRO_BITMAP) -> c_bool;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_register_bitmap_loader(
 		ext: *const c_char, loader: ALLEGRO_IIO_LOADER_FUNCTION,
 	) -> c_bool;

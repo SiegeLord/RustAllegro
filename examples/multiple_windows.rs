@@ -1,14 +1,10 @@
 // This file is released into Public Domain.
-extern crate allegro;
-extern crate allegro_font;
-extern crate getopts;
-
 use allegro::*;
 use allegro_font::*;
 use getopts::*;
 use std::env;
-use std::sync::mpsc;
 use std::sync::Arc;
+use std::sync::mpsc;
 use std::thread::spawn;
 
 fn other_window(

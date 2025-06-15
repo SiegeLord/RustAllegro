@@ -2,10 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use bitmap_like::BitmapLike;
-use display::Display;
-use ffi::*;
+use crate::bitmap_like::BitmapLike;
+use crate::display::Display;
 
+use allegro_sys::*;
 use libc::*;
 use std::ffi::{CStr, CString};
 use std::ptr;
@@ -202,20 +202,15 @@ macro_rules! impl_shader_vector {
 			{
 				let c_name = CString::new(name.as_bytes()).unwrap();
 				//~ println!("{} {} {} {}", name, $num_elems, self.len(), stringify!($func));
-				let ret = $func(
-					c_name.as_ptr(),
-					$num_elems,
-					self.as_ptr() as *mut $c_type,
-					self.len() as i32,
-				);
-				if ret != 0
-				{
-					Ok(())
-				}
-				else
-				{
-					Err(())
-				}
+				let ret = unsafe {
+					$func(
+						c_name.as_ptr(),
+						$num_elems,
+						self.as_ptr() as *mut $c_type,
+						self.len() as i32,
+					)
+				};
+				if ret != 0 { Ok(()) } else { Err(()) }
 			}
 		}
 	};

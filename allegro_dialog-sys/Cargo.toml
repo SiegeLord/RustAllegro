@@ -11,6 +11,7 @@ description = "Allegro 5 dialog addon Rust binding"
 build = "build.rs"
 links = "allegro_dialog"
 categories = ["gui", "external-ffi-bindings"]
+edition = "2024"
 
 [lib]
 

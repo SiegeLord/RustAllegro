@@ -2,11 +2,11 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::bitmap::ALLEGRO_BITMAP;
+use crate::events::ALLEGRO_EVENT_SOURCE;
 
 use allegro_util::c_bool;
-use bitmap::ALLEGRO_BITMAP;
-use events::ALLEGRO_EVENT_SOURCE;
+use libc::*;
 
 pub const ALLEGRO_WINDOWED: u32 = 1 << 0;
 pub const ALLEGRO_FULLSCREEN: u32 = 1 << 1;
@@ -68,9 +68,9 @@ pub const ALLEGRO_DISPLAY_ORIENTATION_270_DEGREES: u32 = 3;
 pub const ALLEGRO_DISPLAY_ORIENTATION_FACE_UP: u32 = 4;
 pub const ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN: u32 = 5;
 
-opaque!(ALLEGRO_DISPLAY);
+allegro_util::opaque!(ALLEGRO_DISPLAY);
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_set_new_display_refresh_rate(refresh_rate: c_int);
 	pub fn al_set_new_display_flags(flags: c_int);
 	pub fn al_get_new_display_refresh_rate() -> c_int;

@@ -2,26 +2,25 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use allegro_util::{c_bool, from_c_str, Flag};
-use bitmap_like::{BitmapFlags, BitmapLike};
-use color::{Color, PixelFormat};
-use config::Config;
-use display::{Display, DisplayFlags, DisplayOption, DisplayOptionImportance};
-use std::path::{Path, PathBuf};
-use std::sync::Mutex;
-
-use events::EventSource;
-
-use ffi::*;
-use keycodes::{KeyCode, KeyModifier};
-use libc::*;
+use crate::bitmap_like::{BitmapFlags, BitmapLike};
+use crate::color::{Color, PixelFormat};
+use crate::config::Config;
+use crate::display::{Display, DisplayFlags, DisplayOption, DisplayOptionImportance};
+use crate::events::EventSource;
+use crate::keycodes::{KeyCode, KeyModifier};
 #[cfg(any(allegro_5_2_0, allegro_5_1_0))]
-use shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
+use crate::shader::{Shader, ShaderPlatform, ShaderType, ShaderUniform};
+use crate::transformations::Transform;
+
+use allegro_sys::*;
+use allegro_util::{Flag, c_bool, from_c_str};
+use libc::*;
 use std::ffi::{CStr, CString};
 use std::mem;
+use std::path::{Path, PathBuf};
 use std::ptr;
+use std::sync::Mutex;
 use std::thread;
-use transformations::Transform;
 
 struct ThreadState
 {
@@ -32,19 +31,21 @@ struct ThreadState
 
 unsafe impl Send for ThreadState {}
 
-lazy_static! {
+lazy_static::lazy_static! {
 	static ref THREAD_STATE: Mutex<Vec<ThreadState>> = Mutex::new(vec![]);
 }
 
 unsafe fn get_real_bitmap(bmp: *mut ALLEGRO_BITMAP) -> *mut ALLEGRO_BITMAP
 {
-	if bmp.is_null() || al_is_sub_bitmap(bmp) == 0
-	{
-		bmp
-	}
-	else
-	{
-		al_get_parent_bitmap(bmp)
+	unsafe {
+		if bmp.is_null() || al_is_sub_bitmap(bmp) == 0
+		{
+			bmp
+		}
+		else
+		{
+			al_get_parent_bitmap(bmp)
+		}
 	}
 }
 
@@ -64,8 +65,10 @@ pub(crate) unsafe fn update_thread_state()
 			cur_display: ptr::null_mut(),
 		});
 	}
-	thread_state[pos].cur_bitmap = get_real_bitmap(al_get_target_bitmap());
-	thread_state[pos].cur_display = al_get_current_display();
+	unsafe {
+		thread_state[pos].cur_bitmap = get_real_bitmap(al_get_target_bitmap());
+		thread_state[pos].cur_display = al_get_current_display();
+	}
 }
 
 pub(crate) unsafe fn check_bitmap_targeted_elsewhere(bmp: *mut ALLEGRO_BITMAP, action: &str)
@@ -76,7 +79,7 @@ pub(crate) unsafe fn check_bitmap_targeted_elsewhere(bmp: *mut ALLEGRO_BITMAP, a
 	}
 	let cur_id = thread::current().id();
 	let thread_state = THREAD_STATE.lock().unwrap();
-	let bmp = get_real_bitmap(bmp);
+	let bmp = unsafe { get_real_bitmap(bmp) };
 	if let Some(s) = thread_state
 		.iter()
 		.find(|s| s.cur_bitmap == bmp && s.id != cur_id)
@@ -117,7 +120,7 @@ fn check_valid_target_bitmap()
 	}
 }
 
-flag_type! {
+allegro_util::flag_type! {
 	BitmapDrawingFlags
 	{
 		FLIP_NONE = 0x1,
@@ -1002,14 +1005,7 @@ impl Core
 			Some(shader) =>
 			{
 				let ret = unsafe { al_use_shader(shader.get_allegro_shader()) };
-				if ret != 0
-				{
-					Ok(())
-				}
-				else
-				{
-					Err(())
-				}
+				if ret != 0 { Ok(()) } else { Err(()) }
 			}
 			None =>
 			{
@@ -1095,14 +1091,7 @@ impl Core
 		let ret = unsafe {
 			al_set_shader_sampler(c_name.as_ptr(), bmp.get_allegro_bitmap(), unit as c_int) != 0
 		};
-		if ret
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
-		}
+		if ret { Ok(()) } else { Err(()) }
 	}
 
 	/// Sets a shader uniform to a value.
@@ -1122,14 +1111,7 @@ impl Core
 			let name = CString::new(name.as_bytes()).unwrap();
 			al_set_shader_matrix(name.as_ptr(), &val.get_allegro_transform())
 		};
-		if ret != 0
-		{
-			Ok(())
-		}
-		else
-		{
-			Err(())
-		}
+		if ret != 0 { Ok(()) } else { Err(()) }
 	}
 
 	/// Set blender options.

@@ -2,13 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::bitmap::*;
+use crate::transformations::*;
 
 use allegro_util::c_bool;
-use bitmap::*;
-use transformations::*;
+use libc::*;
 
-opaque!(ALLEGRO_SHADER);
+allegro_util::opaque!(ALLEGRO_SHADER);
 
 pub type ALLEGRO_SHADER_TYPE = c_uint;
 pub const ALLEGRO_VERTEX_SHADER: c_uint = 1;
@@ -19,7 +19,7 @@ pub const ALLEGRO_SHADER_AUTO: c_uint = 0;
 pub const ALLEGRO_SHADER_GLSL: c_uint = 1;
 pub const ALLEGRO_SHADER_HLSL: c_uint = 2;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_create_shader(platform: ALLEGRO_SHADER_PLATFORM) -> *mut ALLEGRO_SHADER;
 	pub fn al_attach_shader_source(
 		shader: *mut ALLEGRO_SHADER, _type: ALLEGRO_SHADER_TYPE, source: *const c_char,

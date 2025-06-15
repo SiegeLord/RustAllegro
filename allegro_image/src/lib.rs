@@ -2,14 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_image"]
-#![crate_type = "lib"]
-
-extern crate allegro;
-extern crate allegro_image_sys;
-extern crate allegro_util;
-extern crate libc;
-
 use allegro::Core;
 use allegro_image_sys::*;
 

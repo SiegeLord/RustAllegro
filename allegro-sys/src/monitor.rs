@@ -17,7 +17,7 @@ pub struct ALLEGRO_MONITOR_INFO
 
 pub const ALLEGRO_DEFAULT_DISPLAY_ADAPTER: i32 = -1;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_get_num_video_adapters() -> c_int;
 	pub fn al_get_monitor_info(adapter: c_int, info: *const ALLEGRO_MONITOR_INFO) -> c_bool;
 }

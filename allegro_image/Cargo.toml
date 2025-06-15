@@ -9,6 +9,7 @@ keywords = ["image", "graphics"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 image addon Rust wrapper"
 categories = ["rendering::data-formats"]
+edition = "2024"
 
 [lib]
 

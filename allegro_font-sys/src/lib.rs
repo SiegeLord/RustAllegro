@@ -2,21 +2,13 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_font_sys"]
-#![crate_type = "lib"]
 #![allow(non_camel_case_types)]
-#![allow(non_camel_case_types)]
-
-extern crate allegro_sys as allegro;
-extern crate libc;
-#[macro_use]
-extern crate allegro_util;
 
 pub use self::allegro_font::*;
 
 pub mod allegro_font
 {
-	use allegro::{ALLEGRO_BITMAP, ALLEGRO_COLOR, ALLEGRO_USTR};
+	use allegro_sys::{ALLEGRO_BITMAP, ALLEGRO_COLOR, ALLEGRO_USTR};
 	use allegro_util::c_bool;
 	use libc::*;
 
@@ -68,7 +60,7 @@ pub mod allegro_font
 			),
 		>,
 	}
-	derive_copy_clone!(ALLEGRO_FONT_VTABLE);
+	allegro_util::derive_copy_clone!(ALLEGRO_FONT_VTABLE);
 
 	pub const ALLEGRO_ALIGN_LEFT: c_int = 0;
 	pub const ALLEGRO_ALIGN_CENTRE: c_int = 1;
@@ -76,7 +68,7 @@ pub mod allegro_font
 	pub const ALLEGRO_ALIGN_RIGHT: c_int = 2;
 	pub const ALLEGRO_ALIGN_INTEGER: c_int = 4;
 
-	extern "C" {
+	unsafe extern "C" {
 		pub fn al_register_font_loader(
 			ext: *const c_char,
 			load: Option<

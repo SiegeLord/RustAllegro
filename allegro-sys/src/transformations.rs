@@ -11,7 +11,7 @@ pub struct ALLEGRO_TRANSFORM
 	pub m: [[c_float; 4]; 4],
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_use_transform(trans: *const ALLEGRO_TRANSFORM);
 	pub fn al_use_projection_transform(trans: *const ALLEGRO_TRANSFORM);
 	pub fn al_copy_transform(dest: *mut ALLEGRO_TRANSFORM, src: *const ALLEGRO_TRANSFORM);

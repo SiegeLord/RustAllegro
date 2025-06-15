@@ -1,11 +1,11 @@
-use libc::*;
+use crate::path::*;
+use crate::utf8::*;
 
-use path::*;
-use utf8::*;
+use libc::*;
 
 use allegro_util::c_bool;
 
-opaque!(ALLEGRO_FILE);
+allegro_util::opaque!(ALLEGRO_FILE);
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug)]
@@ -42,7 +42,7 @@ pub enum ALLEGRO_SEEK
 	ALLEGRO_SEEK_END = 2,
 }
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_fopen(path: *const c_char, mode: *const c_char) -> *mut ALLEGRO_FILE;
 	pub fn al_fopen_interface(
 		vt: *const ALLEGRO_FILE_INTERFACE, path: *const c_char, mode: *const c_char,

@@ -8,6 +8,7 @@ keywords = ["examples"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 wrapper examples"
 build = "build.rs"
+edition = "2024"
 
 [[bin]]
 

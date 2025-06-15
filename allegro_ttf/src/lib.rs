@@ -2,16 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_ttf"]
-#![crate_type = "lib"]
-
-extern crate allegro;
-extern crate allegro_font;
-extern crate allegro_ttf_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 use allegro::Flag;
 use allegro_font::{Font, FontAddon};
 use allegro_ttf_sys::*;
@@ -19,7 +9,7 @@ use libc::*;
 
 use std::ffi::CString;
 
-flag_type! {
+allegro_util::flag_type! {
 	TtfFlags
 	{
 		TTF_NO_KERNING = ALLEGRO_TTF_NO_KERNING,

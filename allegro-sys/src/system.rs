@@ -2,15 +2,15 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::config::*;
+use crate::path::*;
 
 use allegro_util::c_bool;
-use config::*;
-use path::*;
+use libc::*;
 
-opaque!(ALLEGRO_SYSTEM);
+allegro_util::opaque!(ALLEGRO_SYSTEM);
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_install_system(
 		version: c_int, atexit_ptr: Option<extern "C" fn(atexit_ptr: extern "C" fn()) -> c_int>,
 	) -> c_bool;
@@ -29,7 +29,7 @@ pub const ALLEGRO_USER_DOCUMENTS_PATH: u32 = 5;
 pub const ALLEGRO_EXENAME_PATH: u32 = 6;
 pub const ALLEGRO_LAST_PATH: u32 = 7;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_get_standard_path(id: c_int) -> *mut ALLEGRO_PATH;
 	pub fn al_set_exe_name(path: *const c_char);
 

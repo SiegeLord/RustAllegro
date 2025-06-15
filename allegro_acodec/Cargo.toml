@@ -9,6 +9,7 @@ keywords = ["audio"]
 authors = [ "SiegeLord <slabode@aim.com>" ]
 description = "Allegro 5 acodec addon Rust wrapper"
 categories = ["multimedia::audio"]
+edition = "2024"
 
 [lib]
 

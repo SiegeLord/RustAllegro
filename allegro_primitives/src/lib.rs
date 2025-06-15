@@ -2,17 +2,6 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-#![crate_name = "allegro_primitives"]
-#![crate_type = "lib"]
-#![allow(unexpected_cfgs)]
-
-extern crate allegro;
-extern crate allegro_primitives_sys;
-extern crate allegro_sys;
-#[macro_use]
-extern crate allegro_util;
-extern crate libc;
-
 use allegro::{BitmapLike, Color, Core, Display};
 use allegro_primitives_sys::*;
 use allegro_sys::*;
@@ -767,7 +756,7 @@ unsafe impl VertexType for Vertex
 	}
 }
 
-flag_type! {
+allegro_util::flag_type! {
 	BufferFlags
 	{
 		BUFFER_STREAM = ALLEGRO_PRIM_BUFFER_STREAM,
@@ -865,7 +854,7 @@ impl<T: VertexType> VertexBuffer<T>
 
 	/// Locks the buffer for reading and optionally writing.
 	pub fn lock(&mut self, start: u32, len: u32, write: bool)
-		-> Result<VertexBufferLock<T, T>, ()>
+	-> Result<VertexBufferLock<T, T>, ()>
 	{
 		let data = unsafe {
 			al_lock_vertex_buffer(

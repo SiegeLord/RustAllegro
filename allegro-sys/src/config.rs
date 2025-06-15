@@ -2,16 +2,16 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use libc::*;
+use crate::file::*;
 
 use allegro_util::c_bool;
-use file::*;
+use libc::*;
 
-opaque!(ALLEGRO_CONFIG_SECTION);
-opaque!(ALLEGRO_CONFIG_ENTRY);
-opaque!(ALLEGRO_CONFIG);
+allegro_util::opaque!(ALLEGRO_CONFIG_SECTION);
+allegro_util::opaque!(ALLEGRO_CONFIG_ENTRY);
+allegro_util::opaque!(ALLEGRO_CONFIG);
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_create_config() -> *mut ALLEGRO_CONFIG;
 	pub fn al_add_config_section(config: *mut ALLEGRO_CONFIG, name: *const c_char) -> ();
 	pub fn al_set_config_value(

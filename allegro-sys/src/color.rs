@@ -43,7 +43,7 @@ pub const ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE: u32 = 25;
 pub const ALLEGRO_PIXEL_FORMAT_RGBA_4444: u32 = 26;
 pub const ALLEGRO_NUM_PIXEL_FORMATS: u32 = 27;
 
-extern "C" {
+unsafe extern "C" {
 	pub fn al_map_rgb(r: c_uchar, g: c_uchar, b: c_uchar) -> ALLEGRO_COLOR;
 	pub fn al_map_rgba(r: c_uchar, g: c_uchar, b: c_uchar, a: c_uchar) -> ALLEGRO_COLOR;
 	pub fn al_map_rgb_f(r: c_float, g: c_float, b: c_float) -> ALLEGRO_COLOR;
