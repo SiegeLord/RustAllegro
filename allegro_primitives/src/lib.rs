@@ -743,6 +743,9 @@ impl Drop for VertexDecl
 	}
 }
 
+unsafe impl Sync for VertexDecl {}
+unsafe impl Send for VertexDecl {}
+
 pub unsafe trait VertexType
 {
 	fn get_decl(prim: &PrimitivesAddon) -> VertexDecl;
@@ -927,6 +930,9 @@ impl<T: VertexType> VertexBuffer<T>
 	}
 }
 
+unsafe impl<T: Sync + VertexType> Sync for VertexBuffer<T> {}
+unsafe impl<T: Send + VertexType> Send for VertexBuffer<T> {}
+
 impl<T: VertexType> Drop for VertexBuffer<T>
 {
 	fn drop(&mut self)
@@ -1105,3 +1111,6 @@ impl<T: IndexType> Drop for IndexBuffer<T>
 		}
 	}
 }
+
+unsafe impl<T: Sync + IndexType> Sync for IndexBuffer<T> {}
+unsafe impl<T: Send + IndexType> Send for IndexBuffer<T> {}
