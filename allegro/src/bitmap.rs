@@ -2,8 +2,8 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
-use crate::bitmap_like::BitmapLike;
-use crate::core::{Core, check_bitmap_targeted_elsewhere, update_thread_state};
+use crate::bitmap_like::{BitmapLike, BitmapLock};
+use crate::core::{check_bitmap_targeted_elsewhere, update_thread_state, Core};
 
 use allegro_sys::*;
 use libc::*;
@@ -133,6 +133,8 @@ impl BitmapLike for Bitmap
 	}
 }
 
+impl BitmapLock for Bitmap {}
+
 impl Clone for Bitmap
 {
 	fn clone(&self) -> Bitmap
@@ -219,6 +221,8 @@ impl BitmapLike for SubBitmap
 		SubBitmap::new(self.allegro_bitmap, self.siblings.clone(), x, y, w, h)
 	}
 }
+
+impl BitmapLock for SubBitmap {}
 
 impl Drop for SubBitmap
 {

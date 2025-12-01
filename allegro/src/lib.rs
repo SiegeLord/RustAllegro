@@ -2,7 +2,9 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(clippy::all)]
 #![allow(unexpected_cfgs)]
+#![allow(mismatched_lifetime_syntaxes)]
 
 pub use allegro_util::*;
 pub use bitmap::*;

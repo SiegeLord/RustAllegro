@@ -55,6 +55,11 @@ path = "user_events.rs"
 name = "vertex_buffer"
 path = "vertex_buffer.rs"
 
+[[bin]]
+
+name = "lock_example"
+path = "lock_example.rs"
+
 [dependencies]
 
 getopts = "=0.2.21"

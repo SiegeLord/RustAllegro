@@ -2,6 +2,10 @@
 //
 // All rights reserved. Distributed under ZLib. For full terms see the file LICENSE.
 
+#![allow(clippy::all)]
+#![allow(unexpected_cfgs)]
+#![allow(mismatched_lifetime_syntaxes)]
+
 use allegro::{BitmapLike, Color, Core, Display};
 use allegro_primitives_sys::*;
 use allegro_sys::*;

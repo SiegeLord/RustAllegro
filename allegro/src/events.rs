@@ -512,7 +512,7 @@ impl Event
 						timestamp: ts,
 						keycode: KeyCode::from_allegro_key(k.keycode),
 						display: k.display,
-						unichar: mem::transmute(k.unichar),
+						unichar: char::from_u32_unchecked(k.unichar as _),
 						repeat: k.repeat != 0,
 						modifiers: mem::transmute(k.modifiers),
 					}

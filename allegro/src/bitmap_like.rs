@@ -8,7 +8,9 @@ use crate::color::{Color, PixelFormat};
 use allegro_sys::*;
 use allegro_util::Flag;
 use libc::*;
+use std::marker::PhantomData;
 use std::mem;
+use std::mem::MaybeUninit;
 use std::rc::Weak;
 
 allegro_util::flag_type! {
@@ -90,5 +92,186 @@ pub trait BitmapLike
 	fn is_compatible_bitmap(&self) -> bool
 	{
 		unsafe { al_is_compatible_bitmap(self.get_allegro_bitmap()) != 0 }
+	}
+}
+
+pub trait RowAccess
+{
+	type DataT<T>;
+}
+
+pub struct DirectAccess;
+
+impl RowAccess for DirectAccess
+{
+	type DataT<T> = T;
+}
+
+pub struct MaybeUninitAccess;
+
+impl RowAccess for MaybeUninitAccess
+{
+	type DataT<T> = MaybeUninit<T>;
+}
+
+/**
+Locked region of a bitmap.
+ */
+pub struct LockedRegion<'l, RowAccessT: RowAccess + ?Sized, B: BitmapLike + ?Sized>
+{
+	region: *mut ALLEGRO_LOCKED_REGION,
+	bitmap: &'l mut B,
+	width: i32,
+	height: i32,
+	phantom: PhantomData<RowAccessT>,
+}
+
+impl<'l, RowAccessT: RowAccess + ?Sized, B: BitmapLike + ?Sized> LockedRegion<'l, RowAccessT, B>
+{
+	fn check_lock<D>(&self, y: i32) -> bool
+	{
+		if y < 0 || y >= self.height()
+		{
+			return false;
+		}
+		if self.format().get_size() != std::mem::size_of::<D>()
+		{
+			return false;
+		}
+		if self.format().get_size() != std::mem::align_of::<D>()
+		{
+			return false;
+		}
+		true
+	}
+
+	pub fn row<D>(&self, y: i32) -> Option<&'l [RowAccessT::DataT<D>]>
+	{
+		if !self.check_lock::<D>(y)
+		{
+			return None;
+		}
+		let region = unsafe { &*self.region };
+		Some(unsafe {
+			std::slice::from_raw_parts(
+				region.data.offset((y * region.pitch) as isize) as *mut RowAccessT::DataT<D>,
+				self.width() as usize,
+			)
+		})
+	}
+
+	pub fn row_mut<D>(&mut self, y: i32) -> Option<&'l mut [RowAccessT::DataT<D>]>
+	{
+		if !self.check_lock::<D>(y)
+		{
+			return None;
+		}
+		let region = unsafe { &*self.region };
+		Some(unsafe {
+			std::slice::from_raw_parts_mut(
+				region.data.offset((y * region.pitch) as isize) as *mut RowAccessT::DataT<D>,
+				self.width() as usize,
+			)
+		})
+	}
+
+	pub fn format(&self) -> PixelFormat
+	{
+		unsafe { std::mem::transmute((*self.region).format) }
+	}
+
+	pub fn width(&self) -> i32
+	{
+		self.width
+	}
+
+	pub fn height(&self) -> i32
+	{
+		self.height
+	}
+}
+
+impl<'l, RowAccessT: RowAccess + ?Sized, B: BitmapLike + ?Sized> Drop
+	for LockedRegion<'l, RowAccessT, B>
+{
+	fn drop(&mut self)
+	{
+		unsafe {
+			al_unlock_bitmap(self.bitmap.get_allegro_bitmap());
+		}
+	}
+}
+
+pub trait BitmapLock: BitmapLike
+{
+	/// Locks the bitmap for reading and optionally writing.
+	fn lock(
+		&mut self, x: i32, y: i32, width: i32, height: i32, format: PixelFormat, write: bool,
+	) -> Result<LockedRegion<DirectAccess, Self>, ()>
+	{
+		let region = unsafe {
+			al_lock_bitmap_region(
+				self.get_allegro_bitmap(),
+				x as c_int,
+				y as c_int,
+				width as c_int,
+				height as c_int,
+				format as c_int,
+				if write
+				{
+					ALLEGRO_LOCK_READWRITE as c_int
+				}
+				else
+				{
+					ALLEGRO_LOCK_READONLY as c_int
+				},
+			)
+		};
+		if region.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			Ok(LockedRegion::<DirectAccess, Self> {
+				bitmap: self,
+				region: region,
+				width: width,
+				height: height,
+				phantom: PhantomData,
+			})
+		}
+	}
+
+	/// Locks the bitmap for writing only.
+	fn lock_write_only(
+		&mut self, x: i32, y: i32, width: i32, height: i32, format: PixelFormat,
+	) -> Result<LockedRegion<MaybeUninitAccess, Self>, ()>
+	{
+		let region = unsafe {
+			al_lock_bitmap_region(
+				self.get_allegro_bitmap(),
+				x as c_int,
+				y as c_int,
+				width as c_int,
+				height as c_int,
+				format as c_int,
+				ALLEGRO_LOCK_WRITEONLY as c_int,
+			)
+		};
+		if region.is_null()
+		{
+			Err(())
+		}
+		else
+		{
+			Ok(LockedRegion::<MaybeUninitAccess, Self> {
+				bitmap: self,
+				region: region,
+				width: width,
+				height: height,
+				phantom: PhantomData,
+			})
+		}
 	}
 }
