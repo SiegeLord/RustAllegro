@@ -79,6 +79,11 @@ impl Color
 	{
 		(self.0.r, self.0.g, self.0.b, self.0.a)
 	}
+
+	pub const fn to_rgba_array_f(&self) -> [f32; 4]
+	{
+		[self.0.r, self.0.g, self.0.b, self.0.a]
+	}
 }
 
 #[repr(u32)]
